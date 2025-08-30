@@ -6,6 +6,7 @@ import JobDetailCards from '../../shared/findjobs/detail-cards'
 import FindJob from '../../shared/findjobs/home'
 import CompanyJobDetail from '../../shared/findjobs/company-job-detail'
 import Support from '../../shared/support/navbar'
+import ApplicantProfile from '../../shared/dashboard/applicant/profile'
 
 
 const ApplicantRoutes = () => {
@@ -13,6 +14,7 @@ const ApplicantRoutes = () => {
     <div>
       <ApplicantLayouts>
       <Routes>
+        <Route path='/profile' element={<ApplicantProfile/>}/>
         <Route path='/findjobs' element={<FindJob/>}/>
         <Route path='/findjobs/detail' element={<JobDetailCards/>}/>
         <Route path='/company' element={<CompanyJobDetail/>}/>

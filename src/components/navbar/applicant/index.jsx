@@ -33,6 +33,10 @@ const ApplicantNavbar = () => {
   const Notification = ()=>{
     navigate('/applicant/dashboard/applicant-notifications')
   }
+
+  const ApplicanntProfile = ()=>{
+    navigate('/applicant/profile')
+  }
   return (
     <div>
       <Navbar>
@@ -52,7 +56,7 @@ const ApplicantNavbar = () => {
         <div>
           <div className='Navright'>
             <img src={Notify} alt='notify' onClick={Notification}/>
-            <img src={Profile} alt='profile' />
+            <img src={Profile} alt='profile' onClick={ApplicanntProfile}/>
           </div>
           {isOpen ?
             <img src={Close} alt='img' className='Display' onClick={OpenMenu} /> :
