@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { devices } from "../../../../components/breakpoints";
 
 export const Main = styled.div`
-padding-block: 50px;
 padding-inline: 120px;
 border-radius: 12px;
 box-shadow: 0px 0px 5px var(--purple-50);
@@ -11,7 +10,7 @@ display: flex;
 flex-direction: column;
 justify-content: start;
 align-items: start;
-gap: 40px;
+/* gap: 40px; */
 margin: auto;
 
     @media ${devices.tablet} {
@@ -23,6 +22,11 @@ margin: auto;
         padding-block: 40px;
         padding-inline: 20px;
     }
+
+.banner img{
+    width: 100%;
+    position: relative;
+}
 
 .Right-side{
     display: flex;
@@ -46,14 +50,6 @@ margin: auto;
  gap: 10px;
 }
 
-.status{
-    color: #E05151;
-    font-size: 14px;
-    font-weight: 400;
-    font-family: var(--inter);
-    line-height: 20px;
-}
-
 .Box{
     width: 48px;
     height: 48px;
@@ -67,39 +63,26 @@ margin: auto;
 }
 
 .profile{
-    width: 100%;
+    position: absolute;
+    top: 300px;
+    left: 185px;
+    width: 75%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 1px solid var(--white-250);
+    background-color: var(--white-50);
+    border-radius: 8px;
+    padding-block: 20px;
+    padding-inline: 25px;
 
     @media ${devices.tablet}{
-        flex-direction: column;
-        gap: 20px;
-        align-items: start;
+       width: 90%;
     }
 
       @media ${devices.mobile}{
-        flex-direction: column;
-        gap: 20px;
-        align-items: start;
+           width: 90%;
     }
-}
-
-.CardBtn{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding-block: 12px;
-    padding-inline: 24px;
-    border: 1px solid var(--white-250);
-    border-radius: 3px;
-    color: var(--purple-600);
-    background-color: var(--purple-50);
-    font-size: 16px;
-    font-weight: 600;
-    font-family: var(--inter);
-    cursor: pointer;
 }
 
 .IconColor{
@@ -133,14 +116,14 @@ margin: auto;
 .profile-pic img{
     background-size: contain;
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
 }
 
 
 .Name{
     color: #18191C;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     font-family: var(--inter);
     padding-bottom: 2px;
@@ -165,18 +148,6 @@ margin: auto;
      @media ${devices.mobile}{
         gap: 5px;
     }
-}
-
-.Badge{
-    color: var(--purple-600);
-    background-color: var(--purple-50);
-    padding-block: 3px;
-    padding-inline: 12px;
-    border-radius: 52px;
-    font-size: 14px;
-    font-weight: 400;
-    font-family: var(--inter);
-    line-height: 20px;
 }
 
 .sub-flex{
@@ -204,6 +175,7 @@ margin: auto;
 }
 
 .profile-content{
+    padding-block: 100px;
     display: flex;
     justify-content: space-between;
     align-items: start;
@@ -268,6 +240,76 @@ width: 100%;
 border-radius: 8px;
 padding: 24px;
 
+.flex-col{
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    gap: 25px;
+    align-items: start;
+
+    @media ${devices.mobile}{
+        gap: 15px;
+    }
+}
+
+.flex{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    gap: 25px;
+}
+
+
+.flex-div{
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    gap: 18px;
+    align-items: start;
+}
+
+.content{
+    display: flex;
+    justify-content: start;
+    gap: 14px;
+    align-items: start;
+}
+
+
+.Title{
+    color: #767F8C;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
+    text-transform: capitalize;
+    padding-bottom: 5px;
+}
+
+.SubHeading{
+    color: #18191C;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--inter);
+    line-height: 20px;
+    text-align: justify;
+}
+
+.IconColor{
+    color: var(--purple-600);
+}
+
+.Color{
+    color: var(--purple-600);
+}
+
+
+`
+
+//---------- contact 
+export const Contact = styled.div`
 
 .boxHeading{
     color: #18191C;
@@ -278,44 +320,18 @@ padding: 24px;
     padding-bottom: 20px;
 }
 
-.flex-col{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 25px;
-    align-items: start;
-
-    @media ${devices.mobile}{
-        gap: 15px;
-    }
-}
-
-
 .flex{
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: start;
-    gap: 12px;
-    flex-wrap: wrap;
-
-  
-
-}
-
-
-.flex-div{
-    display: flex;
-    justify-content: start;
-    flex-direction: column;
-    gap: 8px;
-    align-items: start;
+    gap: 20px;
 }
 
 .content{
     display: flex;
     justify-content: start;
-    flex-direction: column;
     gap: 8px;
     align-items: start;
 
@@ -349,7 +365,6 @@ padding: 24px;
 }
 `
 
-
 //------- company box
 
 export const CompanyBox = styled.div`
@@ -358,85 +373,12 @@ width: 100%;
 border-radius: 8px;
 padding: 24px;
 
-.profile-intro{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 20px;
-
-     @media ${devices.tablet}{
-        flex-direction: row;
-        align-items: start;
-        gap: 12px;
-    }
-
-     @media ${devices.mobile}{
-        flex-direction: row;
-        align-items: start;
-        gap: 12px;
-    }
-}
-
-.profile-logo{
-    border-radius: 8px;
-    width: 60px;
-    height: 60px;
-    background-color: #767F8C;
-}
-
-.profile-logo img{
-    background-size: contain;
-
-}
-
-
-.Name{
+.boxHeading{
     color: #18191C;
-    font-size: 24px;
+    font-size: 15px;
     font-weight: 500;
     font-family: var(--inter);
-    padding-bottom: 2px;
     line-height: 28px;
-}
-
-.detail-flex{
-    display: flex;
-    justify-content: start;
-    gap: 12px;
-    align-items: center;
-    padding-top: 5px;
-}
-
-.Title{
-    color: #767F8C;
-    font-size: 14px;
-    font-weight: 400;
-    font-family: var(--inter);
-    line-height: 20px;
-    text-transform: capitalize;
-    padding-bottom: 5px;
-}
-
-.SubHeading{
-    color: #18191C;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: var(--inter);
-    line-height: 20px;
-    text-align: justify;
-}
-
-.flex{
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-}
-
-.content{
-    padding-top: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
 }
 
 .flex-icons{
@@ -444,7 +386,7 @@ padding: 24px;
     justify-content: start;
     gap: 6px;
     align-items: start;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 
