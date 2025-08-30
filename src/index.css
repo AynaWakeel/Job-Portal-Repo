@@ -1,13 +1,54 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root{
+
+    --roboto: "Roboto", sans-serif;
+    --poppin: "Poppins", sans-serif;
+    --plus: "Plus Jakarta Sans", sans-serif;
+    --sans: "DM Sans", sans-serif;
+    --inter: "Inter", sans-serif;
+    /* -----colors----- */
+    /* --blue-100:#6eb4d2; */
+    --purple-50:#E4E5E8;
+    --purple-70:#efe7faff;
+    --purple-200:#555295ff;
+    --purple-300:#373461ff;
+    --purple-600:#40189d;
+    --purple-10:#7f7bca23;
+    --white-50:#FFF;
+    --white-100:#F1F3F0;
+    --white-200:#E2E8F0;
+    --white-250:#E7F0FA;
+    --white-300:#f0f6ffff;
+    --white-400:#F9F9F9;
+    --dark-700:#5A4354;
+    --gray-250:#D9D5EC;
+    --gray-300:#cdd3dd;
+    --gray-350:#C8CCD1B2;
+    --gray-400:#767F8C;
+    --gray-450:#F1F2F466;
+    --dark-800:#18191C;
+    /* ---------logo--------- */
+    --gray-50:#EDEFF5;
+    --pink:#EA4C89;
+    --green:#6FDA44;
+    --dark-blue:#191F33;
+    --peach:#EB524F;
+    --blue:#1877F2;
+    --dark-900:#000;
+    --test:#4d28a2f9;
+    --test2:#a771f2;
+    /* -------------------- */
+    --dark-800:#222222;
+    /* ---------------- */
+    --gradient-1:#40189dc2;
+    --gradient-3:#40189d;
+    --gradient-2:#40189dc2;
+
 }
