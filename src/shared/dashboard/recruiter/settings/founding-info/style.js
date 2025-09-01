@@ -22,7 +22,7 @@ padding-block: 20px;
 }
 
 @media ${devices.mobile}{
-    font-size: 26px;
+    font-size: 20px;
 }
 }
 
@@ -51,12 +51,12 @@ padding-block: 20px;
 
     
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 20px;
 
 }
 
 @media ${devices.mobile}{
-    font-size: 26px;
+    font-size: 20px;
 }
 }
 `
@@ -83,6 +83,14 @@ margin-inline: auto;
     justify-content: start;
     align-items: center;
     gap: 10px;
+
+     @media ${devices.tablet}{
+        flex-direction: column;
+    }
+
+     @media ${devices.mobile}{
+        flex-direction: column;
+    }
 }
 
 .InputWidth{

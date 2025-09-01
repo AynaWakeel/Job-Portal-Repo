@@ -182,6 +182,10 @@ padding: 24px;
     font-family: var(--inter);
     line-height: 28px;
     padding-bottom: 20px;
+
+     @media ${devices.mobile}{
+        padding-bottom: 14px;
+     }
 }
 
 .flex{
@@ -190,16 +194,12 @@ padding: 24px;
     flex-direction: column;
     gap: 25px;
     align-items: start;
+
+     @media ${devices.mobile}{
+        gap: 14px;
+     }
 }
 
-
-.flex-div{
-    display: flex;
-    justify-content: start;
-    flex-direction: column;
-    gap: 8px;
-    align-items: start;
-}
 
 .content{
     display: flex;
@@ -217,6 +217,10 @@ padding: 24px;
     line-height: 20px;
     text-transform: capitalize;
     padding-bottom: 5px;
+
+     @media ${devices.mobile}{
+        padding-bottom: 0px;
+     }
 }
 
 .SubHeading{

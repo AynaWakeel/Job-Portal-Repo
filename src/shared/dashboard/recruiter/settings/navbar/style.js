@@ -15,7 +15,7 @@ padding-inline: 20px;
 
     
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 24px;
 
 }
 
@@ -34,6 +34,14 @@ padding-inline: 20px;
     list-style: none;
     border-bottom: 1px solid var(--purple-50);
 
+    @media ${devices.mobile}{
+        flex-wrap: wrap;
+    }
+
+     @media ${devices.tablet}{
+        flex-wrap: wrap;
+    }
+
 }
 
 .Navlinks li{
@@ -46,7 +54,14 @@ padding-inline: 20px;
     width: 100%;
 
     @media ${devices.tablet}{
+        width: 48%;
         gap: 15px;
+    }
+
+     @media ${devices.mobile}{
+        width: 48%;
+        gap: 15px;
+        padding-left: 0px;
     }
 }
 
@@ -86,6 +101,15 @@ padding-inline: 20px;
     font-size: 17px;
     font-weight: 400;
     font-family: var(--inter);
+
+    @media ${devices.mobile}{
+        font-size: 14px;
+        text-overflow: ellipsis;
+
+    }
+     @media ${devices.tablet}{
+        word-wrap: break-word;
+    }
 }
 
 .IconColor{

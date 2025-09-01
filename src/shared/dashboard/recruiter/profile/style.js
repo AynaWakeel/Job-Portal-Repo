@@ -10,7 +10,6 @@ display: flex;
 flex-direction: column;
 justify-content: start;
 align-items: start;
-/* gap: 40px; */
 margin: auto;
 
     @media ${devices.tablet} {
@@ -28,38 +27,12 @@ margin: auto;
     position: relative;
 }
 
-.Right-side{
-    display: flex;
-    justify-content: start;
-    gap: 15px;
-    align-items: center;
-}
-
-.status-side{
-    display: flex;
-    justify-content: start;
-    gap: 5px;
-    align-items: center;
-}
-
 .profile-flex-col{
  display: flex;
  flex-direction: column;
  justify-content: start;
  align-items: start;
  gap: 10px;
-}
-
-.Box{
-    width: 48px;
-    height: 48px;
-    border-radius: 5px;
-    padding: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--purple-50);
-    cursor: pointer;
 }
 
 .profile{
@@ -77,11 +50,15 @@ margin: auto;
     padding-inline: 25px;
 
     @media ${devices.tablet}{
-       width: 90%;
+        width: 80%;
+       top: 240px;
+       left: 80px;
     }
 
       @media ${devices.mobile}{
-           width: 90%;
+          width: 90%;
+           top: 180px;
+           left: 18px;
     }
 }
 
@@ -106,7 +83,6 @@ margin: auto;
     }
 
      @media ${devices.mobile}{
-        flex-direction: column;
         align-items: start;
         gap: 12px;
     }
@@ -183,6 +159,7 @@ margin: auto;
 
     @media ${devices.tablet}{
         flex-direction: column;
+        padding-block: 70px;
     }
 
     @media ${devices.mobile}{
@@ -198,10 +175,6 @@ margin: auto;
     line-height: 20px;
     text-align: justify;
     padding-bottom: 15px;
-}
-
-.List{
-    padding-left: 16px;
 }
 
 .content-left{

@@ -14,12 +14,12 @@ padding-block: 20px;
 
     
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 26px;
 
 }
 
 @media ${devices.mobile}{
-    font-size: 26px;
+    font-size: 20px;
 }
 }
 
@@ -28,14 +28,6 @@ padding-block: 20px;
     justify-content: start;
     flex-direction: column;
     gap: 20px;
-
-    @media ${devices.tablet}{
-        flex-direction: column;
-    }
-
-     @media ${devices.mobile}{
-        flex-direction: column;
-    }
 }
 
 .flex-top{
@@ -44,6 +36,18 @@ padding-block: 20px;
     align-items: center;
     gap: 25px;
     width: 100%;
+
+    
+    @media ${devices.tablet}{
+        flex-direction: column;
+        align-items: start;
+        gap: 15px;
+    }
+
+     @media ${devices.mobile}{
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 
@@ -55,14 +59,15 @@ padding-block: 20px;
     font-family: var(--inter);
     padding-bottom: 10px;
 
-    
+        
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 18px;
 
 }
 
 @media ${devices.mobile}{
-    font-size: 26px;
+    font-size: 14px;
+    margin-top: 5px;
 }
 }
 
@@ -130,13 +135,16 @@ export const Uploadbanner = styled.div`
     justify-content: center;
     align-items: center;
 
-    @media ${devices.tablet}{
-    width: 100%;
-
+     @media ${devices.tablet}{
+        justify-content: start;
+        padding-inline: 12px;
+        width: 100%;
     }
 
     @media ${devices.mobile}{
     width: 100%;
+    padding-inline: 12px;
+    justify-content: start;
     }
 
 .center{

@@ -99,9 +99,6 @@ const FindCandidates = () => {
 
             </div>
            
-           
-
-        
           </div>
           <div className='ImgSec'>
             <img src={HeroImg} alt='img' />

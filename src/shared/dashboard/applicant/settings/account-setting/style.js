@@ -93,6 +93,13 @@ margin-inline: auto;
     justify-content: start;
     align-items: center;
     gap: 10px;
+
+    @media ${devices.mobile}{
+        flex-direction: column;
+    }
+     @media ${devices.tablet}{
+        flex-direction: column;
+    }
 }
 
 .InputWidth{

@@ -96,7 +96,10 @@ padding-block: 20px;
     width: 100%;
 
 @media ${devices.tablet}{
-    width: 96%;
+   width: 100%;
+    flex-direction: column;
+    align-items: start;
+    gap: 25px;
 }
 
 @media ${devices.mobile}{
@@ -168,7 +171,11 @@ padding-block: 20px;
     @media ${devices.mobile}{
         justify-content: space-between;
         width: 100%;
-}
+    }
+     @media ${devices.tablet}{
+        justify-content: space-between;
+        width: 100%;
+    }
 }
 
 

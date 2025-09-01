@@ -42,11 +42,11 @@ const ApplicantCreateResume = () => {
 
             <ForgetDiv>
               <span className='CheckBoxSpan'>
-                <div className='FormInputDivide'>
+                <div className='FormGapDivide'>
                   <Checkbox type="radio" id='male' name='gender' value='' />
                   <label htmlFor='male'>Male</label>
                 </div>
-                <div className='FormInputDivide'>
+                <div className='FormGapDivide'>
                   <Checkbox type="radio" id='female' name='gender' value='' />
                   <label htmlFor='female'>Female</label>
                 </div>
@@ -113,7 +113,7 @@ const ApplicantCreateResume = () => {
           </div>
 
           <Form>
-            <div className='FormInputDivide'>
+            <div className='FormGapDivide'>
               <button type='submit' className='FormBtn'>Save Changes</button>
               <button type='button' onClick={isOpen} className='FormBtn'>View Resume</button>
               {isResumeOpen &&

@@ -35,6 +35,13 @@ display: flex;
 justify-content: space-between;
 align-items: start;
 gap: 18px;
+
+@media ${devices.tablet}{
+    flex-direction: column;
+}
+@media ${devices.mobile}{
+    flex-direction: column;
+}
 }
 
 .Box{

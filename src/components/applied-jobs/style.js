@@ -236,6 +236,11 @@ padding-block: 20px;
     gap: 6px;
     justify-content: center;
     align-items: center;
+
+    @media ${devices.tablet}{
+        flex-direction: row;
+        gap: 14px;
+    }
 }
 
 .Activediv{

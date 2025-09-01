@@ -124,7 +124,7 @@ export const UploadPdf = styled.div`
     }
 
     @media ${devices.mobile}{
-    width: 50%;
+    width: 100%;
     padding-inline: 12px;
     justify-content: start;
     }
@@ -182,10 +182,18 @@ margin-inline: auto;
     justify-content: start;
     align-items: center;
     gap: 10px;
+
+    @media ${devices.mobile}{
+        flex-direction: column;
+    }
 }
 
 .InputWidth{
     width: 50%;
+
+    @media ${devices.mobile}{
+        width: 100%;
+    }
 }
 
 .FormInput{

@@ -98,15 +98,16 @@ padding-block: 20px;
 
 @media ${devices.tablet}{
     width: 96%;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: start;
-    align-items: start;
-    gap: 15px;
+    align-items: end;
+    gap: 45px;
 }
 
 @media ${devices.mobile}{
     width: 100%;
     flex-direction: column;
+    align-items: start;
     gap: 25px;
 }
 
@@ -155,6 +156,9 @@ padding-block: 20px;
     @media ${devices.mobile}{
         flex-wrap: wrap;
     }
+     @media ${devices.tablet}{
+        flex-wrap: wrap;
+    }
 }
 
 
@@ -167,7 +171,11 @@ padding-block: 20px;
     @media ${devices.mobile}{
         justify-content: space-between;
         width: 100%;
-}
+    }
+     @media ${devices.tablet}{
+        justify-content: space-between;
+        width: 100%;
+    }
 }
 
 

@@ -186,6 +186,10 @@ margin-top: 20px;
     font-family: var(--inter);
     color: #9199A3;
     width: 200px;
+
+    @media ${devices.mobile}{
+        width: 130px;
+    }
 }
 
 .Input:active{

@@ -126,7 +126,7 @@ export const CompanyCards = styled.div`
 .flex{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
 }
 
 .CardBtn{

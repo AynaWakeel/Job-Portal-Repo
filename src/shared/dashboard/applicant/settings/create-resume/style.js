@@ -94,8 +94,6 @@ margin-inline: auto;
    padding-block: 10px;
 }
 
-
-
 .eyeimg{
     position: absolute;
     right: 16px;
@@ -106,6 +104,17 @@ margin-inline: auto;
 
 
 .FormInputDivide{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+
+    @media ${devices.mobile}{
+        flex-direction: column;
+    }
+}
+
+.FormGapDivide{
     display: flex;
     justify-content: start;
     align-items: center;

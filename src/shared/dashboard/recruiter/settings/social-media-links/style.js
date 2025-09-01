@@ -115,5 +115,8 @@ margin-inline: auto;
 .IconColor{
     color: var(--purple-600);
 }
+.Color{
+    color: var(--purple-600);
+}
 
 `

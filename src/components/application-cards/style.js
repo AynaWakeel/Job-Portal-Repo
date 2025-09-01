@@ -120,6 +120,13 @@ export const CompanyCards = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+     @media ${devices.mobile}{
+       flex-direction: row;
+    }
+     @media ${devices.tablet}{
+       flex-direction: row;
+    }
 }
 
 .CardBtn{

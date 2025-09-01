@@ -17,7 +17,7 @@ padding-block: 20px;
 
     
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 25px;
 
 }
 
@@ -93,6 +93,14 @@ margin-inline: auto;
     justify-content: start;
     align-items: center;
     gap: 10px;
+
+     @media ${devices.tablet}{
+        flex-direction: column;
+    }
+
+     @media ${devices.mobile}{
+        flex-direction: column;
+    }
 }
 
 .InputWidth{

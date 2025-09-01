@@ -1,8 +1,13 @@
 import React from 'react'
 import { CompanyCards, MainSec } from './style'
 import { CandidateCards } from '../../helper/dummyData'
+import { useNavigate } from 'react-router'
 
 const Candidates = ({limit}) => {
+    const navigate = useNavigate()
+    const ViewProfile = () =>{
+        navigate('/recruiter/applicant-profile')
+    }
     const ShowCards = limit ? CandidateCards.slice(0,limit) : CandidateCards;
     return (
         <div>
@@ -23,7 +28,7 @@ const Candidates = ({limit}) => {
                                     </h4>
                                 </div>
                             </div>
-                                <button className='CardBtn'>{items.btn}</button>
+                                <button className='CardBtn' onClick={ViewProfile}>{items.btn}</button>
                         </div>
                         ))}
 

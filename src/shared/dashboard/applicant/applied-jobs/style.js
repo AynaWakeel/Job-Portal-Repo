@@ -39,6 +39,9 @@ padding-inline: 20px;
     @media ${devices.mobile}{
         display: none;
     }
+     @media ${devices.tablet}{
+        display: none;
+    }
 }
 
 .TableFlex{
@@ -47,11 +50,6 @@ padding-inline: 20px;
     gap: 220px;
     align-items: center;
     padding-right: 20px;
-
-    @media ${devices.tablet}{
-        gap: 20px;
-        padding-right: 0px;
-    }
 }
 
 .Tableheading span{
