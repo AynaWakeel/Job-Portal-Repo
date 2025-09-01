@@ -44,6 +44,7 @@ const RecruiterNavbar = () => {
     setIsOpen(!isOpen)
   }
 
+
   return (
     <div>
       <Navbar>
@@ -77,8 +78,8 @@ const RecruiterNavbar = () => {
           <Menu>
             <div>
               <div className='Navright'>
-                <img src={Notify} alt='notify' className='notify' />
-                <img src={Profile} alt='profile' className='profile' />
+                <img src={Notify} alt='notify' className='notify' onClick={Notification} />
+                <img src={Profile} alt='profile' className='profile' onClick={ProfilePage}/>
               </div>
               <ul className='Navlinks'>
                 <li><a onClick={FindCandidates}>Find Candidates</a></li>

@@ -14,12 +14,14 @@ padding-block: 20px;
 
     
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 20px;
+     padding-bottom: 5px;
 
 }
 
 @media ${devices.mobile}{
-    font-size: 26px;
+    font-size: 20px;
+     padding-bottom: 0px;
 }
 }
 
@@ -48,12 +50,12 @@ padding-block: 20px;
 
     
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 20px;
 
 }
 
 @media ${devices.mobile}{
-    font-size: 26px;
+    font-size: 20px;
 }
 }
 

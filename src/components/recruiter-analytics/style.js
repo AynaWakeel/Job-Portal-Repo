@@ -31,7 +31,6 @@ export const MainSec = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* gap: 45px; */
     background-color: var(--purple-50);
     border-radius: 12px;
     padding-inline: 24px;

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { devices } from "../../components/breakpoints"
 
 export const AuthDiv = styled.div`
 display: flex;
@@ -26,6 +27,7 @@ height: 100%;
 display: flex;
 align-items: end;
 justify-content: center;
+position: relative;
 
 .LoginImg{
     width: 95%;
@@ -42,6 +44,29 @@ justify-content: center;
     @media (max-width: 600px){
        display: none;
     }
+
+    
+.logo-flex{
+    display: flex;
+    justify-content: start;
+    gap: 8px;
+    align-items: center;
+    padding-bottom: 20px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
+.name{
+    font-size: 24px;
+font-family: var(--inter);
+font-weight: 600;
+color: var(--white-50);
+}
+
+.Color{
+    color: var(--white-50);
+}
 `
 
 export const FormSec = styled.div`
@@ -53,6 +78,7 @@ background-color: #fff;
 text-align: center;
 height: 100%;
 margin: auto;
+position: relative;
 
 
     @media (max-width: 900px) {
@@ -66,8 +92,41 @@ margin: auto;
     background: linear-gradient(to bottom left, var(--gradient-3), var(--gradient-2), var(--gradient-3));
 
     }
+
+    
+.logo-flex{
+    display: flex;
+    justify-content: start;
+    gap: 8px;
+    align-items: center;
+    padding-bottom: 20px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: none;
+
+    @media ${devices.mobile} {
+        display: flex;
+    }
+     @media ${devices.tablet} {
+        display: flex;
+    }
+}
+
+.name{
+    font-size: 24px;
+font-family: var(--inter);
+font-weight: 600;
+color: var(--white-50);
+}
+
+.Color{
+    color: var(--white-50);
+}
 `
 
 export const LoginImg = styled.img`
 width: 100%;
+
+    
 `

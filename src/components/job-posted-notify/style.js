@@ -73,8 +73,8 @@ padding-block: 20px;
 
 @media ${devices.tablet}{
     width: 96%;
-    flex-direction: column;
-    justify-content: start;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: start;
     gap: 15px;
 }
@@ -82,9 +82,9 @@ padding-block: 20px;
 @media ${devices.mobile}{
     width: 100%;
     flex-direction: column;
-    gap: 25px;
+    justify-content: start;
+    gap: 15px;
 }
-
 }
 
 .Card:hover{

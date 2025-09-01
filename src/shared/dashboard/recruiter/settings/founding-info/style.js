@@ -15,14 +15,15 @@ padding-block: 20px;
     font-family: var(--inter);
     padding-bottom: 15px;
 
-    
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 20px;
+     padding-bottom: 5px;
 
 }
 
 @media ${devices.mobile}{
     font-size: 20px;
+     padding-bottom: 0px;
 }
 }
 

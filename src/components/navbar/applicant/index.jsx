@@ -68,8 +68,8 @@ const ApplicantNavbar = () => {
           <Menu>
             <div>
               <div className='Navright'>
-                <img src={Notify} alt='notify' className='notify'/>
-                <img src={Profile} alt='profile' className='profile'/>
+                <img src={Notify} alt='notify' className='notify'  onClick={Notification}/>
+                <img src={Profile} alt='profile' className='profile' onClick={ApplicanntProfile}/>
               </div>
               <ul className='Navlinks'>
                 <li><a onClick={FindJob}>Find Jobs</a></li>

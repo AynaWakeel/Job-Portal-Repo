@@ -21,13 +21,13 @@ padding-block: 20px;
     padding-bottom: 15px;
 
     
+    
 @media ${devices.tablet}{
-    font-size: 30px;
-
+   padding-bottom: 5px;
 }
 
 @media ${devices.mobile}{
-    font-size: 26px;
+    padding-bottom: 0px;
 }
 }
 
@@ -116,6 +116,14 @@ margin-inline: auto;
     justify-content: start;
     align-items: center;
     gap: 10px;
+
+    @media ${devices.tablet}{
+        flex-direction: column;
+    }
+
+     @media ${devices.mobile}{
+        flex-direction: column;
+    }
 }
 
 .InputWidth{

@@ -3,19 +3,6 @@ import { devices } from "../breakpoints/index";
 
 export const MainSec = styled.div`
 
-.Flex{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 35px;
-
-
-@media ${devices.mobile}{
-    flex-direction: column;
-    gap: 10px;
-}
-}
-
 .TopHeading{
     color: #18191C;
     font-size: 40px;
@@ -24,12 +11,12 @@ export const MainSec = styled.div`
 
     
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 20px;
 
 }
 
 @media ${devices.mobile}{
-    font-size: 26px;
+    font-size: 20px;
 }
 }
 
@@ -72,8 +59,8 @@ export const MainSec = styled.div`
 
 @media ${devices.tablet}{
     width: 96%;
-    flex-direction: column;
-    justify-content: start;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: start;
     gap: 15px;
 }
@@ -81,7 +68,8 @@ export const MainSec = styled.div`
 @media ${devices.mobile}{
     width: 100%;
     flex-direction: column;
-    gap: 25px;
+    justify-content: start;
+    gap: 15px;
 }
 
 }

@@ -53,12 +53,6 @@ const DashboardLayouts = ({ children }) => {
      setIsActive("Recruiter Settings")
   }
 
-  const RecruiterSupport = () => {
-    navigate('/recruiter/support')
-     setIsActive("Recruiter Support")
-
-  }
-
 
   const [isOpen, setIsOpen] = useState(false)
   const OpenMenu = () => {
@@ -106,10 +100,7 @@ const DashboardLayouts = ({ children }) => {
                 <Gear className='IconColor' />
                 <a>Settings</a>
               </li>
-              <li className={isActive === "Recruiter Support" ? "tab active" : "tab"} onClick={RecruiterSupport}>
-                <Gear className='IconColor' />
-                <a>Customer Support</a>
-              </li>
+             
             </ul>
           </div>
         </SidebarMenu>

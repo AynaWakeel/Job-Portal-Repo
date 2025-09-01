@@ -12,15 +12,13 @@ padding-inline: 20px;
     font-weight: 500;
     font-family: var(--inter);
     padding-bottom: 20px;
-
-    
+ 
 @media ${devices.tablet}{
-    font-size: 30px;
-
+   padding-bottom: 5px;
 }
 
 @media ${devices.mobile}{
-    font-size: 26px;
+    padding-bottom: 0px;
 }
 }
 
@@ -37,6 +35,9 @@ padding-inline: 20px;
     align-items: center;
 
     @media ${devices.mobile}{
+        display: none;
+    }
+    @media ${devices.tablet}{
         display: none;
     }
 }

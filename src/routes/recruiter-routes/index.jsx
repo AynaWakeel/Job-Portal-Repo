@@ -17,8 +17,7 @@ const RecruiterRoutes = () => {
         <Route path='/profile' element={<RecruiterProfile/>}/>
         <Route path='/applicant-profile' element={<ApplicantProfile/>}/>
         <Route path='/dashboard/*' element={<MainDashboardRoutes/>}/>
-        <Route path='/support' element={<Support/>}>
-        </Route>
+        <Route path='/support' element={<Support/>}/>
       </Routes>
     </RecruiterLayouts>
     </div>

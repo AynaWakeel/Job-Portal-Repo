@@ -19,7 +19,7 @@ const MainDashboardRoutes = () => {
         <DashboardLayouts>
         <Routes>
             <Route path='/recruiter-overview' element={<RecruiterOverview/>}/>
-             <Route path='/recruiter-applications' element={<JobApplications/>}/>
+            <Route path='/recruiter-applications' element={<JobApplications/>}/>
             <Route path='/recruiter-myjobs' element={<RecruiterMyJobs/>}/>
             <Route path='/recruiter-postjob' element={<RecruiterPostaJob/>}/>
             <Route path='/recruiter-settings' element={<RecruiterSettings/>}/>
