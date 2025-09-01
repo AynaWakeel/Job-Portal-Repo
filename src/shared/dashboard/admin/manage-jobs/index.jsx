@@ -1,16 +1,16 @@
 import React from 'react'
 import { Main } from './style'
 
-const AdminOverview = () => {
+const ManageJobs = () => {
   return (
     <div>
 
       <Main>
         <div>
-          <h1 className='TopHeading'>Analytics</h1>
+          <h1 className='TopHeading'>Manage Jobs</h1>
         </div>
 
-       
+
         <div>
 
         </div>
@@ -20,4 +20,4 @@ const AdminOverview = () => {
   )
 }
 
-export default AdminOverview
+export default ManageJobs

@@ -5,12 +5,13 @@ import { ReactComponent as Bookmark } from '../../assets/icons/BookmarkSimple.sv
 import { ReactComponent as Gear } from '../../assets/icons/Gear.svg'
 import { ReactComponent as PlusCircle } from '../../assets/icons/PlusCircle.svg'
 import { ReactComponent as Brief } from '../../assets/icons/Briefcase.svg'
+import { ReactComponent as Logo } from '../../assets/icons/briefcase2.svg'
 import Menubar from '../../assets/icons/fi_menu.svg'
 import Close from '../../assets/icons/fi_x.svg'
 import { useNavigate } from 'react-router'
 
 const DashboardLayouts = ({ children }) => {
-  const [isActive,setIsActive] = useState("Overview")
+  const [isActive, setIsActive] = useState("Overview")
   const navigate = useNavigate()
 
   const ApplicantOverview = () => {
@@ -35,7 +36,7 @@ const DashboardLayouts = ({ children }) => {
 
   const RecruiterOverview = () => {
     navigate('/recruiter/dashboard/recruiter-overview')
-     setIsActive("Recruiter Overview")
+    setIsActive("Recruiter Overview")
   }
 
   const RecruiterPostjob = () => {
@@ -50,7 +51,7 @@ const DashboardLayouts = ({ children }) => {
 
   const RecruiterSettings = () => {
     navigate('/recruiter/dashboard/recruiter-settings')
-     setIsActive("Recruiter Settings")
+    setIsActive("Recruiter Settings")
   }
 
 
@@ -65,6 +66,10 @@ const DashboardLayouts = ({ children }) => {
 
         {/* --------- sidebar ----------- */}
         <SidebarMenu>
+          {/* <div className='logo-flex'>
+            <div><Logo className='Color' /></div>
+            <div className='name'>MyJob</div>
+          </div> */}
           <div className='Sidebar'>
             <ul className='Navlinks'>
 
@@ -100,7 +105,7 @@ const DashboardLayouts = ({ children }) => {
                 <Gear className='IconColor' />
                 <a>Settings</a>
               </li>
-             
+
             </ul>
           </div>
         </SidebarMenu>

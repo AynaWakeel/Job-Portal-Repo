@@ -8,8 +8,6 @@ align-items: start;
 gap: 10px;
 position: relative;
 
-
-
 .dashboard-size{
     width: 80%;
 
@@ -47,9 +45,11 @@ width: 20%;
 box-shadow: 0px 0px 5px var(--purple-50);
 display: flex;
 justify-content: end;
-height: 90vh;
+height: 100vh;
 padding-top: 40px;
-position: relative;
+margin-top: 40px;
+border-top-right-radius: 20px;
+background-color: var(--purple-600);
 
     @media ${devices.mobile}{
         display: none;
@@ -60,32 +60,7 @@ position: relative;
     }
 
 
-/*     
-.logo-flex{
-    display: flex;
-    justify-content: start;
-    gap: 8px;
-    align-items: center;
-    padding-bottom: 20px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    z-index: 1000;
-}
-
-.name{
-font-size: 24px;
-font-family: var(--inter);
-font-weight: 600;
-color: var(--purple-600);
-}
-
-.Color{
-    color: var(--white-600);
-} */
-
 .Sidebar{
-    background-color: var(--white-50);
     width: 80%;
 
     @media ${devices.tablet}{
@@ -147,14 +122,14 @@ color: var(--purple-600);
 
 .Navlinks a{
     text-decoration: none;
-    color: #767F8C;
+    color: var(--white-50);
     font-size: 17px;
     font-weight: 400;
     font-family: var(--inter);
 }
 
 .IconColor{
-    color: #767F8C;
+    color: var(--white-50);
 }
 `
 
@@ -206,6 +181,19 @@ display: none;
     @media ${devices.tablet}{
         gap: 15px;
     }
+}
+
+.tab.active{
+    background-color: var(--purple-50);
+    border-left: 3px solid var(--purple-600);
+} 
+
+.tab.active a{
+    color: var(--purple-600);
+}
+
+.tab.active .IconColor{
+    color: var(--purple-600);
 }
 
 .Navlinks li:hover{
