@@ -29,7 +29,7 @@ box-shadow: 0px 0px 5px var(--purple-50);
 
     
 @media ${devices.tablet}{
-    gap: 20px;
+    display: none;
 }
 
 @media ${devices.mobile}{
@@ -69,6 +69,9 @@ box-shadow: 0px 0px 5px var(--purple-50);
     @media ${devices.mobile}{
         display: none;
     }
+     @media ${devices.tablet}{
+        display: none;
+    }
 }
 
 .NavBtn{
@@ -87,6 +90,9 @@ box-shadow: 0px 0px 5px var(--purple-50);
     @media ${devices.mobile}{
     display: none;
     }
+      @media ${devices.tablet}{
+        display: none;
+    }
 }
 
 .Display{
@@ -94,6 +100,9 @@ box-shadow: 0px 0px 5px var(--purple-50);
 
     @media ${devices.mobile}{
     display: block;
+    }
+      @media ${devices.tablet}{
+        display: block;
     }
 }
 `
@@ -146,6 +155,9 @@ display: none;
 
 @media ${devices.mobile}{
     display: block;
+}
+ @media ${devices.tablet}{
+        display: block;
 }
 
 .Navright{

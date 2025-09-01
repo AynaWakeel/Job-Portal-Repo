@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Checkbox, ForgetDiv, Form, SettingDiv } from './style'
+import { Checkbox, Dropdown, ForgetDiv, Form, SettingDiv } from './style'
 import Resume from '../../../../../components/resume';
+import { ReactComponent as Arrowup } from '../../../../../assets/icons/fi_chevron-up.svg'
+import { ReactComponent as Arrowdown } from '../../../../../assets/icons/fi_chevron-down.svg'
 
 const ApplicantCreateResume = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false)
@@ -17,6 +19,14 @@ const ApplicantCreateResume = () => {
   const isOpen = () => {
     setIsResumeOpen(true)
   }
+
+  //------------- simple dropdown ( experience )
+  const [isExperienceDropdownOpen, setIsExperienceDropdownOpen] = useState(false)
+  const ExperienceDropdownOpen = () => {
+    setIsExperienceDropdownOpen(!isExperienceDropdownOpen)
+  }
+
+
 
 
   return (
@@ -58,19 +68,38 @@ const ApplicantCreateResume = () => {
             <h1 className='TopHeading'>Education</h1>
             <Form>
               <div className='FormSpace FormInputDivide'>
-                <div className='InputWidth FormPassword'>
+                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Degree</label>
                   <input type='text' placeholder='Degree' className='FormInput' />
                 </div>
                 <div className='InputWidth FormPassword'>
-                  <label htmlFor='' className='Label'>Institude</label>
-                  <input type='text' placeholder='Institude' className='FormInput' />
+                  <label htmlFor='' className='Label'>Institute</label>
+                  <input type='text' placeholder='Institute' className='FormInput' />
                 </div>
               </div>
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Experience</label>
-                  <input type='text' placeholder='Experience' className='FormInput' />
+                  <div className='SelectFlex simple-dropdown FormInput' onClick={ExperienceDropdownOpen}>
+                    <input className='Input' placeholder='Experience' />
+                    {isExperienceDropdownOpen ?
+                      <Arrowup className='SelectColor' /> :
+                      <Arrowdown className='SelectColor' />
+                    }
+                    {isExperienceDropdownOpen &&
+                      <Dropdown>
+                        <ul className='options'>
+                          <li>Freshers</li>
+                          <li>1 - 2 Years</li>
+                          <li>2 - 4 Years</li>
+                          <li>4 - 6 Years</li>
+                          <li>6 - 8 Years</li>
+                          <li>8 - 10 Years</li>
+                          <li>10 - 15 Years</li>
+                        </ul>
+                      </Dropdown>
+                    }
+                  </div>
                 </div>
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Projects</label>

@@ -1,10 +1,24 @@
-import React from 'react'
-import { Form, ProfilePic, SettingDiv, UploadPdf } from './style'
+import React, { useState } from 'react'
+import { Dropdown, Form, ProfilePic, SettingDiv, UploadPdf } from './style'
 import Upload from '../../../../../assets/icons/fi_upload-cloud.svg'
 import { ReactComponent as File } from '../../../../../assets/icons/FileText.svg'
-
+import { ReactComponent as Arrowup } from '../../../../../assets/icons/fi_chevron-up.svg'
+import { ReactComponent as Arrowdown } from '../../../../../assets/icons/fi_chevron-down.svg'
 
 const ApplicantPersonalProfile = () => {
+
+  //------------- simple dropdown ( experience )
+  const [isExperienceDropdownOpen, setIsExperienceDropdownOpen] = useState(false)
+  const ExperienceDropdownOpen = () => {
+    setIsExperienceDropdownOpen(!isExperienceDropdownOpen)
+    setIsEducationDropdownOpen(false)
+  }
+
+  const [isEducationDropdownOpen, setIsEducationDropdownOpen] = useState(false)
+    const EducationDropdownOpen = () => {
+      setIsEducationDropdownOpen(!isEducationDropdownOpen)
+      setIsExperienceDropdownOpen(false)
+    }
 
   return (
     <div>
@@ -56,11 +70,49 @@ const ApplicantPersonalProfile = () => {
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth'>
                   <label htmlFor='' className='Label'>Experience</label>
-                  <input type="text" placeholder='Experience' className='FormInput' />
+                  <div className='SelectFlex simple-dropdown FormInput' onClick={ExperienceDropdownOpen}>
+                    <input className='Input' placeholder='Experience' />
+                    {isExperienceDropdownOpen ?
+                      <Arrowup className='SelectColor' /> :
+                      <Arrowdown className='SelectColor' />
+                    }
+                    {isExperienceDropdownOpen &&
+                      <Dropdown>
+                        <ul className='options'>
+                           <li>Freshers</li>
+                            <li>1 - 2 Years</li>
+                            <li>2 - 4 Years</li>
+                            <li>4 - 6 Years</li>
+                            <li>6 - 8 Years</li>
+                            <li>8 - 10 Years</li>
+                            <li>10 - 15 Years</li>
+                        </ul>
+                      </Dropdown>
+                    }
+                  </div>
                 </div>
-                <div className='InputWidth'>
+
+                 <div className='InputWidth'>
                   <label htmlFor='' className='Label'>Education</label>
-                  <input type="text" placeholder='Education' className='FormInput' />
+                  <div className='SelectFlex simple-dropdown FormInput' onClick={EducationDropdownOpen}>
+                    <input className='Input' placeholder='Education' />
+                    {isEducationDropdownOpen ?
+                      <Arrowup className='SelectColor' /> :
+                      <Arrowdown className='SelectColor' />
+                    }
+                    {isEducationDropdownOpen &&
+                      <Dropdown>
+                        <ul className='options'>
+                          <li>Diploma</li>
+                          <li>Internship/A-Level</li>
+                          <li>Bachelor's Degree</li>
+                          <li>Master's Degree</li>
+                          <li>MPhil</li>
+                          <li>PhD</li>
+                        </ul>
+                      </Dropdown>
+                    }
+                  </div>
                 </div>
               </div>
               <div className='FormSpace'>
