@@ -1078,3 +1078,42 @@ export const RecentlyPostedJobs = [
 
     }
 ]
+
+//--------------- admin table ( manage users )
+export const ManageUserTable = [
+    {
+       name:'john',
+       email:'john@gmail.com',
+       phone:'030021537586'
+    },
+    {
+       name:'john',
+       email:'john@gmail.com',
+       phone:'030021537586'
+    },
+    {
+       name:'john',
+       email:'john@gmail.com',
+       phone:'030021537586'
+    },
+    {
+       name:'john',
+       email:'john@gmail.com',
+       phone:'030021537586'
+    },
+    {
+       name:'john',
+       email:'john@gmail.com',
+       phone:'030021537586'
+    },
+    {
+       name:'john',
+       email:'john@gmail.com',
+       phone:'030021537586'
+    },
+    {
+       name:'john',
+       email:'john@gmail.com',
+       phone:'030021537586'
+    }
+]
