@@ -34,13 +34,16 @@ const FoundingInfo = () => {
                   {isOrganizationDropdownOpen &&
                     <Dropdown>
                       <ul className='options'>
-                        <li>IT Company</li>
-                        <li>Software House</li>
-                        <li>E-commerce</li>
-                        <li>Bank</li>
-                        <li>University</li>
-                        <li>Marketing Agency</li>
-                        <li>Audit/Consulting Firm</li>
+                        <li>Business / For-Profit Company</li>
+                        <li>Nonprofit / Charity</li>
+                        <li>Government / Public Sector</li>
+                        <li>Social Enterprise / B-Corporation</li>
+                        <li>Educational Institution</li>
+                        <li>Partnership</li>
+                        <li>Sole Proprietorship</li>
+                        <li>Limited Liability Company (LLC)</li>
+                        <li>Cooperative</li>
+                        <li>State-Owned Enterprise</li>
                       </ul>
                     </Dropdown>
                   }
