@@ -22,10 +22,14 @@ const ManageUsers = () => {
     <div>
 
       <Main>
-        <div>
+        <div className='flex-box'>
           <h1 className='TopHeading'>Manage Users</h1>
+          <div className='flex'>
+            <button className='CardBtn'>Recruiter</button>
+            <button className='CardBtn'>Applicant</button>
+          </div>
         </div>
-
+        
         <table className='Table'>
           <thead className='Tableheading'>
             <tr className='Tabletop'>

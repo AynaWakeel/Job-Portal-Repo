@@ -24,6 +24,18 @@ padding-inline: 20px;
 }
 }
 
+.flex-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex{
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    align-items: center;
+}
 
 //------------- table
 .Table{
@@ -31,6 +43,7 @@ padding-inline: 20px;
     border-collapse: separate;
     border-spacing: 0 5px;
     border-radius: 14px;
+    margin-top: 20px;
 }
 
 //--------------- table head
