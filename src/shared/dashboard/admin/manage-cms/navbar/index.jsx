@@ -5,7 +5,7 @@ import { ReactComponent as PlusCircle } from '../../../../../assets/icons/PlusCi
 import { ReactComponent as UserProfile } from '../../../../../assets/icons/UserProfile.svg'
 import CMSAbout from '../about'
 import CMSContact from '../contact'
-import CMSfaqs from '../faqs'
+import CMSfaqs from '../faqs/view'
 
 const CMSNavbar = () => {
     const [isActive, setIsActive] = useState("About")
