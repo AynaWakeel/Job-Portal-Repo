@@ -9,7 +9,10 @@ height: 90px;
 display: flex;
 justify-content: space-between;
 align-items: center;
-position: relative;
+position: fixed;
+top: 0px;
+width: 100%;
+z-index: 1000;
 box-shadow: 0px 0px 5px var(--purple-50);
 
 
@@ -20,9 +23,40 @@ box-shadow: 0px 0px 5px var(--purple-50);
 @media ${devices.mobile}{
     padding-inline: 30px;
 }
+
+.Navright{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 20px;
+    
+    @media ${devices.mobile}{
+        display: none;
+    }
+}
+
+.profile{
+    position: relative;
+}
+
+.Display{
+    display: none;
+
+    @media ${devices.mobile}{
+    display: block;
+    }
+}
+
+.adminname{
+    font-size: 18px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
 `
 
 export const NavbarNav = styled.div`
+position: relative;
 display: flex;
 justify-content: start;
 align-items: center;
@@ -45,8 +79,7 @@ gap:80px;
     align-items: center;
     gap: 10px;
     position: absolute;
-    left: 15px;
-    padding: 6px;
+    left: 0px;
     width: 130px;
     }
 }
@@ -72,11 +105,6 @@ gap:80px;
     font-family: var(--inter);
 }
 
-.adminname{
-    font-size: 18px;
-    font-weight: 400;
-    font-family: var(--inter);
-}
 
 .Navlinks{
     display: flex;
@@ -123,25 +151,40 @@ gap:80px;
 // ---------- mobile sidebar
 
 export const MobileSidebar = styled.div`
-width: 60%;
+width: 50%;
 box-shadow: 0px 0px 5px var(--purple-50);
 display: flex;
-justify-content: end;
-height: 90vh;
+justify-content: start;
+align-items:center;
+height: 100vh;
 padding-top: 20px;
-position: absolute;
-top: 60px;
+position: fixed;
+top: 90px;
 left: 0px;
 z-index: 999;
 display: none;
+background-color: var(--white-50);   
 
     @media ${devices.mobile}{
         display: block;
     }
 
+.Navright{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    padding-inline: 10px;
+}
 
-.Sidebar{
-    background-color: var(--white-50);   
+.Navright img{
+    width: 40px;
+}
+
+.adminname{
+    font-size: 18px;
+    font-weight: 400;
+    font-family: var(--inter);
 }
 
 
@@ -152,6 +195,7 @@ display: none;
     align-items: start;
     gap: 10px;
     list-style: none;
+    padding-top:10px;
 }
 
 .Navlinks li{
@@ -206,5 +250,67 @@ display: none;
 
 .IconColor{
     color: #767F8C;
+}
+
+.logout{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+    padding-inline: 15px;
+    padding-top: 20px;
+}
+
+.NavBtn{
+    padding-block: 12px;
+    padding-inline: 24px;
+    border-radius: 3px;
+    border: 1px solid var(--purple-50);
+    box-shadow: 0px 0px 3px var(--purple-50);
+    color: var(--purple-600);
+    background-color: var(--white-50);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--inter);
+    cursor: pointer;
+}
+`
+
+
+// ----- menu bar
+export const Menu = styled.div`
+padding-block: 18px;
+padding-inline: 26px;
+background-color: var(--white-50);
+box-shadow: 0px 0px 5px var(--purple-200);
+position: absolute;
+top: 65px;
+right: 100px;
+z-index: 999;
+
+@media ${devices.mobile}{
+    display: none;
+}
+
+.Navlinks{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 10px;
+    list-style: none;
+}
+
+.Navlinks a{
+    text-decoration: none;
+    color: var(--purple-200);
+    font-size: 15px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
+.Navlinks a:hover{
+    color: var(--purple-600);
+    border-bottom: 2px solid var(--purple-600);
 }
 `

@@ -3,7 +3,7 @@ import { devices } from "../../components/breakpoints";
 
 export const Dashboard = styled.div`
 display: flex;
-justify-content: center;
+justify-content: end;
 align-items: start;
 gap: 10px;
 position: relative;
@@ -12,6 +12,9 @@ position: relative;
 
 .dashboard-size{
     width: 80%;
+    position: relative;
+    top: 80px;
+    z-index: 10;
 
     @media ${devices.mobile}{
         width: 100%;
@@ -27,8 +30,10 @@ position: relative;
     justify-content: start;
     align-items: center;
     gap: 10px;
-    position: absolute;
+    position: fixed;
+    top: 90px;
     left: 0px;
+    z-index: 1000;
     padding: 6px;
     width: 130px;
     background-color: var(--purple-50);
@@ -47,9 +52,12 @@ width: 20%;
 box-shadow: 0px 0px 5px var(--purple-50);
 display: flex;
 justify-content: end;
-height: 90vh;
+height: 100vh;
 padding-top: 40px;
-position: relative;
+/* position: relative; */
+position: fixed;
+left: 0px;
+top: 90px;
 
     @media ${devices.mobile}{
         display: none;
@@ -58,31 +66,6 @@ position: relative;
     @media ${devices.tablet}{
         width: 25%;
     }
-
-
-/*     
-.logo-flex{
-    display: flex;
-    justify-content: start;
-    gap: 8px;
-    align-items: center;
-    padding-bottom: 20px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    z-index: 1000;
-}
-
-.name{
-font-size: 24px;
-font-family: var(--inter);
-font-weight: 600;
-color: var(--purple-600);
-}
-
-.Color{
-    color: var(--white-600);
-} */
 
 .Sidebar{
     background-color: var(--white-50);
@@ -167,22 +150,19 @@ width: 60%;
 box-shadow: 0px 0px 5px var(--purple-50);
 display: flex;
 justify-content: end;
-height: 90vh;
-padding-top: 20px;
-position: absolute;
-top: 60px;
+height: 100%;
+position: fixed;
+padding-top: 35px;
+top: 90px;
 left: 0px;
 z-index: 999;
 display: none;
+ background-color: var(--white-50); 
 
     @media ${devices.mobile}{
         display: block;
     }
 
-
-.Sidebar{
-    background-color: var(--white-50);   
-}
 
 
 .Navlinks{

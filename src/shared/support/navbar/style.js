@@ -4,7 +4,7 @@ import { devices } from "../../../components/breakpoints";
 export const Main = styled.div`
 padding-bottom: 20px;
 padding-inline: 120px;
-padding-top: 50px;
+padding-top: 120px;
 background-color: var(--purple-50);
 
 @media ${devices.tablet}{

@@ -5,22 +5,35 @@ import { devices } from "../../components/breakpoints";
 
 export const Dashboard = styled.div`
 display: flex;
-justify-content: center;
+justify-content: end;
 align-items: start;
 gap: 10px;
 position: relative;
 
+ @media ${devices.mobile}{
+    justify-content: start;
+}
+
 .dashboard-size{
     width: 80%;
+    position: relative;
+    top: 70px;
+    z-index: 10;
 
     @media ${devices.mobile}{
         width: 100%;
+    }
+     @media ${devices.tablet}{
+        width: 75%;
     }
 }
 `
 
 export const SidebarMenu = styled.div`
 width: 20%;
+position: fixed;
+left: 0px;
+top: 60px;
 box-shadow: 0px 0px 5px var(--purple-50);
 display: flex;
 justify-content: end;
@@ -44,6 +57,9 @@ background-color: var(--purple-600);
 
     @media ${devices.tablet}{
         width: 100%;
+    }
+     @media ${devices.mobile}{
+        display: none;
     }
 
    

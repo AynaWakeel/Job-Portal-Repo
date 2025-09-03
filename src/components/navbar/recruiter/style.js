@@ -9,7 +9,11 @@ height: 90px;
 display: flex;
 justify-content: space-between;
 align-items: center;
-position: relative;
+/* position: relative; */
+position: fixed;
+top: 0px;
+width: 100%;
+z-index: 1000;
 box-shadow: 0px 0px 5px var(--purple-50);
 
 @media ${devices.tablet}{

@@ -66,10 +66,7 @@ const DashboardLayouts = ({ children }) => {
 
         {/* --------- sidebar ----------- */}
         <SidebarMenu>
-          {/* <div className='logo-flex'>
-            <div><Logo className='Color' /></div>
-            <div className='name'>MyJob</div>
-          </div> */}
+        
           <div className='Sidebar'>
             <ul className='Navlinks'>
 

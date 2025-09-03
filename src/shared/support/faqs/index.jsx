@@ -241,10 +241,6 @@ const Faqs = () => {
             }
           </Faq>
 
-        </FaqSec>
-
-        <FaqSec>
-          <h2 className='H2'>Recruiters</h2>
           <Faq>
             <Title onClick={Question5}>
               <div className='H4'>Donec in ipsum sit amet mi tincidunt lacinia ut id risus.</div>
@@ -311,10 +307,6 @@ const Faqs = () => {
             }
           </Faq>
 
-        </FaqSec>
-
-        <FaqSec>
-          <h2 className='H2'>Applicants</h2>
           <Faq>
             <Title onClick={Question9}>
               <div className='H4'>Donec in ipsum sit amet mi tincidunt lacinia ut id risus.</div>
@@ -365,8 +357,8 @@ const Faqs = () => {
             }
 
           </Faq>
-
         </FaqSec>
+
 
       </Overlay>
 

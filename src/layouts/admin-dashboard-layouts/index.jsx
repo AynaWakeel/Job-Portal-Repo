@@ -50,7 +50,7 @@ const AdminDashboardLayouts = ({ children }) => {
     return (
         <div>
 
-            <AdminNavbar/>
+            <AdminNavbar />
 
             <Dashboard>
 

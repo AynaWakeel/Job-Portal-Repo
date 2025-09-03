@@ -5,7 +5,7 @@ import { devices } from "../../../components/breakpoints";
 // ------ hero
 export const HeroSec = styled.div`
 background-color: var(--purple-50);
-padding-block: 60px;
+padding-block: 120px;
 padding-inline: 120px;
 
 @media ${devices.tablet}{

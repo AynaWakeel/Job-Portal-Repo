@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices } from "../../../../components/breakpoints";
+import { devices } from "../../../../../components/breakpoints";
 
 
 export const Main = styled.div`

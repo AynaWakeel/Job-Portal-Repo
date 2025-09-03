@@ -11,7 +11,7 @@ const SocialMediaProfile = () => {
       <SettingDiv>
         <form onSubmit="">
           <div>
-            <h1 className='TopHeading'>Contact Information</h1>
+            <h1 className='TopHeading'>Social Media Accounts</h1>
           </div>
           <div>
             <Form>

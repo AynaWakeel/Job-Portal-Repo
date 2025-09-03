@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MobileSidebar, Navbar, NavbarNav } from './style'
+import { Menu, MobileSidebar, Navbar, NavbarNav } from './style'
 import { ReactComponent as Layers } from '../../../assets/icons/fi_layers.svg'
 import { ReactComponent as Gear } from '../../../assets/icons/Gear.svg'
 import { ReactComponent as PlusCircle } from '../../../assets/icons/PlusCircle.svg'
@@ -9,11 +9,13 @@ import { ReactComponent as Home } from '../../../assets/icons/fi_home.svg'
 import { ReactComponent as Myjob } from '../../../assets/icons/MyJobLogo.svg'
 import Menubar from '../../../assets/icons/fi_menu.svg'
 import Close from '../../../assets/icons/fi_x.svg'
+import Profile from '../../../assets/images/Ellipse 18.png'
+import Notify from '../../../assets/icons/BellRinging.svg'
 import { useNavigate } from 'react-router'
 
 const AdminNavbar = () => {
-    const [isActive, setIsActive] = useState("Overview")
-    const navigate = useNavigate()
+  const [isActive, setIsActive] = useState("Overview")
+  const navigate = useNavigate()
 
   const ManageUser = () => {
     navigate('/admin/dashboard/manage-users')
@@ -45,11 +47,20 @@ const AdminNavbar = () => {
     setIsActive("View Analytics")
   }
 
+  const AdminProfile = ()=>{
+    navigate('/admin/dashboard/profile')
+  }
 
   const [isOpen, setIsOpen] = useState(false)
   const OpenMenu = () => {
     setIsOpen(!isOpen)
   }
+
+   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const OpenDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen)
+  }
+
   return (
     <div>
 
@@ -66,6 +77,11 @@ const AdminNavbar = () => {
           {isOpen &&
             <MobileSidebar>
               <div className='Sidebar'>
+
+                <div className='Navright'>
+                  <img src={Profile} alt='profile' />
+                  <h4 className='adminname'>Admin Name</h4>
+                </div>
                 <ul className='Navlinks'>
 
                   <li className={isActive === "View Analytics" ? "tab active" : "tab"} onClick={ViewAnalytics}>
@@ -93,6 +109,12 @@ const AdminNavbar = () => {
                     <a>Manage CMS</a>
                   </li>
                 </ul>
+
+              </div>
+
+              <div className='logout'>
+                <img src={Notify} alt='profile' />
+                <button type='button' className='NavBtn'>Logout</button>
               </div>
             </MobileSidebar>
 
@@ -101,9 +123,24 @@ const AdminNavbar = () => {
             <Myjob className='IconColor' />
             <h4 className='Logoname'>MyJob</h4>
           </div>
-          <h4 className='adminname'>admin@gmail.com</h4>
-
         </NavbarNav>
+
+        <div className='Navright'>
+          <img src={Notify} alt='notify' />
+          <img src={Profile} alt='profile' onClick={OpenDropdown}/>
+          <h4 className='adminname'>Admin</h4>
+        </div>
+
+        {/* ------------- mobile view ----------------- */}
+        {isDropdownOpen &&
+          <Menu>
+              <ul className='Navlinks'>
+                <li><a onClick={AdminProfile}>Profile</a></li>
+                <li><a >Logout</a></li>
+              </ul>
+          </Menu>
+        }
+
       </Navbar>
 
     </div>

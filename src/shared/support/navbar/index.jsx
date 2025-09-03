@@ -23,8 +23,6 @@ const Support = () => {
       {isActive === "contact" && <ContactUs/>}
 
       {isActive === "faqs" && <Faqs/>} 
-     
-     
 
     </div>
   )

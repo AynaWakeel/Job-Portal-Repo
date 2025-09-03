@@ -1,5 +1,6 @@
 import React from 'react'
 import { Main } from './style'
+import CMSNavbar from '../navbar'
 
 const ManageCMS = () => {
   return (
@@ -10,10 +11,7 @@ const ManageCMS = () => {
           <h1 className='TopHeading'>Manage CMS</h1>
         </div>
 
-
-        <div>
-
-        </div>
+         <CMSNavbar/>
       </Main>
 
     </div>
