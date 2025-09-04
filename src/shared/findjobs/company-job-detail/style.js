@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { devices } from "../../../components/breakpoints";
 
 export const Main = styled.div`
-padding-block: 50px;
+padding-bottom: 50px;
+padding-top: 150px;
 padding-inline: 120px;
 border-radius: 12px;
 box-shadow: 0px 0px 5px var(--purple-50);
@@ -177,6 +178,21 @@ margin: auto;
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
+}
+
+.match{
+    color: var(--purple-600);
+    border-radius: 50%;
+    border: 3px solid var(--purple-600);
+    width: 35px;
+    height: 35px;
+    border-radius: 52px;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: var(--inter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sub-flex{

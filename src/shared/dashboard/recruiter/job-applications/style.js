@@ -3,7 +3,7 @@ import { devices } from "../../../../components/breakpoints";
 
 
 export const Jobdiv = styled.div`
-padding-block: 30px;
+padding-block: 50px;
 padding-inline: 20px;
 display: flex;
 flex-direction: column;

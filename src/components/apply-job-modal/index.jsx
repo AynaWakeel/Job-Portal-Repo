@@ -23,34 +23,7 @@ const ApplyModal = ({ onClose }) => {
                             <img src={Close} alt='close' onClick={onClose} />
                         </div>
                     </div>
-                    <div className='spacetop'>
-                        <h1 className='SubHeading'>Choose Resume</h1>
-                    <div className='flex'>
-                        <UploadPdf>
-                            <label className='center'>
-                                <div><File className='IconColor' /></div>
-                                <div>
-                                    <h5 className='Title'>Resume</h5>
-                                    <h6 className='info'>3.5 MB</h6>
-                                    <input type="file" accept=".pdf" hidden />
-                                </div>
-                            </label>
-                        </UploadPdf>
-                        <div>
-                            <span className='or'>OR</span>
-                        </div>
-                         <UploadPdf>
-                            <label className='center'>
-                                <div><File className='IconColor' /></div>
-                                <div>
-                                    <h5 className='Title'>Created Resume</h5>
-                                    <h6 className='info'>3.5 MB</h6>
-                                    <input type="file" accept=".pdf" hidden />
-                                </div>
-                            </label>
-                        </UploadPdf>
-                    </div>
-                    </div>
+                    
                     <div className='spacetop'>
                         <h1 className='SubHeading'>Cover Letter</h1>
                         <ReactQuill theme="snow" modules={Modules} className='Quillbar' />

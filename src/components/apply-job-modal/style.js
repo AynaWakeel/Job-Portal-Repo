@@ -87,14 +87,6 @@ position: relative;
     padding-bottom: 15px;
 }
 
-.or{
-    color: var(--dark-800);
-    font-size: 12px;
-    font-weight: 400;
-    font-family: var(--inter);
-    
-}
-
 .flex{
     display: flex;
     justify-content: start;
@@ -145,57 +137,5 @@ position: relative;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-}
-`
-
-export const UploadPdf = styled.div`
-    padding-block: 10px;
-    padding-inline: 14px;
-    background-color: var(--gray-450);
-    border-radius: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media ${devices.tablet}{
-        justify-content: start;
-        padding-inline: 12px;
-        width: 30%;
-    }
-
-    @media ${devices.mobile}{
-    width: 60%;
-    padding-inline: 12px;
-    justify-content: start;
-    }
-
-.center{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
-}
-
-.Title{
-    color: var(--dark-800);
-    font-size: 14px;
-    font-weight: 500;
-    font-family: var(--inter);
-    padding-bottom: 6px;
-}
-
-.title span{
-    color: var(--gray-400);
-    font-size: 14px;
-    font-weight: 400;
-    font-family: var(--inter);
-}
-
-.info{
-    color: var(--gray-400);
-    font-size: 12px;
-    font-weight: 400;
-    font-family: var(--inter);
-
 }
 `

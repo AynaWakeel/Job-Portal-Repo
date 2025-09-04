@@ -4,7 +4,7 @@ import { devices } from "../../../components/breakpoints";
 // ------ cards
 export const MainSec = styled.div`
 background-color: var(--white-50);
-padding-top: 50px;
+padding-top: 120px;
 padding-bottom: 50px;
 padding-inline: 120px;
 

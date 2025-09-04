@@ -36,6 +36,7 @@ const CompanyJobDetail = () => {
                             <div className='detail-flex'>
                                 <h2 className='Name'>Senior UX Designer</h2>
                                 <span className='Badge'>Full Time</span>
+                                <span className='match'>40%</span>
                             </div>
                             <div className='detail-flex'>
                                 <div className='sub-flex'>
