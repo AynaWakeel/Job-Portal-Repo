@@ -32,7 +32,7 @@ margin: auto;
 
 .profile{
     position: absolute;
-    top: 300px;
+    top: 210px;
     left: 185px;
     width: 75%;
     display: flex;

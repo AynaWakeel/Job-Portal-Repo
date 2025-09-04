@@ -531,6 +531,32 @@ export const Analytics = [
 
 ]
 
+//---------------- admin analytics
+
+//------------ overview analytics
+export const AdminHeroCards = [
+    {
+        id: 1,
+        icon: Brief,
+        title: '589',
+        positions: 'Posted jobs'
+    },
+    {
+        id: 2,
+        icon: Building,
+        title: '238',
+        positions: 'Applications'
+    },
+    {
+        id: 3,
+        icon: Brief,
+        title: '589',
+        positions: 'Users'
+    }
+
+]
+
+
 
 export const CandidateCards = [
     {
@@ -549,97 +575,6 @@ export const CandidateCards = [
     },
     {
         id: 3,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 4,
-       logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 5,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 6,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 7,
-       logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 8,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 9,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 10,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 11,
-       logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 12,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 13,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 14,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 15,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 16,
         logo: Profile,
         name: 'John',
         title: 'This is my Title',

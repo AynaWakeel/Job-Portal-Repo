@@ -77,6 +77,10 @@ margin-top: 20px;
     font-size: 15px;
     font-weight: 400;
     font-family: var(--inter);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
 }
 
 `

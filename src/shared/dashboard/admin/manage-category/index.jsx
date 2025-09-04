@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import { Box, Main } from './style'
 import AddLocationModal from '../../../../components/add-location-modal'
 import AddIndustryModal from '../../../../components/add-industry-modal'
+import { ReactComponent as Del } from '../../../../assets/icons/XCircle.svg'
 
 const ManageCategory = () => {
-  const [isOpen,setIsOpen] = useState(false)
-  const LocationModal = () =>{
+  const [isOpen, setIsOpen] = useState(false)
+  const LocationModal = () => {
     setIsOpen(!isOpen)
   }
 
-  const [isIndustryOpen,setIsIndustryOpen] = useState(false)
-  const IndustryModal = () =>{
+  const [isIndustryOpen, setIsIndustryOpen] = useState(false)
+  const IndustryModal = () => {
     setIsIndustryOpen(!isIndustryOpen)
   }
   return (
@@ -27,32 +28,73 @@ const ManageCategory = () => {
         </div>
         <Box>
           <ul className='list'>
-            <li>karachi</li>
-            <li>lahore</li>
-            <li>islamabad</li>
-            <li>rahim yar khan</li>
-            <li>rawalpindi</li>
-            <li>karachi</li>
-            <li>lahore</li>
-            <li>islamabad</li>
-            <li>rahim yar khan</li>
-            <li>rawalpindi</li>
-            <li>karachi</li>
-            <li>lahore</li>
-            <li>islamabad</li>
-            <li>rahim yar khan</li>
-            <li>rawalpindi</li>
-            <li>rawalpindi</li>
-            <li>karachi</li>
-            <li>lahore</li>
-            <li>islamabad</li>
-            <li>rahim yar khan</li>
+            <li>
+              karachi
+              <Del />
+            </li>
+            <li>lahore
+              <Del />
+            </li>
+            <li>islamabad
+              <Del />
+            </li>
+            <li>rahim yar khan
+              <Del />
+            </li>
+            <li>rawalpindi
+              <Del />
+            </li>
+            <li>karachi
+              <Del />
+            </li>
+            <li>lahore
+              <Del />
+            </li>
+            <li>islamabad
+              <Del />
+            </li>
+            <li>rahim yar khan
+              <Del />
+            </li>
+            <li>rawalpindi
+              <Del />
+            </li>
+            <li>karachi
+              <Del />
+            </li>
+            <li>lahore
+              <Del />
+            </li>
+            <li>islamabad
+              <Del />
+            </li>
+            <li>rahim yar khan
+              <Del />
+            </li>
+            <li>rawalpindi
+              <Del />
+            </li>
+            <li>rawalpindi
+              <Del />
+            </li>
+            <li>karachi
+              <Del />
+            </li>
+            <li>lahore
+              <Del />
+            </li>
+            <li>islamabad
+              <Del />
+            </li>
+            <li>rahim yar khan
+              <Del />
+            </li>
           </ul>
         </Box>
 
         {/* ---------- modal ---------- */}
-        {isOpen && 
-        <AddLocationModal onClose={()=>setIsOpen(!isOpen)}/>
+        {isOpen &&
+          <AddLocationModal onClose={() => setIsOpen(!isOpen)} />
         }
 
         {/* ---------- industry  --------- */}
@@ -62,19 +104,33 @@ const ManageCategory = () => {
         </div>
         <Box>
           <ul className='list'>
-            <li>Information Technology</li>
-            <li>Finance & Banking</li>
-            <li>Engineering & Manufacturing</li>
-            <li>Marketing & Advertising</li>
-            <li>Retail & E-commerce</li>
-            <li>Construction & Real Estate</li>
-            <li>Healthcare & Medical</li>
+            <li>Information Technology
+              <Del />
+            </li>
+            <li>Finance & Banking
+              <Del />
+            </li>
+            <li>Engineering & Manufacturing
+              <Del />
+            </li>
+            <li>Marketing & Advertising
+              <Del />
+            </li>
+            <li>Retail & E-commerce
+              <Del />
+            </li>
+            <li>Construction & Real Estate
+              <Del />
+            </li>
+            <li>Healthcare & Medical
+              <Del />
+            </li>
           </ul>
         </Box>
 
-         {/* ---------- modal ---------- */}
-        {isIndustryOpen && 
-        <AddIndustryModal onClose={()=>setIsIndustryOpen(!isIndustryOpen)}/>
+        {/* ---------- modal ---------- */}
+        {isIndustryOpen &&
+          <AddIndustryModal onClose={() => setIsIndustryOpen(!isIndustryOpen)} />
         }
 
       </Main>

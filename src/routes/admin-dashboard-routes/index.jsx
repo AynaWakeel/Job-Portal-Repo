@@ -8,6 +8,7 @@ import ManageCMS from '../../shared/dashboard/admin/manage-cms/cms'
 import UserAccounts from '../../shared/dashboard/admin/user-accounts'
 import AdminDashboardLayouts from '../../layouts/admin-dashboard-layouts'
 import AdminProfile from '../../shared/dashboard/admin/profile'
+import AdminNotification from '../../shared/dashboard/admin/notifications'
 
 const AdminDashboardRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AdminDashboardRoutes = () => {
       <AdminDashboardLayouts>
       <Routes>
         <Route path='/profile' element={<AdminProfile/>}/>
+        <Route path='/notifications' element={<AdminNotification/>}/>
         <Route path='/overview' element={<AdminOverview/>}/>
         <Route path='/manage-users' element={<ManageUsers/>}/>
         <Route path='/manage-jobs' element={<ManageJobs/>}/>

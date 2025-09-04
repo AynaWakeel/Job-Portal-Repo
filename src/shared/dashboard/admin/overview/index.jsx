@@ -1,5 +1,8 @@
 import React from 'react'
-import { Main } from './style'
+import { ChartBox, Main } from './style'
+import BarChart from '../../../../components/bar-chart'
+import LineChart from '../../../../components/line-chart'
+import AdminAnalyticCards from '../../../../components/admin-analytics'
 
 const AdminOverview = () => {
   return (
@@ -10,10 +13,20 @@ const AdminOverview = () => {
           <h1 className='TopHeading'>Analytics</h1>
         </div>
 
-       
-        <div>
-
+        <div className='divide'>
+          <AdminAnalyticCards />
         </div>
+
+       <div className='divide'>
+          <ChartBox>
+            <BarChart />
+          </ChartBox>
+
+          <ChartBox>
+            <LineChart />
+          </ChartBox>
+       </div>
+
       </Main>
 
     </div>

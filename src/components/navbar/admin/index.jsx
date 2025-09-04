@@ -51,6 +51,10 @@ const AdminNavbar = () => {
     navigate('/admin/dashboard/profile')
   }
 
+    const AdminNotify = ()=>{
+    navigate('/admin/dashboard/notifications')
+  }
+
   const [isOpen, setIsOpen] = useState(false)
   const OpenMenu = () => {
     setIsOpen(!isOpen)
@@ -126,7 +130,7 @@ const AdminNavbar = () => {
         </NavbarNav>
 
         <div className='Navright'>
-          <img src={Notify} alt='notify' />
+          <img src={Notify} alt='notify' onClick={AdminNotify}/>
           <img src={Profile} alt='profile' onClick={OpenDropdown}/>
           <h4 className='adminname'>Admin</h4>
         </div>
