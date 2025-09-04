@@ -15,6 +15,7 @@ position: relative;
 }
 
 .dashboard-size{
+    flex:none;
     width: 80%;
     position: relative;
     top: 70px;
@@ -22,6 +23,7 @@ position: relative;
 
     @media ${devices.mobile}{
         width: 100%;
+        flex:1;
     }
      @media ${devices.tablet}{
         width: 75%;

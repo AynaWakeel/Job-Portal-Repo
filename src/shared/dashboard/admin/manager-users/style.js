@@ -44,6 +44,7 @@ padding-inline: 20px;
     border-spacing: 0 5px;
     border-radius: 14px;
     margin-top: 20px;
+    overflow-x: auto;
 }
 
 //--------------- table head

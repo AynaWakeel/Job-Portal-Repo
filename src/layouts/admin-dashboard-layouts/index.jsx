@@ -89,7 +89,7 @@ const AdminDashboardLayouts = ({ children }) => {
 
                 {/* ------------------------------- */}
                 <div className='dashboard-size'>
-                    <div>{children}</div>
+                    {children}
                 </div>
             </Dashboard>
         </div>
