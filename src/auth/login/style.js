@@ -8,12 +8,14 @@ margin: auto;
 
 
     @media (max-width: 900px) {
-    width: 90%;
+    width: 550px;
     background-color: var(--purple-10);
     }
     
     @media (max-width: 600px){
-    width: 100%;
+    max-width: 380px;
+    min-width: 350px;
+    padding: 15px;
     background-color: var(--purple-10);
     }
 

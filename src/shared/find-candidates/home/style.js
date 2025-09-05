@@ -8,13 +8,16 @@ background-color: var(--purple-50);
 padding-block: 120px;
 padding-inline: 120px;
 
+
 @media ${devices.tablet}{
-    padding-block: 50px;
+    padding-top: 100px;
+    padding-bottom: 30px;
     padding-inline: 40px;
 }
 
 @media ${devices.mobile}{
-    padding-block: 30px;
+    padding-top: 80px;
+    padding-bottom: 20px;
     padding-inline: 25px;
 }
 
@@ -56,7 +59,7 @@ position: relative;
     width: 98%;
 
     @media ${devices.tablet}{
-        width: 60%;
+        width: 80%;
     }
 
      @media ${devices.mobile}{
@@ -127,18 +130,26 @@ position: relative;
     line-height: 28px;
     text-align: justify;
 
+    @media ${devices.tablet}{
+        width: 75%;
+    }
+
     @media ${devices.mobile}{
         font-size: 16px;
     }
 }
 
 .ImgSec{
-    /* padding-top: 50px; */
     width: 100%;
     text-align: end;
 
-     @media ${devices.tablet}{
+    @media ${devices.tablet}{
         text-align: center;
+        padding-top: 90px;
+    }
+      @media ${devices.mobile}{
+        text-align: center;
+        padding-top: 240px;
     }
 }
 

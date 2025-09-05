@@ -11,13 +11,19 @@ position: relative;
 
 
 .dashboard-size{
+    flex:none;
     width: 80%;
     position: relative;
-    top: 80px;
+    top: 70px;
     z-index: 10;
 
     @media ${devices.mobile}{
         width: 100%;
+        flex:1;
+        top: 90px;
+    }
+     @media ${devices.tablet}{
+        width: 75%;
     }
 }
 

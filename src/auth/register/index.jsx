@@ -29,48 +29,48 @@ const Register = () => {
         setIsConfirmationVisible(!isConfirmationVisible)
     }
 
-    const [formData, setFormData] = useState({
-        fullName: '',
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        role: ''
-    })
+    // const [formData, setFormData] = useState({
+    //     fullName: '',
+    //     username: '',
+    //     email: '',
+    //     password: '',
+    //     confirmPassword: '',
+    //     role: ''
+    // })
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        }
-        )
-    }
+    // const handleChange = (e) => {
+    //     setFormData({
+    //         ...formData,
+    //         [e.target.name]: e.target.value
+    //     }
+    //     )
+    // }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
-        if (formData.password !== formData.confirmPassword) {
-            alert('password do not match')
-            return;
-        }
+    //     if (formData.password !== formData.confirmPassword) {
+    //         alert('password do not match')
+    //         return;
+    //     }
 
-        const dataToSend = {
-            fullName: formData.fullName,
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-            role: formData.role
-        }
+    //     const dataToSend = {
+    //         fullName: formData.fullName,
+    //         username: formData.username,
+    //         email: formData.email,
+    //         password: formData.password,
+    //         role: formData.role
+    //     }
 
-        try {
-            const res = await axios.post("", dataToSend);
-            console.log("Success!", res.data);
-            alert("Registered successfully!");
-        } catch (error) {
-            console.log('error message', error);
-            alert("Registration error");
-        }
-    }
+    //     try {
+    //         const res = await axios.post("", dataToSend);
+    //         console.log("Success!", res.data);
+    //         alert("Registered successfully!");
+    //     } catch (error) {
+    //         console.log('error message', error);
+    //         alert("Registration error");
+    //     }
+    // }
     return (
         <div>
 
@@ -81,26 +81,32 @@ const Register = () => {
                         <span className='Text'>Already have an account </span>
                         <span><a onClick={Login} className='Ahref'>Login</a></span>
                     </TextDiv>
-                    <Form onSubmit={handleSubmit}>
+                    <Form 
+                    // onSubmit={handleSubmit}
+                    >
                         <div className='FormSpace FormInputDivide'>
                             <div>
                                 <input type="text" placeholder='Full Name' className='FormInput'
-                                    value={formData.fullName} onChange={handleChange} />
+                                    // value={formData.fullName} onChange={handleChange} 
+                                />
                             </div>
                             <div>
                                 <input type="text" placeholder='Username' className='FormInput'
-                                    value={formData.username} onChange={handleChange} />
+                                    // value={formData.username} onChange={handleChange} 
+                                />
                             </div>
                         </div>
 
                         <div className='FormSpace'>
                             <input type="email" placeholder='Email' className='FormInput'
-                                value={formData.email} onChange={handleChange} />
+                                // value={formData.email} onChange={handleChange} 
+                            />
                         </div>
                         <div className='FormSpace'>
                             <div className='FormPassword'>
                                 <input type={isPasswordVisible ? "text" : "password"} placeholder='Password' className='FormInput'
-                                    value={formData.password} onChange={handleChange} />
+                                    // value={formData.password} onChange={handleChange} 
+                                />
                                 <div onClick={PasswordVisibility}>
                                     {isPasswordVisible ?
                                         <EyeIcon className='eyeimg' /> :
@@ -112,7 +118,8 @@ const Register = () => {
                         <div className='FormSpace'>
                             <div className='FormPassword'>
                                 <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput '
-                                    value={formData.confirmPassword} onChange={handleChange} />
+                                    // value={formData.confirmPassword} onChange={handleChange} 
+                                />
                                 <div onClick={ConfirmationVisibility} >
                                     {isConfirmationVisible ?
                                         <EyeIcon className='eyeimg' /> :
@@ -125,12 +132,14 @@ const Register = () => {
                             <span className='CheckBoxSpan'>
                                 <div className='FormInputDivide'>
                                     <Checkbox type="radio" id='recruiter' name='role'
-                                        value='recruiter' checked={formData.role === 'recruiter'} onChange={handleChange} />
+                                        // value='recruiter' checked={formData.role === 'recruiter'} onChange={handleChange} 
+                                    />
                                     <label htmlFor='recruiter'>Recruiter</label>
                                 </div>
                                 <div className='FormInputDivide'>
                                     <Checkbox type="radio" id='applicant' name='role'
-                                        value='applicant' checked={formData.role === 'applicant'} onChange={handleChange} />
+                                        // value='applicant' checked={formData.role === 'applicant'} onChange={handleChange} 
+                                    />
                                     <label htmlFor='applicant'>Applicant</label>
                                 </div>
                             </span>

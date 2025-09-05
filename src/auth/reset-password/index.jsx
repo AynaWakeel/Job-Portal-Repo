@@ -22,26 +22,26 @@ const ResetPassword = () => {
     setIsConfirmationVisible(!isConfirmationVisible)
   }
 
-  const [formData, setFormData] = useState({
-    password: '',
-    confirmPassword: ''
-  })
+  // const [formData, setFormData] = useState({
+  //   password: '',
+  //   confirmPassword: ''
+  // })
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+  // const handleChange = (e) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value
+  //   })
+  // }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
 
-    if (formData.password !== formData.confirmPassword) {
-      alert('password donot match')
-      return;
-    }
-  }
+  //   if (formData.password !== formData.confirmPassword) {
+  //     alert('password donot match')
+  //     return;
+  //   }
+  // }
 
   return (
     <div>
@@ -52,10 +52,14 @@ const ResetPassword = () => {
               <TextDiv>
                 <span className='Text'>Set a new password </span>
               </TextDiv>
-              <Form onSubmit={handleSubmit}>
+              <Form 
+              // onSubmit={handleSubmit}
+              >
                 <div className='FormSpace'>
                   <div className='FormPassword'>
-                    <input type={isPasswordVisible ? "text" : "password"} placeholder='Password' className='FormInput ' value={formData.password} onChange={handleChange} />
+                    <input type={isPasswordVisible ? "text" : "password"} placeholder='Password' className='FormInput ' 
+                    // value={formData.password} onChange={handleChange} 
+                    />
                     <div onClick={PasswordVisibility}>
                       {isPasswordVisible ?
                         <EyeIcon className='eyeimg' /> :
@@ -66,7 +70,9 @@ const ResetPassword = () => {
                 </div>
                 <div className='FormSpace'>
                   <div className='FormPassword'>
-                    <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput' value={formData.confirmPassword} onChange={handleChange} />
+                    <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput' 
+                    // value={formData.confirmPassword} onChange={handleChange} 
+                    />
                     <div onClick={ConfirmationVisibility} >
                       {isConfirmationVisible ?
                         <EyeIcon className='eyeimg' /> :

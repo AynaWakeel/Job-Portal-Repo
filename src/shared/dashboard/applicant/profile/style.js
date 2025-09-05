@@ -27,6 +27,13 @@ margin: auto;
 .banner img{
     width: 100%;
     position: relative;
+
+    @media ${devices.mobile}{
+        margin-top: 50px;
+    }
+     @media ${devices.tablet}{
+        margin-top: 40px;
+    }
 }
 
 
@@ -46,13 +53,13 @@ margin: auto;
 
     @media ${devices.tablet}{
        width: 80%;
-       top: 240px;
+       top: 190px;
        left: 80px;
     }
 
       @media ${devices.mobile}{
            width: 90%;
-           top: 180px;
+           top: 120px;
            left: 18px;
     }
 }
@@ -158,11 +165,14 @@ margin: auto;
 
     @media ${devices.tablet}{
         flex-direction: column;
-        padding-block: 70px;
+        padding-bottom: 50px;
+        padding-top: 70px;
     }
 
     @media ${devices.mobile}{
         flex-direction: column;
+         padding-bottom: 50px;
+        padding-top: 100px;
     }
 }
 
