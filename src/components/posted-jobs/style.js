@@ -239,6 +239,14 @@ padding-block: 20px;
     line-height: 20px;
 }
 
+.flex-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 8px;
+    align-items: start;
+}
+
 .Activediv{
     display: flex;
     justify-content: start;

@@ -9,7 +9,6 @@ height: 90px;
 display: flex;
 justify-content: space-between;
 align-items: center;
-/* position: relative; */
 position: fixed;
 top: 0px;
 width: 100%;

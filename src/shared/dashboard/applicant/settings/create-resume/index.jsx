@@ -67,16 +67,22 @@ const ApplicantCreateResume = () => {
           <div className='spacetop'>
             <h1 className='TopHeading'>Education</h1>
             <Form>
-              <div className='FormSpace FormInputDivide'>
-                 <div className='InputWidth FormPassword'>
-                  <label htmlFor='' className='Label'>Degree</label>
+               <div className='FormSpace'>
+                 <label htmlFor='' className='Label'>Degree</label>
                   <input type='text' placeholder='Degree' className='FormInput' />
+              </div>
+              <div className='FormSpace FormInputDivide'>
+                <div className='InputWidth FormPassword'>
+                  <label htmlFor='' className='Label'>Skill</label>
+                <input type="text" placeholder='Skill..' className='FormInput' />
+                 
                 </div>
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Institute</label>
                   <input type='text' placeholder='Institute' className='FormInput' />
                 </div>
               </div>
+             
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Experience</label>

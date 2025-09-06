@@ -52,6 +52,13 @@ const Resume = ({onClose}) => {
                                         <h4 className='SubHeading'>Builtinsoft</h4>
                                     </div>
                                 </div>
+                                 <div className='content'>
+                                    <div><Cap className='IconColor' /></div>
+                                    <div>
+                                        <h2 className='Title'>Skill</h2>
+                                        <h4 className='SubHeading'>JavaScript</h4>
+                                    </div>
+                                </div>
                                 <div className='content'>
                                     <div><Layers className='IconColor' /></div>
                                     <div>

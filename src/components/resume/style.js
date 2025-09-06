@@ -10,9 +10,9 @@ export const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #00000045; 
+background-color: rgba(0,0,0,0.27);
   backdrop-filter: blur(1px);     
-  z-index: 999; 
+  z-index: 2000; 
 `
 
 export const Main = styled.div`
@@ -29,8 +29,9 @@ align-items: start;
 gap: 40px;
 margin: auto;
 position: relative;
+top: 40px;
 overflow-y: auto;
-max-height: 80vh;
+max-height: 70vh;
 
 @media ${devices.tablet}{
 width: 80%;

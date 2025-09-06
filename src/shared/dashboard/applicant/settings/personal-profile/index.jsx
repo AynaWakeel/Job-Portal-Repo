@@ -115,6 +115,11 @@ const ApplicantPersonalProfile = () => {
                   </div>
                 </div>
               </div>
+
+               <div className='FormSpace'>
+                <label htmlFor='' className='Label'>Skill</label>
+                <input type="text" placeholder='Skill..' className='FormInput' />
+              </div>
               <div className='FormSpace'>
                 <label htmlFor='' className='Label'>Personal Website</label>
                 <input type="url" placeholder='Website' className='FormInput' />

@@ -50,7 +50,7 @@ const RecruiterOverview = () => {
           <div className='Tableheading'>
             <div><span>Job</span></div>
             <div className='TableFlex'>
-              <div><span>Applications</span></div>
+              <div><span>Update</span></div>
               <div><span>Status</span></div>
               <div><span>Active</span></div>
             </div>

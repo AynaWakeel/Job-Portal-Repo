@@ -55,8 +55,88 @@ padding-inline: 20px;
 }
 }
 
-`
+.Divide{
+    display: flex;
+    justify-content: start;
+    gap: 20px;
 
+    @media ${devices.tablet}{
+        flex-direction: column;
+    }
+
+     @media ${devices.mobile}{
+        flex-direction: column;
+    }
+}
+
+
+.SubHeading{
+    margin-top: 20px;
+    color: var(--dark-800);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--inter);
+    padding-bottom: 10px;
+
+    
+@media ${devices.tablet}{
+    font-size: 20px;
+
+}
+
+@media ${devices.mobile}{
+    font-size: 20px;
+}
+}
+`
+export const ProfilePic = styled.div`
+    width: 240px;
+    height: 240px;
+    padding-block: 30px;
+    padding-inline: 20px;
+    background-color: var(--gray-450);
+    border: 2px dashed var(--gray-350);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media ${devices.tablet}{
+    width: 100%;
+
+    }
+
+    @media ${devices.mobile}{
+    width: 100%;
+    }
+
+.center{
+    text-align: center;
+}
+
+.TopHeading{
+    color: var(--dark-800);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--inter);
+    padding-bottom: 6px;
+}
+
+.TopHeading span{
+    color: var(--gray-400);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
+.Para{
+    color: var(--gray-400);
+    font-size: 12px;
+    font-weight: 400;
+    font-family: var(--inter);
+
+}
+`
 
 export const Form = styled.div`
 width: 100%;

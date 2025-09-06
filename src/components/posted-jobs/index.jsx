@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { MainSec } from './style'
 import { ReactComponent as Close } from '../../assets/icons/XCircle.svg'
+import {ReactComponent as Eye} from '../../assets/icons/fi_eye.svg'
 import StatusClose from '../../assets/icons/XCircleRed.svg'
 import { RecentlyPostedJobs } from '../../helper/dummyData'
 import { useNavigate } from 'react-router'
@@ -45,9 +46,17 @@ const PostedJobs = ({ limit }) => {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div className='flex-col'>
                                     <div className='Activediv'>
                                         <span><img src={items.user} alt='icon' /></span>
                                         <span className='SubHeading'>{items.applications}</span>
+                                    </div>
+
+                                     <div className='Activediv'>
+                                        <span><Eye className='closeicon'/></span>
+                                        <span className='SubHeading'>800 Views</span>
+                                    </div>
                                     </div>
 
                                     {Expired ?
