@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router'
 import FindCandidates from '../../../shared/find-candidates/home'
 import Menubar from '../../../assets/icons/fi_menu.svg'
 import Close from '../../../assets/icons/fi_x.svg'
+import Chat from '../../../assets/icons/fi_message-circle.svg'
+
 
 const RecruiterNavbar = () => {
   const navigate = useNavigate()
@@ -21,6 +23,9 @@ const RecruiterNavbar = () => {
 
   const ProfilePage = () => {
     navigate('/recruiter/profile')
+  }
+   const Message = ()=>{
+    navigate('/recruiter/chat')
   }
 
   const [isActive, setIsActive] = useState('Find Candidates')
@@ -63,6 +68,7 @@ const RecruiterNavbar = () => {
         </NavbarNav>
         <div>
           <div className='Navright'>
+             <img src={Chat} alt='msg' onClick={Message}/>
             <img src={Notify} alt='notify' onClick={Notification} />
             <button type='button' onClick={Post} className='NavBtn'>Post a Job</button>
             <img src={Profile} alt='profile' onClick={ProfilePage} />

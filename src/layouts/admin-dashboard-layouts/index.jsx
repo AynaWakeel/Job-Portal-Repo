@@ -9,7 +9,7 @@ import { ReactComponent as Home } from '../../assets/icons/fi_home.svg'
 import { ReactComponent as Myjob } from '../../assets/icons/MyJobLogo.svg'
 import Menubar from '../../assets/icons/fi_menu.svg'
 import Close from '../../assets/icons/fi_x.svg'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import AdminNavbar from '../../components/navbar/admin'
 
 const AdminDashboardLayouts = ({ children }) => {
@@ -45,6 +45,10 @@ const AdminDashboardLayouts = ({ children }) => {
         navigate('/admin/dashboard/overview')
         setIsActive("View Analytics")
     }
+
+    const location = useLocation()
+    console.log(location,'here is location');
+    
 
 
     return (

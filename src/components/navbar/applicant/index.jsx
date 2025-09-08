@@ -5,6 +5,7 @@ import Menubar from '../../../assets/icons/fi_menu.svg'
 import Close from '../../../assets/icons/fi_x.svg'
 import Profile from '../../../assets/images/Ellipse 18.png'
 import Notify from '../../../assets/icons/BellRinging.svg'
+import Chat from '../../../assets/icons/fi_message-circle.svg'
 import { useNavigate } from 'react-router'
 
 const ApplicantNavbar = () => {
@@ -37,6 +38,9 @@ const ApplicantNavbar = () => {
   const ApplicanntProfile = ()=>{
     navigate('/applicant/profile')
   }
+  const Message = ()=>{
+    navigate('/applicant/chat')
+  }
   return (
     <div>
       <Navbar>
@@ -55,6 +59,7 @@ const ApplicantNavbar = () => {
         </NavbarNav>
         <div>
           <div className='Navright'>
+            <img src={Chat} alt='msg' onClick={Message}/>
             <img src={Notify} alt='notify' onClick={Notification}/>
             <img src={Profile} alt='profile' onClick={ApplicanntProfile}/>
           </div>

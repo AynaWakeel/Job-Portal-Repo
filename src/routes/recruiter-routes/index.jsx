@@ -6,6 +6,7 @@ import Support from '../../shared/support/navbar'
 import RecruiterProfile from '../../shared/dashboard/recruiter/profile'
 import FindCandidates from '../../shared/find-candidates/home'
 import ApplicantProfile from '../../shared/dashboard/applicant/profile'
+import ChatSystem from '../../components/chat-system/chat-sidebar'
 
 
 const RecruiterRoutes = () => {
@@ -15,6 +16,7 @@ const RecruiterRoutes = () => {
       <Routes>
         <Route path='/find-candidates' element={<FindCandidates/>}/>
         <Route path='/profile' element={<RecruiterProfile/>}/>
+        <Route path='/chat' element={<ChatSystem/>}/>
         <Route path='/applicant-profile' element={<ApplicantProfile/>}/>
         <Route path='/dashboard/*' element={<MainDashboardRoutes/>}/>
         <Route path='/support' element={<Support/>}/>
