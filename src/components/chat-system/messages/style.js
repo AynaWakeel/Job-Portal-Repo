@@ -1,85 +1,117 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import { devices } from "../../breakpoints";
 
 export const DmChat = styled.div`
-border-top-right-radius: 25px;
-background-color: #adb4e0ff;
-width: 100%;
-height: 86vh;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
+  border-top-right-radius: 25px;
+  background-color: #adb4e0;
+  width: 100%;
+  height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+
+.desktop {
+  display: flex;
+}
+
+.mobile {
+  display: none;
+  
+@media ${devices.mobile}{
+    display: flex !important;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 0px;
+  }
+}
 
 //------------top bar
-.bar{
-    border-bottom: 1px solid #DBDDE1;
-    padding-bottom: 18px;
-    position: relative;
-
+.bar {
+    /* border-bottom: 1px solid #dbdde1; */
+    padding-bottom: 8px;
 }
 
-.channelheader{
-    margin-top: 10px;
-    margin-left: 10px;
+.channelheader {
+    margin: 10px;
     display: flex;
-    justify-content: start;
     align-items: center;
     gap: 10px;
+  }
+
+.display {
+  display: none;
 }
 
-.Heading.active{
+.display {
+      @media ${devices.mobile} {
+    display: flex;
+  }
+}
+
+.color {
+    cursor: pointer;
+    color: var(--purple-600);
+}
+
+.Heading.active {
     color: var(--purple-200);
     font-size: 16px;
     font-weight: 500;
     font-family: var(--inter);
     line-height: 20px;
     padding-bottom: 5px;
-}
+  }
 
-.SubHeading.active{
+  .SubHeading.active {
     color: var(--purple-200);
     font-size: 14px;
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
-}
+  }
 
-//----------------- bottom bar
-.msgBar{
-    /* width: 100%; */
+  //----------------- bottom bar
+  .msgBar {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     gap: 8px;
-    margin-inline: 10px;
-    margin-bottom: 10px;
-    padding-top: 3px;
-}
+    margin: 0 10px 10px;
+  }
 
-.msginput{
-    width: 920px;
-    max-width: 950px;
-    border: 1px solid #DBDDE1;
+  .msginput {
+    min-width: 910px;
+    max-width: 920px;
+    border: 1px solid #dbdde1;
     background-color: var(--white-50);
     border-radius: 30px;
-    padding-block: 14px;
-    padding-inline: 20px;
+    padding: 14px 20px;
     outline: none;
     font-size: 15px;
     font-weight: 400;
     color: var(--purple-200);
     caret-color: var(--purple-300);
     font-family: var(--poppin);
-}
 
-.msginput::placeholder{
+    @media ${devices.mobile}{
+        min-width: 270px;
+        max-width: 300px;
+    }
+    @media ${devices.tablet}{
+        min-width: 380px;
+        max-width: 400px;
+    }
+  }
+
+  .msginput::placeholder {
     color: var(--gray-250);
     font-family: var(--poppin);
     font-weight: 400;
     font-size: 16px;
-}
+  }
 
-.circle{
+  .circle {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,145 +119,129 @@ justify-content: space-between;
     height: 50px;
     background-color: var(--purple-200);
     border-radius: 50%;
-}
+  }
 `
 
 export const MessageBox = styled.div`
-padding: 6px;
-display: flex;
-flex-direction: column;
-/* justify-content: space-between; */
-/* align-items: center; */
-height: 100vh;
-overflow-y: scroll;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
 
-.full-width{
+   &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--white-50);
+    border-radius: 10px;
+  }
+
+  .full-width {
     width: 100%;
-    display: block;
     padding-bottom: 14px;
-}
+    display: flex;
+    flex-direction: column;
+  }
 
-.flex-col-left{
-    float: left;
+  .flex-col-left {
+    align-self: flex-start;
     display: flex;
     flex-direction: column;
     gap: 5px;
-}
+  }
 
-
-.flex-col-right{
-    float: right;
+  .flex-col-right {
+    align-self: flex-end;
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
     gap: 5px;
-}
+  }
 
-.SubHeading{
+  .SubHeading {
     color: var(--purple-200);
     font-size: 14px;
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
-}
+  }
 
-.time{
+  .time {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     gap: 6px;
     align-items: center;
-}
+  }
 
-.color{
+  .color {
     color: var(--white-50);
-}
-
-.color.active{
+  }
+  .color.active {
     color: var(--purple-600);
-}
-
-.half-width{
-    width: 50%;
-
-}
-
+  }
 `
 
 export const ChatLeft = styled.div`
-min-width: 250px;
-max-width: 350px;
-padding: 10px;
-background-color: var(--white-50);
-border-top-left-radius: 20px;
-border-top-right-radius: 20px;
-border-bottom-right-radius: 20px;
-float: left;
+  min-width: 200px;
+  max-width: 350px;
+  padding: 10px;
+  background-color: var(--white-50);
+  border-radius: 20px 20px 20px 0;
 
+    @media ${devices.mobile}{
+        min-width: 180px; 
+        max-width: 250px;
+    }
 
-.SubHeading{
+  .SubHeading {
     color: var(--purple-200);
-    font-size: 14px;
-    font-weight: 400;
-    font-family: var(--inter);
-    line-height: 20px;
-}
+  }
 `
 
 export const ChatRight = styled.div`
-min-width: 250px;
-max-width: 350px;
-padding: 10px;
-background-color: var(--purple-200);
-border-top-left-radius: 20px;
-border-top-right-radius: 20px;
-border-bottom-left-radius: 20px;
-float: right;
+  min-width: 200px;
+  max-width: 350px;
+  padding: 10px;
+  background-color: var(--purple-200);
+  border-radius: 20px 20px 0 20px;
 
-.SubHeading{
+   @media ${devices.mobile}{
+        min-width: 180px; 
+        max-width: 250px;
+    }
+
+  .SubHeading {
     color: var(--white-50);
-    font-size: 14px;
-    font-weight: 400;
-    font-family: var(--inter);
-    line-height: 20px;
-}
+  }
 `
 
 export const Options = styled.div`
-position: absolute;
-bottom: 55px;
-background-color: #1D1F1F;
-border-radius: 12px;
+  position: absolute;
+  bottom: 55px;
+  background-color: #1d1f1f;
+  border-radius: 12px;
 
-.dropdown{
+  .dropdown {
     list-style: none;
-}
+    margin: 0;
+    padding: 0;
+  }
 
-.dropdown li{
-    text-decoration: none;
-    padding-block: 10px;
-    padding-inline: 28px;
+  .dropdown li {
+    padding: 10px 28px;
     color: var(--white-50);
     font-size: 14px;
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
-}
+    cursor: pointer;
+  }
 
-.dropdown li:hover{
+  .dropdown li:hover {
     background-color: var(--purple-50);
     color: var(--purple-600);
-}
-
+  }
 `
-
-
-// export const HiddenFileInput = styled.input.attrs({ type: 'file' })`
-//       opacity: 0;
-//       position: absolute;
-//       width: 1px;
-//       height: 1px;
-//       overflow: hidden;
-//       clip: rect(0, 0, 0, 0);
-//       white-space: nowrap;
-// `

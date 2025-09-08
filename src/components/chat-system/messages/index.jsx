@@ -1,21 +1,36 @@
-import React, { useState } from 'react'
-
+import React, { useRef, useState } from 'react'
+import {ReactComponent as ArrowLeft} from '../../../assets/icons/fi_arrow-left.svg'
 import profile from '../../../assets/images/Ellipse 18.png'
 import attach from '../../../assets/icons/attach.svg'
 import send from '../../../assets/icons/Send_Web.svg'
-import {ReactComponent as Tick} from '../../../assets/icons/Read status.svg'
+import { ReactComponent as Tick } from '../../../assets/icons/Read status.svg'
 import { ChatLeft, ChatRight, DmChat, MessageBox, Options } from './style'
-const Messages = () => {
-     const [isOpen,setIsOpen] = useState(false)
-        const Dropdown = ()=>{
-            setIsOpen(!isOpen)
+
+const Messages = ({onBack}) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const Dropdown = () => {
+        setIsOpen(!isOpen)
+    }
+
+    const docRef = useRef(null);
+    const photoRef = useRef(null);
+
+    const OpenFileInput = (type) => {
+        if (type === "document") {
+            docRef.current.click()
+        } else if (type === "photo") {
+            photoRef.current.click()
         }
+    }
     return (
         <div>
 
             <DmChat>
                 <div className='bar'>
                     <div className='channelheader'>
+                        <div className='display' onClick={onBack}>
+                            <ArrowLeft className='color'/>
+                        </div>
                         <div>
                             <img src={profile} alt='img' className='circle' />
                         </div>
@@ -156,9 +171,25 @@ const Messages = () => {
                 {isOpen &&
                     <Options>
                         <ul className='dropdown'>
-                            <li>Document</li>
-                            <li>Photos</li>
+                            <li onClick={() => OpenFileInput("document")}>Document</li>
+                            <li onClick={() => OpenFileInput("photo")}>Photos</li>
                         </ul>
+
+                        <input
+                            type='file'
+                            ref={photoRef}
+                            style={{ display: "none" }}
+                            accept='image/*'
+                            onChange={(e) => console.log("Selected document:")}
+                        />
+                        <input
+                            type="file"
+                            ref={docRef}
+                            style={{ display: "none" }}
+                            accept=".pdf,.doc,.docx,.txt"
+                            onChange={(e) => console.log("Selected document:")}
+                        />
+
                     </Options>
                 }
             </DmChat>
