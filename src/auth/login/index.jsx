@@ -21,6 +21,9 @@ const Login = () => {
     const ForgetPassword = () => {
         navigate('/auth/forget')
     }
+    const TwoFactor = () =>{
+        navigate('/auth/two-factor-authentication')
+    }
 
     const [isVisible, setIsVisible] = useState(false)
 
@@ -93,13 +96,14 @@ const Login = () => {
                             </span>
                             <span><a onClick={ForgetPassword} className='ForgetText'>Forgot Password?</a></span>
                         </ForgetDiv>
-                        <button type='submit' className='FormBtn'>Sign In</button>
+                        <button type='submit' className='FormBtn' onClick={TwoFactor}>Sign In</button>
 
                         <h5 className='OR'>OR</h5>
                         <SocialMediaDiv>
                             <button className='MediaBtn'>
                                 <img src={google} alt="icon" className='GoogleIcon' />
-                                Sign in with Google</button>                           
+                                Sign in with Google</button>
+                          
                         </SocialMediaDiv>
                     </Form>
 

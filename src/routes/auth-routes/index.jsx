@@ -6,6 +6,7 @@ import Otp from '../../auth/otp'
 import ForgetPassword from '../../auth/forget-password'
 import ResetPassword from '../../auth/reset-password'
 import AuthLayouts from '../../layouts/auth-layouts'
+import TwoFactorAuth from '../../auth/two-factor-auth'
 
 const AuthRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AuthRoutes = () => {
         <Route path='/' element={<Navigate to='/register'/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/two-factor-authentication' element={<TwoFactorAuth/>}/>
         <Route path='/otp' element={<Otp/>}/>
         <Route path='/forget' element={<ForgetPassword/>}/>
         <Route path='/reset' element={<ResetPassword/>}/>
