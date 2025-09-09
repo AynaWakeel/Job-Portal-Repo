@@ -11,9 +11,16 @@ import { ReactComponent as Global } from '../../../../assets/icons/GlobeSimple.s
 import { ReactComponent as Envelope } from '../../../../assets/icons/Envelope.svg'
 import { ReactComponent as Phone } from '../../../../assets/icons/phone-call-duotone 1.svg'
 import { ReactComponent as File } from '../../../../assets/icons/FileText.svg'
+import { useLocation } from 'react-router'
 
 
 const ApplicantProfile = () => {
+   const location = useLocation()
+
+   const ContentPage = ['/admin/dashboard/applicant-profile']
+    const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
+
+    console.log(location,'here is the location');
   return (
     <div>
 
@@ -125,6 +132,8 @@ const ApplicantProfile = () => {
               </div>
             </Box>
 
+           {!hideContent &&
+           
             <UploadPdf>
               <label className='center'>
                 <div><File className='IconColor' /></div>
@@ -135,6 +144,7 @@ const ApplicantProfile = () => {
                 </div>
               </label>
             </UploadPdf>
+           }
 
           </div>
         </div>

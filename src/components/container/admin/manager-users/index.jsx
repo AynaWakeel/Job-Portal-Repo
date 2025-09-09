@@ -16,7 +16,7 @@ const ManageUsers = () => {
 
   const navigate = useNavigate()
   const Profile = ()=>{
-    navigate('/admin/profile')
+    navigate('/admin/dashboard/applicant-profile')
   }
   return (
     <div>

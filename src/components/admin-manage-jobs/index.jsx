@@ -27,7 +27,7 @@ const ManageJobCards = () => {
 
     const navigate = useNavigate()
     const ViewDetails = () => {
-        navigate('/admin/job-detail')
+        navigate('/admin/dashboard/job-detail')
     }
 
     return (

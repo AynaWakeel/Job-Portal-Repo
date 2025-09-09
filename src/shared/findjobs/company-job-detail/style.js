@@ -15,15 +15,17 @@ align-items: start;
 gap: 40px;
 margin: auto;
 
+
     @media ${devices.tablet} {
-        padding-block: 50px;
+        padding-bottom: 50px;
         padding-inline: 40px;
     }
 
      @media ${devices.mobile} {
-        padding-block: 40px;
+        padding-bottom: 40px;
         padding-inline: 20px;
     }
+
 
 .Right-side{
     display: flex;

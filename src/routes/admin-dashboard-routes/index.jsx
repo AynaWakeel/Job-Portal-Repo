@@ -1,30 +1,35 @@
 import React from 'react'
 import { Route, Routes } from 'react-router'
-import ManageUsers from '../../shared/dashboard/admin/manager-users'
-import AdminOverview from '../../shared/dashboard/admin/overview'
-import ManageJobs from '../../shared/dashboard/admin/manage-jobs'
-import Managecategory from '../../shared/dashboard/admin/manage-category'
-import ManageCMS from '../../shared/dashboard/admin/manage-cms/cms'
-import UserAccounts from '../../shared/dashboard/admin/user-accounts'
+import ManageUsers from '../../components/container/admin/manager-users'
+import AdminOverview from '../../components/container/admin/overview'
+import ManageJobs from '../../components/container/admin/manage-jobs'
+import Managecategory from '../../components/container/admin/manage-category'
+import ManageCMS from '../../components/container/admin/manage-cms/cms'
+import UserAccounts from '../../components/container/admin/user-accounts'
 import AdminDashboardLayouts from '../../layouts/admin-dashboard-layouts'
-import AdminProfile from '../../shared/dashboard/admin/profile'
-import AdminNotification from '../../shared/dashboard/admin/notifications'
+import AdminProfile from '../../components/container/admin/profile'
+import AdminNotification from '../../components/container/admin/notifications'
+import CompanyJobDetail from '../../shared/findjobs/company-job-detail'
+import ApplicantProfile from '../../shared/dashboard/applicant/profile'
 
 const AdminDashboardRoutes = () => {
   return (
     <div>
-      
+
       <AdminDashboardLayouts>
-      <Routes>
-        <Route path='/profile' element={<AdminProfile/>}/>
-        <Route path='/notifications' element={<AdminNotification/>}/>
-        <Route path='/overview' element={<AdminOverview/>}/>
-        <Route path='/manage-users' element={<ManageUsers/>}/>
-        <Route path='/manage-jobs' element={<ManageJobs/>}/>
-        <Route path='/manage-category' element={<Managecategory/>}/>
-        <Route path='/manage-cms' element={<ManageCMS/>}/>
-        <Route path='/user-accounts' element={<UserAccounts/>}/>
-      </Routes>
+        <Routes>
+          <Route path='/profile' element={<AdminProfile />} />
+          <Route path='/notifications' element={<AdminNotification />} />
+          <Route path='/overview' element={<AdminOverview />} />
+          <Route path='/manage-users' element={<ManageUsers />} />
+          <Route path='/manage-jobs' element={<ManageJobs />} />
+          <Route path='/manage-category' element={<Managecategory />} />
+          <Route path='/manage-cms' element={<ManageCMS />} />
+          <Route path='/user-accounts' element={<UserAccounts />} />
+          {/* -------------- without sidebar -------------- */}
+          <Route path='/applicant-profile' element={<ApplicantProfile />} />
+          <Route path='/job-detail' element={<CompanyJobDetail />} />
+        </Routes>
       </AdminDashboardLayouts>
     </div>
   )

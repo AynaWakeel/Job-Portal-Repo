@@ -4,7 +4,6 @@ import AuthRoutes from '../routes/auth-routes'
 import ApplicantRoutes from '../routes/applicant-routes'
 import RecruiterRoutes from '../routes/recruiter-routes'
 import AdminDashboardRoutes from '../routes/admin-dashboard-routes'
-import AdminRoutes from '../routes/admin-routes'
 
 const AppRoutes = () => {
   return (
@@ -15,7 +14,6 @@ const AppRoutes = () => {
         <Route path='/applicant/*' element={<ApplicantRoutes/>}/>
         <Route path='/recruiter/*' element={<RecruiterRoutes/>}/>
         <Route path='/admin/dashboard*' element={<AdminDashboardRoutes/>}/>
-        <Route path='/admin/*' element={<AdminRoutes/>}/>
        </Routes>
     </div>
   )

@@ -43,7 +43,7 @@ const AdminNavbar = () => {
   }
 
   const ViewAnalytics = () => {
-    navigate('/admin/overview')
+    navigate('/admin/dashboard/overview')
     setIsActive("View Analytics")
   }
 

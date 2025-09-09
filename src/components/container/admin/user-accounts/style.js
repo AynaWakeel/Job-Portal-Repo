@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices } from "../../../../components/breakpoints";
+import { devices } from "../../../breakpoints";
 
 
 export const Main = styled.div`
@@ -24,18 +24,6 @@ padding-inline: 20px;
 }
 }
 
-.flex-box{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.flex{
-    display: flex;
-    justify-content: start;
-    gap: 10px;
-    align-items: center;
-}
 
 //------------- table
 .Table{
@@ -43,8 +31,6 @@ padding-inline: 20px;
     border-collapse: separate;
     border-spacing: 0 5px;
     border-radius: 14px;
-    margin-top: 20px;
-    overflow-x: auto;
 }
 
 //--------------- table head
@@ -56,7 +42,6 @@ padding-inline: 20px;
 }
 
 .Tabletop th{
-    /* border-radius: 4px; */
     padding-block: 10px;
     padding-inline: 10px;
     font-size: 12px;
@@ -64,7 +49,6 @@ padding-inline: 20px;
     font-family: var(--inter);
     color: #474C54;
     text-align: start;
-    /* width: 150px; */
 }
 
 .TableBody{
@@ -84,7 +68,7 @@ padding-inline: 20px;
 }
 
 .TableContent td:last-of-type{
-    width: 20px;
+    width: 70px;
     padding-block: 10px;
     padding-inline: 10px;
     font-size: 12px;
@@ -94,63 +78,28 @@ padding-inline: 20px;
     background-color: #F1F2F4;
 }
 
-.CardBtn{
+.Activediv{
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: start;
     gap: 6px;
-    padding-block: 10px;
-    padding-inline: 20px;
-    border: 1px solid var(--white-250);
-    border-radius: 3px;
-    color: var(--purple-600);
-    background-color: var(--purple-50);
-    font-size: 16px;
-    font-weight: 600;
-    font-family: var(--inter);
-    cursor: pointer;
+    align-items: center;
 }
 
-.CardBtn:hover{
-   background-color: var(--purple-600);
-   color: var(--white-50);
-}
-
-.position{
-     position: relative;
-     display: flex;
-     justify-content: end;
-     gap: 20px;
-}
-
-.dropdown{
-background-color: var(--purple-200);
-width: 100px;
-position: absolute;
-top: 5px;
-right: 120px;
-z-index: 10;
-}
-
-.dropdown ul{
-    list-style: none;
-}
-
-.dropdown li{
-    padding-inline: 14px;
-    padding-block: 8px;
-    font-size: 12px;
+.Active{
+    color: #0BA02C;
+    font-size: 14px;
     font-weight: 400;
     font-family: var(--inter);
-    color: var(--white-50);
-    /* padding-block: 5px; */
-    text-align: center;
-    border-top: 1px solid #e0e0e0ff;
+    line-height: 20px;
 }
 
-.dropdown li:hover{
-    background-color: var(--purple-50);
-    color: var(--purple-600);
+
+.red{
+    color: #E05151;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
 }
 
 `

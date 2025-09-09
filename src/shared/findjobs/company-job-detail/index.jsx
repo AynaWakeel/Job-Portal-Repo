@@ -17,12 +17,20 @@ import { ReactComponent as Social3 } from '../../../assets/icons/social-media3.s
 import { ReactComponent as Social4 } from '../../../assets/icons/linkedin.svg'
 import ApplyModal from '../../../components/apply-job-modal'
 import Company from '../../../assets/images/Logo.png'
+import { useLocation } from 'react-router'
 
 const CompanyJobDetail = () => {
     const [isModalOpen,setIsModalOpen] = useState(false)
     const PopupModal = () =>{
         setIsModalOpen(!isModalOpen)
     }
+
+     const location = useLocation()
+    
+    const ContentPage = ['/admin/dashboard/job-detail']
+    const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
+
+    console.log(location,'here is the location');
 
     return (
         <div>
@@ -36,7 +44,9 @@ const CompanyJobDetail = () => {
                             <div className='detail-flex'>
                                 <h2 className='Name'>Senior UX Designer</h2>
                                 <span className='Badge'>Full Time</span>
-                                <span className='match'>40%</span>
+                                {!hideContent &&
+                                <span className='match'>40%</span>                                
+                                }
                             </div>
                             <div className='detail-flex'>
                                 <div className='sub-flex'>
@@ -55,6 +65,7 @@ const CompanyJobDetail = () => {
                         </div>
                     </div>
                     <div className='profile-flex-col'>
+                        {!hideContent &&
                         <div className='Right-side'>
                             <span className='Box'><FavIcon className='Color' /></span>
                             <button className='CardBtn' onClick={PopupModal}>
@@ -64,7 +75,8 @@ const CompanyJobDetail = () => {
                             {isModalOpen &&
                             <ApplyModal onClose={()=>setIsModalOpen(false)}/>
                             }
-                        </div>
+                        </div>                        
+                        }
                         <div className='status-side'>
                             <h4 className='Title'>Job expire in:</h4>
                             <h4 className='status'>June 30, 2021</h4>
