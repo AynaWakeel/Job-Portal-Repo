@@ -190,6 +190,13 @@ export const MessageBox = styled.div`
   margin-bottom: 0px;
 }
 
+.chat-bubble img {
+  max-width: 300px;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
 /* -------- 1st msg-------- */
 .chat-bubble.sender.first {
   border-radius: 20px; 
@@ -206,6 +213,51 @@ export const MessageBox = styled.div`
   border-radius: 20px 20px 20px 0; 
 }
 
+//---------------- file chat
+.file-div{
+  width: 220px;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: start;
+}
+
+.fileInput{
+  width: 220px;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+}
+
+.fileInput img{
+  width: 40px;
+}
+
+.file-txt-flex{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 5px;
+  align-items: start;
+}
+
+
+
+.filename{
+    font-size: 15px;
+    font-weight: 500;
+    font-family: var(--inter);
+    line-height: 20px;
+}
+
+.filesize{
+    font-size: 13px;
+    font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
+}
+
 `
 
 export const ChatLeft = styled.div`
@@ -213,8 +265,8 @@ export const ChatLeft = styled.div`
   max-width: 350px;
   padding: 10px;
   background-color: var(--white-50);
-  word-wrap: break-word;
-  overflow-wrap: anywhere;
+  /* word-wrap: break-word; */
+  /* overflow-wrap: anywhere; */
 
     @media ${devices.mobile}{
         max-width: 250px;
@@ -230,8 +282,8 @@ export const ChatRight = styled.div`
   max-width: 350px;
   padding: 10px;
   background-color: var(--purple-200);
-  word-wrap: break-word; 
-  overflow-wrap: anywhere;
+  /* word-wrap: break-word;  */
+  /* overflow-wrap: anywhere; */
 
    @media ${devices.mobile}{
         max-width: 250px;

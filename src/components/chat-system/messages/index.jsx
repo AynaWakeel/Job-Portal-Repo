@@ -4,6 +4,10 @@ import profile from '../../../assets/images/Ellipse 18.png'
 import attach from '../../../assets/icons/attach.svg'
 import send from '../../../assets/icons/Send_Web.svg'
 import { ReactComponent as Tick } from '../../../assets/icons/Read status.svg'
+import Image1 from '../../../assets/images/Image1.png'
+import FileIconPdf from '../../../assets/icons/Filetype example.svg'
+import FileIconXl from '../../../assets/images/Filetype2.png'
+import download from '../../../assets/icons/download.svg'
 import { ChatLeft, ChatRight, DmChat, MessageBox, Options } from './style'
 
 const Messages = ({ onBack }) => {
@@ -19,7 +23,9 @@ const Messages = ({ onBack }) => {
         { id: 9, user: "sender", text: "great", time: "9.20 AM", status: "read" },
         { id: 10, user: "sender", text: "send me..", time: "9.20 AM", status: "read" },
         { id: 11, user: "receiver", text: "what have you done, show me?", time: "9.25 AM" },
-        { id: 12, user: "sender", text: "Another reply.", time: "9.30 AM", status: "delivered" },
+        { id: 12, user: "sender", pic: Image1, text: "Another photo from me.......", time: "9.30 AM", status: "delivered" },
+        { id: 13, user: "receiver", fileName: 'Film Script', filetype: '.pdf', fileSize: '2 MB', time: "9.11 AM" },
+        { id: 13, user: "receiver", fileName: 'Xl file', filetype: '.xlsx', fileSize: '3 MB', time: "9.11 AM" },
     ];
 
 
@@ -72,11 +78,42 @@ const Messages = ({ onBack }) => {
 
                         return (
                             <div key={msg.id} className="full-width">
-                                <div className={wrapperClass}>                               
+                                <div className={wrapperClass}>
 
                                     <Bubble
                                         className={`chat-bubble ${msg.user} ${isFirstOfGroup ? "first" : ""} ${isLastOfGroup ? "last" : ""}`}>
-                                        <p className="SubHeading">{msg.text}</p>
+                                        {msg.pic && (
+                                            <div className="chat-image">
+                                                <img src={msg.pic} alt="chat-img" />
+                                            </div>
+                                        )}
+
+                                        {msg.text && (
+                                            <p className="SubHeading">{msg.text}</p>
+                                        )}
+
+                                        {msg.fileName && !msg.text &&
+                                            <div className='fileInput'>
+                                                <div className='file-div'>
+                                                    {msg.filetype === '.pdf' ?
+                                                    
+                                                     ( <img src={FileIconPdf} alt='icon' />)
+                                                     :
+                                                     (  <img src={FileIconXl} alt='icon' />)
+                                                     
+                                                    }
+                                                    
+                                                    <div className='file-txt-flex'>
+                                                        <h5 className='filename'>
+                                                            {msg.fileName}
+                                                            <span>{msg.filetype}</span>
+                                                        </h5>
+                                                        <p className='filesize'>{msg.fileSize}</p>
+                                                    </div>
+                                                </div>
+                                                <span> <img src={download} alt='icon' /></span>
+                                            </div>
+                                        }
                                     </Bubble>
 
                                     {isLastOfGroup && (
