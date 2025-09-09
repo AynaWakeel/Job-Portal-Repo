@@ -6,8 +6,10 @@ import send from '../../../assets/icons/Send_Web.svg'
 import { ReactComponent as Tick } from '../../../assets/icons/Read status.svg'
 import Image1 from '../../../assets/images/Image1.png'
 import FileIconPdf from '../../../assets/icons/Filetype example.svg'
-import FileIconXl from '../../../assets/images/Filetype2.png'
+import FileIconXl from '../../../assets/icons/Filetype example1.svg'
 import download from '../../../assets/icons/download.svg'
+import close from '../../../assets/icons/x-button.svg'
+import DownloadPic from '../../../assets/icons/download-button.svg'
 import { ChatLeft, ChatRight, DmChat, MessageBox, Options } from './style'
 
 const Messages = ({ onBack }) => {
@@ -21,13 +23,21 @@ const Messages = ({ onBack }) => {
         { id: 7, user: "sender", text: " reply me", time: "9.30 AM", status: "read" },
         { id: 8, user: "receiver", text: "i am fine", time: "9.11 AM" },
         { id: 9, user: "sender", text: "great", time: "9.20 AM", status: "read" },
+        { id: 9, user: "sender", text: "great", time: "9.20 AM", status: "read" },
         { id: 10, user: "sender", text: "send me..", time: "9.20 AM", status: "read" },
         { id: 11, user: "receiver", text: "what have you done, show me?", time: "9.25 AM" },
-        { id: 12, user: "sender", pic: Image1, text: "Another photo from me.......", time: "9.30 AM", status: "delivered" },
+        { id: 12, user: "sender", pic: [Image1], text: "Another photo from me.......", time: "9.30 AM", status: "delivered" },
         { id: 13, user: "receiver", fileName: 'Film Script', filetype: '.pdf', fileSize: '2 MB', time: "9.11 AM" },
-        { id: 13, user: "receiver", fileName: 'Xl file', filetype: '.xlsx', fileSize: '3 MB', time: "9.11 AM" },
+        { id: 14, user: "receiver", fileName: 'Xl file', filetype: '.xlsx', fileSize: '3 MB', time: "9.11 AM" },
+        { id: 15, user: "sender", fileName: 'Film Script', filetype: '.pdf', fileSize: '2 MB', time: "9.11 AM" },
+        { id: 16, user: "sender", fileName: 'Xl file', filetype: '.xlsx', fileSize: '3 MB', time: "9.11 AM" },
+        { id: 17, user: "sender", pic: [Image1, Image1,Image1, Image1,Image1, Image1], time: "9.30 AM", status: "delivered" },
     ];
 
+    const [isGalleryOpen,setIsGalleryOpen] = useState(false)
+    const Gallery = ()=>{
+        setIsGalleryOpen(!isGalleryOpen)
+    }
 
     const [isOpen, setIsOpen] = useState(false)
     const Dropdown = () => {
@@ -68,9 +78,11 @@ const Messages = ({ onBack }) => {
 
                     {msgs.map((msg, i) => {
                         const prev = msgs[i - 1];
+                        const mid = msgs[i];
                         const next = msgs[i + 1];
 
                         const isFirstOfGroup = !prev || prev.user !== msg.user;
+                        const isMidOfGroup = !mid || mid.user !== msg.user;
                         const isLastOfGroup = !next || next.user !== msg.user;
 
                         const Bubble = msg.user === "receiver" ? ChatLeft : ChatRight;
@@ -81,38 +93,66 @@ const Messages = ({ onBack }) => {
                                 <div className={wrapperClass}>
 
                                     <Bubble
-                                        className={`chat-bubble ${msg.user} ${isFirstOfGroup ? "first" : ""} ${isLastOfGroup ? "last" : ""}`}>
-                                        {msg.pic && (
-                                            <div className="chat-image">
-                                                <img src={msg.pic} alt="chat-img" />
-                                            </div>
-                                        )}
+                                        className={`chat-bubble ${msg.user} ${isFirstOfGroup ? "first" : ""}  ${msg.user} ${isMidOfGroup ? "first" : ""} ${isLastOfGroup ? "last" : ""}`}>
 
-                                        {msg.text && (
-                                            <p className="SubHeading">{msg.text}</p>
-                                        )}
 
-                                        {msg.fileName && !msg.text &&
-                                            <div className='fileInput'>
+                                        {msg.fileName ?
+                                            (<div className='fileInput'>
                                                 <div className='file-div'>
                                                     {msg.filetype === '.pdf' ?
-                                                    
-                                                     ( <img src={FileIconPdf} alt='icon' />)
-                                                     :
-                                                     (  <img src={FileIconXl} alt='icon' />)
-                                                     
+
+                                                        (<img src={FileIconPdf} alt='icon' />)
+                                                        :
+                                                        (<img src={FileIconXl} alt='icon' />)
+
                                                     }
-                                                    
+
                                                     <div className='file-txt-flex'>
-                                                        <h5 className='filename'>
+                                                        <h5 className={`filename ${msg.user === "sender" ? "right" : ""}`}>
                                                             {msg.fileName}
                                                             <span>{msg.filetype}</span>
                                                         </h5>
-                                                        <p className='filesize'>{msg.fileSize}</p>
+                                                        <p className={`filesize ${msg.user === "sender" ? "right" : ""}`}>{msg.fileSize}</p>
                                                     </div>
                                                 </div>
                                                 <span> <img src={download} alt='icon' /></span>
-                                            </div>
+                                            </div>)
+                                            :
+                                            (
+                                                <>
+                                                    {msg.pic && msg.pic.length > 0 && (
+                                                        <div className="chat-image">
+                                                            <img src={msg.pic[0]} alt="chat-img" className="chat-img" onClick={Gallery}/>
+
+                                                            {msg.pic.length > 1 && (
+                                                                <div className="pic-overlay">+{msg.pic.length - 1}</div>
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                    
+                                                    {isGalleryOpen &&
+                                                    <div>
+                                                        <div className='flex'>
+                                                            <img src={DownloadPic} alt="close" className="download-icon"/>
+                                                            <img src={close} alt="close" className="close-icon" onClick={Gallery}/>
+                                                        </div>
+                                                        <div><img src={msg.pic} alt="chat-img" className="chat-img" /></div>
+                                                    </div>
+                                                    
+                                                    }
+
+                                                    {/* {msg.pic && (
+                                                        <div className="chat-image">
+                                                            <img src={msg.pic} alt="img" className='chat-img'/>
+                                                            <div className='pic-overlay'>+2</div>
+                                                        </div>
+                                                    )} */}
+
+                                                    {msg.text && (
+                                                        <p className="SubHeading">{msg.text}</p>
+                                                    )}
+                                                </>
+                                            )
                                         }
                                     </Bubble>
 

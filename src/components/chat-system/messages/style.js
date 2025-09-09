@@ -190,11 +190,38 @@ export const MessageBox = styled.div`
   margin-bottom: 0px;
 }
 
-.chat-bubble img {
-  max-width: 300px;
-  border-radius: 10px;
+.chat-image{
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.pic-overlay{
+  position: absolute;
+ top: 0px;
+ display: flex;
+ justify-content: end;
+ align-items: center;
+  color: var(--white-50);
   width: 100%;
+  padding: 10px;
+  /* background: rgba(0,0,0,0.5); */
+   font-size: 25px;
+    font-weight: 500;
+    font-family: var(--inter);
+    line-height: 20px;
+
+}
+
+.chat-image img {
+position: relative;
+  width: 280px;
+  border-radius: 10px;
   margin-bottom: 5px;
+
+  @media ${devices.mobile}{
+    width: 200px;
+  }
 }
 
 /* -------- 1st msg-------- */
@@ -203,6 +230,10 @@ export const MessageBox = styled.div`
 }
 .chat-bubble.receiver.first {
   border-radius: 20px; 
+
+}
+.chat-bubble.receiver:not(.first):not(.last){
+  border-radius: 16px;
 }
 
 /* -------- last msg-------- */
@@ -213,6 +244,18 @@ export const MessageBox = styled.div`
   border-radius: 20px 20px 20px 0; 
 }
 
+.chat-bubble.sender:not(.first):not(.last) {
+  border-radius: 16px; 
+}
+
+//------------------- phoyo galley
+.flex{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 4px;
+}
+
 //---------------- file chat
 .file-div{
   width: 220px;
@@ -220,10 +263,13 @@ export const MessageBox = styled.div`
   justify-content: start;
   gap: 10px;
   align-items: start;
+
+  @media ${devices.mobile}{
+    width: 150px;
+  }
 }
 
 .fileInput{
-  width: 220px;
   display: flex;
   justify-content: space-between;
   gap: 18px;
@@ -242,8 +288,6 @@ export const MessageBox = styled.div`
   align-items: start;
 }
 
-
-
 .filename{
     font-size: 15px;
     font-weight: 500;
@@ -256,6 +300,22 @@ export const MessageBox = styled.div`
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
+}
+
+.filename.right{
+    font-size: 15px;
+    font-weight: 500;
+    font-family: var(--inter);
+    line-height: 20px;
+    color: var(--white-50);
+}
+
+.filesize.right{
+    font-size: 13px;
+    font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
+    color: var(--white-50);
 }
 
 `
