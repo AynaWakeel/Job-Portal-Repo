@@ -142,7 +142,7 @@ export const MessageBox = styled.div`
 
   .full-width {
     width: 100%;
-    padding-bottom: 14px;
+    /* padding-bottom: 14px; */
     display: flex;
     flex-direction: column;
   }
@@ -152,14 +152,16 @@ export const MessageBox = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
+    margin-bottom: 5px;
   }
 
   .flex-col-right {
     align-self: flex-end;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
     gap: 5px;
+    align-items: flex-end;
+    margin-bottom: 5px;
   }
 
   .SubHeading {
@@ -182,17 +184,39 @@ export const MessageBox = styled.div`
   .color.active {
     color: var(--purple-600);
   }
+
+//---------
+.chat-bubble {
+  margin-bottom: 0px;
+}
+
+/* -------- 1st msg-------- */
+.chat-bubble.sender.first {
+  border-radius: 20px; 
+}
+.chat-bubble.receiver.first {
+  border-radius: 20px; 
+}
+
+/* -------- last msg-------- */
+.chat-bubble.sender.last {
+  border-radius: 20px 20px 0 20px; 
+}
+.chat-bubble.receiver.last {
+  border-radius: 20px 20px 20px 0; 
+}
+
 `
 
 export const ChatLeft = styled.div`
-  min-width: 200px;
+ display: inline-block;
   max-width: 350px;
   padding: 10px;
   background-color: var(--white-50);
-  border-radius: 20px 20px 20px 0;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
 
     @media ${devices.mobile}{
-        min-width: 180px; 
         max-width: 250px;
     }
 
@@ -202,14 +226,14 @@ export const ChatLeft = styled.div`
 `
 
 export const ChatRight = styled.div`
-  min-width: 200px;
+ display: inline-block;
   max-width: 350px;
   padding: 10px;
   background-color: var(--purple-200);
-  border-radius: 20px 20px 0 20px;
+  word-wrap: break-word; 
+  overflow-wrap: anywhere;
 
    @media ${devices.mobile}{
-        min-width: 180px; 
         max-width: 250px;
     }
 
