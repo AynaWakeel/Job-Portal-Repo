@@ -2,9 +2,17 @@ import React, { useState } from 'react'
 import { Form, FormDiv, SocialMediaDiv, TextDiv } from './style'
 import google from '../../assets/icons/google-icon.svg'
 import { useNavigate } from 'react-router'
+import { useForm } from 'react-hook-form'
 
 const ForgetPassword = () => {
-    // const [email,setEmail] = useState('')
+
+    const {
+        register,
+        handleSubmit,
+        formState : {errors},      
+    } = useForm()
+     const onSubmit = (data)=> console.log(data)
+
     const navigate = useNavigate()
     const Register = () => {
         navigate('/auth/register')
@@ -31,14 +39,23 @@ const ForgetPassword = () => {
                         <span className='Text'>Dont have an account? </span>
                         <span><a onClick={Register} className='Ahref'>Create Account</a></span>
                     </TextDiv>
+
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
                     <Form>
                         <div className='FormSpace'>
                             <input type="email" placeholder='Email' className='FormInput'
+                            {...register("email",{required:"Enter your email"})}
                             // value={email} onChange={(e)=>e.target.value}
                             />
                         </div>
+                        <div className='FormError'>
+                            {errors.email && <span>This field is req.</span>}
+                        </div>
 
-                        <button type='submit' onClick={ResetPassword} className='FormBtn'>Reset password</button>
+                        <button type='submit' 
+                        // onClick={ResetPassword} 
+                        className='FormBtn'>Reset password</button>
 
                         <h5 className='OR'>OR</h5>
                         <SocialMediaDiv>
@@ -47,6 +64,7 @@ const ForgetPassword = () => {
                                 Sign in with Google</button>                         
                         </SocialMediaDiv>
                     </Form>
+                    </form>
 
                 </div>
             </FormDiv>

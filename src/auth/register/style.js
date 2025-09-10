@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { devices } from "../../components/breakpoints"
 
 export const FormDiv = styled.div`
 background-color: var(--purple-70);
@@ -7,12 +8,12 @@ padding: 30px;
 margin: auto;
 
 
-    @media (max-width: 900px) {
+    @media ${devices.tablet}{
     width: 550px;
     background-color: var(--purple-10);
     }
     
-    @media (max-width: 600px){
+    @media ${devices.mobile}{
     max-width: 380px;
     min-width: 350px;
     padding: 15px;
@@ -27,11 +28,11 @@ margin: auto;
     color: var(--purple-200);
     text-align: start;
 
-    @media (max-width: 900px) {
+    @media ${devices.tablet}{
     color: var(--purple-50);
     }
     
-    @media (max-width: 600px){
+    @media ${devices.mobile}{
     color: var(--purple-50);
     }
 }
@@ -43,6 +44,23 @@ margin-inline: auto;
 
 .FormSpace{
    padding-block: 5px;
+}
+
+.FormError{
+    padding-bottom: 10px;
+    color: #e43f3fff;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--poppin); 
+    text-align: start;
+
+    @media ${devices.tablet} {
+       color: #d14242ff;  
+    }
+     
+    @media ${devices.mobile}{
+    color: #d14242ff;  
+    }
 }
 
 .FormInputDivide{
@@ -57,7 +75,7 @@ margin-inline: auto;
     border: 1px solid var(--white-200);
     border-radius: 4px;
     padding-block: 16px;
-    padding-inline: 20px;
+    padding-inline: 30px;
     font-size: 15px;
     font-weight: 400;
     width: 100%;
@@ -153,11 +171,11 @@ font-family: var(--sans);
 .Text{
     color: var(--purple-200);
 
-    @media (max-width: 900px) {
+    @media ${devices.tablet}{
     color: var(--white-300);
     }
     
-    @media (max-width: 600px){
+    @media ${devices.mobile}{
      color: var(--white-300);
     }
 }
@@ -167,12 +185,12 @@ font-family: var(--sans);
     text-decoration: none;
     cursor: pointer;
     
-    @media (max-width: 900px) {
+    @media ${devices.tablet}{
     color: var(--purple-600);
     font-weight: 600;
     }
     
-    @media (max-width: 600px){
+    @media ${devices.mobile}{
      color: var(--purple-600);
     font-weight: 600;
     }
@@ -194,11 +212,11 @@ padding-block: 10px;
     gap: 8px;
      color: var(--purple-200);
 
-    @media (max-width: 900px) {
+    @media ${devices.tablet} {
     color: var(--white-300);
     }
     
-    @media (max-width: 600px){
+    @media ${devices.mobile}{
      color: var(--white-300);
     }
 }

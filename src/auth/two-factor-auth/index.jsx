@@ -1,8 +1,17 @@
 import React from 'react'
 import { FormDiv, QrForm } from './style'
 import ScanCode from '../../components/qrcode'
+import { useForm } from 'react-hook-form'
 
 const TwoFactorAuth = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm()
+
+    const onSubmit = (data) => console.log(data)
+
     return (
         <div>
 
@@ -15,18 +24,27 @@ const TwoFactorAuth = () => {
                             <ScanCode />
                         </div>
                     </div>
-                    <QrForm>
-                        <div className='Formdiv'>
-                            <div className='flex-col'>
-                                {/* <label htmlFor='' className='Label'>Code</label> */}
-                                <input type="" placeholder='Code' className='qrInput' />
-                                <button type='submit' className='Btn'>Enter</button>
 
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
+
+                        <QrForm>
+                            <div className='Formdiv'>
+                                <div className='flex-col'>
+                                    {/* <label htmlFor='' className='Label'>Code</label> */}
+                                    <input type="" placeholder='Code' className='qrInput'
+                                        {...register("code", { required: 'enter your password' })} />
+                                    <div className='FormError'>
+                                        {errors.code && <span>Code is required</span>}
+                                    </div>
+
+                                    <button type='submit' className='Btn'>Enter</button>
+
+                                </div>
                             </div>
-                        </div>
 
-                    </QrForm>
-
+                        </QrForm>
+                    </form>
                 </div>
             </FormDiv>
 

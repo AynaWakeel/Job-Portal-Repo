@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { devices } from "../../components/breakpoints"
 
 export const FormDiv = styled.div`
 background-color: var(--purple-70);
@@ -7,12 +8,12 @@ padding: 30px;
 margin: auto;
 
 
-    @media (max-width: 900px) {
+    @media ${devices.tablet}{
     width: 550px;
     background-color: var(--purple-10);
     }
     
-    @media (max-width: 600px){
+    @media ${devices.mobile}{
     max-width: 380px;
     min-width: 350px;
     padding: 15px;
@@ -26,11 +27,11 @@ margin: auto;
     color: var(--purple-200);
     text-align: start;
 
-    @media (max-width: 900px) {
+    @media ${devices.tablet} {
     color: var(--purple-50);
     }
     
-    @media (max-width: 600px){
+    @media ${devices.mobile}{
     color: var(--purple-50);
     }
 }
@@ -57,14 +58,22 @@ margin: auto;
 
 export const QrForm = styled.div`
 
+.FormError{
+    padding-bottom: 10px;
+    color: #e43f3fff;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--poppin); 
+    text-align: start;
 
-/* .Formdiv{
-   padding-block: 10px;
-   display: flex;
-   flex-direction: column;
-   justify-content: start;
-   align-items: start;
-} */
+    @media ${devices.tablet} {
+       color: #d14242ff;  
+    }
+     
+    @media ${devices.mobile}{
+    color: #d14242ff;  
+    }
+}
 
 .flex-col{
    padding-block: 10px;
