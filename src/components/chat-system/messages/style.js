@@ -120,6 +120,87 @@ export const DmChat = styled.div`
     background-color: var(--purple-200);
     border-radius: 50%;
   }
+
+//---------- gallery img
+/* .gallery-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;        
+  width: 100vw;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.gallery-header {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.close-icon,
+.download-icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+}
+
+.gallery-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-body img {
+  max-height: 95vh;   
+  max-width: 95vw;   
+  width: auto;
+  height: auto;
+  object-fit: contain;
+} */
+
+
+.gallery-div{
+  position: fixed;
+  height: 88%;
+  width: 68%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.gallery-header{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+/* .gallery-body img{
+  width: 40vw;
+} */
+
+.gallery-body img {
+  max-height: 60vh;   /* image will be 60% of screen height */
+  max-width: 90vw;    /* prevent overflow on small screens */
+  width: auto;        /* keep natural aspect ratio */
+  height: auto;       /* keep natural aspect ratio */
+  object-fit: contain; /* prevent stretching */
+}
+
+
 `
 
 export const MessageBox = styled.div`
@@ -184,6 +265,8 @@ export const MessageBox = styled.div`
   .color.active {
     color: var(--purple-600);
   }
+//------
+
 
 //---------
 .chat-bubble {
