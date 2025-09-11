@@ -3,6 +3,7 @@ import { Form, FormDiv, SocialMediaDiv, TextDiv } from './style'
 import google from '../../assets/icons/google-icon.svg'
 import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
+import UseAuth from '../useAuth'
 
 const ForgetPassword = () => {
 
@@ -11,7 +12,12 @@ const ForgetPassword = () => {
         handleSubmit,
         formState : {errors},      
     } = useForm()
-     const onSubmit = (data)=> console.log(data)
+
+    const {forget_password} = UseAuth()
+
+     const onSubmit = (data)=> {
+        forget_password(data)
+    }
 
     const navigate = useNavigate()
     const Register = () => {
@@ -46,7 +52,6 @@ const ForgetPassword = () => {
                         <div className='FormSpace'>
                             <input type="email" placeholder='Email' className='FormInput'
                             {...register("email",{required:"Enter your email"})}
-                            // value={email} onChange={(e)=>e.target.value}
                             />
                         </div>
                         <div className='FormError'>

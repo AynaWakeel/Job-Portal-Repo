@@ -13,6 +13,7 @@ const UseAuth = () => {
 
         const { sucess, message, user } = response
         if (sucess) {
+            localStorage.setItem('token',response.token)
             // alert(message);
 
             if (user.role === ROLE.RECRUITER) {
@@ -31,17 +32,16 @@ const UseAuth = () => {
     }
 
 
-    const logout = async () => {
+    const logout = async (body) => {
 
-        const response = await ApiEndPoints.logout()
+        const response = await ApiEndPoints.logout(body)
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-
+        
         const { sucess, message } = response
         if (sucess) {
             alert(message);
-
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
             navigate('/auth/login');
 
         } else {
@@ -65,11 +65,54 @@ const UseAuth = () => {
 
     }
 
+     const verify_otp = async (body) => {
+
+        const response = await ApiEndPoints.otp(body)
+
+        const { sucess, message } = response
+        if (sucess) {
+            alert(message);
+
+        } else {
+            alert(message);
+        }
+
+    }
+
+
+    const forget_password = async (body) => {
+
+        const response = await ApiEndPoints.forget_password(body)
+
+        const { sucess, message } = response
+        if (sucess) {
+            alert(message);
+            navigate('/auth/reset');
+
+        } else {
+            alert(message);
+        }
+
+    }
+
+    const reset_password = async (body) => {
+
+        const response = await ApiEndPoints.reset_password(body)
+
+        const { sucess, message } = response
+        if (sucess) {
+            alert(message);
+
+        } else {
+            alert(message);
+        }
+
+    }
 
 
 
 
-    return { login, logout, signup }
+    return { login, logout, signup , verify_otp, forget_password ,reset_password}
 }
 
 export default UseAuth

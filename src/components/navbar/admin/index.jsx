@@ -19,6 +19,16 @@ const AdminNavbar = () => {
   const navigate = useNavigate()
   const {logout} = UseAuth()
 
+
+  const onLogout =()=>{
+   const Logout_var = localStorage.getItem("token")
+    console.log("logout", Logout_var)
+    const body = {
+      token : Logout_var
+    }
+    logout(body)
+  }
+
   const ManageUser = () => {
     navigate('/admin/dashboard/manage-users')
     setIsActive("Manage Users")
@@ -120,7 +130,7 @@ const AdminNavbar = () => {
 
               <div className='logout'>
                 <img src={Notify} alt='profile' />
-                <button type='button' className='NavBtn' onClick={logout}>Logout</button>
+                <button type='button' className='NavBtn' onClick={onLogout}>Logout</button>
               </div>
             </MobileSidebar>
 
@@ -142,7 +152,7 @@ const AdminNavbar = () => {
           <Menu>
               <ul className='Navlinks'>
                 <li><a onClick={AdminProfile}>Profile</a></li>
-                <li><a onClick={logout}>Logout</a></li>
+                <li><a onClick={onLogout}>Logout</a></li>
               </ul>
           </Menu>
         }

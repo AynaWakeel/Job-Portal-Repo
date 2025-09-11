@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Form, FormDiv, TextDiv } from './style'
 import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
+import UseAuth from '../useAuth'
 
 const Otp = () => {
-    // const [otp,setOtp] = useState('')
 
     const navigate = useNavigate()
     const Login = () => {
@@ -17,7 +17,11 @@ const Otp = () => {
         formState : {errors},
     } = useForm()
 
-    const onSubmit = (data)=> console.log(data)
+    const {verify_otp} = UseAuth()
+
+    const onSubmit = (data)=>{ 
+        verify_otp(data)
+    }
 
     return (
         <div>
@@ -30,12 +34,12 @@ const Otp = () => {
                     <Form>
                         <div className='FormSpace'>
                             <input type="text" placeholder='Verification Code' className='FormInput'
-                            {...register("VerificationCode",{required:"Enter your Verification Code"})}
-                            // value={otp} onChange={(e)=>e.target.value}
+                            {...register("otpCode",{required:"Enter your Verification Code"})}
+                            // value={otp} 
                             />
                         </div>
                         <div className='FormError'>
-                            {errors.VerificationCode && <span>This field is req.</span>}
+                            {errors.otpCode && <span>This field is req.</span>}
                         </div>
 
                         <button type='submit' 

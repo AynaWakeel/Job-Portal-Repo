@@ -19,7 +19,6 @@ const Login = () => {
 
     const onSubmit = (data)=>{
         login(data)
-    
     }
 
     const Register = () => {
