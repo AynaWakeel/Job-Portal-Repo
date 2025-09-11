@@ -7,11 +7,14 @@ import Profile from '../../../assets/images/Ellipse 18.png'
 import Notify from '../../../assets/icons/BellRinging.svg'
 import Chat from '../../../assets/icons/fi_message-circle.svg'
 import { useNavigate } from 'react-router'
+import UseAuth from '../../../auth/useAuth'
 
 const ApplicantNavbar = () => {
   const [isActive,setIsActive] = useState('Find Jobs')
 
   const navigate = useNavigate()
+  const {logout} = UseAuth()
+
   const FindJob = ()=>{
     navigate('/applicant/findjobs')
     setIsActive("Find Jobs")
@@ -47,7 +50,7 @@ const ApplicantNavbar = () => {
         <NavbarNav>
           <div className='Logo'>
             <Myjob className='IconColor' />
-            <h4 className='Logoname'>MyJob</h4>
+            <h4 className='Logoname' onClick={logout}>MyJob</h4>
           </div>
           <div>
             <ul className='Navlinks'>

@@ -39,7 +39,7 @@ const Otp = () => {
                         </div>
 
                         <button type='submit' 
-                        onClick={Login} 
+                        // onClick={Login} 
                         className='FormBtn'>Verify My Account</button>
 
                         <TextDiv>

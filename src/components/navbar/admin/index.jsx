@@ -12,10 +12,12 @@ import Close from '../../../assets/icons/fi_x.svg'
 import Profile from '../../../assets/images/Ellipse 18.png'
 import Notify from '../../../assets/icons/BellRinging.svg'
 import { useNavigate } from 'react-router'
+import UseAuth from '../../../auth/useAuth'
 
 const AdminNavbar = () => {
   const [isActive, setIsActive] = useState("Overview")
   const navigate = useNavigate()
+  const {logout} = UseAuth()
 
   const ManageUser = () => {
     navigate('/admin/dashboard/manage-users')
@@ -118,7 +120,7 @@ const AdminNavbar = () => {
 
               <div className='logout'>
                 <img src={Notify} alt='profile' />
-                <button type='button' className='NavBtn'>Logout</button>
+                <button type='button' className='NavBtn' onClick={logout}>Logout</button>
               </div>
             </MobileSidebar>
 
@@ -140,7 +142,7 @@ const AdminNavbar = () => {
           <Menu>
               <ul className='Navlinks'>
                 <li><a onClick={AdminProfile}>Profile</a></li>
-                <li><a >Logout</a></li>
+                <li><a onClick={logout}>Logout</a></li>
               </ul>
           </Menu>
         }

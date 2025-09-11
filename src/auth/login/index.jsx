@@ -6,16 +6,21 @@ import { ReactComponent as EyeClose } from '../../assets/icons/eye-close.svg'
 // import axios from 'axios'
 import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
+import UseAuth from '../useAuth'
 
 const Login = () => {
     const navigate = useNavigate()
+    const {login} = UseAuth();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (data)=>{
+        login(data)
+    
+    }
 
     const Register = () => {
         navigate('/auth/register')
@@ -33,21 +38,7 @@ const Login = () => {
         setIsVisible(!isVisible)
     }
 
-    // const [formData, setFormData] = useState({
-    //     email: '',
-    //     password: '',
-    // })
-
-    // const handleChange = (e) =>{
-    //     setFormData({
-    //         ...formData,
-    //         [e.target.name]:e.target.value
-    //     })
-    // }
-
-    // const handleSubmit = async(e) =>{
-    //     e.preventDefault()
-
+    
     //     try{
     //         const res = await axios('',formData)
     //         console.log('Login Successfull',res.data)

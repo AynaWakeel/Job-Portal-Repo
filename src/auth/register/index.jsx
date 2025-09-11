@@ -6,6 +6,7 @@ import { ReactComponent as EyeClose } from '../../assets/icons/eye-close.svg'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
+import UseAuth from '../useAuth'
 
 const Register = () => {
     const {
@@ -15,7 +16,12 @@ const Register = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const {signup} = UseAuth()
+
+    const onSubmit = (data) => { 
+        console.log("Form Data:", data);
+        signup(data) }
+
     const password = watch("password")
 
     const navigate = useNavigate()
@@ -39,48 +45,7 @@ const Register = () => {
         setIsConfirmationVisible(!isConfirmationVisible)
     }
 
-    // const [formData, setFormData] = useState({
-    //     fullName: '',
-    //     username: '',
-    //     email: '',
-    //     password: '',
-    //     confirmPassword: '',
-    //     role: ''
-    // })
 
-    // const handleChange = (e) => {
-    //     setFormData({
-    //         ...formData,
-    //         [e.target.name]: e.target.value
-    //     }
-    //     )
-    // }
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     if (formData.password !== formData.confirmPassword) {
-    //         alert('password do not match')
-    //         return;
-    //     }
-
-    //     const dataToSend = {
-    //         fullName: formData.fullName,
-    //         username: formData.username,
-    //         email: formData.email,
-    //         password: formData.password,
-    //         role: formData.role
-    //     }
-
-    //     try {
-    //         const res = await axios.post("", dataToSend);
-    //         console.log("Success!", res.data);
-    //         alert("Registered successfully!");
-    //     } catch (error) {
-    //         console.log('error message', error);
-    //         alert("Registration error");
-    //     }
-    // }
     return (
         <div>
 
@@ -98,32 +63,29 @@ const Register = () => {
                             <div className='FormSpace FormInputDivide'>
                                 <div>
                                     <input type="text" placeholder='Full Name' className='FormInput'
-                                        {...register('FullName', { required: "Enter your Full Name" })}
-                                    // value={formData.fullName} onChange={handleChange} 
+                                        {...register('fullName', { required: "Enter your Full Name" })}
                                     />
                                 </div>
 
                                 <div>
                                     <input type="text" placeholder='Username' className='FormInput'
-                                        {...register('Username', { required: "Enter your Username" })}
-                                    // value={formData.username} onChange={handleChange} 
+                                        {...register('username', { required: "Enter your Username" })}
                                     />
                                 </div>
                             </div>
                             <div className='FormInputDivide'>
 
                                 <div className='FormError'>
-                                    {errors.Username && <p>Username id required.</p>}
+                                    {errors.username && <p>Username id required.</p>}
                                 </div>
                                 <div className='FormError'>
-                                    {errors.FullName && <p>Full Name id required.</p>}
+                                    {errors.formullName && <p>Full Name id required.</p>}
                                 </div>
                             </div>
 
                             <div className='FormSpace'>
                                 <input type="email" placeholder='Email' className='FormInput'
                                     {...register('email', { required: "Enter your email" })}
-                                // value={formData.email} onChange={handleChange} 
                                 />
                             </div>
                             <div className='FormError'>
@@ -134,7 +96,6 @@ const Register = () => {
                                 <div className='FormPassword'>
                                     <input type={isPasswordVisible ? "text" : "password"} placeholder='Password' className='FormInput'
                                         {...register('password', { required: "Enter your password" })}
-                                    // value={formData.password} onChange={handleChange} 
                                     />
                                     <div onClick={PasswordVisibility}>
                                         {isPasswordVisible ?
@@ -151,16 +112,16 @@ const Register = () => {
                             <div className='FormSpace'>
                                 <div className='FormPassword'>
                                     <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput '
-                                        {...register('confirmPassword', { required: "Enter your confirm Password",
-                                           validate: (value) => {
-                                              if(!value)
-                                                return "Confirm Password id required." 
-                                              if(value !== password)
-                                               return "Password do not match" 
-                                               return true
-                                           }
-                                         })}
-                                    // value={formData.confirmPassword} onChange={handleChange} 
+                                        {...register('confirmPassword', {
+                                            required: "Enter your confirm Password",
+                                            validate: (value) => {
+                                                if (!value)
+                                                    return "Confirm Password id required."
+                                                if (value !== password)
+                                                    return "Password do not match"
+                                                return true
+                                            }
+                                        })}
                                     />
                                     <div onClick={ConfirmationVisibility} >
                                         {isConfirmationVisible ?
@@ -178,20 +139,25 @@ const Register = () => {
                                 <span className='CheckBoxSpan'>
                                     <div className='FormInputDivide'>
                                         <Checkbox type="radio" id='recruiter' name='role'
-                                        // value='recruiter' checked={formData.role === 'recruiter'} onChange={handleChange} 
+                                        value='recruiter' 
+                                        {...register('role', { required: "Enter your role" })}
                                         />
                                         <label htmlFor='recruiter'>Recruiter</label>
                                     </div>
                                     <div className='FormInputDivide'>
-                                        <Checkbox type="radio" id='applicant' name='role'
-                                        // value='applicant' checked={formData.role === 'applicant'} onChange={handleChange} 
+                                        <Checkbox type="radio" id='applicant' name='role' 
+                                        value='applicant' 
+                                        {...register('role', { required: "Enter your role" })}
                                         />
                                         <label htmlFor='applicant'>Applicant</label>
                                     </div>
                                 </span>
                             </ForgetDiv>
+                                <div className='FormError'>
+                                    {errors.role && <p>role id required.</p>}
+                                </div>
                             <button type='submit'
-                                // onClick={Otp} 
+                                onClick={Otp} 
                                 className='FormBtn'>Register</button>
 
                             <h5 className='OR'>OR</h5>
@@ -199,7 +165,6 @@ const Register = () => {
                                 <button className='MediaBtn'>
                                     <img src={google} alt="icon" className='GoogleIcon' />
                                     Sign in with Google</button>
-
                             </SocialMediaDiv>
                         </Form>
                     </form>
