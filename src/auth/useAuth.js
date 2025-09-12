@@ -2,7 +2,7 @@ import React from 'react'
 import { ApiEndPoints } from '../lib/api/endpoints'
 import { useNavigate } from 'react-router'
 import { ROLE } from '../enum/roles'
-// import toastr, { error } from 'toastr'
+import { showError, showSuccess } from '../components/toasters'
 
 const UseAuth = () => {
     const navigate = useNavigate()
@@ -14,7 +14,7 @@ const UseAuth = () => {
         const { sucess, message, user } = response
         if (sucess) {
             localStorage.setItem('token',response.token)
-            // alert(message);
+            showSuccess(message);
 
             if (user.role === ROLE.RECRUITER) {
                 navigate('/recruiter/dashboard/recruiter-overview');
@@ -25,7 +25,7 @@ const UseAuth = () => {
             }
 
         } else {
-            // alert(message);
+            showError(message);
             navigate('/auth/register');
         }
 
@@ -35,17 +35,16 @@ const UseAuth = () => {
     const logout = async (body) => {
 
         const response = await ApiEndPoints.logout(body)
-
         
         const { sucess, message } = response
         if (sucess) {
-            alert(message);
+            showSuccess(message);
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             navigate('/auth/login');
 
         } else {
-            alert(message);
+            showError(message);
         }
 
     }
@@ -57,10 +56,10 @@ const UseAuth = () => {
 
         const { sucess, message } = response
         if (sucess) {
-            alert(message);
+            showSuccess(message);
 
         } else {
-            alert(message);
+            showError(message);
         }
 
     }
@@ -71,10 +70,10 @@ const UseAuth = () => {
 
         const { sucess, message } = response
         if (sucess) {
-            alert(message);
+            showSuccess(message);
 
         } else {
-            alert(message);
+            showError(message);
         }
 
     }
@@ -86,11 +85,11 @@ const UseAuth = () => {
 
         const { sucess, message } = response
         if (sucess) {
-            alert(message);
+            showSuccess(message);
             navigate('/auth/reset');
 
         } else {
-            alert(message);
+            showError(message);
         }
 
     }
@@ -101,10 +100,10 @@ const UseAuth = () => {
 
         const { sucess, message } = response
         if (sucess) {
-            alert(message);
+            showSuccess(message);
 
         } else {
-            alert(message);
+            showError(message);
         }
 
     }

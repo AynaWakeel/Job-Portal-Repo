@@ -49,6 +49,7 @@ const Register = () => {
     return (
         <div>
 
+           
             <FormDiv>
                 <div className='FormBox'>
                     <h1 className='FormH1'>Create Account</h1>
@@ -171,6 +172,7 @@ const Register = () => {
 
                 </div>
             </FormDiv>
+
         </div>
     )
 }
