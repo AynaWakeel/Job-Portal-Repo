@@ -1,11 +1,21 @@
 import React, { useState } from 'react'
 import { Form, FormDiv, TextDiv } from './style'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
 
 const Otp = () => {
-
+    const location = useLocation()
+    const getotpType = ()=>{
+        
+        if(location.pathname.includes('/register')){
+            //----------
+        }else if(location.pathname.includes('/forget')){
+            //--------------
+        }else if(location.pathname.includes('/otp')){
+            //----------
+        }
+    }
     const navigate = useNavigate()
     const Login = () => {
         navigate('/auth/login')
@@ -20,8 +30,15 @@ const Otp = () => {
     const {verify_otp} = UseAuth()
 
     const onSubmit = (data)=>{ 
-        verify_otp(data)
+        const otptype = getotpType()
+        const body = {
+            otp: data,
+            type: otptype()
+        }
+        verify_otp(body)
     }
+
+
 
     return (
         <div>

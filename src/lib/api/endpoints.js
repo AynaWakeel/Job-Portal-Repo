@@ -1,7 +1,7 @@
 import { postData } from "../methods";
 
 export const ApiEndPoints = {
-
+    // ----- auth
     login: async (body) => await postData("/api/auth/login", body),
     logout: async (body) => await postData("/api/auth/logout", body),
     signup: async (body) => await postData("/api/auth/register", body),

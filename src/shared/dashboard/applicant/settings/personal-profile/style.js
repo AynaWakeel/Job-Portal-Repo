@@ -59,6 +59,23 @@ padding-block: 20px;
 }
 }
 
+.FormError{
+    padding-bottom: 10px;
+    color: #e43f3fff;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--poppin); 
+    text-align: start;
+
+    @media ${devices.tablet} {
+       color: #d14242ff;  
+    }
+     
+    @media ${devices.mobile}{
+    color: #d14242ff;  
+    }
+}
+
 `
 
 export const ProfilePic = styled.div`
@@ -270,6 +287,23 @@ margin-inline: auto;
 
 .simple-dropdown{
     position: relative;
+}
+
+//-------------- react quill
+
+.Quillbar{
+    margin-top: 10px;
+    outline: none;
+    border: 1px solid var(--white-200);
+    border-radius: 4px;
+    width: 100%;
+    caret-color: var(--purple-300);
+}
+
+.Quillbar .ql-editor{
+    min-height: 300px;
+    max-height: 400px;
+    overflow-y: auto;
 }
 `
 

@@ -14,48 +14,7 @@ import { ROLE } from '../../enum/roles'
 
 const DashboardSidebar = () => {
     const location = useLocation()
-    // const [isActive, setIsActive] = useState("Overview")
     const navigate = useNavigate()
-
-    // const ApplicantOverview = () => {
-    //     navigate('/applicant/dashboard/applicant-overview')
-    //     setIsActive("Applicant Overview")
-    // }
-
-    // const ApplicantSettings = () => {
-    //     navigate('/applicant/dashboard/applicant-personal-profile')
-    //     setIsActive("Applicant Settings")
-    // }
-
-    // const ApplicantAppliedJobs = () => {
-    //     navigate('/applicant/dashboard/applicant-applied')
-    //     setIsActive("Applied Jobs")
-    // }
-
-    // const ApplicantFav = () => {
-    //     navigate('/applicant/dashboard/applicant-favourities')
-    //     setIsActive("Favourite Jobs")
-    // }
-
-    // const RecruiterOverview = () => {
-    //     navigate('/recruiter/dashboard/recruiter-overview')
-    //     setIsActive("Recruiter Overview")
-    // }
-
-    // const RecruiterPostjob = () => {
-    //     navigate('/recruiter/dashboard/recruiter-postjob')
-    //     setIsActive("Post a Job")
-    // }
-
-    // const RecruiterMyjobs = () => {
-    //     navigate('/recruiter/dashboard/recruiter-myjobs')
-    //     setIsActive("My Jobs")
-    // }
-
-    // const RecruiterSettings = () => {
-    //     navigate('/recruiter/dashboard/recruiter-settings')
-    //     setIsActive("Recruiter Settings")
-    // }
 
     const [isOpen, setIsOpen] = useState(false)
     const OpenMenu = () => {
@@ -75,11 +34,13 @@ const DashboardSidebar = () => {
         { label: "Favourite Jobs", icon: <Bookmark />, path: "/applicant/dashboard/applicant-favourities" },
         { label: "Settings", icon: <Gear />, path: "/applicant/dashboard/applicant-personal-profile" },
     ]
+    
 
-    const userRole = localStorage.getItem("role") || ROLE.RECRUITER
+    const userRole = localStorage.getItem("role")  
     let Menu = [];
     if (userRole === ROLE.APPLICANT)  Menu = ApplicantOptions;
     else if (userRole === ROLE.RECRUITER)  Menu = RecruiterOptions;
+    console.log(localStorage.getItem("role"))
 
 
     return (

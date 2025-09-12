@@ -10,7 +10,7 @@ const DashboardLayouts = ({ children }) => {
       <Dashboard>
 
 
-          <DashboardSidebar/>
+        <DashboardSidebar/>
 
         <div className='dashboard-size'>
           <div>{children}</div>

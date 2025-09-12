@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Menu, Navbar, NavbarNav } from './style'
+import { DropdownMenu, Menu, Navbar, NavbarNav } from './style'
 import { ReactComponent as Myjob } from '../../../assets/icons/MyJobLogo.svg'
 import Menubar from '../../../assets/icons/fi_menu.svg'
 import Close from '../../../assets/icons/fi_x.svg'
@@ -10,21 +10,21 @@ import { useNavigate } from 'react-router'
 import UseAuth from '../../../auth/useAuth'
 
 const ApplicantNavbar = () => {
-  const [isActive,setIsActive] = useState('Find Jobs')
+  const [isActive, setIsActive] = useState('Find Jobs')
 
   const navigate = useNavigate()
-  const {logout} = UseAuth()
+  const { logout } = UseAuth()
 
-  const FindJob = ()=>{
+  const FindJob = () => {
     navigate('/applicant/findjobs')
     setIsActive("Find Jobs")
   }
-  const Dashboard = ()=>{
+  const Dashboard = () => {
     navigate('/applicant/dashboard/applicant-overview')
     setIsActive("Dashboard")
   }
 
-  const Support = ()=>{
+  const Support = () => {
     navigate('/applicant/support')
     setIsActive("Customer Support")
   }
@@ -34,14 +34,19 @@ const ApplicantNavbar = () => {
     setIsOpen(!isOpen)
   }
 
-  const Notification = ()=>{
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const OpenDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen)
+  }
+
+  const Notification = () => {
     navigate('/applicant/dashboard/applicant-notifications')
   }
 
-  const ApplicanntProfile = ()=>{
+  const ApplicanntProfile = () => {
     navigate('/applicant/profile')
   }
-  const Message = ()=>{
+  const Message = () => {
     navigate('/applicant/chat')
   }
   return (
@@ -62,10 +67,18 @@ const ApplicantNavbar = () => {
         </NavbarNav>
         <div>
           <div className='Navright'>
-            <img src={Chat} alt='msg' onClick={Message}/>
-            <img src={Notify} alt='notify' onClick={Notification}/>
-            <img src={Profile} alt='profile' onClick={ApplicanntProfile}/>
+            <img src={Chat} alt='msg' onClick={Message} />
+            <img src={Notify} alt='notify' onClick={Notification} />
+            <img src={Profile} alt='profile' onClick={OpenDropdown} />
           </div>
+          {isDropdownOpen &&
+            <DropdownMenu>
+              <ul className='Navlinks'>
+                <li><a onClick={ApplicanntProfile}>Profile</a></li>
+                <li><a >Logout</a></li>
+              </ul>
+            </DropdownMenu>
+          }
           {isOpen ?
             <img src={Close} alt='img' className='Display' onClick={OpenMenu} /> :
             <img src={Menubar} alt='img' className='Display' onClick={OpenMenu} />
@@ -76,13 +89,14 @@ const ApplicantNavbar = () => {
           <Menu>
             <div>
               <div className='Navright'>
-                <img src={Notify} alt='notify' className='notify'  onClick={Notification}/>
-                <img src={Profile} alt='profile' className='profile' onClick={ApplicanntProfile}/>
+                <img src={Notify} alt='notify' className='notify' onClick={Notification} />
+                <img src={Profile} alt='profile' className='profile' onClick={ApplicanntProfile} />
               </div>
               <ul className='Navlinks'>
                 <li><a onClick={FindJob}>Find Jobs</a></li>
                 <li><a onClick={Dashboard}>Dashboard</a></li>
                 <li><a onClick={Support}>Customer Support</a></li>
+                 <li><a>Logout</a></li>
               </ul>
             </div>
           </Menu>

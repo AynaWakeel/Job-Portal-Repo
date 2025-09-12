@@ -14,14 +14,20 @@ const UseAuth = () => {
         const { sucess, message, user } = response
         if (sucess) {
             localStorage.setItem('token',response.token)
+             localStorage.setItem('role',response.user.role)
             showSuccess(message);
 
             if (user.role === ROLE.RECRUITER) {
                 navigate('/recruiter/dashboard/recruiter-overview');
+                console.log(response.user.role)
+
             } else if (user.role === ROLE.APPLICANT) {
                 navigate('/applicant/dashboard/applicant-overview');
+                 console.log(response.user.role)
+
             } else if (user.role === ROLE.ADMIN) {
                 navigate('/admin/dashboard/overview');
+                 console.log(response.user.role)
             }
 
         } else {

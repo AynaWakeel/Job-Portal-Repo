@@ -2,7 +2,6 @@ import React from 'react'
 import { Box, Contact, Main, UploadPdf } from './style'
 import { ReactComponent as Calender } from '../../../../assets/icons/CalendarBlank2.svg'
 import { ReactComponent as Map } from '../../../../assets/icons/MapPinLine.svg'
-import { ReactComponent as Wallet } from '../../../../assets/icons/Wallet.svg'
 import { ReactComponent as Brief } from '../../../../assets/icons/briefcase2.svg'
 import { ReactComponent as Timer } from '../../../../assets/icons/Timer.svg'
 import Company from '../../../../assets/images/Ellipse 18.png'
@@ -13,14 +12,14 @@ import { ReactComponent as Phone } from '../../../../assets/icons/phone-call-duo
 import { ReactComponent as File } from '../../../../assets/icons/FileText.svg'
 import { useLocation } from 'react-router'
 
-
 const ApplicantProfile = () => {
-   const location = useLocation()
 
-   const ContentPage = ['/admin/dashboard/applicant-profile']
-    const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
+  const location = useLocation()
 
-    console.log(location,'here is the location');
+  const ContentPage = ['/admin/dashboard/applicant-profile']
+  const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
+
+  console.log(location, 'here is the location');
   return (
     <div>
 
@@ -98,7 +97,7 @@ const ApplicantProfile = () => {
                   <div className='content'>
                     <div><Calender className='IconColor' /></div>
                     <div>
-                      <h2 className='Title'>Projects</h2>
+                      <h2 className='Title'>Skill</h2>
                       <h4 className='SubHeading'>Something..</h4>
                     </div>
                   </div>
@@ -120,31 +119,26 @@ const ApplicantProfile = () => {
                       <h4 className='SubHeading'>Masters degree</h4>
                     </div>
                   </div>
-                  <div className='content'>
-                    <div><Wallet className='IconColor' /></div>
-                    <div>
-                      <h2 className='Title'>Institude</h2>
-                      <h4 className='SubHeading'>LUMS</h4>
-                    </div>
-                  </div>
 
                 </div>
               </div>
             </Box>
 
-           {!hideContent &&
-           
-            <UploadPdf>
-              <label className='center'>
-                <div><File className='IconColor' /></div>
-                <div>
-                  <h5 className='Title'>Professional Resume</h5>
-                  <h6 className='info'>3.5 MB</h6>
-                  <input type="file" accept=".pdf" hidden />
-                </div>
-              </label>
-            </UploadPdf>
-           }
+            {!hideContent &&
+
+                <UploadPdf>
+                  <label className='center'>
+                    <div><File className='IconColor' /></div>
+                    <div>
+                      <h5 className='Title'>Professional Resume</h5>
+                      <h6 className='info'>3.5 MB</h6>
+                      <input type="file" accept=".pdf" hidden/>
+                    </div>
+                  </label>
+                </UploadPdf>
+
+            }
+    
 
           </div>
         </div>

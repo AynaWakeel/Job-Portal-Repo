@@ -197,3 +197,51 @@ display: none;
     border-bottom: 2px solid var(--purple-600);
 }
 `
+
+//----------- desktop dropdown
+
+export const DropdownMenu = styled.div`
+padding-top: 14px;
+padding-bottom: 14px;
+padding-inline: 18px;
+background-color: var(--white-50);
+box-shadow: 0px 0px 5px var(--purple-200);
+position: absolute;
+top: 65px;
+right: 150px;
+z-index: 999;
+
+@media ${devices.mobile}{
+    display: none;
+}
+
+.Navright{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 0px;
+}
+
+
+.Navlinks{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 5px;
+    list-style: none;
+}
+
+.Navlinks a{
+    text-decoration: none;
+    color: var(--purple-200);
+    font-size: 15px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
+.Navlinks a:hover{
+    color: var(--purple-600);
+    border-bottom: 2px solid var(--purple-600);
+}
+`

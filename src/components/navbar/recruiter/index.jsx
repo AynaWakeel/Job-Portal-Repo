@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Menu, Navbar, NavbarNav } from './style'
+import { DropdownMenu, Menu, Navbar, NavbarNav } from './style'
 import { ReactComponent as Myjob } from '../../../assets/icons/MyJobLogo.svg'
 import Profile from '../../../assets/images/Employers.png'
 import Notify from '../../../assets/icons/BellRinging.svg'
@@ -24,7 +24,7 @@ const RecruiterNavbar = () => {
   const ProfilePage = () => {
     navigate('/recruiter/profile')
   }
-   const Message = ()=>{
+  const Message = () => {
     navigate('/recruiter/chat')
   }
 
@@ -49,6 +49,12 @@ const RecruiterNavbar = () => {
     setIsOpen(!isOpen)
   }
 
+   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+    const OpenDropdown = () => {
+      setIsDropdownOpen(!isDropdownOpen)
+    }
+  
+
 
   return (
     <div>
@@ -68,11 +74,19 @@ const RecruiterNavbar = () => {
         </NavbarNav>
         <div>
           <div className='Navright'>
-             <img src={Chat} alt='msg' onClick={Message}/>
+            <img src={Chat} alt='msg' onClick={Message} />
             <img src={Notify} alt='notify' onClick={Notification} />
             <button type='button' onClick={Post} className='NavBtn'>Post a Job</button>
-            <img src={Profile} alt='profile' onClick={ProfilePage} />
+            <img src={Profile} alt='profile' onClick={OpenDropdown} />
           </div>
+          {isDropdownOpen &&
+            <DropdownMenu>
+              <ul className='Navlinks'>
+                <li><a onClick={ProfilePage}>Profile</a></li>
+                <li><a >Logout</a></li>
+              </ul>
+            </DropdownMenu>
+          }
           {isOpen ?
             <img src={Close} alt='img' className='Display' onClick={OpenMenu} /> :
             <img src={Menubar} alt='img' className='Display' onClick={OpenMenu} />
@@ -85,12 +99,13 @@ const RecruiterNavbar = () => {
             <div>
               <div className='Navright'>
                 <img src={Notify} alt='notify' className='notify' onClick={Notification} />
-                <img src={Profile} alt='profile' className='profile' onClick={ProfilePage}/>
+                <img src={Profile} alt='profile' className='profile' onClick={ProfilePage} />
               </div>
               <ul className='Navlinks'>
                 <li><a onClick={FindCandidates}>Find Candidates</a></li>
                 <li><a onClick={Dashboard}>Dashboard</a></li>
                 <li><a onClick={Support}>Customer Support</a></li>
+                <li><a >Logout</a></li>
               </ul>
             </div>
           </Menu>
