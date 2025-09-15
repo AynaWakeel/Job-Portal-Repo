@@ -115,8 +115,6 @@ const UseAuth = () => {
     }
 
 
-
-
     return { login, logout, signup , verify_otp, forget_password ,reset_password}
 }
 

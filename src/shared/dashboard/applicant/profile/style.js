@@ -157,6 +157,7 @@ margin: auto;
 }
 
 .profile-content{
+    width: 100%;
     padding-block: 100px;
     display: flex;
     justify-content: space-between;
@@ -187,7 +188,7 @@ margin: auto;
 }
 
 .content-left{
-    width: 55%;
+    width: 75%;
 
     @media ${devices.tablet} {
         width: 100%;
@@ -204,7 +205,7 @@ margin: auto;
     flex-direction: column;
     align-items: start;
     gap: 20px;
-    width: 50%;
+    width: 35%;
 
     @media ${devices.tablet} {
         width: 100%;

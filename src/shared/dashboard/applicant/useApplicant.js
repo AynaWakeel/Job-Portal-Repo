@@ -1,0 +1,84 @@
+import React from 'react'
+import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
+import { showError, showSuccess } from '../../../components/toasters'
+
+export const useApplicant = () => {
+
+  const profile_pic = async(body)=>{
+    
+    const response = await Applicant_Endpoints.post_profile_pic(body)
+    const {sucess , message} = response
+    if(sucess){
+        // localStorage.getItem("token", response.token)
+        showSuccess(message)
+    }else{
+        showError(message)
+    }
+
+  }
+
+    const upload_resume = async (body) => {
+
+        const response = await Applicant_Endpoints.post_upload_resume(body)
+        const { message, sucess } = response
+        if (sucess) {
+            showSuccess(message)
+        } else {
+            showError(message)
+        }
+    }
+
+      const profile_setting = async (body) => {
+
+        const response = await Applicant_Endpoints.put_profile_setting(body)
+        const { message, sucess } = response
+        if (sucess) {
+            showSuccess(message)
+        } else {
+            showError(message)
+        }
+    }
+
+    // const applicant_profile = async (body) => {
+
+    //     const response = await Applicant_Endpoints.get_profile(body)
+    //     const { message, sucess } = response
+    //     if (sucess) {
+    //         showSuccess(message)
+    //         return response.data
+    //     } else {
+    //         showError(message)
+    //         return null
+    //     }
+    // }
+
+      const create_resume = async (body) => {
+
+        const response = await Applicant_Endpoints.post_create_resume(body)
+        const { message, sucess } = response
+        if (sucess) {
+            showSuccess(message)
+        } else {
+            showError(message)
+        }
+    }
+
+      const update_applicant_resume = async (body) => {
+
+        const response = await Applicant_Endpoints.update_resume(body)
+        const { message, sucess } = response
+        if (sucess) {
+            showSuccess(message)
+            return response.data
+        } else {
+            showError(message)
+            return null
+        }
+    }
+    
+  return { profile_pic, upload_resume, profile_setting, 
+    // applicant_profile, 
+    create_resume, 
+    update_applicant_resume
+}
+}
