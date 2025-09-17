@@ -8,10 +8,17 @@ import FindCandidates from '../../../shared/find-candidates/home'
 import Menubar from '../../../assets/icons/fi_menu.svg'
 import Close from '../../../assets/icons/fi_x.svg'
 import Chat from '../../../assets/icons/fi_message-circle.svg'
+import UseAuth from '../../../auth/useAuth'
 
 
 const RecruiterNavbar = () => {
   const navigate = useNavigate()
+  const {logout} = UseAuth()
+
+   const onLogout =()=>{
+    logout()
+    navigate('/auth/login')
+  }
 
   const Post = () => {
     navigate('/recruiter/dashboard/recruiter-postjob')
@@ -83,7 +90,7 @@ const RecruiterNavbar = () => {
             <DropdownMenu>
               <ul className='Navlinks'>
                 <li><a onClick={ProfilePage}>Profile</a></li>
-                <li><a >Logout</a></li>
+                <li><a onClick={onLogout}>Logout</a></li>
               </ul>
             </DropdownMenu>
           }
@@ -105,7 +112,7 @@ const RecruiterNavbar = () => {
                 <li><a onClick={FindCandidates}>Find Candidates</a></li>
                 <li><a onClick={Dashboard}>Dashboard</a></li>
                 <li><a onClick={Support}>Customer Support</a></li>
-                <li><a >Logout</a></li>
+                <li><a onClick={onLogout}>Logout</a></li>
               </ul>
             </div>
           </Menu>

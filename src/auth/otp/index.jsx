@@ -5,21 +5,8 @@ import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
 
 const Otp = () => {
-    const location = useLocation()
-    const getotpType = ()=>{
-        
-        if(location.pathname.includes('/register')){
-            //----------
-        }else if(location.pathname.includes('/forget')){
-            //--------------
-        }else if(location.pathname.includes('/otp')){
-            //----------
-        }
-    }
+    const {state} = useLocation()
     const navigate = useNavigate()
-    const Login = () => {
-        navigate('/auth/login')
-    }
 
     const {
         register,
@@ -27,18 +14,31 @@ const Otp = () => {
         formState : {errors},
     } = useForm()
 
-    const {verify_otp} = UseAuth()
+    const {verify_otp, send_otp} = UseAuth()
 
-    const onSubmit = (data)=>{ 
-        const otptype = getotpType()
-        const body = {
-            otp: data,
-            type: otptype()
+     const email = state?.email
+     const type = state?.type
+
+    const onSubmit = async(data)=>{ 
+        const otpCode = data.otpCode
+        if(!email){
+            return alert("email missing")
         }
-        verify_otp(body)
+        const res = await verify_otp({email, otpCode, type})
+        if(!res) return
+
+        const tempToken = res?.tempToken || res?.data?.tempToken
+        if ( type === "password_reset"){
+            navigate('/auth/reset', {state: {email, tempToken}})
+        }else if(type == "email_verification"){
+            navigate('/auth/login')
+        }
     }
 
-
+    const ResendOtp = async()=>{
+        const res = await send_otp({email, type})
+        console.log(res)
+    }
 
     return (
         <div>
@@ -52,7 +52,6 @@ const Otp = () => {
                         <div className='FormSpace'>
                             <input type="text" placeholder='Verification Code' className='FormInput'
                             {...register("otpCode",{required:"Enter your Verification Code"})}
-                            // value={otp} 
                             />
                         </div>
                         <div className='FormError'>
@@ -60,12 +59,11 @@ const Otp = () => {
                         </div>
 
                         <button type='submit' 
-                        // onClick={Login} 
                         className='FormBtn'>Verify My Account</button>
 
                         <TextDiv>
                             <span className='Text'>Didn’t recieve any code! </span>
-                            <span><a className='Ahref'>Resend</a></span>
+                            <span><a className='Ahref' onClick={ResendOtp}>Resend</a></span>
                         </TextDiv>
                     </Form>
                     </form>

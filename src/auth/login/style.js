@@ -152,7 +152,7 @@ align-items: center;
     background-color: var(--white-100);
     outline: none;
     border: none;
-    padding-block: 16px;
+    padding-block: 8px;
     border-radius: 4px;
     width: 100%;
     margin-block: 0px;

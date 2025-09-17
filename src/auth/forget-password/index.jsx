@@ -6,20 +6,23 @@ import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
 
 const ForgetPassword = () => {
-
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
         formState : {errors},      
     } = useForm()
 
-    const {forget_password} = UseAuth()
+    const {send_otp} = UseAuth()
 
-     const onSubmit = (data)=> {
-        forget_password(data)
+     const onSubmit = async({email})=> {
+        const res = await send_otp({email, type: "password_reset"})
+        console.log(res)
+        if(res){
+            navigate('/auth/otp',{state:{email,type: "password_reset"}})
+        }
     }
 
-    const navigate = useNavigate()
     const Register = () => {
         navigate('/auth/register')
     }
@@ -28,9 +31,6 @@ const ForgetPassword = () => {
         navigate('/auth/login')
     }
 
-    const ResetPassword = () => {
-        navigate('/auth/reset')
-    }
     return (
         <div>
 
@@ -59,7 +59,6 @@ const ForgetPassword = () => {
                         </div>
 
                         <button type='submit' 
-                        // onClick={ResetPassword} 
                         className='FormBtn'>Reset password</button>
 
                         <h5 className='OR'>OR</h5>

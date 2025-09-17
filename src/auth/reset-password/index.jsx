@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import { Form, FormDiv, TextDiv } from './style'
 import { ReactComponent as EyeIcon } from '../../assets/icons/eye.svg'
 import { ReactComponent as EyeClose } from '../../assets/icons/eye-close.svg'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
+import UseAuth from '../useAuth'
+import { showError } from '../../components/toasters'
 
 const ResetPassword = () => {
+  const {state} = useLocation()
   const navigate = useNavigate()
 
-  const Login = () => {
-    navigate('/auth/login')
-  }
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const PasswordVisibility = () => {
@@ -26,35 +26,22 @@ const ResetPassword = () => {
    const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
-  const password = watch("password")
+  const { reset_password } = UseAuth()
+  const tempToken = state?.tempToken
 
-
-
-  // const [formData, setFormData] = useState({
-  //   password: '',
-  //   confirmPassword: ''
-  // })
-
-  // const handleChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value
-  //   })
-  // }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-
-  //   if (formData.password !== formData.confirmPassword) {
-  //     alert('password donot match')
-  //     return;
-  //   }
-  // }
+  const onSubmit = async(data) => {
+    const { newPassword, confirmPassword} = data
+    if(newPassword !== confirmPassword){
+      showError('Password do not match')
+    }
+    const res = await reset_password({ newPassword, tempToken})
+    if(res){
+      navigate('/auth/login', { state: { tempToken } })
+    }
+  }
 
   return (
     <div>
@@ -72,8 +59,7 @@ const ResetPassword = () => {
                 <div className='FormSpace'>
                   <div className='FormPassword'>
                     <input type={isPasswordVisible ? "text" : "password"} placeholder='Password' className='FormInput ' 
-                    {...register("password", { required: 'enter your password' })}
-                    // value={formData.password} onChange={handleChange} 
+                    {...register("newPassword", { required: 'Enter your newpassword' })}
                     />
                     
                     <div onClick={PasswordVisibility}>
@@ -85,20 +71,14 @@ const ResetPassword = () => {
                   </div>
                 </div>
                 <div className='FormError'>
-                  {errors.password && <span>Password is required</span>}
+                  {errors.newPassword && <span>Password is required</span>}
                 </div>
 
                 <div className='FormSpace'>
                   <div className='FormPassword'>
                     <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput' 
                     {...register("confirmPassword", { required: 'enter your confirm password' ,
-                      validate:(value)=>{
-                        if(!value) return "Password is req."
-                        if(value !== password) return "Password do not match"
-                        return true
-                      }
                     })}
-                    // value={formData.confirmPassword} onChange={handleChange} 
                     />
                     <div onClick={ConfirmationVisibility} >
                       {isConfirmationVisible ?
@@ -112,9 +92,7 @@ const ResetPassword = () => {
                   {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
                 </div>
 
-                <button type='submit' className='FormBtn' 
-                // onClick={Login}
-                >Reset</button>
+                <button type='submit' className='FormBtn' >Reset</button>
               </Form>
               </form>
 

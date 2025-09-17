@@ -1,5 +1,5 @@
 import React from 'react'
-import { ApiEndPoints } from '../lib/api/endpoints'
+import { ApiEndPoints } from '../lib/api/auth_endpoints'
 import { useNavigate } from 'react-router'
 import { ROLE } from '../enum/roles'
 import { showError, showSuccess } from '../components/toasters'
@@ -37,21 +37,26 @@ const UseAuth = () => {
 
     }
 
+    const signin_google = async({token}) => {
+        const res = await ApiEndPoints.google_signin({token})
+        if(res){
+            localStorage.setItem("token", res.token)
+            // localStorage.setItem("role", res.role)
+            return res
+        }else{
+            console.log("err")
+            return null
 
-    const logout = async (body) => {
-
-        const response = await ApiEndPoints.logout(body)
-        
-        const { sucess, message } = response
-        if (sucess) {
-            showSuccess(message);
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            navigate('/auth/login');
-
-        } else {
-            showError(message);
         }
+        
+    }
+
+
+    const logout = () => {
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        showSuccess("you are logout")
 
     }
 
@@ -60,62 +65,67 @@ const UseAuth = () => {
 
         const response = await ApiEndPoints.signup(body)
 
-        const { sucess, message } = response
-        if (sucess) {
+        const { message } = response
+        if (response) {
             showSuccess(message);
+            return response
 
         } else {
             showError(message);
+            return null
         }
 
     }
 
-     const verify_otp = async (body) => {
+     const send_otp = async ({email, type}) => {
+        
+         const response = await ApiEndPoints.otp({email, type})
+         const { message } = response
+         if (response) {
+             showSuccess(message);
+             return response
+ 
+         } else {
+             showError(message);
+             return null
+         }
 
-        const response = await ApiEndPoints.otp(body)
+    }
 
-        const { sucess, message } = response
-        if (sucess) {
+     const verify_otp = async ({email, otpCode, type}) => {
+
+        const response = await ApiEndPoints.otp({email, otpCode, type})
+
+        const {message } = response
+        if (response) {
             showSuccess(message);
+            return response
 
         } else {
             showError(message);
+            return null
         }
 
     }
 
 
-    const forget_password = async (body) => {
+    const reset_password = async ({newPassword, tempToken}) => {
 
-        const response = await ApiEndPoints.forget_password(body)
-
-        const { sucess, message } = response
-        if (sucess) {
-            showSuccess(message);
-            navigate('/auth/reset');
-
-        } else {
-            showError(message);
-        }
-
-    }
-
-    const reset_password = async (body) => {
-
+        const body = { newPassword }
+        if( tempToken ) body.tempToken = tempToken
         const response = await ApiEndPoints.reset_password(body)
 
-        const { sucess, message } = response
-        if (sucess) {
+        const { message } = response
+        if (response) {
             showSuccess(message);
 
         } else {
             showError(message);
         }
-
     }
 
 
-    return { login, logout, signup , verify_otp, forget_password ,reset_password}
+    return { login, signin_google, logout, signup ,send_otp , verify_otp, reset_password}
 }
 
 export default UseAuth

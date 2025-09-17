@@ -21,12 +21,8 @@ const AdminNavbar = () => {
 
 
   const onLogout =()=>{
-   const Logout_var = localStorage.getItem("token")
-    console.log("logout", Logout_var)
-    const body = {
-      token : Logout_var
-    }
-    logout(body)
+    logout()
+    navigate('/auth/login')
   }
 
   const ManageUser = () => {

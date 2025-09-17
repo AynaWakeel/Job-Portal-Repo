@@ -7,17 +7,20 @@ import { ReactComponent as EyeClose } from '../../assets/icons/eye-close.svg'
 import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
+import { GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from "jwt-decode";
+
 
 const Login = () => {
     const navigate = useNavigate()
-    const {login} = UseAuth();
+    const { login, signin_google } = UseAuth();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data)=>{
+    const onSubmit = (data) => {
         login(data)
     }
 
@@ -27,9 +30,6 @@ const Login = () => {
     const ForgetPassword = () => {
         navigate('/auth/forget')
     }
-    const TwoFactor = () => {
-        navigate('/auth/two-factor-authentication')
-    }
 
     const [isVisible, setIsVisible] = useState(false)
 
@@ -37,15 +37,6 @@ const Login = () => {
         setIsVisible(!isVisible)
     }
 
-    
-    //     try{
-    //         const res = await axios('',formData)
-    //         console.log('Login Successfull',res.data)
-    //         alert('Login success')
-    //     }catch(error){
-    //         console.log('Login error',error)
-    //     }
-    // }
 
     return (
         <div>
@@ -89,15 +80,24 @@ const Login = () => {
                                 </span>
                                 <span><a onClick={ForgetPassword} className='ForgetText'>Forgot Password?</a></span>
                             </ForgetDiv>
-                            <button type='submit' className='FormBtn'
-                            // onClick={TwoFactor}
-                            >Sign In</button>
+                            <button type='submit' className='FormBtn'>Sign In</button>
 
                             <h5 className='OR'>OR</h5>
                             <SocialMediaDiv>
-                                <button className='MediaBtn'>
+                                {/* <button className='MediaBtn'>
                                     <img src={google} alt="icon" className='GoogleIcon' />
-                                    Sign in with Google</button>
+                                </button> */}
+                                    <GoogleLogin
+                                        onSuccess={async (credentialResponse) => {
+                                            const token = credentialResponse.credential;
+                                            const userInfo = jwtDecode(token);
+                                            console.log("User Info:", userInfo);
+
+                                            const res = await signin_google({ token });
+                                            if (res) {
+                                                navigate('/applicant/dashboard');
+                                            }
+                                        }} />
                             </SocialMediaDiv>
                         </Form>
                     </form>

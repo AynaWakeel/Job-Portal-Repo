@@ -15,6 +15,11 @@ const ApplicantNavbar = () => {
   const navigate = useNavigate()
   const { logout } = UseAuth()
 
+   const onLogout =()=>{
+    logout()
+    navigate('/auth/login')
+  }
+
   const FindJob = () => {
     navigate('/applicant/findjobs')
     setIsActive("Find Jobs")
@@ -75,7 +80,7 @@ const ApplicantNavbar = () => {
             <DropdownMenu>
               <ul className='Navlinks'>
                 <li><a onClick={ApplicanntProfile}>Profile</a></li>
-                <li><a >Logout</a></li>
+                <li><a onClick={onLogout}>Logout</a></li>
               </ul>
             </DropdownMenu>
           }
@@ -96,7 +101,7 @@ const ApplicantNavbar = () => {
                 <li><a onClick={FindJob}>Find Jobs</a></li>
                 <li><a onClick={Dashboard}>Dashboard</a></li>
                 <li><a onClick={Support}>Customer Support</a></li>
-                 <li><a>Logout</a></li>
+                 <li><a onClick={onLogout}>Logout</a></li>
               </ul>
             </div>
           </Menu>
