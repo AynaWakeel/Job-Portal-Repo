@@ -25,6 +25,23 @@ padding-block: 20px;
 }
 }
 
+.FormError{
+    padding-bottom: 10px;
+    color: #e43f3fff;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--poppin); 
+    text-align: start;
+
+    @media ${devices.tablet} {
+       color: #d14242ff;  
+    }
+     
+    @media ${devices.mobile}{
+    color: #d14242ff;  
+    }
+}
+
 .Divide{
     display: flex;
     justify-content: start;
@@ -208,6 +225,22 @@ margin-top: 10px;
     font-family: var(--poppin);
 }
 
+.FormError{
+    padding-bottom: 10px;
+    color: #e43f3fff;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--poppin); 
+    text-align: start;
+
+    @media ${devices.tablet} {
+       color: #d14242ff;  
+    }
+     
+    @media ${devices.mobile}{
+    color: #d14242ff;  
+    }
+}
 .Label{
     font-size: 14px;
     font-weight: 400;

@@ -369,15 +369,28 @@ export const Contact = styled.div`
 `
 
 export const UploadPdf = styled.div`
-    padding-block: 20px;
+    /* padding-block: 20px;
     padding-inline: 16px;
     background-color: var(--gray-450);
     border-radius: 6px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 
-    @media ${devices.tablet}{
+    
+.center{
+    padding-block: 20px;
+    padding-inline: 18px;
+    background-color: var(--gray-450);
+    border-radius: 6px;
+    display: flex;
+    justify-content: start;
+    gap: 14px;
+    align-items: center;
+    outline: none;
+    border: none;
+
+    /* @media ${devices.tablet}{
         justify-content: start;
         padding-inline: 12px;
         width: 40%;
@@ -387,14 +400,10 @@ export const UploadPdf = styled.div`
     width: 70%;
     padding-inline: 12px;
     justify-content: start;
-    }
+    } */
 
-.center{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
 }
+
 
 .Title{
     color: var(--dark-800);

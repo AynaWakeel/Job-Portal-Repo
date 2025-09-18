@@ -14,6 +14,7 @@ import { useLocation } from 'react-router'
 import { useApplicant } from '../useApplicant'
 import { Applicant_Endpoints } from '../../../../lib/api/applicant_endpoints'
 import Loader from '../../../../components/loading-spinner'
+import { showError } from '../../../../components/toasters'
 
 const ApplicantProfile = () => {
   const [profile, setProfile] = useState({})
@@ -116,13 +117,6 @@ const ApplicantProfile = () => {
               <Box>
                 <div className='flex-col'>
                   <div className='flex'>
-                    {/* <div className='content'>
-                    <div><Calender className='IconColor' /></div>
-                    <div>
-                      <h2 className='Title'>Skill</h2>
-                      <h4 className='SubHeading'>Something..</h4>
-                    </div>
-                  </div> */}
 
                     <div className='content'>
                       <div><Timer className='IconColor' /></div>
@@ -148,16 +142,37 @@ const ApplicantProfile = () => {
 
               {!hideContent &&
 
+                // <UploadPdf>
+                //   <label className='center'>
+                //     <div><File className='IconColor' /></div>
+                //     <div>
+                //       <h5 className='Title'>Professional Resume</h5>
+                //       <h6 className='info'>3.5 MB</h6>
+                //       <input type="file" accept={profile.resume} hidden />
+                //     </div>
+                //   </label>
+                // </UploadPdf>
+
                 <UploadPdf>
-                  <label className='center'>
+                  <button
+                    className='center'
+                    onClick={() => {
+                     if(profile?.resume){
+                      const resumePdf = `${profile.resume}`
+                      window.open(resumePdf,"_black")
+                     }else{
+                      showError("resume not found")
+                     }
+                    }}
+                  >
                     <div><File className='IconColor' /></div>
                     <div>
                       <h5 className='Title'>Professional Resume</h5>
-                      <h6 className='info'>3.5 MB</h6>
-                      <input type="file" accept=".pdf" hidden />
+                      <h6 className='info'>Click to View</h6>
                     </div>
-                  </label>
+                  </button>
                 </UploadPdf>
+
 
               }
 

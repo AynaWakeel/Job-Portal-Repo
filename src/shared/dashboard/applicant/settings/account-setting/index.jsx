@@ -13,6 +13,7 @@ const ApplicantAccountSetting = () => {
         handleSubmit,
         formState: { errors }
     } = useForm()
+    
     const {profile_setting} = useApplicant()
     const onSubmit = (data) => {
         profile_setting(data)
@@ -56,7 +57,7 @@ const ApplicantAccountSetting = () => {
                                     {...register("location", { required: "location is req." })} />
                             </div>
                             <div className='FormError'>
-                                {errors.location && <p>location id required.</p>}
+                                {errors.location && <p>Location is required.</p>}
                             </div>
                             <div className='FormSpace'>
                                 <label htmlFor='phoneNumber' className='Label'>Phone Number</label>
@@ -64,7 +65,7 @@ const ApplicantAccountSetting = () => {
                                     {...register("phoneNumber", { required: "phoneNumber is req." })} />
                             </div>
                             <div className='FormError'>
-                                {errors.phoneNumber && <p>phoneNumber id required.</p>}
+                                {errors.phoneNumber && <p>phoneNumber is required.</p>}
                             </div>
                             <div className='FormSpace'>
                                 <label htmlFor='' className='Label'>Email</label>
@@ -72,7 +73,7 @@ const ApplicantAccountSetting = () => {
                                     {...register("email", { required: "email is req." })} />
                             </div>
                             <div className='FormError'>
-                                {errors.email && <p>email id required.</p>}
+                                {errors.email && <p>Email is required.</p>}
                             </div>
 
                             <button type='submit' className='FormBtn'>Save Changes</button>

@@ -39,18 +39,6 @@ export const useApplicant = () => {
         }
     }
 
-    // const applicant_profile = async (body) => {
-
-    //     const response = await Applicant_Endpoints.get_profile(body)
-    //     const { message, sucess } = response
-    //     if (sucess) {
-    //         showSuccess(message)
-    //         return response.data
-    //     } else {
-    //         showError(message)
-    //         return null
-    //     }
-    // }
 
       const create_resume = async (body) => {
 
@@ -76,9 +64,6 @@ export const useApplicant = () => {
         }
     }
     
-  return { profile_pic, upload_resume, profile_setting, 
-    // applicant_profile, 
-    create_resume, 
-    update_applicant_resume
+  return { profile_pic, upload_resume, profile_setting, create_resume, update_applicant_resume
 }
 }

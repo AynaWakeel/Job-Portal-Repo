@@ -2,8 +2,22 @@ import React, { useState } from 'react'
 import { Form, SettingDiv } from './style'
 import { ReactComponent as EyeIcon } from '../../../../../assets/icons/eye.svg'
 import { ReactComponent as EyeClose } from '../../../../../assets/icons/eye-close.svg'
+import { useForm } from 'react-hook-form'
+import { useRecruiter } from '../../useRecruiter'
 
 const RecruiterAccountSetting = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+
+  const {company_profile} = useRecruiter()
+
+  const onSubmit = (data) => {
+    company_profile(data)
+    console.log(data)
+  }
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
@@ -25,7 +39,7 @@ const RecruiterAccountSetting = () => {
   return (
     <div>
       <SettingDiv>
-        <form onSubmit="">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <h1 className='TopHeading'>Contact Information</h1>
           </div>
@@ -33,15 +47,29 @@ const RecruiterAccountSetting = () => {
             <Form>
               <div className='FormSpace'>
                 <label htmlFor='' className='Label'>Location</label>
-                <input type="text" placeholder='Location' className='FormInput' />
+                <input type="text" placeholder='Location' className='FormInput'
+                  {...register("location", { required: "Locaation is req." })} />
               </div>
+              <div className='FormError'>
+                {errors.location && <p>Location is required.</p>}
+              </div>
+
               <div className='FormSpace'>
                 <label htmlFor='' className='Label'>Phone Number</label>
-                <input type="tel" placeholder='Number' className='FormInput' />
+                <input type="tel" placeholder='Number' className='FormInput'
+                  {...register("phoneNumber", { required: "phone Number is req." })} />
               </div>
+              <div className='FormError'>
+                {errors.phoneNumber && <p>Phone Number is required.</p>}
+              </div>
+
               <div className='FormSpace'>
                 <label htmlFor='' className='Label'>Email</label>
-                <input type="email" placeholder='Email' className='FormInput' />
+                <input type="email" placeholder='Email' className='FormInput'
+                  {...register("email", { required: "Email is req." })} />
+              </div>
+              <div className='FormError'>
+                {errors.email && <p>Email is required.</p>}
               </div>
 
               <button type='submit' className='FormBtn'>Save Changes</button>

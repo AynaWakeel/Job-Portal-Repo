@@ -7,6 +7,6 @@ export const ApiEndPoints = {
     otp: async (body) => await postData("/api/auth/otp", body),
     reset_password: async (body) => await postData("/api/auth/reset-password", body),
     // google_signin: async () => await getData(`/api/oauth/google`)
-    google_signin: async ({ token }) => await getData(`/api/oauth/google?token=${token}`),
+    google_signin: async ({ token }) => await getData(`/api/oauth/google`),
 
 }   

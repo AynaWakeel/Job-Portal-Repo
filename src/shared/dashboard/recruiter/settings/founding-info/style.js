@@ -116,6 +116,23 @@ margin-inline: auto;
 
 }
 
+.FormError{
+    padding-bottom: 10px;
+    color: #e43f3fff;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--poppin); 
+    text-align: start;
+
+    @media ${devices.tablet} {
+       color: #d14242ff;  
+    }
+     
+    @media ${devices.mobile}{
+    color: #d14242ff;  
+    }
+}
+
 .Label{
     font-size: 14px;
     font-weight: 400;

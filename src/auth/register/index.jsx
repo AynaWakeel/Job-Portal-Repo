@@ -7,8 +7,8 @@ import axios from 'axios'
 import { useLocation, useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
-import { GoogleLogin } from '@react-oauth/google'
-import { jwtDecode } from "jwt-decode";
+// import { GoogleLogin } from '@react-oauth/google'
+// import { jwtDecode } from "jwt-decode";
 
 
 const Register = () => {
@@ -35,7 +35,6 @@ const Register = () => {
         } catch (err) {
             console.error("Signup failed.", err);
         }
-
     }
 
     const password = watch("password")
@@ -175,9 +174,10 @@ const Register = () => {
 
                             <h5 className='OR'>OR</h5>
                             <SocialMediaDiv>
-                                <button className='MediaBtn'>
-                                    {/* <img src={google} alt="icon" className='GoogleIcon' /> */}
-                                    <GoogleLogin
+                                <button className='MediaBtn' onClick={() => window.location.href = "http://localhost:3000/api/oauth/google"}>
+                                    <img src={google} alt="icon" className='GoogleIcon' />
+                                </button>
+                                    {/* <GoogleLogin
                                         onSuccess={async (credentialResponse) => {
                                             const token = credentialResponse.credential;
                                             const userInfo = jwtDecode(token);
@@ -187,8 +187,7 @@ const Register = () => {
                                             if (res) {
                                                 navigate('/applicant/dashboard');
                                             }
-                                        }} />
-                                </button>
+                                        }} /> */}
                             </SocialMediaDiv>
                         </Form>
                     </form>

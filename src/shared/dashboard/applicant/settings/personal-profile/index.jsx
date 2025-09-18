@@ -17,24 +17,24 @@ const ApplicantPersonalProfile = () => {
     formState: { errors },
   } = useForm()
 
-  const { profile_setting, profile_pic, upload_resume} = useApplicant()
+  const { profile_setting, profile_pic, upload_resume } = useApplicant()
 
   const onSubmit = (data) => {
     profile_setting(data)
     console.log(data, 'here is form data');
 
   }
-  const handleProfilePic = (e) =>{
+  const handleProfilePic = (e) => {
     const file = e.target.files[0]
-    if(file){
+    if (file) {
       const picData = new FormData()
       picData.append("profilepic", file)
       profile_pic(picData);
     }
   }
-  const handleUploadResume = (e)=>{
+  const handleUploadResume = (e) => {
     const file = e.target.files[0]
-    if(file){
+    if (file) {
       const resumeData = new FormData()
       resumeData.append("resume", file)
       upload_resume(resumeData)
@@ -81,13 +81,10 @@ const ApplicantPersonalProfile = () => {
                   <h5 className='TopHeading'>Browse photo <span>or drop here</span></h5>
                   <h6 className='Para'>A photo larger than 400 pixels work best. Max photo size 5 MB.</h6>
                   <input type="file" accept=".png" hidden
-                  onChange={handleProfilePic}/>
+                    onChange={handleProfilePic} />
                 </div>
               </label>
             </ProfilePic>
-            {/* <div className='FormError'>
-              {errors.profilepic && <p>Image id required.</p>}
-            </div> */}
 
             <UploadPdf>
               <label className='center'>
@@ -95,13 +92,10 @@ const ApplicantPersonalProfile = () => {
                 <div>
                   <h5 className='Title'>Professional Resume</h5>
                   <h6 className='info'>3.5 MB</h6>
-                  <input type="file" accept=".pdf" hidden onChange={handleUploadResume}/>
+                  <input type="file" accept=".pdf" hidden onChange={handleUploadResume} />
                 </div>
               </label>
             </UploadPdf>
-            {/* <div className='FormError'>
-              {errors.resume && <p>Image id required.</p>}
-            </div> */}
 
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -230,7 +224,6 @@ const ApplicantPersonalProfile = () => {
                       </div>
                     </>
                   )}
-
                 />
 
               </div>
