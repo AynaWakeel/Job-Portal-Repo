@@ -46,7 +46,6 @@ const UseAuth = () => {
         }else{
             console.log("err")
             return null
-
         }
         
     }

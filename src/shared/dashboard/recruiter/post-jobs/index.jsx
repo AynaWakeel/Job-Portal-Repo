@@ -2,8 +2,24 @@ import React from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Checkbox, ForgetDiv, Form, Jobdiv, SettingDiv } from './style'
+import { Controller, useForm } from 'react-hook-form';
+import { useRecruiter } from '../useRecruiter';
 
 const RecruiterPostaJob = () => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors }
+  } = useForm()
+
+  const { post_a_job } = useRecruiter()
+
+  const onSubmit = (data) => {
+    post_a_job(data)
+    console.log(data)
+  }
+
   const Modules = {
     toolbar: [
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
@@ -17,7 +33,7 @@ const RecruiterPostaJob = () => {
       <Jobdiv>
         <SettingDiv>
           {/* ------------------------ CREATE RESUME FORM ------------------------------- */}
-          <form onSubmit="">
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <h1 className='TopHeading'>Post a job</h1>
             </div>
@@ -25,12 +41,22 @@ const RecruiterPostaJob = () => {
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Job Title</label>
-                  <input type='text' placeholder='Add job title' className='FormInput' />
+                  <input type='text' placeholder='Add job title' className='FormInput'
+                    {...register("title", { required: "title is req." })} />
                 </div>
+
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Tags</label>
-                  <input type='text' placeholder='Job keywords,tags..' className='FormInput' />
+                  <input type='text' placeholder='Job keywords,tags..' className='FormInput'
+                    {...register("tags", { required: "tags are req." })} />
                 </div>
+              </div>
+
+              <div className='FormError'>
+                {errors.title && <p>title is required.</p>}
+              </div>
+              <div className='FormError'>
+                {errors.tags && <p>Tags are required.</p>}
               </div>
 
 
@@ -42,22 +68,41 @@ const RecruiterPostaJob = () => {
                 <div className='FormSpace FormInputDivide'>
                   <div className='InputWidth FormPassword'>
                     <label htmlFor='' className='Label'>Education</label>
-                    <input type='text' placeholder='Select..' className='FormInput' />
+                    <input type='text' placeholder='Select..' className='FormInput'
+                      {...register("education", { required: "education is req." })} />
                   </div>
+
                   <div className='InputWidth FormPassword'>
                     <label htmlFor='' className='Label'>Job Type</label>
-                    <input type='text' placeholder='Select..' className='FormInput' />
+                    <input type='text' placeholder='Select..' className='FormInput'
+                      {...register("jobType", { required: "jobTypeis req." })} />
                   </div>
                 </div>
+
+                <div className='FormError'>
+                  {errors.education && <p>Education is required.</p>}
+                </div>
+                <div className='FormError'>
+                  {errors.jobType && <p>jobType is required.</p>}
+                </div>
+
                 <div className='FormSpace FormInputDivide'>
                   <div className='InputWidth FormPassword'>
                     <label htmlFor='' className='Label'>Experience</label>
-                    <input type='text' placeholder='Select..' className='FormInput' />
+                    <input type='text' placeholder='Select..' className='FormInput'
+                      {...register("experience", { required: "experience is req." })} />
                   </div>
                   <div className='InputWidth FormPassword'>
                     <label htmlFor='' className='Label'>Expiration date</label>
-                    <input type='date' className='FormInput' />
+                    <input type='text' className='FormInput'
+                      {...register("jobExpirationDate", { required: "jobExpirationDate is req." })} />
                   </div>
+                </div>
+                <div className='FormError'>
+                  {errors.experience && <p>experience is required.</p>}
+                </div>
+                <div className='FormError'>
+                  {errors.jobExpirationDate && <p>job Expiration Date is required.</p>}
                 </div>
               </Form>
             </div>
@@ -68,12 +113,20 @@ const RecruiterPostaJob = () => {
                 <div className='FormSpace FormInputDivide'>
                   <div className='InputWidth'>
                     <label htmlFor='' className='Label'>Min Salary</label>
-                    <input type='number' placeholder='Minimum Salary' className='FormInput' />
+                    <input type='number' placeholder='Minimum Salary' className='FormInput'
+                      {...register("salaryMin", { required: "salaryMin is req." })} />
                   </div>
                   <div className='InputWidth'>
                     <label htmlFor='' className='Label'>Max Salary</label>
-                    <input type='number' placeholder='Maximum Salary' className='FormInput' />
+                    <input type='number' placeholder='Maximum Salary' className='FormInput'
+                      {...register("salaryMax", { required: "Max salary is req." })} />
                   </div>
+                </div>
+                <div className='FormError'>
+                  {errors.salaryMin && <p>Min salary is required.</p>}
+                </div>
+                <div className='FormError'>
+                  {errors.salaryMax && <p>Max salary is required.</p>}
                 </div>
 
 
@@ -83,24 +136,50 @@ const RecruiterPostaJob = () => {
             <div className='spacetop'>
               <h1 className='TopHeading'>Description & Responsibility</h1>
               <Form>
-
                 <div className='FormSpace'>
                   <label htmlFor='' className='Label'>Description</label>
-                  <ReactQuill theme="snow" modules={Modules} className='Quillbar' placeholder='Add Your Job Description..'/>
+                  <Controller
+                    name='description'
+                    control={control}
+                    rules={{ required: "Enter your bio." }}
+                    render={({ field, fieldState }) => (
+                      <>
+                        <ReactQuill theme="snow" modules={Modules} className='Quillbar' p placeholder='Add Your Job Description..' 
+                          value={field.value} onChange={field.onChange}
+                        />
+
+                        <div className='FormError'>
+                          {fieldState.error && <p>Description is required.</p>}
+                        </div>
+                      </>
+                    )}
+
+                  />
                 </div>
                 <div className='FormSpace'>
                   <label htmlFor='' className='Label'>Responsibility</label>
-                  <ReactQuill theme="snow" modules={Modules} className='Quillbar' placeholder='Add Your Job Responsibility..' />
+                  <Controller
+                  name='responsibilities'
+                  control={control}
+                  rules={{ required: "Enter your bio." }}
+                  render={({ field, fieldState }) => (
+                    <>
+                      <ReactQuill theme="snow" modules={Modules} className='Quillbar'  placeholder='Add Your Job Responsibility..'
+                        value={field.value} onChange={field.onChange}
+                      />
+
+                      <div className='FormError'>
+                        {fieldState.error && <p>Responsibilities are required.</p>}
+                      </div>
+                    </>
+                  )}
+
+                />
                 </div>
+                <button type='submit' className='FormBtn'>Post a job</button>
+
               </Form>
             </div>
-
-            <Form>
-              <div className='FormInputDivide'>
-                <button type='submit' className='FormBtn'>Post a job</button>
-              </div>
-            </Form>
-
 
           </form>
         </SettingDiv>

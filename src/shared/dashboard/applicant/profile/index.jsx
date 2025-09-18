@@ -47,12 +47,6 @@ const ApplicantProfile = () => {
           <div className='profile'>
             <div className='profile-intro'>
               <div className='profile-pic'>
-                {/* <img
-                  src={profile?.image ? `${process.env.REACT_APP_API_URL}${profile.image.filepath}` : "/default-avatar.png"}
-                  alt="profile"
-                /> */}
-
-
                 <img src={profile.profilepic} alt='profile' />
               </div>
               <div className='profile-flex-col'>

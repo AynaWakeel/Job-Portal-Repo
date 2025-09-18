@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Dropdown, Form, ProfilePic, SettingDiv, UploadPdf } from './style'
@@ -8,22 +8,47 @@ import { ReactComponent as Arrowup } from '../../../../../assets/icons/fi_chevro
 import { ReactComponent as Arrowdown } from '../../../../../assets/icons/fi_chevron-down.svg'
 import { Controller, useForm } from 'react-hook-form';
 import { useApplicant } from '../../useApplicant';
+import { Applicant_Endpoints } from '../../../../../lib/api/applicant_endpoints';
 
 const ApplicantPersonalProfile = () => {
   const {
     register,
     control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
   const { profile_setting, profile_pic, upload_resume } = useApplicant()
 
+  const [hasData, setHasData] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const previousData = await Applicant_Endpoints.get_profile();
+      if (previousData) {
+        reset(previousData);
+        setHasData(true);
+      } else {
+        reset({
+          fullname: "",
+          title: "",         
+          experience: "",
+          education: "" ,
+          personalwebsite: "",
+          bioGraphy: ""
+        });
+        setHasData(false);
+      }
+    };
+    fetchData();
+  }, [reset]);
+
   const onSubmit = (data) => {
     profile_setting(data)
-    console.log(data, 'here is form data');
-
+    console.log(data)
   }
+
   const handleProfilePic = (e) => {
     const file = e.target.files[0]
     if (file) {

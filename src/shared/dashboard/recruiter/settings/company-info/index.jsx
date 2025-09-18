@@ -1,27 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Form, ProfilePic, SettingDiv, Uploadbanner } from './style'
 import Upload from '../../../../../assets/icons/fi_upload-cloud.svg'
 import { Controller, useForm } from 'react-hook-form';
 import { useRecruiter } from '../../useRecruiter';
+import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints';
 
 const CompanyInfo = () => {
   const {
     register,
     handleSubmit,
+    reset,
     control,
     formState: { errors }
   } = useForm()
 
   const { company_profile, upload_banner, upload_logo } = useRecruiter()
 
+  const [hasData, setHasData] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const previousData = await Recruiter_Endpoints.get_company_profile();
+      if (previousData) {
+        reset(previousData);
+        setHasData(true);
+      } else {
+        reset({
+          companyName: "",
+          aboutUs: "",
+
+        });
+        setHasData(false);
+      }
+    };
+    fetchData();
+  }, [reset]);
+
   const onSubmit = (data) => {
     company_profile(data)
     console.log(data)
   }
 
-   const handleUploadLogo = (e) => {
+  const handleUploadLogo = (e) => {
     const file = e.target.files[0]
     if (file) {
       const logo = new FormData()
@@ -29,11 +51,11 @@ const CompanyInfo = () => {
       upload_logo(logo)
     }
   }
-  const handleUploadBanner = (e)=>{
+  const handleUploadBanner = (e) => {
     const file = e.target.files[0]
-    if(file){
+    if (file) {
       const banner = new FormData()
-      banner.append("bannerImage",file)
+      banner.append("bannerImage", file)
       upload_banner(banner)
       // console.log("banner")
     }
@@ -64,7 +86,7 @@ const CompanyInfo = () => {
                     <div>
                       <h5 className='TopHeading'>Browse photo</h5>
                       <h6 className='Para'>A photo larger than 400 pixels work best. Max photo size 5 MB.</h6>
-                      <input type="file" accept=".png" hidden onChange={handleUploadLogo}/>
+                      <input type="file" accept=".png" hidden onChange={handleUploadLogo} />
                     </div>
                   </label>
                 </ProfilePic>
@@ -78,7 +100,7 @@ const CompanyInfo = () => {
                     <div>
                       <h5 className='TopHeading'>Browse Banner</h5>
                       <h6 className='Para'>A photo larger than 400 pixels work best. Max photo size 5 MB.</h6>
-                      <input type="file" accept=".png" hidden onChange={handleUploadBanner}/>
+                      <input type="file" accept=".png" hidden onChange={handleUploadBanner} />
                     </div>
                   </label>
                 </Uploadbanner>
@@ -97,10 +119,19 @@ const CompanyInfo = () => {
                 {errors.companyName && <p>Company Name is required.</p>}
               </div>
 
+              {/* <div className='FormSpace'>
+                <label htmlFor='' className='Label'>Company Title</label>
+                <input type="text" className='FormInput'
+                  {...register("", { required: "Company title is req." })} />
+              </div>
+              <div className='FormError'>
+                {errors. && <p>Company title is required.</p>}
+              </div> */}
+
               {/* -------------- react quill ------------ */}
               <div className='FormSpace'>
                 <label htmlFor='' className='Label'>About us</label>
-             
+
                 <Controller
                   name='biography'
                   control={control}

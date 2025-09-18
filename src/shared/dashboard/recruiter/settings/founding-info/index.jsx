@@ -1,18 +1,41 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dropdown, Form, SettingDiv } from './style'
 import { ReactComponent as Arrowup } from '../../../../../assets/icons/fi_chevron-up.svg'
 import { ReactComponent as Arrowdown } from '../../../../../assets/icons/fi_chevron-down.svg'
 import { useForm } from 'react-hook-form'
 import { useRecruiter } from '../../useRecruiter'
+import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints'
 
 const FoundingInfo = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm()
 
   const { company_profile } = useRecruiter()
+  const [hasData, setHasData] = useState(false);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        const previousData = await Recruiter_Endpoints.get_company_profile();
+        if (previousData) {
+          reset(previousData);
+          setHasData(true);
+        } else {
+          reset({
+          organizationType: "",
+          teamSize: "",
+          industryTypes: "",
+          yearOfEstablishment: "",
+          website: "",
+          });
+          setHasData(false);
+        }
+      };
+      fetchData();
+    }, [reset]);
 
   const onSubmit = (data) => {
     company_profile(data)

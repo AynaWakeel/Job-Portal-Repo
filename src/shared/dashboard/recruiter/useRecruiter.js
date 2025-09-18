@@ -27,17 +27,6 @@ export const useRecruiter = () => {
 
     }
 
-    // const upload_banner = async (body) => {
-
-    //     const response = await Recruiter_Endpoints.post_banner(body)
-    //     if (response?.data?.message) {
-    //         showSuccess(response.data.message)
-    //     } else {
-    //         showError(response.data.message)
-    //     }
-
-    // }
-
     const upload_banner = async (body) => {
         try {
             const response = await Recruiter_Endpoints.post_banner(body);
@@ -52,8 +41,24 @@ export const useRecruiter = () => {
         } catch (error) {
             showError(error?.response?.data?.message);
         }
-    };
+    }
+
+    const post_a_job = async(body)=>{
+        try{
+            const response = await Recruiter_Endpoints.post_job(body)
+            
+           if (response?.data?.message) {
+                showSuccess(response.data.message);          
+            } else if (response?.message) {
+                showSuccess(response.message);
+            } else {
+                showError("Something went wrong!");
+            }
+        } catch (error) {
+            showError(error?.response?.data?.message);
+        }
+    }
 
 
-    return { company_profile, upload_logo, upload_banner }
+    return { company_profile, upload_logo, upload_banner, post_a_job }
 }

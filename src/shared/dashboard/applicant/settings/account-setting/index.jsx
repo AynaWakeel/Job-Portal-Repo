@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, QrForm, SettingDiv } from './style'
 import { ReactComponent as EyeIcon } from '../../../../../assets/icons/eye.svg'
 import { ReactComponent as EyeClose } from '../../../../../assets/icons/eye-close.svg'
@@ -6,19 +6,43 @@ import ScanCode from '../../../../../components/qrcode'
 import ReactSwitch from 'react-switch'
 import { useForm } from 'react-hook-form'
 import { useApplicant } from '../../useApplicant'
+import { Applicant_Endpoints } from '../../../../../lib/api/applicant_endpoints'
 
 const ApplicantAccountSetting = () => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm()
-    
-    const {profile_setting} = useApplicant()
+
+    const { profile_setting } = useApplicant()
+
+    const [hasData, setHasData] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const previousData = await Applicant_Endpoints.get_profile();
+            if (previousData) {
+                reset(previousData);
+                setHasData(true);
+            } else {
+                reset({
+                    location: "",
+                    phonenumber: "",
+                    email: "",
+                });
+                setHasData(false);
+            }
+        };
+        fetchData();
+    }, [reset]);
+
     const onSubmit = (data) => {
         profile_setting(data)
         console.log(data)
     }
+
     const [isChecked, setIsChecked] = useState(false)
     const handleChange = nextChecked => {
         setIsChecked(nextChecked);
