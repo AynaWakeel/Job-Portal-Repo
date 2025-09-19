@@ -26,6 +26,7 @@ padding-block: 20px;
 }
 
 .Divide{
+    width: 100%;
     display: flex;
     justify-content: start;
     gap: 20px;
@@ -39,6 +40,10 @@ padding-block: 20px;
     }
 }
 
+
+.form-div{
+    width: 80%;
+}
 
 .SubHeading{
     margin-top: 20px;
@@ -79,7 +84,7 @@ padding-block: 20px;
 `
 
 export const ProfilePic = styled.div`
-    width: 240px;
+    width: 300px;
     height: 240px;
     padding-block: 30px;
     padding-inline: 20px;
@@ -180,7 +185,7 @@ export const UploadPdf = styled.div`
 `
 
 export const Form = styled.div`
-width: 75%;
+width: 100%;
 margin-top: 10px;
 margin-inline: auto;
 

@@ -5,55 +5,68 @@ import { ReactComponent as Arrowdown } from '../../../../../assets/icons/fi_chev
 import { useForm } from 'react-hook-form'
 import { useRecruiter } from '../../useRecruiter'
 import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints'
+import CustomSelect from '../../../../../components/custome-select'
 
 const FoundingInfo = () => {
+  const orgOptions = [
+    "Business / For-Profit Company",
+    "Nonprofit / Charity",
+    "Government / Public Sector",
+    "Social Enterprise / B-Corporation",
+    "Educational Institution",
+    "Partnership",
+    "Sole Proprietorship",
+    "Limited Liability Company (LLC)",
+    "Cooperative",
+    "State-Owned Enterprise",
+  ]
+
+  const industryOptions = [
+    "Information Technology",
+    "Finance & Banking",
+    "Engineering & Manufacturing",
+    "Marketing & Advertising",
+    "Retail & E-commerce",
+    "Construction & Real Estate",
+    "Healthcare & Medical",
+  ]
+
   const {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors }
   } = useForm()
 
   const { company_profile } = useRecruiter()
   const [hasData, setHasData] = useState(false);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        const previousData = await Recruiter_Endpoints.get_company_profile();
-        if (previousData) {
-          reset(previousData);
-          setHasData(true);
-        } else {
-          reset({
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const previousData = await Recruiter_Endpoints.get_company_profile();
+      if (previousData) {
+        reset(previousData);
+        setHasData(true);
+      } else {
+        reset({
           organizationType: "",
           teamSize: "",
           industryTypes: "",
           yearOfEstablishment: "",
           website: "",
-          });
-          setHasData(false);
-        }
-      };
-      fetchData();
-    }, [reset]);
+        });
+        setHasData(false);
+      }
+    };
+    fetchData();
+  }, [reset]);
 
   const onSubmit = (data) => {
     company_profile(data)
     console.log(data)
   }
 
-  //------------- simple dropdown ( experience )
-  const [isIndustryDropdownOpen, setIsIndustryDropdownOpen] = useState(false)
-  const IndustryDropdownOpen = () => {
-    setIsIndustryDropdownOpen(!isIndustryDropdownOpen)
-    setIsOrganizationDropdownOpen(false)
-  }
-  //------------- simple dropdown ( organization )
-  const [isOrganizationDropdownOpen, setIsOrganizationDropdownOpen] = useState(false)
-  const OrganizationDropdownOpen = () => {
-    setIsOrganizationDropdownOpen(!isOrganizationDropdownOpen)
-    setIsIndustryDropdownOpen(false)
-  }
   return (
     <div>
       <SettingDiv>
@@ -63,42 +76,14 @@ const FoundingInfo = () => {
             <div className='FormSpace FormInputDivide'>
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Organization Types</label>
-                {/* <div className='SelectFlex simple-dropdown FormInput' onClick={OrganizationDropdownOpen}>
-                  <input className='Input' placeholder='Organization Types' />
-                  {isOrganizationDropdownOpen ?
-                    <Arrowup className='SelectColor' /> :
-                    <Arrowdown className='SelectColor' />
-                  }
-                  {isOrganizationDropdownOpen &&
-                    <Dropdown>
-                      <ul className='options'>
-                        <li>Business / For-Profit Company</li>
-                        <li>Nonprofit / Charity</li>
-                        <li>Government / Public Sector</li>
-                        <li>Social Enterprise / B-Corporation</li>
-                        <li>Educational Institution</li>
-                        <li>Partnership</li>
-                        <li>Sole Proprietorship</li>
-                        <li>Limited Liability Company (LLC)</li>
-                        <li>Cooperative</li>
-                        <li>State-Owned Enterprise</li>
-                      </ul>
-                    </Dropdown>
-                  }
-                </div> */}
-                <select className='SelectFlex simple-dropdown FormInput'
-                  {...register('organizationType', { required: "Enter your organizationType" })} >
-                  <option value="Business / For-Profit Company">Business / For-Profit Company</option>
-                  <option value="Nonprofit / Charity">Nonprofit / Charity</option>
-                  <option value="Government / Public Sector">Government / Public Sector</option>
-                  <option value="Social Enterprise / B-Corporation">Social Enterprise / B-Corporation</option>
-                  <option value="Educational Institution">Educational Institution</option>
-                  <option value="Partnership">Partnership</option>
-                  <option value="Sole Proprietorship">Sole Proprietorship</option>
-                  <option value="Limited Liability Company (LLC)">Limited Liability Company (LLC)</option>
-                  <option value="Cooperative">Cooperative</option>
-                  <option value="State-Owned Enterprise">State-Owned Enterprise</option>
-                </select>
+                <CustomSelect
+                  name="organizationType"
+                  control={control}
+                  rules={{ required: "Enter your organizationType" }}
+                  placeholder="Organization Types"
+                  options={orgOptions}
+                />
+
                 <div className='FormError'>
                   {errors.organizationType && <p>Organization Type id required.</p>}
                 </div>
@@ -106,7 +91,7 @@ const FoundingInfo = () => {
 
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Team Size</label>
-                <input type='number' placeholder='150..' className='FormInput'
+                <input type='text' placeholder='150..' className='FormInput'
                   {...register("teamSize", { required: "teamSize is req." })} />
               </div>
             </div>
@@ -117,45 +102,20 @@ const FoundingInfo = () => {
             <div className='FormSpace FormInputDivide'>
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Industry Types</label>
-                {/* <div className='SelectFlex simple-dropdown FormInput' onClick={IndustryDropdownOpen}>
-                  <input className='Input' placeholder='Industry Types' />
-                  {isIndustryDropdownOpen ?
-                    <Arrowup className='SelectColor' /> :
-                    <Arrowdown className='SelectColor' />
-                  }
-                  {isIndustryDropdownOpen &&
-                    <Dropdown>
-                      <ul className='options'>
-                        <li>Information Technology</li>
-                        <li>Finance & Banking</li>
-                        <li>Engineering & Manufacturing</li>
-                        <li>Marketing & Advertising</li>
-                        <li>Retail & E-commerce</li>
-                        <li>Construction & Real Estate</li>
-                        <li>Healthcare & Medical</li>
-                      </ul>
-                    </Dropdown>
-                  }
-                </div> */}
-
-                <select className='SelectFlex simple-dropdown FormInput'
-                  {...register('industryTypes', { required: "Enter your industryTypes" })} >
-
-                  <option value="Information Technology">Information Technology</option>
-                  <option value="Finance & Banking">Finance & Banking</option>
-                  <option value="Engineering & Manufacturing">Engineering & Manufacturing</option>
-                  <option value="Marketing & Advertising">Marketing & Advertising</option>
-                  <option value="Retail & E-commerce">Retail & E-commerce</option>
-                  <option value="Construction & Real Estate">Construction & Real Estate</option>
-                  <option value="Healthcare & Medical">Healthcare & Medical</option>
-                </select>
+                   <CustomSelect
+                  name="industryTypes"
+                  control={control}
+                  rules={{ required: "Enter your Industry Types" }}
+                  placeholder="Industry Types"
+                  options={industryOptions}
+                />
                 <div className='FormError'>
                   {errors.industryTypes && <p>Industry Type id required.</p>}
                 </div>
               </div>
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Year of Establishment</label>
-                <input type='text' className='FormInput'
+                <input type='text' className='FormInput' placeholder='2023'
                   {...register("yearOfEstablishment", { required: "yearOfEstablishment is req." })} />
               </div>
             </div>

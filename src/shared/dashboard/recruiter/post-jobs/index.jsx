@@ -1,11 +1,22 @@
 import React from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Checkbox, ForgetDiv, Form, Jobdiv, SettingDiv } from './style'
+import { Form, Jobdiv, SettingDiv } from './style'
 import { Controller, useForm } from 'react-hook-form';
 import { useRecruiter } from '../useRecruiter';
+import SelectIndustry from '../../../../components/select-industry';
 
 const RecruiterPostaJob = () => {
+  const industryOptions = [
+    { value: "1", label: "Information Technology" },
+    { value: "2", label:"Finance & Banking" },
+    { value: "3", label: "Engineering & Manufacturing" },
+    { value: "4", label:"Marketing & Advertising" },
+    { value: "5", label: "Retail & E-commerce" },
+    { value: "6", label:"Construction & Real Estate" },
+    { value: "7", label: "Healthcare & Medical" },
+  ]
+
   const {
     register,
     handleSubmit,
@@ -49,6 +60,22 @@ const RecruiterPostaJob = () => {
                   <label htmlFor='' className='Label'>Tags</label>
                   <input type='text' placeholder='Job keywords,tags..' className='FormInput'
                     {...register("tags", { required: "tags are req." })} />
+                </div>
+              </div>
+              <div className='FormSpace'>
+                <div className='InputWidth'>
+                  <label htmlFor='' className='Label'>Industry Types</label>
+                 
+                  <SelectIndustry
+                    name="industryId"
+                    control={control}
+                    rules={{ required: "Enter your Industry Types" }}
+                    placeholder="Industry Types"
+                    options={industryOptions}
+                  />
+                  <div className='FormError'>
+                    {errors.industryId && <p>Industry id required.</p>}
+                  </div>
                 </div>
               </div>
 
@@ -113,12 +140,12 @@ const RecruiterPostaJob = () => {
                 <div className='FormSpace FormInputDivide'>
                   <div className='InputWidth'>
                     <label htmlFor='' className='Label'>Min Salary</label>
-                    <input type='number' placeholder='Minimum Salary' className='FormInput'
+                    <input type='text' placeholder='Minimum Salary' className='FormInput'
                       {...register("salaryMin", { required: "salaryMin is req." })} />
                   </div>
                   <div className='InputWidth'>
                     <label htmlFor='' className='Label'>Max Salary</label>
-                    <input type='number' placeholder='Maximum Salary' className='FormInput'
+                    <input type='text' placeholder='Maximum Salary' className='FormInput'
                       {...register("salaryMax", { required: "Max salary is req." })} />
                   </div>
                 </div>
@@ -144,7 +171,7 @@ const RecruiterPostaJob = () => {
                     rules={{ required: "Enter your bio." }}
                     render={({ field, fieldState }) => (
                       <>
-                        <ReactQuill theme="snow" modules={Modules} className='Quillbar' p placeholder='Add Your Job Description..' 
+                        <ReactQuill theme="snow" modules={Modules} className='Quillbar' p placeholder='Add Your Job Description..'
                           value={field.value} onChange={field.onChange}
                         />
 
@@ -159,22 +186,22 @@ const RecruiterPostaJob = () => {
                 <div className='FormSpace'>
                   <label htmlFor='' className='Label'>Responsibility</label>
                   <Controller
-                  name='responsibilities'
-                  control={control}
-                  rules={{ required: "Enter your bio." }}
-                  render={({ field, fieldState }) => (
-                    <>
-                      <ReactQuill theme="snow" modules={Modules} className='Quillbar'  placeholder='Add Your Job Responsibility..'
-                        value={field.value} onChange={field.onChange}
-                      />
+                    name='responsibilities'
+                    control={control}
+                    rules={{ required: "Enter your bio." }}
+                    render={({ field, fieldState }) => (
+                      <>
+                        <ReactQuill theme="snow" modules={Modules} className='Quillbar' placeholder='Add Your Job Responsibility..'
+                          value={field.value} onChange={field.onChange}
+                        />
 
-                      <div className='FormError'>
-                        {fieldState.error && <p>Responsibilities are required.</p>}
-                      </div>
-                    </>
-                  )}
+                        <div className='FormError'>
+                          {fieldState.error && <p>Responsibilities are required.</p>}
+                        </div>
+                      </>
+                    )}
 
-                />
+                  />
                 </div>
                 <button type='submit' className='FormBtn'>Post a job</button>
 

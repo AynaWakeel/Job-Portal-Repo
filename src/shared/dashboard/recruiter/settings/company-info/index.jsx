@@ -28,6 +28,8 @@ const CompanyInfo = () => {
         setHasData(true);
       } else {
         reset({
+          profilepic:"",
+          resume:"",
           companyName: "",
           aboutUs: "",
 
@@ -105,7 +107,6 @@ const CompanyInfo = () => {
                   </label>
                 </Uploadbanner>
               </div>
-
             </div>
 
             <Form>
@@ -119,14 +120,14 @@ const CompanyInfo = () => {
                 {errors.companyName && <p>Company Name is required.</p>}
               </div>
 
-              {/* <div className='FormSpace'>
+              <div className='FormSpace'>
                 <label htmlFor='' className='Label'>Company Title</label>
                 <input type="text" className='FormInput'
-                  {...register("", { required: "Company title is req." })} />
+                  {...register("title", { required: "Company title is req." })} />
               </div>
               <div className='FormError'>
-                {errors. && <p>Company title is required.</p>}
-              </div> */}
+                {errors.title && <p>Company title is required.</p>}
+              </div>
 
               {/* -------------- react quill ------------ */}
               <div className='FormSpace'>

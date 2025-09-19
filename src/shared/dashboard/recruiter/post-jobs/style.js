@@ -132,7 +132,7 @@ margin-inline: auto;
     align-items: center;
     gap: 10px;
 
-    @media ${devices.tablet}{
+     @media ${devices.tablet}{
         flex-direction: column;
     }
 
@@ -190,7 +190,40 @@ margin-inline: auto;
     font-size: 18px;
     font-weight: 500;
 }
+
+
+.SelectFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Input{
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: var(--inter);
+    color: #9199A3;
+    width: 100%;
+}
+
+.Input:active{
+    color: var(--purple-600);
+}
+
+.Input::placeholder{
+    font-size: 16px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
+.simple-dropdown{
+    position: relative;
+}
 `
+
 
 export const Checkbox = styled.input.attrs({type:'radio'})`
 width: 20px;

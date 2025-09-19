@@ -8,8 +8,18 @@ import { ReactComponent as Arrowdown } from '../../../../../assets/icons/fi_chev
 import { useApplicant } from '../../useApplicant';
 import { Controller, useForm } from 'react-hook-form';
 import { Applicant_Endpoints } from '../../../../../lib/api/applicant_endpoints';
+import CustomSelect from '../../../../../components/custome-select';
 
 const ApplicantCreateResume = () => {
+  const experienceOptions = [
+    "Freshers",
+    "1 - 2 Years",
+    "2 - 4 Years",
+    "4 - 6 Years",
+    "6 - 8 Years",
+    "8 - 10 Years",
+    "10 - 15 Years",
+  ]
   const {
     register,
     handleSubmit,
@@ -19,36 +29,36 @@ const ApplicantCreateResume = () => {
     formState: { errors }
   } = useForm()
   const { create_resume, update_applicant_resume } = useApplicant()
-  
+
   const [hasResume, setHasResume] = useState(false);
 
-useEffect(() => {
-  const fetchData = async () => {
-    const previousData = await Applicant_Endpoints.get_resume();
-    if (previousData) {
-      reset(previousData);
-      setHasResume(true);
-    } else {
-      reset({   
-        fullname: "",
-        title: "",
-        gender: "",
-        degree: "",
-        skills: "",
-        institute: "",
-        experience: "",
-        projects: "",
-        location: "",
-        phonenumber: "",
-        email: "",
-        personalwebsite: "",
-        biography: ""
-      });
-      setHasResume(false);
-    }
-  };
-  fetchData();
-}, [reset]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const previousData = await Applicant_Endpoints.get_resume();
+      if (previousData) {
+        reset(previousData);
+        setHasResume(true);
+      } else {
+        reset({
+          fullname: "",
+          title: "",
+          gender: "",
+          degree: "",
+          skills: "",
+          institute: "",
+          experience: "",
+          projects: "",
+          location: "",
+          phonenumber: "",
+          email: "",
+          personalwebsite: "",
+          biography: ""
+        });
+        setHasResume(false);
+      }
+    };
+    fetchData();
+  }, [reset]);
 
   const onSubmit = (data) => {
     if (data.resume?.[0]) {
@@ -72,14 +82,6 @@ useEffect(() => {
   const isOpen = () => {
     setIsResumeOpen(true)
   }
-
-  //------------- simple dropdown ( experience )
-  const [isExperienceDropdownOpen, setIsExperienceDropdownOpen] = useState(false)
-  const ExperienceDropdownOpen = () => {
-    setIsExperienceDropdownOpen(!isExperienceDropdownOpen)
-  }
-
-
 
 
   return (
@@ -164,36 +166,14 @@ useEffect(() => {
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Experience</label>
-                  {/* <div className='SelectFlex simple-dropdown FormInput' onClick={ExperienceDropdownOpen}>
-                    <input className='Input' placeholder='Experience' />
-                    {isExperienceDropdownOpen ?
-                      <Arrowup className='SelectColor' /> :
-                      <Arrowdown className='SelectColor' />
-                    }
-                    {isExperienceDropdownOpen &&
-                      <Dropdown>
-                        <ul className='options'>
-                          <li>Freshers</li>
-                          <li>1 - 2 Years</li>
-                          <li>2 - 4 Years</li>
-                          <li>4 - 6 Years</li>
-                          <li>6 - 8 Years</li>
-                          <li>8 - 10 Years</li>
-                          <li>10 - 15 Years</li>
-                        </ul>
-                      </Dropdown>
-                    }
-                  </div> */}
-                  <select className='SelectFlex simple-dropdown FormInput'
-                    {...register('experience', { required: "Enter your Experience" })} >
-                    <option value="Freshers">Freshers</option>
-                    <option value="1 - 2 Years">1 - 2 Years</option>
-                    <option value="2 - 4 Years">2 - 4 Years</option>
-                    <option value="4 - 6 Years">4 - 6 Years</option>
-                    <option value="6 - 8 Years">6 - 8 Years</option>
-                    <option value="8 - 10 Years">8 - 10 Years</option>
-                    <option value="10 - 15 Years">10 - 15 Years</option>
-                  </select>
+                  <CustomSelect
+                    name="experience"
+                    control={control}
+                    rules={{ required: "Enter your experience" }}
+                    placeholder="Industry Types"
+                    options={experienceOptions}
+                  />
+                
                   <div className='FormError'>
                     {errors.experience && <p>experience id required.</p>}
                   </div>

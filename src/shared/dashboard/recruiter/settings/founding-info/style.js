@@ -117,7 +117,6 @@ margin-inline: auto;
 }
 
 .FormError{
-    padding-bottom: 10px;
     color: #e43f3fff;
     font-size: 14px;
     font-weight: 400;
@@ -176,7 +175,7 @@ margin-inline: auto;
     font-weight: 400;
     font-family: var(--inter);
     color: #9199A3;
-    width: 200px;
+    width: 100%;
 }
 
 .Input:active{
@@ -223,4 +222,5 @@ z-index: 999;
     background-color: var(--purple-70);
 
 }
+
 `

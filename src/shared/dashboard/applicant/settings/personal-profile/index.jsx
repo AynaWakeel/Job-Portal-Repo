@@ -9,8 +9,28 @@ import { ReactComponent as Arrowdown } from '../../../../../assets/icons/fi_chev
 import { Controller, useForm } from 'react-hook-form';
 import { useApplicant } from '../../useApplicant';
 import { Applicant_Endpoints } from '../../../../../lib/api/applicant_endpoints';
+import CustomSelect from '../../../../../components/custome-select';
 
 const ApplicantPersonalProfile = () => {
+  const experienceOptions = [
+    "Freshers",
+    "1 - 2 Years",
+    "2 - 4 Years",
+    "4 - 6 Years",
+    "6 - 8 Years",
+    "8 - 10 Years",
+    "10 - 15 Years",
+  ]
+
+  const educationOptions = [
+    "Diploma",
+    "Internship/A-Level",
+    "Bachelor's Degree",
+    "Master's Degree",
+    "MPhil",
+    "PhD",
+  ]
+
   const {
     register,
     control,
@@ -31,10 +51,12 @@ const ApplicantPersonalProfile = () => {
         setHasData(true);
       } else {
         reset({
+          profilepic:"",
+          resume:"",
           fullname: "",
-          title: "",         
+          title: "",
           experience: "",
-          education: "" ,
+          education: "",
           personalwebsite: "",
           bioGraphy: ""
         });
@@ -74,19 +96,6 @@ const ApplicantPersonalProfile = () => {
       [{ list: 'ordered' }, { list: 'bullet' }]
     ]
   }
-  //------------- simple dropdown ( experience )
-  const [isExperienceDropdownOpen, setIsExperienceDropdownOpen] = useState(false)
-  const ExperienceDropdownOpen = () => {
-    setIsExperienceDropdownOpen(!isExperienceDropdownOpen)
-    setIsEducationDropdownOpen(false)
-  }
-
-  const [isEducationDropdownOpen, setIsEducationDropdownOpen] = useState(false)
-  const EducationDropdownOpen = () => {
-    setIsEducationDropdownOpen(!isEducationDropdownOpen)
-    setIsExperienceDropdownOpen(false)
-  }
-
 
   return (
     <div>
@@ -97,6 +106,7 @@ const ApplicantPersonalProfile = () => {
           <h1 className='TopHeading'>Basic Information</h1>
         </div>
         <div className='Divide'>
+          
           <div>
             <h3 className='SubHeading'>Profile Picture</h3>
             <ProfilePic>
@@ -123,6 +133,9 @@ const ApplicantPersonalProfile = () => {
             </UploadPdf>
 
           </div>
+          
+          <div className='form-div'>
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <Form>
               <div className='FormSpace FormInputDivide'>
@@ -146,79 +159,31 @@ const ApplicantPersonalProfile = () => {
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth'>
                   <label htmlFor='experience' className='Label'>Experience</label>
-                  <div
-                  // onClick={ExperienceDropdownOpen}
-                  >
-                    {/* <input className='Input' placeholder='Experience' 
-                    {...register('experience', { required: "Enter your Experience" })}/>
-                    {isExperienceDropdownOpen ?
-                      <Arrowup className='SelectColor' /> :
-                      <Arrowdown className='SelectColor' />
-                    }
-                    {isExperienceDropdownOpen &&
-                      <Dropdown>
-                        <ul className='options'>
-                          <li>Freshers</li>
-                          <li>1 - 2 Years</li>
-                          <li>2 - 4 Years</li>
-                          <li>4 - 6 Years</li>
-                          <li>6 - 8 Years</li>
-                          <li>8 - 10 Years</li>
-                          <li>10 - 15 Years</li>
-                        </ul>
-                      </Dropdown>
-                    } */}
-                    <select className='SelectFlex simple-dropdown FormInput'
-                      {...register('experience', { required: "Enter your Experience" })} >
-                      <option value="Freshers">Freshers</option>
-                      <option value="1 - 2 Years">1 - 2 Years</option>
-                      <option value="2 - 4 Years">2 - 4 Years</option>
-                      <option value="4 - 6 Years">4 - 6 Years</option>
-                      <option value="6 - 8 Years">6 - 8 Years</option>
-                      <option value="8 - 10 Years">8 - 10 Years</option>
-                      <option value="10 - 15 Years">10 - 15 Years</option>
-                    </select>
-                    <div className='FormError'>
-                      {errors.experience && <p>experience id required.</p>}
-                    </div>
+                  <CustomSelect
+                    name="experience"
+                    control={control}
+                    rules={{ required: "Enter your experience" }}
+                    placeholder="Experience"
+                    options={experienceOptions}
+                  />
+
+                  <div className='FormError'>
+                    {errors.experience && <p>experience id required.</p>}
                   </div>
                 </div>
 
                 <div className='InputWidth'>
                   <label htmlFor='education' className='Label'>Education</label>
-                  {/* <div className='SelectFlex simple-dropdown FormInput' 
-                  onClick={EducationDropdownOpen}>
-                    <input className='Input' placeholder='Education' 
-                    {...register('education', { required: "Enter your Education." })}/>
-                    {isEducationDropdownOpen ?
-                      <Arrowup className='SelectColor' /> :
-                      <Arrowdown className='SelectColor' />
-                    }
-                    {isEducationDropdownOpen &&
-                      <Dropdown>
-                        <ul className='options'>
-                          <li>Diploma</li>
-                          <li>Internship/A-Level</li>
-                          <li>Bachelor's Degree</li>
-                          <li>Master's Degree</li>
-                          <li>MPhil</li>
-                          <li>MPhil</li>
-                        </ul>
-                      </Dropdown>
-                    } */}
-                  <select className='SelectFlex simple-dropdown FormInput'
-                    {...register('education', { required: "Enter your education" })} >
-                    <option value="Diploma">Diploma</option>
-                    <option value="Internship/A-Level">Internship/A-Level</option>
-                    <option value="Bachelor's Degree">Bachelor's Degree</option>
-                    <option value="Master's Degree">Master's Degree</option>
-                    <option value="MPhil">MPhil</option>
-                    <option value="MPhil">MPhil</option>
-                  </select>
+                  <CustomSelect
+                    name="education"
+                    control={control}
+                    rules={{ required: "Enter your Education" }}
+                    placeholder="Education"
+                    options={educationOptions}
+                  />
                   <div className='FormError'>
-                    {errors.experience && <p>experience id required.</p>}
+                    {errors.education && <p>education id required.</p>}
                   </div>
-                  {/* </div> */}
                 </div>
               </div>
 
@@ -256,6 +221,7 @@ const ApplicantPersonalProfile = () => {
               <button type='submit' className='FormBtn'>Save Changes</button>
             </Form>
           </form>
+          </div>
 
         </div>
 
