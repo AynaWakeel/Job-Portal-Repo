@@ -113,8 +113,8 @@ const ApplicantPersonalProfile = () => {
               <label className='center' >
                 <div><img src={Upload} alt='upload' /></div>
                 <div>
-                  <h5 className='TopHeading'>Browse photo <span>or drop here</span></h5>
-                  <h6 className='Para'>A photo larger than 400 pixels work best. Max photo size 5 MB.</h6>
+                  <h5 className='TopHeading'>Browse photo </h5>
+                  {/* <h6 className='Para'>A photo larger than 400 pixels work best. Max photo size 5 MB.</h6> */}
                   <input type="file" accept=".png" hidden
                     onChange={handleProfilePic} />
                 </div>

@@ -4,17 +4,36 @@ import AuthRoutes from '../routes/auth-routes'
 import ApplicantRoutes from '../routes/applicant-routes'
 import RecruiterRoutes from '../routes/recruiter-routes'
 import AdminDashboardRoutes from '../routes/admin-dashboard-routes'
+import ProtectedRoutes from '../guards/protectedRoutes'
+import { ROLE } from '../enum/roles'
+import UnAuthorized from '../components/unauthorized'
+import UnProtectedRoutes from '../guards/unProtectedRoutes'
 
 const AppRoutes = () => {
   return (
     <div>
-       <Routes>
-        <Route path='/' element={<Navigate to='/auth/register'/>}/>
-        <Route path='/auth/*' element={<AuthRoutes/>}/>
-        <Route path='/applicant/*' element={<ApplicantRoutes/>}/>
-        <Route path='/recruiter/*' element={<RecruiterRoutes/>}/>
-        <Route path='/admin/dashboard*' element={<AdminDashboardRoutes/>}/>
-       </Routes>
+      <Routes>
+
+        <Route element={<UnProtectedRoutes allowedRole={ROLE}/>}>
+          <Route path='/' element={<Navigate to='/auth/register' />} />
+          <Route path='/auth/*' element={<AuthRoutes />} />
+        </Route>
+
+        <Route path='/unauthorized' element={<UnAuthorized />} />
+
+        <Route element={<ProtectedRoutes allowedRole={[ROLE.APPLICANT]} />}>
+          <Route path='/applicant/*' element={<ApplicantRoutes />} />
+        </Route>
+
+        <Route element={<ProtectedRoutes allowedRole={[ROLE.RECRUITER]} />}>
+          <Route path='/recruiter/*' element={<RecruiterRoutes />} />
+        </Route>
+
+        <Route element={<ProtectedRoutes allowedRole={[ROLE.ADMIN]} />}>
+          <Route path='/admin/dashboard*' element={<AdminDashboardRoutes />} />
+        </Route>
+
+      </Routes>
     </div>
   )
 }
