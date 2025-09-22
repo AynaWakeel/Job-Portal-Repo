@@ -24,141 +24,140 @@ const RecruiterProfile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             const data = await Recruiter_Endpoints.get_company_profile()
-            if (data?.recruiter) {
-                setCompany(data.recruiter) 
+            
+            if (data?.data) {
+                setCompany(data.data)
             }
-            console.log(data)
         }
         fetchProfile()
     }, [])
 
+    if (!company) {
+        return <Loader />;
+    }
+
     return (
         <div>
 
-            {company ?
-
-                <Main>
-                    <div className='banner'>
-                        <img src={BannerImg} alt='banner' />
-                    </div>
-                    <div className='profile'>
-                        <div className='profile-intro'>
-                            <div className='profile-pic'>
-                                <img src={company.profilepic} alt='icon' />
+            <Main>
+                <div className='banner'>
+                    <img src={company?.data?.bannerImage || BannerImg} alt='banner' />
+                    {/* <img src={company.bannerImage} alt='banner' /> */}
+                </div>
+                <div className='profile'>
+                    <div className='profile-intro'>
+                        <div className='profile-pic'>
+                            <img src={company.profilepic} alt='icon' />
+                        </div>
+                        <div className='profile-flex-col'>
+                            <div className='detail-flex'>
+                                <h2 className='Name'>{company.companyName}</h2>
                             </div>
-                            <div className='profile-flex-col'>
-                                <div className='detail-flex'>
-                                    <h2 className='Name'>{company.companyName}</h2>
-                                </div>
-                                <div className='sub-flex'>
-                                    <h4 className='Title'>Information Technology (IT)</h4>
-                                </div>
+                            <div className='sub-flex'>
+                                <h4 className='Title'>{company.title}</h4>
                             </div>
                         </div>
                     </div>
-                    <div className='profile-content'>
-                        <div className='content-left'>
-                            <div>
-                                <h2 className='Heading'>About Us</h2>
-                                <p className='Sub'>{company.aboutUs}</p>
+                </div>
+                <div className='profile-content'>
+                    <div className='content-left'>
+                        <div>
+                            <h2 className='Heading'>About Us</h2>
+                            <div className='Sub' dangerouslySetInnerHTML={{ __html: company.aboutUs }} />
+                        </div>
 
+                        <Contact>
+                            <h3 className='boxHeading'>Contact Information</h3>
+                            <div className='flex'>
+                                <div className='content'>
+                                    <div><Global className='IconColor' /></div>
+                                    <div>
+                                        <h2 className='Title'>Website</h2>
+                                        <h4 className='SubHeading'>{company.companyWebsite}</h4>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className='content'>
+                                        <div><Map className='IconColor' /></div>
+                                        <div>
+                                            <h2 className='Title'>Location</h2>
+                                            <h4 className='SubHeading'>{company.location}</h4>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div className='content'>
+                                    <div><Phone className='IconColor' /></div>
+                                    <div>
+                                        <h2 className='Title'>Phone</h2>
+                                        <h4 className='SubHeading'>{company.phoneNumber}</h4>
+                                    </div>
+                                </div>
+                                <div className='content'>
+                                    <div><Envelope className='IconColor' /></div>
+                                    <div>
+                                        <h2 className='Title'>Email Address</h2>
+                                        <h4 className='SubHeading'>{company.email}</h4>
+                                    </div>
+                                </div>
                             </div>
+                        </Contact>
 
-                            <Contact>
-                                <h3 className='boxHeading'>Contact Information</h3>
+                    </div>
+                    <div className='Profile-box'>
+                        <Box>
+                            <div className='flex-col'>
                                 <div className='flex'>
                                     <div className='content'>
-                                        <div><Global className='IconColor' /></div>
+                                        <div><Calender className='IconColor' /></div>
                                         <div>
-                                            <h2 className='Title'>Website</h2>
-                                            <h4 className='SubHeading'>{company.companyWebsite}</h4>
+                                            <h2 className='Title'>Founded In:</h2>
+                                            <h4 className='SubHeading'>{company.yearOfEstablishment}</h4>
                                         </div>
                                     </div>
-                                    <div>
-                                        <div className='content'>
-                                            <div><Map className='IconColor' /></div>
-                                            <div>
-                                                <h2 className='Title'>Location</h2>
-                                                <h4 className='SubHeading'>{company.location}</h4>
-                                            </div>
-                                        </div>
 
+                                    <div className='content'>
+                                        <div><Timer className='IconColor' /></div>
+                                        <div>
+                                            <h2 className='Title'>Organization type</h2>
+                                            <h4 className='SubHeading'>{company.organizationType}</h4>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div className='flex'>
+                                    <div className='content'>
+                                        <div><Brief className='IconColor' /></div>
+                                        <div>
+                                            <h2 className='Title'>Team Size</h2>
+                                            <h4 className='SubHeading'>{company.teamSize}</h4>
+                                        </div>
                                     </div>
                                     <div className='content'>
-                                        <div><Phone className='IconColor' /></div>
+                                        <div><Wallet className='IconColor' /></div>
                                         <div>
-                                            <h2 className='Title'>Phone</h2>
-                                            <h4 className='SubHeading'>{company.phoneNumber}</h4>
+                                            <h2 className='Title'>Industry types</h2>
+                                            <h4 className='SubHeading'>{company.industryTypes}</h4>
                                         </div>
                                     </div>
-                                    <div className='content'>
-                                        <div><Envelope className='IconColor' /></div>
-                                        <div>
-                                            <h2 className='Title'>Email Address</h2>
-                                            <h4 className='SubHeading'>{company.email}</h4>
-                                        </div>
-                                    </div>
+
                                 </div>
-                            </Contact>
+                            </div>
+                        </Box>
 
-                        </div>
-                        <div className='Profile-box'>
-                            <Box>
-                                <div className='flex-col'>
-                                    <div className='flex'>
-                                        <div className='content'>
-                                            <div><Calender className='IconColor' /></div>
-                                            <div>
-                                                <h2 className='Title'>Founded In:</h2>
-                                                <h4 className='SubHeading'>{company.yearOfEstablishment}</h4>
-                                            </div>
-                                        </div>
+                        <CompanyBox>
+                            <h3 className='boxHeading'>Follow Us On:</h3>
+                            <div className='flex-icons'>
+                                <span className='Box-icons'><Social1 className='Color' /></span>
+                                <span className='Box-icons'><Social2 className='Color' /></span>
+                                <span className='Box-icons'><Social3 className='Color' /></span>
+                                <span className='Box-icons'><Social4 className='Color' /></span>
+                            </div>
+                        </CompanyBox>
 
-                                        <div className='content'>
-                                            <div><Timer className='IconColor' /></div>
-                                            <div>
-                                                <h2 className='Title'>Organization type</h2>
-                                                <h4 className='SubHeading'>{company.organizationType}</h4>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div className='flex'>
-                                        <div className='content'>
-                                            <div><Brief className='IconColor' /></div>
-                                            <div>
-                                                <h2 className='Title'>Team Size</h2>
-                                                <h4 className='SubHeading'>{company.teamSize}</h4>
-                                            </div>
-                                        </div>
-                                        <div className='content'>
-                                            <div><Wallet className='IconColor' /></div>
-                                            <div>
-                                                <h2 className='Title'>Industry types</h2>
-                                                <h4 className='SubHeading'>{company.industryTypes}</h4>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </Box>
-
-                            <CompanyBox>
-                                <h3 className='boxHeading'>Follow Us On:</h3>
-                                <div className='flex-icons'>
-                                    <span className='Box-icons'><Social1 className='Color' /></span>
-                                    <span className='Box-icons'><Social2 className='Color' /></span>
-                                    <span className='Box-icons'><Social3 className='Color' /></span>
-                                    <span className='Box-icons'><Social4 className='Color' /></span>
-                                </div>
-                            </CompanyBox>
-
-                        </div>
                     </div>
-                </Main>
-
-                : <Loader />}
-
+                </div>
+            </Main>
         </div>
     )
 }

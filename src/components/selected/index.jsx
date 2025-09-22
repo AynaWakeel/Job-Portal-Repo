@@ -4,15 +4,21 @@ import { JobApplicationCards } from '../../helper/dummyData'
 import Dot from '../../assets/icons/•.svg'
 import Check from '../../assets/icons/CheckCircle.svg'
 import Profile from '../../assets/images/Ellipse 18.png'
+import { useNavigate } from 'react-router'
 
 const Selected = () => {
+     const navigate = useNavigate()
+
+    const Profile = () =>{
+        navigate("/recruiter/applicant-profile")
+    }
     return (
         <div>
             <CompanyCards>
                 <div className='CardDiv'>
                     <div className='Grid'>
                         {JobApplicationCards.map((items) => (
-                            <div className='Card'>
+                            <div className='Card' onClick={Profile}>
                                 <div className='flex'>
                                     <div className='CardFlex'>
                                         <div className='IconBox'>

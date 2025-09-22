@@ -54,7 +54,7 @@ const FoundingInfo = () => {
           teamSize: "",
           industryTypes: "",
           yearOfEstablishment: "",
-          website: "",
+          companyWebsite: "",
         });
         setHasData(false);
       }
@@ -127,10 +127,10 @@ const FoundingInfo = () => {
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Company Website</label>
                 <input type='url' placeholder='Website Url..' className='FormInput'
-                  {...register("website", { required: "website url is req." })} />
+                  {...register("companyWebsite", { required: "website url is req." })} />
               </div>
               <div className='FormError'>
-                {errors.website && <p>Website url is required.</p>}
+                {errors.companyWebsite && <p>Website url is required.</p>}
               </div>
             </div>
 

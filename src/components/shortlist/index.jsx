@@ -5,15 +5,21 @@ import Dot from '../../assets/icons/•.svg'
 import Cross from '../../assets/icons/XCircleRed.svg'
 import Check from '../../assets/icons/CheckCircle.svg'
 import Profile from '../../assets/images/Ellipse 18.png'
+import { useNavigate } from 'react-router'
 
 const Shortlist = () => {
+     const navigate = useNavigate()
+
+    const Profile = () =>{
+        navigate("/recruiter/applicant-profile")
+    }
     return (
         <div>
             <CompanyCards>
                 <div className='CardDiv'>
                     <div className='Grid'>
                         {JobApplicationCards.map((items) => (
-                            <div className='Card'>
+                            <div className='Card' onClick={Profile}> 
                                 <div className='flex'>
                                     <div className='CardFlex'>
                                         <div className='IconBox'>

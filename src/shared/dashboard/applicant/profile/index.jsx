@@ -22,9 +22,9 @@ const ApplicantProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const data = await Applicant_Endpoints.get_profile()
-      if (data) {
-        setProfile(data)
-        // console.log(data)
+      if (data?.data) {
+        setProfile(data.data)
+        console.log(data,'here is data of applicant')
       }
     }
     fetchProfile();
@@ -135,17 +135,6 @@ const ApplicantProfile = () => {
               </Box>
 
               {!hideContent &&
-
-                // <UploadPdf>
-                //   <label className='center'>
-                //     <div><File className='IconColor' /></div>
-                //     <div>
-                //       <h5 className='Title'>Professional Resume</h5>
-                //       <h6 className='info'>3.5 MB</h6>
-                //       <input type="file" accept={profile.resume} hidden />
-                //     </div>
-                //   </label>
-                // </UploadPdf>
 
                 <UploadPdf>
                   <button

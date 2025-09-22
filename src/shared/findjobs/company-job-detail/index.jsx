@@ -45,7 +45,7 @@ const CompanyJobDetail = () => {
                                 <h2 className='Name'>Senior UX Designer</h2>
                                 <span className='Badge'>Full Time</span>
                                 {!hideContent &&
-                                <span className='match'>40%</span>                                
+                                 <span className='Badge'>Job match 40%</span>                              
                                 }
                             </div>
                             <div className='detail-flex'>

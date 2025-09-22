@@ -31,6 +31,7 @@ const CompanyInfo = () => {
           profilepic:"",
           resume:"",
           companyName: "",
+          title:"",
           aboutUs: "",
 
         });
@@ -134,7 +135,7 @@ const CompanyInfo = () => {
                 <label htmlFor='' className='Label'>About us</label>
 
                 <Controller
-                  name='biography'
+                  name='aboutUs'
                   control={control}
                   rules={{ required: "Enter your bio." }}
                   render={({ field, fieldState }) => (
@@ -144,7 +145,7 @@ const CompanyInfo = () => {
                       />
 
                       <div className='FormError'>
-                        {fieldState.error && <p>biography id required.</p>}
+                        {fieldState.error && <p>aboutUs id required.</p>}
                       </div>
                     </>
                   )}

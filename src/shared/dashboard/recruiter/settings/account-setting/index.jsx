@@ -1,18 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, SettingDiv } from './style'
 import { ReactComponent as EyeIcon } from '../../../../../assets/icons/eye.svg'
 import { ReactComponent as EyeClose } from '../../../../../assets/icons/eye-close.svg'
 import { useForm } from 'react-hook-form'
 import { useRecruiter } from '../../useRecruiter'
+import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints'
 
 const RecruiterAccountSetting = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm()
 
   const {company_profile} = useRecruiter()
+
+  const [hasData, setHasData] = useState(false);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        const previousData = await Recruiter_Endpoints.get_company_profile();
+        if (previousData) {
+          reset(previousData);
+          setHasData(true);
+        } else {
+          reset({
+            
+  
+          });
+          setHasData(false);
+        }
+      };
+      fetchData();
+    }, [reset]);
 
   const onSubmit = (data) => {
     company_profile(data)

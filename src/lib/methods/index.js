@@ -12,7 +12,8 @@ export const postData = async (url, data, params = {}) => {
   export const getData = async (url, params = {}) => {
     try {
       const response = await axios.get(url, { params: { ...params } });
-      return response.data;
+      console.log(response,'data from getapi');
+      return response;
     } catch (error) {
       console.log(error);
       // return errorHandler(error);
