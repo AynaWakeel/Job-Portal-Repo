@@ -7,5 +7,5 @@ export const Recruiter_Endpoints = {
     post_logo: async(body)=> await postData("/api/images/upload/profilepic", body),
     post_job: async(body)=> await postData("/api/jobpost", body),
     get_recruiter_job_only : async(body)=> await getData("/api/jobpost/recruiter/job", body),
-    get_applications : async(body)=> await getData("/api/application/recruiter/jobs/1/applicants", body),
+    get_applications : async(body)=> await getData("/api/application/recruiter/jobs/2/applicants", body),
 }

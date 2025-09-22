@@ -1,18 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Main } from './style'
 import ThreeDot from '../../../../assets/icons/DotsThreeVertical.svg'
 import { ManageUserTable } from '../../../../helper/dummyData'
 import { useNavigate } from 'react-router'
+import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
 
 const ManageUsers = () => {
   const [isOpen, setIsOpen] = useState(null)
-  const Opendropdown = (rowIndex) => {
-    if(isOpen === rowIndex){
-      setIsOpen(null)
-    }else{
-      setIsOpen(rowIndex)
-    }
-  }
+  const [users, setUsers] = useState([])
+  
+    useEffect(()=>{
+      const fetchData = async()=>{
+        const res = await Admin_Endpoints.get_manageUsers()
+        if(res?.data){
+          setUsers(res?.data)
+        }
+        console.log(res.data)
+      }
+      fetchData()
+    },[])
+
+  // const Opendropdown = (rowIndex) => {
+  //   if(isOpen === rowIndex){
+  //     setIsOpen(null)
+  //   }else{
+  //     setIsOpen(rowIndex)
+  //   }
+  // }
 
   const navigate = useNavigate()
   const Profile = ()=>{
@@ -40,17 +54,19 @@ const ManageUsers = () => {
             </tr>
           </thead>
           <tbody className='TableBody'>
-            {ManageUserTable.map((items,index) => (
+            {users.map((items) => (
 
-              <tr className='TableContent' key={index}>
-                <td>{items.name}</td>
+              <tr className='TableContent' key={items.id}>
+                <td>{items.fullName}</td>
                 <td>{items.email}</td>
-                <td>{items.phone}</td>
+                <td>{items.phoneNumber}</td>
                 <td>
                   <div className='position'>
-                    <img src={ThreeDot} alt='dot' onClick={()=>Opendropdown(index)} />
+                    <img src={ThreeDot} alt='dot' 
+                    // onClick={()=>Opendropdown(items.id)} 
+                    />
                     <button className='CardBtn' onClick={Profile}>View</button>
-                    {isOpen === index &&
+                    {isOpen === items.id &&
                       <div className='dropdown'>
                         <ul>
                           <li>Activate</li>

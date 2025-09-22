@@ -10,5 +10,4 @@ export const Applicant_Endpoints = {
     post_create_resume : async(body)=> await postData("/api/structuredresume/resume", body),
     get_resume : async(body)=> await getData("/api/structuredresume/resume", body),
     update_resume : async(body)=> await putData("/api/structuredresume/resume", body),
-    // get_profile: async(body)=> await getData("", body),
 }

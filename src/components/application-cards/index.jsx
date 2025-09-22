@@ -80,10 +80,7 @@ const ApplicationCards = () => {
         useEffect(() => {
             const fetchData = async () => {
                 const res = await Recruiter_Endpoints.get_applications()
-                // if(data?.data?.jobs){
-                //     setJobs(data.data.jobs)
-                //     console.log(data.data.jobs)
-                // }
+                
                 if (res?.data?.applicants) {
                     setApplicants(res.data.applicants)
                     console.log(res.data.applicants)
@@ -106,7 +103,7 @@ const ApplicationCards = () => {
                 <div className='CardDiv'>
                     <div className='Grid'>
                         {applicants.map((items) => (
-                            <div className='Card' onClick={Profile}>
+                            <div className='Card' onClick={Profile} key={items.id}>
                                 <div className='flex'>
                                     <div className='CardFlex'>
                                         <div className='IconBox'>
