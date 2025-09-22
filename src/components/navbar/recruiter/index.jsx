@@ -21,11 +21,11 @@ const RecruiterNavbar = () => {
   }
 
   const Post = () => {
-    navigate('/recruiter/dashboard/recruiter-postjob')
+    navigate('/recruiter/dashboard/postjob')
   }
 
   const Notification = () => {
-    navigate('/recruiter/dashboard/recruiter-notifications')
+    navigate('/recruiter/dashboard/notifications')
   }
 
   const ProfilePage = () => {
@@ -42,7 +42,7 @@ const RecruiterNavbar = () => {
     setIsActive("Find Candidates")
   }
   const Dashboard = () => {
-    navigate('/recruiter/dashboard/recruiter-overview')
+    navigate('/recruiter/dashboard/overview')
     setIsActive("Dashboard")
   }
 

@@ -32,7 +32,7 @@ const ApplicantProfile = () => {
 
   const location = useLocation()
 
-  const ContentPage = ['/admin/dashboard/applicant-profile']
+  const ContentPage = ['/admin/dashboard/profile']
   const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
 
   return (

@@ -9,7 +9,7 @@ import RecruiterAnalytics from '../../../../components/recruiter-analytics'
 const RecruiterOverview = () => {
   const navigate = useNavigate()
   const ViewAll = () => {
-    navigate('/recruiter/dashboard/recruiter-myjobs')
+    navigate('/recruiter/dashboard/myjobs')
   }
   return (
     <div>

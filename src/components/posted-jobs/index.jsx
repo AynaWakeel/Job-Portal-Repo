@@ -17,7 +17,7 @@ const PostedJobs = ({ limit }) => {
 
     const navigate = useNavigate()
     const ViewApplications = () => {
-        navigate('/recruiter/dashboard/recruiter-applications')
+        navigate('/recruiter/dashboard/applications')
     }
     const ShowCards = limit ? RecentlyPostedJobs.slice(0, limit) : RecentlyPostedJobs;
     return (

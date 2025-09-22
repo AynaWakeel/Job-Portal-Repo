@@ -18,11 +18,11 @@ const UseAuth = () => {
             showSuccess(message);
 
             if (user.role === ROLE.RECRUITER) {
-                navigate('/recruiter/dashboard/recruiter-overview');
+                navigate('/recruiter/dashboard/overview');
                 console.log(response.user.role)
 
             } else if (user.role === ROLE.APPLICANT) {
-                navigate('/applicant/dashboard/applicant-overview');
+                navigate('/applicant/dashboard/overview');
                  console.log(response.user.role)
 
             } else if (user.role === ROLE.ADMIN) {

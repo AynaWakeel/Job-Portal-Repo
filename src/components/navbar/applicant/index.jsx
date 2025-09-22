@@ -25,7 +25,7 @@ const ApplicantNavbar = () => {
     setIsActive("Find Jobs")
   }
   const Dashboard = () => {
-    navigate('/applicant/dashboard/applicant-overview')
+    navigate('/applicant/dashboard/overview')
     setIsActive("Dashboard")
   }
 
@@ -45,7 +45,7 @@ const ApplicantNavbar = () => {
   }
 
   const Notification = () => {
-    navigate('/applicant/dashboard/applicant-notifications')
+    navigate('/applicant/dashboard/notifications')
   }
 
   const ApplicanntProfile = () => {

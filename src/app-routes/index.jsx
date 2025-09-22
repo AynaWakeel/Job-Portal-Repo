@@ -14,7 +14,7 @@ const AppRoutes = () => {
     <div>
       <Routes>
 
-        <Route element={<UnProtectedRoutes allowedRole={ROLE}/>}>
+        <Route element={<UnProtectedRoutes />}>
           <Route path='/' element={<Navigate to='/auth/register' />} />
           <Route path='/auth/*' element={<AuthRoutes />} />
         </Route>

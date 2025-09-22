@@ -22,24 +22,24 @@ const DashboardSidebar = () => {
     }
 
     const RecruiterOptions = [
-        { label: "Overview", icon: <Layers />, path: "/recruiter/dashboard/recruiter-overview" },
-        { label: "My Jobs", icon: <Brief />, path: "/recruiter/dashboard/recruiter-myjobs" },
-        { label: "Post a Job", icon: <PlusCircle />, path: "/recruiter/dashboard/recruiter-postjob" },
-        { label: "Settings", icon: <Gear />, path: "/recruiter/dashboard/recruiter-settings" },
+        { label: "Overview", icon: <Layers />, path: "/recruiter/dashboard/overview" },
+        { label: "My Jobs", icon: <Brief />, path: "/recruiter/dashboard/myjobs" },
+        { label: "Post a Job", icon: <PlusCircle />, path: "/recruiter/dashboard/postjob" },
+        { label: "Settings", icon: <Gear />, path: "/recruiter/dashboard/settings" },
     ]
 
     const ApplicantOptions = [
-        { label: "Overview", icon: <Layers />, path: "/applicant/dashboard/applicant-overview" },
-        { label: "Applied Jobs", icon: <Brief />, path: "/applicant/dashboard/applicant-applied" },
-        { label: "Favourite Jobs", icon: <Bookmark />, path: "/applicant/dashboard/applicant-favourities" },
-        { label: "Settings", icon: <Gear />, path: "/applicant/dashboard/applicant-personal-profile" },
+        { label: "Overview", icon: <Layers />, path: "/applicant/dashboard/overview" },
+        { label: "Applied Jobs", icon: <Brief />, path: "/applicant/dashboard/applied" },
+        { label: "Favourite Jobs", icon: <Bookmark />, path: "/applicant/dashboard/favourities" },
+        { label: "Settings", icon: <Gear />, path: "/applicant/dashboard/personal-profile" },
     ]
     
 
     const userRole = localStorage.getItem("role")  
     let Menu = [];
     if (userRole === ROLE.APPLICANT)  Menu = ApplicantOptions;
-    else if (userRole === ROLE.RECRUITER)  Menu = RecruiterOptions;
+    else if (userRole === ROLE.RECRUITER )  Menu = RecruiterOptions;
     console.log(localStorage.getItem("role"))
 
 

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router'
 const ApplicantOverview = () => {
   const navigate = useNavigate()
   const ViewAll = () =>{
-    navigate('/applicant/dashboard/applicant-applied')
+    navigate('/applicant/dashboard/applied')
   }
   return (
     <div>
