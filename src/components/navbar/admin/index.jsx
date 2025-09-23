@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Menu, MobileSidebar, Navbar, NavbarNav } from './style'
 import { ReactComponent as Layers } from '../../../assets/icons/fi_layers.svg'
 import { ReactComponent as Gear } from '../../../assets/icons/Gear.svg'
@@ -13,14 +13,27 @@ import Profile from '../../../assets/images/Ellipse 18.png'
 import Notify from '../../../assets/icons/BellRinging.svg'
 import { useNavigate } from 'react-router'
 import UseAuth from '../../../auth/useAuth'
+import { Admin_Endpoints } from '../../../lib/api/admin_endpoints'
 
 const AdminNavbar = () => {
   const [isActive, setIsActive] = useState("Overview")
   const navigate = useNavigate()
-  const {logout} = UseAuth()
+  const { logout } = UseAuth()
 
+  const [adminName, setAdminName] = useState(null)
 
-  const onLogout =()=>{
+  const fetchData = async () => {
+    const res = await Admin_Endpoints.get_profile()
+    if (res?.data) {
+      setAdminName(res.data)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const onLogout = () => {
     logout()
     navigate('/auth/login')
   }
@@ -55,11 +68,11 @@ const AdminNavbar = () => {
     setIsActive("View Analytics")
   }
 
-  const AdminProfile = ()=>{
+  const AdminProfile = () => {
     navigate('/admin/dashboard/profile')
   }
 
-    const AdminNotify = ()=>{
+  const AdminNotify = () => {
     navigate('/admin/dashboard/notifications')
   }
 
@@ -68,7 +81,7 @@ const AdminNavbar = () => {
     setIsOpen(!isOpen)
   }
 
-   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const OpenDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
@@ -90,10 +103,22 @@ const AdminNavbar = () => {
             <MobileSidebar>
               <div className='Sidebar'>
 
-                <div className='Navright'>
-                  <img src={Profile} alt='profile' />
-                  <h4 className='adminname'>Admin Name</h4>
-                </div>
+                {adminName ?
+
+                  <div className='Navright'>
+                    <img src={adminName.profilepic || Profile} alt='profile' className='photo'/>
+                    <h4 className='adminname'>{adminName.fullName}</h4>
+                  </div>
+
+                  :
+
+                  <div className='Navright'>
+                    <img src={Profile} alt='profile' />
+                    <h4 className='adminname'>Admin</h4>
+                  </div>
+
+                }
+
                 <ul className='Navlinks'>
 
                   <li className={isActive === "View Analytics" ? "tab active" : "tab"} onClick={ViewAnalytics}>
@@ -138,18 +163,28 @@ const AdminNavbar = () => {
         </NavbarNav>
 
         <div className='Navright'>
-          <img src={Notify} alt='notify' onClick={AdminNotify}/>
-          <img src={Profile} alt='profile' onClick={OpenDropdown}/>
-          <h4 className='adminname'>Admin</h4>
+          <img src={Notify} alt='notify' onClick={AdminNotify} />
+          {adminName ?
+          <>
+          
+              <img src={adminName.profilepic || Profile} alt='profile' onClick={OpenDropdown} className='photo' />
+              <h4 className='adminname'>{adminName.fullName}</h4>
+          </>
+
+            :
+           
+              <h4 className='adminname'>Admin</h4>
+
+          }
         </div>
 
         {/* ------------- mobile view ----------------- */}
         {isDropdownOpen &&
           <Menu>
-              <ul className='Navlinks'>
-                <li><a onClick={AdminProfile}>Profile</a></li>
-                <li><a onClick={onLogout}>Logout</a></li>
-              </ul>
+            <ul className='Navlinks'>
+              <li><a onClick={AdminProfile}>Profile</a></li>
+              <li><a onClick={onLogout}>Logout</a></li>
+            </ul>
           </Menu>
         }
 

@@ -2,11 +2,16 @@ import { deleteData, getData, postData, putData } from "../methods";
 
 
 export const Admin_Endpoints = {
-
+     
+     put_profile : async(body)=> await putData("/api/profile/admin", body),
+     get_profile : async(body)=> await getData("/api/profile/admin", body),
+     post_photo : async(body)=> await postData("/api/images/upload/profilepic", body),
      get_userAccounts: async(body)=> await getData("/api/users/userAccounts", body),
      get_manageUsers: async(body)=> await getData("/api/users/allmanageUsers", body),
      put_Aboutus: async(body)=> await putData("/api/cms/aboutUs", body),
-     put_Contacttus: async(body)=> await putData("/api/cms/contactUs", body),
+     get_Aboutus: async(body)=> await getData("/api/cms/aboutUs", body),
+     put_Contactus: async(body)=> await putData("/api/cms/contactUs", body),
+     get_Contactus: async(body)=> await getData("/api/cms/contactUs", body),
      post_faqs : async(body)=> await postData("/api/cms/faq", body),
      get_faqs: async(body)=> await getData("/api/cms/faq", body),
      put_faqs: async(id,body)=> await putData(`/api/cms/faq/${id}`, body),

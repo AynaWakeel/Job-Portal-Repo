@@ -22,7 +22,7 @@ const ApplicantAccountSetting = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const previousData = await Applicant_Endpoints.get_profile();
+            const previousData = await Applicant_Endpoints.get_profile()
             if (previousData) {
                 reset(previousData);
                 setHasData(true);
@@ -31,12 +31,12 @@ const ApplicantAccountSetting = () => {
                     location: "",
                     phonenumber: "",
                     email: "",
-                });
+                })
                 setHasData(false);
             }
-        };
-        fetchData();
-    }, [reset]);
+        }
+        fetchData()
+    }, [reset])
 
     const onSubmit = (data) => {
         profile_setting(data)

@@ -20,11 +20,13 @@ const CreateFaq = ({ faqData, onCancel, onBack }) => {
     useEffect(() => {
         if (faqData) {
             reset({
-                title: faqData.title || '',
-                description: faqData.description || ''
+                title: faqData.title,
+                description: faqData.description
             });
         } else {
-            reset({ title: '', description: '' });
+            reset({ 
+                title: '', description: '' 
+            });
         }
     }, [faqData,reset])
 
@@ -35,14 +37,11 @@ const CreateFaq = ({ faqData, onCancel, onBack }) => {
             } else {
                 await create_faq_cms(data);
             }
-            //  await Admin_Endpoints.get_faqs();
             onBack();
         } catch (error) {
             console.error(error);
         }
     };
-
-
 
     const Modules = {
         toolbar: [

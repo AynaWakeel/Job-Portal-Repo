@@ -21,8 +21,8 @@ const RecruiterAccountSetting = () => {
     useEffect(() => {
       const fetchData = async () => {
         const previousData = await Recruiter_Endpoints.get_company_profile();
-        if (previousData) {
-          reset(previousData);
+        if (previousData?.data) {
+          reset(previousData.data);
           setHasData(true);
         } else {
           reset({

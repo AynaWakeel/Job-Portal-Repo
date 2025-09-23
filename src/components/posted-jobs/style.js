@@ -306,13 +306,26 @@ padding-block: 20px;
 
 .dropdown{
     display: flex;
-    gap: 8px;
+    flex-direction: column;
+    /* gap: 8px; */
     position: absolute;
     bottom: 2px;
-    right: 20px;
-    padding-block: 6px;
-    padding-inline: 10px;
+    right: 60px;
     background-color:#E05151;
+}
+
+.dropdown-row{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    justify-content: start;
+    align-items: center;
+    padding-block: 6px;
+    padding-inline: 18px;
+}
+
+.dropdown-row:hover{
+    background-color: #e23939ff;
 }
 
 .closeicon{

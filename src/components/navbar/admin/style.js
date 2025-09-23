@@ -53,6 +53,10 @@ box-shadow: 0px 0px 5px var(--purple-50);
     font-family: var(--inter);
 }
 
+.photo{
+    border-radius: 50%;
+}
+
 `
 
 export const NavbarNav = styled.div`
@@ -179,6 +183,7 @@ background-color: var(--white-50);
 
 .Navright img{
     width: 40px;
+    border-radius: 50%;
 }
 
 .adminname{
@@ -187,6 +192,9 @@ background-color: var(--white-50);
     font-family: var(--inter);
 }
 
+.photo{
+    border-radius: 50%;
+}
 
 .Navlinks{
     display: flex;

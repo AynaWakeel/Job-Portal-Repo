@@ -59,6 +59,28 @@ export const useRecruiter = () => {
         }
     }
 
+     const expire_a_job = async(id)=>{
 
-    return { company_profile, upload_logo, upload_banner, post_a_job }
+        const response = await Recruiter_Endpoints.expire_job_by_id(id)
+        
+        if (response?.message) {
+            showSuccess(response.message);
+        } else {
+            showError(response?.message);
+        }
+    }
+
+     const delete_a_job = async(id)=>{
+
+        const response = await Recruiter_Endpoints.delete_job_by_id(id)
+        
+        if (response?.message) {
+            showSuccess(response.message);
+        } else {
+            showError(response?.message);
+        }
+    }
+
+
+    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job}
 }

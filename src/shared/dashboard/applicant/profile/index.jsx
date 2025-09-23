@@ -11,7 +11,6 @@ import { ReactComponent as Envelope } from '../../../../assets/icons/Envelope.sv
 import { ReactComponent as Phone } from '../../../../assets/icons/phone-call-duotone 1.svg'
 import { ReactComponent as File } from '../../../../assets/icons/FileText.svg'
 import { useLocation } from 'react-router'
-import { useApplicant } from '../useApplicant'
 import { Applicant_Endpoints } from '../../../../lib/api/applicant_endpoints'
 import Loader from '../../../../components/loading-spinner'
 import { showError } from '../../../../components/toasters'

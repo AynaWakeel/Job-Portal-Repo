@@ -17,7 +17,7 @@ export const useAdmin = () => {
 
     const updata_ContactUs_cms = async(body) =>{
 
-        const response = await Admin_Endpoints.put_Contacttus(body)
+        const response = await Admin_Endpoints.put_Contactus(body)
         const { message } = response
         if(response){
             showSuccess(message)
@@ -59,6 +59,28 @@ export const useAdmin = () => {
         }
     }
 
+    const update_admin_profile = async(body) =>{
 
-    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms , update_faq_cms , delete_faq_cms}
+        const response = await Admin_Endpoints.put_profile(body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+    const upload_admin_photo = async(body) =>{
+
+        const response = await Admin_Endpoints.post_photo(body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+
+    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms , update_faq_cms , delete_faq_cms , update_admin_profile , upload_admin_photo}
 }

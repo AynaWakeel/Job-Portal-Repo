@@ -129,34 +129,56 @@ import { RecentlyPostedJobs } from '../../helper/dummyData'
 import { useNavigate } from 'react-router'
 import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 import Loader from '../loading-spinner'
+import { useRecruiter } from '../../shared/dashboard/recruiter/useRecruiter'
 
 const PostedJobs = () => {
+    const { delete_a_job , expire_a_job } = useRecruiter()
+
+    const fetchData = async () => {
+        const res = await Recruiter_Endpoints.get_recruiter_job_only()
+        if (res?.data?.jobs) {
+            setJobs(res.data.jobs)
+            console.log(res.data.jobs)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    const handleDelete = async (id) => {
+        await delete_a_job(id)
+        fetchData()
+        console.log("job deleted")
+    }
+
+   
     const [isStatusExpire, setIsStatusExpire] = useState([])
     const handleStatus = (id) => {
         if (!isStatusExpire.includes(id)) {
             setIsStatusExpire([...isStatusExpire, id])
         }
     }
+
+     const handleExpire = async(id)=>{
+        await expire_a_job(id)
+        fetchData()
+        console.log('job expired')
+        handleStatus(id)
+    }
+
     const [isOpen, setIsOpen] = useState(null)
 
     const navigate = useNavigate()
     const [jobs, setJobs] = useState([])
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await Recruiter_Endpoints.get_recruiter_job_only()
 
-            if (res?.data?.jobs) {
-                setJobs(res.data.jobs)
-                console.log(res.data.jobs)
-            }
-        }
-        fetchData()
-    }, [])
 
     const ViewApplications = () => {
         navigate('/recruiter/dashboard/applications')
     }
+
+
     return (
         <div>
             <MainSec>
@@ -167,7 +189,7 @@ const PostedJobs = () => {
                             jobs.map((items) => {
 
 
-                               const Expired = isStatusExpire.includes(items.id)
+                                const Expired = isStatusExpire.includes(items.id)
 
                                 return (
 
@@ -232,13 +254,22 @@ const PostedJobs = () => {
                                             </span>
                                         </div>
 
-                                        {isOpen === items.id && !Expired &&
+                                        {isOpen === items.id &&
 
-                                            <div className='dropdown'
-                                                onClick={() => handleStatus(items.id)}
-                                            >
-                                                <span><Close className='closeicon' /></span>
-                                                <span className='expire'>Make it expire</span>
+                                            <div className='dropdown'>
+
+                                                { !Expired &&
+
+                                                <div className="dropdown-row"  onClick={() => handleExpire(items.id)}>
+                                                    <span><Close className='closeicon' /></span>
+                                                    <span className='expire'>Expire</span>
+                                                </div>
+                                                
+                                                }
+                                                <div className='dropdown-row'  onClick={()=>handleDelete(items.id)}>
+                                                    <span><Close className='closeicon'/></span>
+                                                    <span className='expire'>Delete</span>
+                                                </div>
                                             </div>
                                         }
                                     </div>

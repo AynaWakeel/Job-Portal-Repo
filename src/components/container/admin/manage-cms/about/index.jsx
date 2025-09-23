@@ -1,18 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Main } from './style'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Controller, useForm } from 'react-hook-form';
 import { useAdmin } from '../../useAdmin';
+import { Admin_Endpoints } from '../../../../../lib/api/admin_endpoints';
 
 const CMSAbout = () => {
   const {
     register,
     control,
+    reset,
     handleSubmit,
   } = useForm()
 
   const { update_AboutUs_cms } = useAdmin()
+
+  const [hasData, setHasData] = useState(false)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const prev = await Admin_Endpoints.get_Aboutus()
+      if (prev?.data?.data) {
+        reset(prev.data.data)
+        setHasData(true)
+      } else {
+        reset({
+          title: "",
+          heading:"",
+          description: ""
+        })
+        setHasData(false)
+      }
+    }
+    fetchData()
+  }, [reset])
 
   const onSubmit = (data) => {
     update_AboutUs_cms(data)
@@ -55,8 +77,8 @@ const CMSAbout = () => {
               // rules={{ required: "Enter your desc." }}
               render={({ field, fieldState }) => (
                 <>
-                  <ReactQuill theme="snow" modules={Modules} className='Quillbar' 
-                  placeholder='Write your desc...'
+                  <ReactQuill theme="snow" modules={Modules} className='Quillbar'
+                    placeholder='Write your desc...'
                     value={field.value} onChange={field.onChange}
                   />
 

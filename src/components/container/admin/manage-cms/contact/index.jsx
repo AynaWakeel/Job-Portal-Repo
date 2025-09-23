@@ -1,18 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Main } from './style'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Controller, useForm } from 'react-hook-form';
 import { useAdmin } from '../../useAdmin';
+import { Admin_Endpoints } from '../../../../../lib/api/admin_endpoints';
 
 const CMSContact = () => {
   const {
    register,
    handleSubmit,
    control,
+   reset,
   } = useForm()
 
   const {updata_ContactUs_cms} = useAdmin()
+
+  const [hasData, setHasData] = useState(false)
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        const prev = await Admin_Endpoints.get_Contactus()
+        if (prev?.data?.data) {
+          reset(prev.data.data)
+          setHasData(true)
+        } else {
+          reset({
+            title: "",
+            heading:"",
+            description: ""
+          })
+          setHasData(false)
+        }
+      }
+      fetchData()
+    }, [reset])
 
   const onSubmit = (data) =>{
     updata_ContactUs_cms(data)
