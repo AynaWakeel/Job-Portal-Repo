@@ -1,4 +1,4 @@
-import { getData, postData, putData } from "../methods";
+import { deleteData, getData, postData, putData } from "../methods";
 
 
 export const Admin_Endpoints = {
@@ -9,5 +9,6 @@ export const Admin_Endpoints = {
      put_Contacttus: async(body)=> await putData("/api/cms/contactUs", body),
      post_faqs : async(body)=> await postData("/api/cms/faq", body),
      get_faqs: async(body)=> await getData("/api/cms/faq", body),
- 
+     put_faqs: async(id,body)=> await putData(`/api/cms/faq/${id}`, body),
+     delete_faqs: async (id) => await deleteData(`/api/cms/faq/${id}`),
 }

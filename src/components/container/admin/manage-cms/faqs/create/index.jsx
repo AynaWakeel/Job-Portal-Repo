@@ -1,25 +1,47 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, Main } from './style'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Controller, useForm } from 'react-hook-form';
 import { useAdmin } from '../../../useAdmin';
-import { useNavigate } from 'react-router';
+import { Admin_Endpoints } from '../../../../../../lib/api/admin_endpoints';
 
-const CreateFaq = () => {
-   
+const CreateFaq = ({ faqData, onCancel, onBack }) => {
+
     const {
         register,
         control,
+        reset,
         handleSubmit
     } = useForm()
 
-    const { create_faq_cms } = useAdmin()
+    const { create_faq_cms, update_faq_cms } = useAdmin()
 
-    const onSubmit = (data) => {
-        create_faq_cms(data)
-        console.log(data)
-    }
+    useEffect(() => {
+        if (faqData) {
+            reset({
+                title: faqData.title || '',
+                description: faqData.description || ''
+            });
+        } else {
+            reset({ title: '', description: '' });
+        }
+    }, [faqData,reset])
+
+    const onSubmit = async (data) => {
+        try {
+            if (faqData) {
+                await update_faq_cms(faqData.id, data);
+            } else {
+                await create_faq_cms(data);
+            }
+            //  await Admin_Endpoints.get_faqs();
+            onBack();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
 
 
     const Modules = {
@@ -34,6 +56,7 @@ const CreateFaq = () => {
         <div>
 
             <Main>
+
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Form>
                         <div className='FormSpace'>
@@ -50,7 +73,7 @@ const CreateFaq = () => {
                         <Controller
                             name='description'
                             control={control}
-                            rules={{required:"Desc is req."}}
+                            rules={{ required: "Desc is req." }}
                             render={({ field, fieldState }) => (
 
                                 <>
@@ -65,9 +88,13 @@ const CreateFaq = () => {
                             )}
                         />
 
+                    </div>
+
+                    <div className='flex-space'>
+                        <button type='button' className='FormBtn' onClick={onBack}>Back</button>
                         <div className='flex-btn'>
-                            <button type='button' className='FormBtn'>Cancel</button>
-                            <button type='submit' className='FormBtn'>Create</button>
+                            <button type='button' className='FormBtn' onClick={onCancel}>Cancel</button>
+                            <button type='submit' className='FormBtn'> {faqData ? "Update" : "Create"} </button>
                         </div>
                     </div>
 

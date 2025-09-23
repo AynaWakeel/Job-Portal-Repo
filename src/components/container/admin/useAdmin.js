@@ -37,6 +37,28 @@ export const useAdmin = () => {
         }
     }
 
+     const update_faq_cms = async(id, body)=>{
 
-    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms}
+        const response = await Admin_Endpoints.put_faqs(id, body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+    const delete_faq_cms = async(id)=>{
+
+        const response = await Admin_Endpoints.delete_faqs(id)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+
+    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms , update_faq_cms , delete_faq_cms}
 }

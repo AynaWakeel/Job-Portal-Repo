@@ -16,9 +16,63 @@ flex-direction: column;
 @media ${devices.mobile}{
     gap: 12px;
 }
+
+.faq-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.flex-btn{
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
+
+.FormBtn{
+    background-color: var(--purple-600);
+    color: var(--white-50);
+    outline: none;
+    border: none;
+    padding-block: 10px;
+    width: 80px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+
+
+    @media ${devices.tablet}{
+        padding-block: 7px;
+        font-size: 14px;
+    }
+     @media ${devices.mobile}{
+        padding-block: 7px;
+        font-size: 14px;
+    }
+}
+
+.DelBtn{
+    background-color: #f85555ff;
+    color: var(--white-50);
+    outline: none;
+    border: none;
+    padding-block: 10px;
+    width: 80px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
 `
 
 export const Faq = styled.div`
+width: 90%;
 border-radius: 8px;
 box-shadow: 0px 0px 15px var(--purple-50);
 
@@ -43,7 +97,7 @@ padding-inline: 25px;
 }
 
 @media ${devices.mobile}{
-padding-block: 16px;
+padding-block: 20px;
 padding-inline: 15px;
 }
 

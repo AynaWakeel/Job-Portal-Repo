@@ -54,6 +54,13 @@ width: 100%;
     gap: 15px;
     align-items: center;
 }
+
+.flex-space{
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+}
 `
 
 export const Form = styled.div`

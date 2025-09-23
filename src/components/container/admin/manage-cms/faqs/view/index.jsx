@@ -6,9 +6,23 @@ import CreateFaq from '../create'
 
 const CMSfaqs = () => {
    const [isOpen,setIsOpen] = useState(false)
-   const Open = () =>{
-      setIsOpen(!isOpen)
+   const [isFaqSelected , setIsFaqSelected] = useState(null)
+
+    const handleAdd = () => {
+    setIsFaqSelected(null); 
+    setIsOpen(true);
+    }
+
+   const handleClose = () =>{
+      setIsOpen(false)
+      setIsFaqSelected(null)
    }
+
+   const handleEdit = (data) =>{
+    setIsOpen(true)
+    setIsFaqSelected(data)
+   } 
+
   return (
     <div>
 
@@ -16,13 +30,13 @@ const CMSfaqs = () => {
 
         <div className='flex-box'>
           <h2 className='Title'>Manage Faqs</h2>
-          <button className='CardBtn' onClick={Open}>Add</button>
+          <button className='CardBtn' onClick={handleAdd}>Add</button>
         </div>
 
         {isOpen ?   
-        <CreateFaq/>  :
+        <CreateFaq faqData={isFaqSelected} onCancel={handleClose} onBack={handleClose}/>  :
         
-        <FaqCardComp />
+        <FaqCardComp onEdit={handleEdit}/>
          }
       </Main>
 
