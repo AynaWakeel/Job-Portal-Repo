@@ -52,7 +52,7 @@ const CMSAbout = () => {
             <Controller
               name='description'
               control={control}
-              rules={{ required: "Enter your bio." }}
+              // rules={{ required: "Enter your desc." }}
               render={({ field, fieldState }) => (
                 <>
                   <ReactQuill theme="snow" modules={Modules} className='Quillbar' 
@@ -60,14 +60,13 @@ const CMSAbout = () => {
                     value={field.value} onChange={field.onChange}
                   />
 
-                  <div className='FormError'>
-                    {/* {fieldState.error && <p>aboutUs id required.</p>} */}
-                  </div>
+                  {/* <div className='FormError'>
+                    {fieldState.error && <p>aboutUs id required.</p>}
+                  </div> */}
                 </>
               )}
 
             />
-            {/* <ReactQuill theme="snow" modules={Modules} className='Quillbar' /> */}
 
             <button type='submit' className='FormBtn'>Save Changes</button>
           </div>

@@ -5,6 +5,8 @@ import { FaqCards } from '../../helper/dummyData'
 import { Answer, Faq, FaqSec, Title } from './style'
 
 const FaqCardComp = () => {
+    // const [Content, setContent] = useState([])
+    
     const [isFaqOpen, setIsFaqOpen] = useState(null)
     const Open = (id) => {
         if (isFaqOpen === id) {

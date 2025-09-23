@@ -19,7 +19,6 @@ const CMSfaqs = () => {
           <button className='CardBtn' onClick={Open}>Add</button>
         </div>
 
-
         {isOpen ?   
         <CreateFaq/>  :
         
