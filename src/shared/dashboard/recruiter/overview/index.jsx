@@ -18,8 +18,8 @@ const RecruiterOverview = () => {
           <h5>Hello, Instagram</h5>
           <p>Here is your daily activities and job alerts</p>
         </div>
-        
-        <RecruiterAnalytics limit={1}/>
+
+        <RecruiterAnalytics limit={1} />
         <Verification>
           <div className='Card'>
             <div className='Inner-flex'>
@@ -27,12 +27,12 @@ const RecruiterOverview = () => {
                 <img src={Profile} alt='img' />
               </div>
               <div>
-                <h3 className='Heading'>Your profile editing is not completed.</h3>
-                <span className='SubHeading'>Complete your profile editing & build your custom Resume</span>
+                <h3 className='Heading'>Two-Factor Authentication Incomplete</h3>
+                <span className='SubHeading'>For your account’s security, please finish setting up two-factor authentication.</span>
               </div>
             </div>
             <button className='CardBtn'>
-              <span>Edit Profile</span>
+              <span>Enable Now</span>
               <Arrow className='IconColor' />
             </button>
           </div>
@@ -57,7 +57,7 @@ const RecruiterOverview = () => {
           </div>
 
           <div>
-           <PostedJobs/>
+            <PostedJobs />
 
           </div>
         </Jobdiv>

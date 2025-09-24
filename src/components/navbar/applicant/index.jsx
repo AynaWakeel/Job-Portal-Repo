@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router'
 import UseAuth from '../../../auth/useAuth'
 
 const ApplicantNavbar = () => {
-  const [isActive, setIsActive] = useState('Find Jobs')
+  const [isActive, setIsActive] = useState('Dashboard')
 
   const navigate = useNavigate()
   const { logout } = UseAuth()
@@ -36,12 +36,12 @@ const ApplicantNavbar = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   const OpenMenu = () => {
-    setIsOpen(!isOpen)
+    setIsOpen(true)
   }
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const OpenDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen)
+    setIsDropdownOpen(true)
   }
 
   const Notification = () => {
@@ -50,6 +50,7 @@ const ApplicantNavbar = () => {
 
   const ApplicanntProfile = () => {
     navigate('/applicant/profile')
+    setIsDropdownOpen(false)
   }
   const Message = () => {
     navigate('/applicant/chat')

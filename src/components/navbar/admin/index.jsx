@@ -70,6 +70,7 @@ const AdminNavbar = () => {
 
   const AdminProfile = () => {
     navigate('/admin/dashboard/profile')
+    setIsDropdownOpen(false)
   }
 
   const AdminNotify = () => {

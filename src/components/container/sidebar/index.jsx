@@ -9,7 +9,7 @@ import { ReactComponent as File } from '../../../assets/icons/fi_file-text.svg'
 import { ReactComponent as Home } from '../../../assets/icons/fi_home.svg'
 
 const AdminSidebar = () => {
-        const [isActive, setIsActive] = useState("Overview")
+        const [isActive, setIsActive] = useState("View Analytics")
         const navigate = useNavigate()
     
         const ManageUser = () => {

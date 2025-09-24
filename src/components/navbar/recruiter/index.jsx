@@ -30,12 +30,13 @@ const RecruiterNavbar = () => {
 
   const ProfilePage = () => {
     navigate('/recruiter/profile')
+    setIsDropdownOpen(false)
   }
   const Message = () => {
     navigate('/recruiter/chat')
   }
 
-  const [isActive, setIsActive] = useState('Find Candidates')
+  const [isActive, setIsActive] = useState('Dashboard')
 
   const FindCandidates = () => {
     navigate('/recruiter/find-candidates')

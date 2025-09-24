@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Main } from './style'
 import ThreeDot from '../../../../assets/icons/DotsThreeVertical.svg'
-import { ManageUserTable } from '../../../../helper/dummyData'
 import { useNavigate } from 'react-router'
 import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
 import { useAdmin } from '../useAdmin'
@@ -17,13 +16,14 @@ const ManageUsers = () => {
     setUsers(allUsers.filter(user => user.role === role))
   }
 
-  // const {change_manageUsersStatus} = useAdmin()
+  const {change_manageUsersStatus} = useAdmin()
 
   // const [status, setStatus] = useState(null)
 
-  // const handleChangeStatus = async(body)=>{
-  //  const res = await change_manageUsersStatus(body)
-  //  setStatus(res)
+  // const handleChangeStatus = async(id, newStatus)=>{
+
+  //  const res = await change_manageUsersStatus(id, {status: newStatus})
+  //  setUsers(prev=>prev.map(user => user.id === id ? {...user, status: newStatus} : user ))
   //   console.log("status changed")
   //   setIsOpen(false)
   // }
@@ -33,7 +33,6 @@ const ManageUsers = () => {
         const res = await Admin_Endpoints.get_manageUsers()
         if(res?.data){
           setUsers(res.data)
-          // setAllUsers(res.data)
         }
         console.log(res.data)
       }
@@ -90,9 +89,9 @@ const ManageUsers = () => {
                     {isOpen === items.id &&
                       <div className='dropdown'>
                         <ul>
-                          <li>Activate</li>
-                          <li>Deactivate</li>
-                          <li>Report</li>
+                          {/* <li onClick={()=>handleChangeStatus(items.id , "active")}>Activate</li> */}
+                          {/* <li  onClick={()=>handleChangeStatus(items.id , "inactive")}>Deactivate</li> */}
+                          {/* <li onClick={()=>handleChangeStatus(items.id , "banned")}>Report</li> */}
                           <li>Delete</li>
                         </ul>
                       </div>
