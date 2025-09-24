@@ -43,6 +43,17 @@ export const useRecruiter = () => {
         }
     }
 
+      const change_recruiter_password = async(body) =>{
+
+        const response = await Recruiter_Endpoints.post_changePassword(body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
     const post_a_job = async(body)=>{
         try{
             const response = await Recruiter_Endpoints.post_job(body)
@@ -82,5 +93,5 @@ export const useRecruiter = () => {
     }
 
 
-    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job}
+    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job , change_recruiter_password}
 }

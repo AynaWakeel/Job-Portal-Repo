@@ -27,7 +27,7 @@ padding-inline: 20px;
 position: relative;
 
 @media ${devices.tablet} {
-    width: 90vw;
+    width: 60vw;
 }
 
 @media ${devices.mobile} {

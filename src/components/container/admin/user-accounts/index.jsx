@@ -51,7 +51,7 @@ const UserAccounts = () => {
                       <span className='Active'>{items.status}</span>
                     </div>
                   }
-                  {items.status === 'deactivate' &&
+                  {items.status === 'inactive' &&
 
                     <div className='Activediv'>
                       <span><img src={StatusClose} alt='icon' /></span>

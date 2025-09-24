@@ -170,7 +170,7 @@ const ApplicantCreateResume = () => {
                     name="experience"
                     control={control}
                     rules={{ required: "Enter your experience" }}
-                    placeholder="Industry Types"
+                    placeholder="Experience"
                     options={experienceOptions}
                   />
                 

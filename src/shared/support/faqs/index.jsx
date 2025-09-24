@@ -1,7 +1,7 @@
 import React from 'react'
 import { Main, Overlay } from './style'
 import Footer from '../footer'
-import FaqCardComp from '../../../components/faqs-card-comp'
+import ShowFaqCardComp from '../../../components/show-faq-cards'
 
 const Faqs = () => {
 
@@ -12,7 +12,7 @@ const Faqs = () => {
         <Main>
           <h2 className='H2'>My Account</h2>
 
-         <FaqCardComp/>
+         <ShowFaqCardComp/>
 
         </Main>
 

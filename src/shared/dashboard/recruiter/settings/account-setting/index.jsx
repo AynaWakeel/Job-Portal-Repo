@@ -5,6 +5,7 @@ import { ReactComponent as EyeClose } from '../../../../../assets/icons/eye-clos
 import { useForm } from 'react-hook-form'
 import { useRecruiter } from '../../useRecruiter'
 import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints'
+import { showError, showSuccess } from '../../../../../components/toasters'
 
 const RecruiterAccountSetting = () => {
   const {
@@ -14,30 +15,41 @@ const RecruiterAccountSetting = () => {
     formState: { errors }
   } = useForm()
 
-  const {company_profile} = useRecruiter()
+  const { company_profile, change_recruiter_password } = useRecruiter()
 
   const [hasData, setHasData] = useState(false);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        const previousData = await Recruiter_Endpoints.get_company_profile();
-        if (previousData?.data) {
-          reset(previousData.data);
-          setHasData(true);
-        } else {
-          reset({
-            
-  
-          });
-          setHasData(false);
-        }
-      };
-      fetchData();
-    }, [reset]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const previousData = await Recruiter_Endpoints.get_company_profile();
+      if (previousData?.data) {
+        reset(previousData.data);
+        setHasData(true);
+      } else {
+        reset({
+
+
+        });
+        setHasData(false);
+      }
+    };
+    fetchData();
+  }, [reset]);
 
   const onSubmit = (data) => {
     company_profile(data)
     console.log(data)
+  }
+
+  const onChangepassword = (data) => {
+    const { oldPassword, newPassword, confirmPassword } = data
+    if (oldPassword === newPassword) {
+      showError("Enter new Password..")
+    } else if (newPassword !== confirmPassword) {
+      showError("Password donot match")
+    } else {
+      change_recruiter_password(data)
+    }
   }
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
@@ -60,11 +72,11 @@ const RecruiterAccountSetting = () => {
   return (
     <div>
       <SettingDiv>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <h1 className='TopHeading'>Contact Information</h1>
-          </div>
-          <div>
+        <div>
+          <h1 className='TopHeading'>Contact Information</h1>
+        </div>
+        <div>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Form>
               <div className='FormSpace'>
                 <label htmlFor='' className='Label'>Location</label>
@@ -95,50 +107,68 @@ const RecruiterAccountSetting = () => {
 
               <button type='submit' className='FormBtn'>Save Changes</button>
             </Form>
-          </div>
+          </form>
+        </div>
 
 
-          <div className='ChangePassworddiv'>
-            <h1 className='TopHeading'>Change Password</h1>
+        <div className='ChangePassworddiv'>
+          <h1 className='TopHeading'>Change Password</h1>
+
+          <form onSubmit={handleSubmit(onChangepassword)}>
+
             <Form>
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth'>
                   <label htmlFor='' className='Label'>Current Password</label>
-                  <input type={isPasswordVisible ? "text" : "password"} placeholder='Current Password' className='FormInput' />
+                  <input type={isPasswordVisible ? "text" : "password"} placeholder='Current Password' className='FormInput'
+                    {...register("oldPassword", { required: "oldPassword is required." })} />
                   <div onClick={PasswordVisibility}>
                     {isPasswordVisible ?
                       <EyeIcon className='eyeimg' /> :
                       <EyeClose className='eyeimg' />
                     }
                   </div>
+                  <div className='FormError'>
+                    {errors.oldPassword && <p>oldPassword is required.</p>}
+                  </div>
                 </div>
                 <div className='InputWidth'>
                   <label htmlFor='' className='Label'>New Password</label>
-                  <input type={isNewPasswordVisible ? "text" : "password"} placeholder='New Password' className='FormInput' />
+                  <input type={isNewPasswordVisible ? "text" : "password"} placeholder='New Password' className='FormInput'
+                    {...register("newPassword", { required: "New Password is required." })} />
                   <div onClick={NewPasswordVisibility}>
                     {isNewPasswordVisible ?
                       <EyeIcon className='eyeimg' /> :
                       <EyeClose className='eyeimg' />
                     }
                   </div>
+                  <div className='FormError'>
+                    {errors.newPassword && <p>newPassword is required.</p>}
+                  </div>
                 </div>
                 <div className='InputWidth'>
                   <label htmlFor='' className='Label'>Confirm Password</label>
-                  <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput' />
+                  <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput'
+                    {...register("confirmPassword", { required: "Confirm Password is required." })} />
                   <div onClick={ConfirmationVisibility}>
                     {isConfirmationVisible ?
                       <EyeIcon className='eyeimg' /> :
                       <EyeClose className='eyeimg' />
                     }
                   </div>
+                  <div className='FormError'>
+                    {errors.confirmPassword && <p>confirmPassword is required.</p>}
+                  </div>
                 </div>
               </div>
 
               <button type='submit' className='FormBtn'>Save Changes</button>
             </Form>
-          </div>
 
-        </form>
+          </form>
+        </div>
+
+
       </SettingDiv>
     </div>
   )

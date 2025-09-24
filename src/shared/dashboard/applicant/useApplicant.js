@@ -63,7 +63,17 @@ export const useApplicant = () => {
             return null
         }
     }
+
+      const change_applicant_password = async(body) =>{
     
-  return { profile_pic, upload_resume, profile_setting, create_resume, update_applicant_resume
-}
+            const response = await Applicant_Endpoints.post_changePassword(body)
+            const {message} = response
+            if(response){
+                showSuccess(message)
+            }else{
+                showError(message)
+            }
+        }
+    
+  return { profile_pic, upload_resume, profile_setting, create_resume, update_applicant_resume , change_applicant_password}
 }

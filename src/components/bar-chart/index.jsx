@@ -1,20 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Chart from 'chart.js/auto';
 import { Bar } from "react-chartjs-2"
+import { Admin_Endpoints } from '../../lib/api/admin_endpoints';
 
 const BarChart = () => {
+    const [analytics, setAnalytics] = useState({})
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await Admin_Endpoints.get_analytics()
+            if (res?.data?.series) {
+                setAnalytics(res.data.series)
+                console.log(res.data.series)
+            }
+        }
+        fetchData()
+    }, [])
 
     return (
         <div>
 
             <Bar
                 data={{
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                    labels: analytics.months,
                     datasets: [
                         {
                             label: "Posted Jobs",
-                            data: [200, 300, 150, 200, 300, 160],
+                            data: analytics.jobs,
                             backgroundColor: [
                                 "#E4E5E8"
                             ],
@@ -22,7 +34,7 @@ const BarChart = () => {
                         },
                         {
                             label: "Applications",
-                            data: [100, 50, 60, 100, 150, 80],
+                            data: analytics.applications,
                             backgroundColor: [
                                 "#555295ff"
                             ],
@@ -32,12 +44,12 @@ const BarChart = () => {
                         },
 
                     ]
-                }} 
+                }}
 
                 options={{
-                    responsive:true
+                    responsive: true
                 }}
-            
+
             />
 
         </div>

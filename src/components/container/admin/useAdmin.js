@@ -70,6 +70,17 @@ export const useAdmin = () => {
         }
     }
 
+     const change_admin_password = async(body) =>{
+
+        const response = await Admin_Endpoints.post_changePassword(body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
     const upload_admin_photo = async(body) =>{
 
         const response = await Admin_Endpoints.post_photo(body)
@@ -81,6 +92,61 @@ export const useAdmin = () => {
         }
     }
 
+    const create_industry = async(body) =>{
 
-    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms , update_faq_cms , delete_faq_cms , update_admin_profile , upload_admin_photo}
+        const response = await Admin_Endpoints.post_industry(body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+    const delete_industry_by_id = async(id,body) =>{
+
+        const response = await Admin_Endpoints.delete_industry(id,body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+     const create_location = async(body) =>{
+
+        const response = await Admin_Endpoints.post_location(body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+    const delete_location_by_id = async(id,body) =>{
+
+        const response = await Admin_Endpoints.delete_location(id,body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+     const change_manageUsersStatus = async(id, body)=>{
+
+        const response = await Admin_Endpoints.put_manageUsersStatus(id, body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+
+    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms , update_faq_cms , delete_faq_cms , update_admin_profile , upload_admin_photo , create_industry , delete_industry_by_id , change_manageUsersStatus , create_location , delete_location_by_id , change_admin_password }
 }

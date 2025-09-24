@@ -111,6 +111,11 @@ padding-inline: 20px;
     cursor: pointer;
 }
 
+.CardBtn.active{
+     background-color: var(--purple-600);
+   color: var(--white-50);
+}
+
 .CardBtn:hover{
    background-color: var(--purple-600);
    color: var(--white-50);

@@ -4,7 +4,6 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Controller, useForm } from 'react-hook-form';
 import { useAdmin } from '../../../useAdmin';
-import { Admin_Endpoints } from '../../../../../../lib/api/admin_endpoints';
 
 const CreateFaq = ({ faqData, onCancel, onBack }) => {
 

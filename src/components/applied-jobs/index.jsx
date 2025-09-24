@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router'
 const AppliedJobs = ({ limit }) => {
     const [isActive, setIsActive] = useState("Active")
     const [Status, setStatus] = useState("Rejected")
+    // const [jobData, setJobData] = useState({})
 
     const navigate = useNavigate()
     const ViewDetail = () => {

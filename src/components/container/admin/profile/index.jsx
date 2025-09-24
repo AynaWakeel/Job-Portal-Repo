@@ -6,6 +6,7 @@ import { ReactComponent as EyeClose } from '../../../../assets/icons/eye-close.s
 import { useForm } from 'react-hook-form'
 import { useAdmin } from '../useAdmin'
 import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
+import { showError, showSuccess } from '../../../toasters'
 
 const AdminProfile = () => {
     const {
@@ -17,7 +18,7 @@ const AdminProfile = () => {
 
     const [hasData, setHasData] = useState(false)
   
-    const {update_admin_profile, upload_admin_photo} = useAdmin()
+    const {update_admin_profile, upload_admin_photo , change_admin_password} = useAdmin()
 
     useEffect(()=>{
         const fetchData = async()=>{
@@ -49,6 +50,17 @@ const AdminProfile = () => {
       upload_admin_photo(picData);
     }
   }
+
+  const handleChangepassword = (data) =>{
+    const {oldPassword , newPassword , confirmPassword} = data
+    if(oldPassword === newPassword){
+        showError("Enter new Password..")
+    }else if(newPassword !== confirmPassword){
+        showError("Password donot match")
+    }else{
+        change_admin_password(data)
+    }
+}
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
@@ -127,42 +139,56 @@ const AdminProfile = () => {
 
                 <div className='ChangePassworddiv'>
                     <h1 className='Title'>Change Password</h1>
+
+                    <form onSubmit={handleSubmit(handleChangepassword)}>
+
                     <Form>
                         <div className='FormSpace FormInputDivide'>
                             <div className='InputWidth'>
                                 <label htmlFor='' className='Label'>Current Password</label>
-                                <input type={isPasswordVisible ? "text" : "password"} placeholder='Current Password' className='FormInput' />
+                                <input type={isPasswordVisible ? "text" : "password"} placeholder='Current Password' className='FormInput' {...register("oldPassword",{required:"oldPassword is required."})}/>
                                 <div onClick={PasswordVisibility}>
                                     {isPasswordVisible ?
                                         <EyeIcon className='eyeimg' /> :
                                         <EyeClose className='eyeimg' />
                                     }
                                 </div>
+                              <div className='FormError'>
+                                {errors.oldPassword && <p>oldPassword is required.</p>}
+                            </div>
                             </div>
                             <div className='InputWidth'>
                                 <label htmlFor='' className='Label'>New Password</label>
-                                <input type={isNewPasswordVisible ? "text" : "password"} placeholder='New Password' className='FormInput' />
+                                <input type={isNewPasswordVisible ? "text" : "password"} placeholder='New Password' className='FormInput'  {...register("newPassword",{required:"New Password is required."})} />
                                 <div onClick={NewPasswordVisibility}>
                                     {isNewPasswordVisible ?
                                         <EyeIcon className='eyeimg' /> :
                                         <EyeClose className='eyeimg' />
                                     }
                                 </div>
+                              <div className='FormError'>
+                                {errors.newPassword && <p>newPassword is required.</p>}
+                            </div>
                             </div>
                             <div className='InputWidth'>
                                 <label htmlFor='' className='Label'>Confirm Password</label>
-                                <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput' />
+                                <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput' {...register("confirmPassword",{required:"Confirm Password is required."})} />
                                 <div onClick={ConfirmationVisibility}>
                                     {isConfirmationVisible ?
                                         <EyeIcon className='eyeimg' /> :
                                         <EyeClose className='eyeimg' />
                                     }
                                 </div>
+                              <div className='FormError'>
+                                {errors.confirmPassword && <p>confirmPassword is required.</p>}
+                            </div>
                             </div>
                         </div>
 
                         <button type='submit' className='FormBtn'>Save Changes</button>
                     </Form>
+
+                    </form>
                 </div>
 
             </Main>

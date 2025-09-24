@@ -1,18 +1,56 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Main } from './style'
 import AddLocationModal from '../../../../components/add-location-modal'
 import AddIndustryModal from '../../../../components/add-industry-modal'
 import { ReactComponent as Del } from '../../../../assets/icons/XCircle.svg'
+import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
+import { useAdmin } from '../useAdmin'
 
 const ManageCategory = () => {
+  const [industryList, setIndustryList] = useState([])
+  const [locationList, setLocationList] = useState([])
+
+  const {delete_industry_by_id , delete_location_by_id} = useAdmin()
+
+  const fetchData = async()=>{
+    const res = await Admin_Endpoints.get_industry()
+    if(res?.data){
+        setIndustryList(res.data)
+    }
+  }
+
+  const fetchLocation = async()=>{
+    const res = await Admin_Endpoints.get_location()
+    if(res?.data){
+      setLocationList(res.data)
+    }
+  }
+
+   useEffect(()=>{
+    fetchData()
+    fetchLocation()
+   },[])
+
+  const handleDelete = async(id) =>{
+    await delete_industry_by_id(id)
+    fetchData()
+    console.log("industry deleted")
+  }
+
+  const handleDeleteLocation = async(id)=>{
+    await delete_location_by_id(id)
+    fetchLocation()
+    console.log(" location deleted")
+  }
+
   const [isOpen, setIsOpen] = useState(false)
   const LocationModal = () => {
-    setIsOpen(!isOpen)
+    setIsOpen(true)
   }
 
   const [isIndustryOpen, setIsIndustryOpen] = useState(false)
   const IndustryModal = () => {
-    setIsIndustryOpen(!isIndustryOpen)
+    setIsIndustryOpen(true)
   }
   return (
     <div>
@@ -28,73 +66,21 @@ const ManageCategory = () => {
         </div>
         <Box>
           <ul className='list'>
-            <li>
-              karachi
-              <Del />
+            {locationList.map((items)=>(
+
+            <li key={items.id}>
+              {items.name}
+              <Del onClick={()=>handleDeleteLocation(items.id)}/>
             </li>
-            <li>lahore
-              <Del />
-            </li>
-            <li>islamabad
-              <Del />
-            </li>
-            <li>rahim yar khan
-              <Del />
-            </li>
-            <li>rawalpindi
-              <Del />
-            </li>
-            <li>karachi
-              <Del />
-            </li>
-            <li>lahore
-              <Del />
-            </li>
-            <li>islamabad
-              <Del />
-            </li>
-            <li>rahim yar khan
-              <Del />
-            </li>
-            <li>rawalpindi
-              <Del />
-            </li>
-            <li>karachi
-              <Del />
-            </li>
-            <li>lahore
-              <Del />
-            </li>
-            <li>islamabad
-              <Del />
-            </li>
-            <li>rahim yar khan
-              <Del />
-            </li>
-            <li>rawalpindi
-              <Del />
-            </li>
-            <li>rawalpindi
-              <Del />
-            </li>
-            <li>karachi
-              <Del />
-            </li>
-            <li>lahore
-              <Del />
-            </li>
-            <li>islamabad
-              <Del />
-            </li>
-            <li>rahim yar khan
-              <Del />
-            </li>
+
+            ))}
+           
           </ul>
         </Box>
 
         {/* ---------- modal ---------- */}
         {isOpen &&
-          <AddLocationModal onClose={() => setIsOpen(!isOpen)} />
+          <AddLocationModal onClose={() => setIsOpen(false)}  onLoationDone={fetchLocation} />
         }
 
         {/* ---------- industry  --------- */}
@@ -104,33 +90,21 @@ const ManageCategory = () => {
         </div>
         <Box>
           <ul className='list'>
-            <li>Information Technology
-              <Del />
+            {industryList.map((items)=>(
+
+            <li key={items.id}>
+              {items.name}
+              <Del onClick={()=>handleDelete(items.id)} />
             </li>
-            <li>Finance & Banking
-              <Del />
-            </li>
-            <li>Engineering & Manufacturing
-              <Del />
-            </li>
-            <li>Marketing & Advertising
-              <Del />
-            </li>
-            <li>Retail & E-commerce
-              <Del />
-            </li>
-            <li>Construction & Real Estate
-              <Del />
-            </li>
-            <li>Healthcare & Medical
-              <Del />
-            </li>
+
+            ))}
+           
           </ul>
         </Box>
 
         {/* ---------- modal ---------- */}
         {isIndustryOpen &&
-          <AddIndustryModal onClose={() => setIsIndustryOpen(!isIndustryOpen)} />
+          <AddIndustryModal onClose={() => setIsIndustryOpen(false)} onDone={fetchData}/>
         }
 
       </Main>

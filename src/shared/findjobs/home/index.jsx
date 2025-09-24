@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Checkbox, HeroDiv, HeroSec, MainSec, Searchbar, SearchModal, Radio, Dropdown, TabletSearchbar, TabletSearchModal, SubDropdown } from './style'
 import HeroImg from '../../../assets/images/Illustration.svg'
 import { ReactComponent as SearchIcon } from '../../../assets/icons/fi_search.svg'
@@ -9,11 +9,29 @@ import { ReactComponent as Arrowup } from '../../../assets/icons/fi_chevron-up.s
 import { ReactComponent as Arrowdown } from '../../../assets/icons/fi_chevron-down.svg'
 import { useNavigate } from 'react-router'
 import MainJobs from '../../../components/main-jobs'
+import CustomSelect from '../../../components/custome-select'
+
 
 
 const FindJob = () => {
+  // const {
+  //   control
+  // } = useForm()
+
+  // const [industryList, setIndustryList] = useState({})
+
+  //  useEffect(()=>{
+  //   const fetchData = async()=>{
+  //     const res = await Applicant_Endpoints.get_industry()
+  //     if(res){
+  //         setIndustryList(res)
+  //     }
+  //   }
+  //   fetchData()
+  //  },[])
+
   const navigate = useNavigate()
-  const DetailPage = () =>{
+  const DetailPage = () => {
     navigate('/applicant/findjobs/detail')
   }
   // ------------- desktop advance dropdown
@@ -93,11 +111,13 @@ const FindJob = () => {
                   <Map className='IconColor' />
                   <input type='' placeholder='Your Location' className='Input' />
                 </div>
+               
                 <div className='SelectFlex simple-dropdown' onClick={DropdownOpen}>
                   <div className='InputFlex'>
                     <Layers className='IconColor' />
                     <h3 className='Input' >Select Industry</h3>
                   </div>
+                 
                   {isDropdownOpen ?
                     <Arrowup className='SelectColor' /> :
                     <Arrowdown className='SelectColor' />
@@ -230,7 +250,7 @@ const FindJob = () => {
                 </div>
               </SearchModal>
             }
-           
+
 
             {/* ---------------------- tablet searchbar ------------------------ */}
             <div className='SearchDiv'>
@@ -386,7 +406,7 @@ const FindJob = () => {
             <Arrow className='IconColor' />
           </button>
         </div>
-        <MainJobs/>
+        <MainJobs />
       </MainSec>
     </div>
   )
