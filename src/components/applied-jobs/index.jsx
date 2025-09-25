@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router'
 import { Applicant_Endpoints } from '../../lib/api/applicant_endpoints'
 
 const AppliedJobs = () => {
-    const [isActive, setIsActive] = useState("Active")
-    // const [Status, setStatus] = useState("Rejected")
+    const navigate = useNavigate()
+    const [Status, setStatus] = useState("Rejected")
     const [jobData, setJobData] = useState([])
 
      useEffect(() => {
@@ -21,10 +21,7 @@ const AppliedJobs = () => {
         fetchData()
     }, [])
 
-    const navigate = useNavigate()
-    const ViewDetail = () => {
-        navigate('/applicant/company')
-    }
+   
     return (
         <div>
             <MainSec>
@@ -32,11 +29,12 @@ const AppliedJobs = () => {
                     <div className='Grid'>
                         {jobData.map((items) => {
                             return (
-                                <div className='Card'>
+                                <div className='Card' key={items.id}>
                                     <div className='Inner-flex'>
                                         <div className='IconBox' 
                                         // style={{ backgroundColor: `${items.color}` }}
                                         >
+                                             <h3 className='Heading'>{items.id}</h3>
                                             <img src={items.recruiter.profilepic} />
                                         </div>
                                         <div className='Gap'>
@@ -61,7 +59,7 @@ const AppliedJobs = () => {
                                     </div>
 
                                     <div className='status-flex'>
-                                        {isActive === "Active" ?
+                                        {items.status === "active" ?
 
                                             (<div className='Activediv'>
                                                 <span><img src={Check} alt='icon' /></span>
@@ -77,7 +75,7 @@ const AppliedJobs = () => {
 
                                         }
 
-                                         {items.status === "Selected" &&
+                                         {Status === "Selected" &&
 
                                             (<div className='Activediv'>
                                                 <span><img src={items.icon} alt='icon' /></span>
@@ -86,7 +84,7 @@ const AppliedJobs = () => {
 
                                         }
 
-                                         {items.status === "Rejected" &&
+                                         {Status === "Rejected" &&
 
                                             (<div className='Activediv'>
                                                 <span><img src={StatusClose} alt='icon' /></span>
@@ -95,7 +93,7 @@ const AppliedJobs = () => {
 
                                         }
 
-                                         {items.status === "Applied" &&
+                                         {Status === "Applied" &&
 
                                             (<div className='Activediv'>
                                                 <span><img src={items.icon} alt='icon' /></span>
@@ -106,7 +104,7 @@ const AppliedJobs = () => {
                                     </div>
 
                                     <div className='Right-side'>
-                                        <button className='CardBtn' onClick={ViewDetail}>
+                                        <button className='CardBtn' onClick={()=>navigate(`/applicant/company/${items.id}`)}>
                                             <span>View Details</span>
                                         </button>
                                     </div>

@@ -15,6 +15,19 @@ export const CompanyCards = styled.div`
     gap: 24px;
 }
 
+.photo{
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 50px;
+height: 50px;
+}
+
+.photo img{
+width: 50px;
+height: 50px;
+border-radius: 50%;
+}
+
 .Grid{
     display: flex;
     justify-content: start;

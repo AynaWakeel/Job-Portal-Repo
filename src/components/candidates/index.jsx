@@ -1,39 +1,40 @@
 import React from 'react'
 import { CompanyCards, MainSec } from './style'
-import { CandidateCards } from '../../helper/dummyData'
 import { useNavigate } from 'react-router'
 
-const Candidates = ({limit}) => {
+const Candidates = ({ applicants}) => {
     const navigate = useNavigate()
-    const ViewProfile = () =>{
-        navigate('/recruiter/applicant-profile')
+    const ViewProfile = (id) => {
+        navigate('/recruiter/applicant-profile' , {state:{id}})
     }
-    const ShowCards = limit ? CandidateCards.slice(0,limit) : CandidateCards;
+
     return (
         <div>
             <MainSec>
                 <CompanyCards>
-                    
-                <div className='CardDiv'>
-                    <div className='Grid'>
-                        {ShowCards.map((items)=>(                        
-                        <div className='Card'>
-                            <div className='CardFlex'>
-                                    <img src={items.logo} className='IconColor' />
-                               
-                                <div>
-                                    <h3 className='Heading'>{items.name}</h3>
-                                    <h4 className='FlexIcon'>
-                                        <span className='SubHeading'>{items.title}</span>
-                                    </h4>
-                                </div>
-                            </div>
-                                <button className='CardBtn' onClick={ViewProfile}>{items.btn}</button>
-                        </div>
-                        ))}
 
-                    </div>                    
-                </div>
+                    <div className='CardDiv'>
+                        <div className='Grid'>
+                            {applicants.map((items) => (
+                                <div className='Card'>
+                                    <div className='CardFlex'>
+                                        <div className='photo'>
+                                          <img src={items.profilepic} className='IconColor' />
+                                        </div>
+
+                                        <div>
+                                            <h3 className='Heading'>{items.name}</h3>
+                                            <h4 className='FlexIcon'>
+                                                <span className='SubHeading'>{items.title}</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <button className='CardBtn' onClick={ViewProfile(items.id)}>View Profile</button>
+                                </div>
+                            ))}
+
+                        </div>
+                    </div>
 
                 </CompanyCards>
             </MainSec>

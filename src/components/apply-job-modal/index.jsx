@@ -3,9 +3,21 @@ import { Main, Overlay, UploadPdf } from './style'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css';
 import Close from '../../assets/icons/fi_x.svg'
-import { ReactComponent as File } from '../../assets/icons/FileText.svg'
+import { Controller, useForm } from 'react-hook-form';
+import { useApplicant } from '../../shared/dashboard/applicant/useApplicant';
 
-const ApplyModal = ({ onClose }) => {
+const ApplyModal = ({ jobId , onClose }) => {
+    const {
+        control,
+        handleSubmit
+    } = useForm()
+
+    const {apply_job_by_id} = useApplicant()
+
+    const onSubmit = (data) =>{
+        apply_job_by_id(jobId,data)
+    }
+
     const Modules = {
         toolbar: [
             [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
@@ -23,15 +35,25 @@ const ApplyModal = ({ onClose }) => {
                             <img src={Close} alt='close' onClick={onClose} />
                         </div>
                     </div>
-                    
+
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
                     <div className='spacetop'>
                         <h1 className='SubHeading'>Cover Letter</h1>
-                        <ReactQuill theme="snow" modules={Modules} className='Quillbar' />
+                        <Controller
+                          name='coverLetter'
+                          control={control}
+                          render={(field)=>(                             
+                              <ReactQuill theme="snow" modules={Modules} className='Quillbar' value={field.value} />
+                          )}
+                        />
                     </div>
                     <div className=' flexBtn'>
-                        <button type='submit' className='FormBtn' onClick={onClose}>Cancel</button>
+                        <button type='button' className='FormBtn' onClick={onClose}>Cancel</button>
                         <button type='submit' className='FormBtn'>Send</button>
                     </div>
+
+                    </form>
                 </Main>
             </Overlay>
         </div>

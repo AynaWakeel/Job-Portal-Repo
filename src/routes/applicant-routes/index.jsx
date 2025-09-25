@@ -20,7 +20,7 @@ const ApplicantRoutes = () => {
         <Route path='/chat' element={<ChatSystem/>}/>
         <Route path='/findjobs' element={<FindJob/>}/>
         <Route path='/findjobs/detail' element={<JobDetailCards/>}/>
-        <Route path='/company' element={<CompanyJobDetail/>}/>
+        <Route path='/company/:id' element={<CompanyJobDetail/>}/>
         <Route path='/dashboard/*' element={<ApplicantDashboardRoutes/>}/>
         <Route path='/support' element={<Support/>}>
         </Route>

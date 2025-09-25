@@ -54,7 +54,16 @@ box-shadow: 0px 0px 5px var(--purple-50);
 }
 
 .photo{
-    border-radius: 50%;
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 50px;
+height: 50px;
+}
+
+.photo img{
+width: 50px;
+height: 50px;
+border-radius: 50%;
 }
 
 `

@@ -4,18 +4,18 @@ import { showError, showSuccess } from '../../../components/toasters'
 
 export const useApplicant = () => {
 
-  const profile_pic = async(body)=>{
-    
-    const response = await Applicant_Endpoints.post_profile_pic(body)
-    const {sucess , message} = response
-    if(sucess){
-        // localStorage.getItem("token", response.token)
-        showSuccess(message)
-    }else{
-        showError(message)
-    }
+    const profile_pic = async (body) => {
 
-  }
+        const response = await Applicant_Endpoints.post_profile_pic(body)
+        const { sucess, message } = response
+        if (sucess) {
+            // localStorage.getItem("token", response.token)
+            showSuccess(message)
+        } else {
+            showError(message)
+        }
+
+    }
 
     const upload_resume = async (body) => {
 
@@ -28,7 +28,7 @@ export const useApplicant = () => {
         }
     }
 
-      const profile_setting = async (body) => {
+    const profile_setting = async (body) => {
 
         const response = await Applicant_Endpoints.put_profile_setting(body)
         const { message, sucess } = response
@@ -40,7 +40,7 @@ export const useApplicant = () => {
     }
 
 
-      const create_resume = async (body) => {
+    const create_resume = async (body) => {
 
         const response = await Applicant_Endpoints.post_create_resume(body)
         const { message, sucess } = response
@@ -51,7 +51,7 @@ export const useApplicant = () => {
         }
     }
 
-      const update_applicant_resume = async (body) => {
+    const update_applicant_resume = async (body) => {
 
         const response = await Applicant_Endpoints.update_resume(body)
         const { message, sucess } = response
@@ -64,16 +64,27 @@ export const useApplicant = () => {
         }
     }
 
-      const change_applicant_password = async(body) =>{
-    
-            const response = await Applicant_Endpoints.post_changePassword(body)
-            const {message} = response
-            if(response){
-                showSuccess(message)
-            }else{
-                showError(message)
-            }
+    const change_applicant_password = async (body) => {
+
+        const response = await Applicant_Endpoints.post_changePassword(body)
+        const { message } = response
+        if (response) {
+            showSuccess(message)
+        } else {
+            showError(message)
         }
-    
-  return { profile_pic, upload_resume, profile_setting, create_resume, update_applicant_resume , change_applicant_password}
+    }
+
+    const apply_job_by_id = async (id,body) => {
+
+        const response = await Applicant_Endpoints.post_apply_job(id,body)
+        const { message } = response
+        if (response) {
+            showSuccess(message)
+        } else {
+            showError(message)
+        }
+    }
+
+    return { profile_pic, upload_resume, profile_setting, create_resume, update_applicant_resume, change_applicant_password , apply_job_by_id}
 }

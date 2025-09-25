@@ -1,32 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CompanyCards } from './style'
-import { JobApplicationCards } from '../../helper/dummyData'
 import Dot from '../../assets/icons/•.svg'
 import Cross from '../../assets/icons/XCircleRed.svg'
 import Check from '../../assets/icons/CheckCircle.svg'
 import Profile from '../../assets/images/Ellipse 18.png'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
+import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 
 const Shortlist = () => {
-     const navigate = useNavigate()
+    const location = useLocation()
+    const jobId = location.state.jobId
+    
+    
+    const navigate = useNavigate()
+    const [applicants, setApplicants] = useState([])
 
-    const Profile = () =>{
-        navigate("/recruiter/applicant-profile")
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!jobId) return;
+            const res = await Recruiter_Endpoints.get_applications(jobId)
+            console.log(res);
+            
+
+            if (res?.data?.shortlisted) {
+                setApplicants(res.data.shortlisted)
+                console.log(res.data.shortlisted, "shortlist")
+            }
+        }
+        fetchData()
+    }, [jobId])
+
+
+    const gotoProfile = (applicationId) => {
+        // navigate(`/recruiter/dashboard/applications/${jobId}/applicate-profile/${applicationId}`)
     }
     return (
         <div>
             <CompanyCards>
                 <div className='CardDiv'>
                     <div className='Grid'>
-                        {JobApplicationCards.map((items) => (
-                            <div className='Card' onClick={Profile}> 
+                        {applicants.map((items) => (
+                            <div className='Card' onClick={gotoProfile(items.id)}>
                                 <div className='flex'>
                                     <div className='CardFlex'>
                                         <div className='IconBox'>
-                                            <img src={Profile} className='IconColor' />
+                                            {/* <img src={items.profilepic || Profile} className='IconColor' /> */}
                                         </div>
                                         <div>
-                                            <h3 className='Heading'>{items.name}</h3>
+                                            <h3 className='Heading'>{items.fullName}</h3>
                                             <span className='SubHeading'>{items.title}</span>
                                         </div>
                                     </div>

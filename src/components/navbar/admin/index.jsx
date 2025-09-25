@@ -107,7 +107,9 @@ const AdminNavbar = () => {
                 {adminName ?
 
                   <div className='Navright'>
-                    <img src={adminName.profilepic || Profile} alt='profile' className='photo'/>
+                    <div className='photo'>
+                    <img src={adminName.profilepic || Profile} alt='profile'/>
+                    </div>
                     <h4 className='adminname'>{adminName.fullName}</h4>
                   </div>
 

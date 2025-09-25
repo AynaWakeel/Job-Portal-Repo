@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, CompanyBox, Main } from './style'
 import { ReactComponent as Calender } from '../../../assets/icons/CalendarBlank2.svg'
 import { ReactComponent as Map } from '../../../assets/icons/MapPinLine.svg'
@@ -17,20 +17,38 @@ import { ReactComponent as Social3 } from '../../../assets/icons/social-media3.s
 import { ReactComponent as Social4 } from '../../../assets/icons/linkedin.svg'
 import ApplyModal from '../../../components/apply-job-modal'
 import Company from '../../../assets/images/Logo.png'
-import { useLocation } from 'react-router'
+import { useLocation, useParams } from 'react-router'
+import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
 
 const CompanyJobDetail = () => {
-    const [isModalOpen,setIsModalOpen] = useState(false)
-    const PopupModal = () =>{
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const PopupModal = () => {
         setIsModalOpen(!isModalOpen)
     }
 
-     const location = useLocation()
-    
+    const location = useLocation()
+
     const ContentPage = ['/admin/dashboard/job-detail']
     const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
 
-    console.log(location,'here is the location');
+    console.log(location, 'here is the location');
+
+    const [jobData, setJobData] = useState({})
+    const [companyData, setCompanyData] = useState({})
+    const { id } = useParams()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await Applicant_Endpoints.get_job_detail_by_id(id)
+            if (res?.data?.job) {
+                setJobData(res.data.job)
+                setCompanyData(res.data.job.company)
+            }
+           
+        }
+        if (id) fetchData()
+
+    }, [id])
 
     return (
         <div>
@@ -38,48 +56,48 @@ const CompanyJobDetail = () => {
                 <div className='profile'>
                     <div className='profile-intro'>
                         <div className='profile-pic'>
-                            <img src={Company} alt='icon'/>
+                            <img src={companyData.profilepic || Company} alt='icon' />
                         </div>
                         <div className='profile-flex-col'>
                             <div className='detail-flex'>
-                                <h2 className='Name'>Senior UX Designer</h2>
-                                <span className='Badge'>Full Time</span>
+                                <h2 className='Name'>{jobData.title}</h2>
+                                <span className='Badge'>{jobData.jobType}</span>
                                 {!hideContent &&
-                                 <span className='Badge'>Job match 40%</span>                              
+                                    <span className='Badge'>Total Job match 40%</span>
                                 }
                             </div>
                             <div className='detail-flex'>
                                 <div className='sub-flex'>
                                     <Link className='IconColor' />
-                                    <h4 className='Title'>https://instagram.com</h4>
+                                    <h4 className='Title'>{companyData.companyWebsite || "N/A"}</h4>
                                 </div>
                                 <div className='detail-flex'>
                                     <Call className='IconColor' />
-                                    <h4 className='Title'>(406) 555-0120</h4>
+                                    <h4 className='Title'>{companyData.phoneNumber || "N/A"}</h4>
                                 </div>
                                 <div className='sub-flex'>
                                     <SmallEnv className='IconColor' />
-                                    <h4 className='Title'>career@instagram.com</h4>
+                                    <h4 className='Title'>{companyData.email || "N/A"}</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='profile-flex-col'>
                         {!hideContent &&
-                        <div className='Right-side'>
-                            <span className='Box'><FavIcon className='Color' /></span>
-                            <button className='CardBtn' onClick={PopupModal}>
-                                <span>Apply Now</span>
-                                <ArrowIcon className='IconColor' />
-                            </button>
-                            {isModalOpen &&
-                            <ApplyModal onClose={()=>setIsModalOpen(false)}/>
-                            }
-                        </div>                        
+                            <div className='Right-side'>
+                                <span className='Box'><FavIcon className='Color' /></span>
+                                <button className='CardBtn' onClick={PopupModal}>
+                                    <span>Apply Now</span>
+                                    <ArrowIcon className='IconColor' />
+                                </button>
+                                {isModalOpen &&
+                                    <ApplyModal jobId={jobData.id} onClose={() => setIsModalOpen(false)} />
+                                }
+                            </div>
                         }
                         <div className='status-side'>
                             <h4 className='Title'>Job expire in:</h4>
-                            <h4 className='status'>June 30, 2021</h4>
+                            <h4 className='status'>{jobData.jobExpirationDate}</h4>
                         </div>
 
                     </div>
@@ -88,41 +106,44 @@ const CompanyJobDetail = () => {
                     <div className='content-left'>
                         <div>
                             <h2 className='Heading'>Job Description</h2>
-                            <p className='Sub'>Integer aliquet pretium consequat. Donec et sapien id leo accumsan pellentesque eget maximus tellus. Duis et est ac leo rhoncus tincidunt vitae vehicula augue. Donec in suscipit diam. Pellentesque quis justo sit amet arcu commodo sollicitudin. Integer finibus blandit condimentum. Vivamus sit amet ligula ullamcorper, pulvinar ante id, tristique erat. Quisque sit amet aliquam urna. Maecenas blandit felis id massa sodales finibus. Integer bibendum eu nulla eu sollicitudin. Sed lobortis diam tincidunt accumsan faucibus. Quisque blandit augue quis turpis auctor, dapibus euismod ante ultricies. Ut non felis lacinia turpis feugiat euismod at id magna. Sed ut orci arcu. Suspendisse sollicitudin faucibus aliquet.</p>
-                            <p className='Sub'>Integer aliquet pretium consequat. Donec et sapien id leo accumsan pellentesque eget maximus tellus. Duis et est ac leo rhoncus tincidunt vitae vehicula augue. Donec in suscipit diam. Pellentesque quis justo sit amet arcu commodo sollicitudin. Integer finibus blandit condimentum. Vivamus sit amet ligula ullamcorper, pulvinar ante id, tristique erat. Quisque sit amet aliquam urna. Maecenas blandit felis id massa sodales finibus. Integer bibendum eu nulla eu sollicitudin. Sed lobortis diam tincidunt accumsan faucibus. Quisque blandit augue quis turpis auctor, dapibus euismod ante ultricies. Ut non felis lacinia turpis feugiat euismod at id magna. Sed ut orci arcu. Suspendisse sollicitudin faucibus aliquet.</p>
+                            <p className='Sub'>{jobData.description}</p>
+
                         </div>
                         <div>
                             <h2 className='Heading'>Responsibilities</h2>
                             <ul className='List'>
                                 <li>
-                                    <p className='Sub'>Quisque semper gravida est et consectetur.</p>
+                                    <p className='Sub' dangerouslySetInnerHTML={{__html: jobData.responsibilities}}></p>
                                 </li>
-                                <li>
-                                    <p className='Sub'>Curabitur blandit lorem velit, vitae pretium leo placerat eget.</p>
-                                </li>
-                                <li>
-                                    <p className='Sub'>Morbi mattis in ipsum ac tempus.</p>
-                                </li>
-                                <li>
-                                    <p className='Sub'>Curabitur eu vehicula libero. Vestibulum sed purus ullamcorper, lobortis lectus nec.</p>
-                                </li>
-                                <li>
-                                    <p className='Sub'>vulputate turpis. Quisque ante odio, iaculis a porttitor sit amet.</p>
-                                </li>
-                                <li>
-                                    <p className='Sub'>Quisque semper gravida est et consectetur.</p>
-                                </li>
-                                <li>
-                                    <p className='Sub'>commodo feugiat. Nullam laoreet, diam placerat dapibus tincidunt.</p>
-                                </li>
-                                <li>
-                                    <p className='Sub'>Quisque semper gravida est et consectetur.</p>
-                                </li>
+                               
                             </ul>
 
                         </div>
                     </div>
                     <div className='Profile-box'>
+                        <Box>
+                            <h3 className='boxHeading'>Job Match</h3>
+                            <div className='flex-col'>
+                                <div className='flex'>
+                                    <div className='content-row'>
+                                        <Calender className='IconColor' />
+                                        <h2 className='Title'>Skills:</h2>
+                                        <h4 className='SubHeading'>80%</h4>
+                                    </div>
+                                    <div className='content-row'>
+                                        <Brief className='IconColor' />
+                                        <h2 className='Title'>Education:</h2>
+                                        <h4 className='SubHeading'>60%</h4>
+                                    </div>
+                                    <div className='content-row'>
+                                        <Timer className='IconColor' />
+                                        <h2 className='Title'>Experience</h2>
+                                        <h4 className='SubHeading'>70%</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </Box>
+
                         <Box>
                             <h3 className='boxHeading'>Job Overview</h3>
                             <div className='flex-col'>
@@ -134,18 +155,19 @@ const CompanyJobDetail = () => {
                                             <h4 className='SubHeading'>14 June, 2021</h4>
                                         </div>
                                     </div>
+
                                     <div className='content'>
-                                        <div><Timer className='IconColor' /></div>
+                                        <div><Brief className='IconColor' /></div>
                                         <div>
-                                            <h2 className='Title'>Job Expire In:</h2>
-                                            <h4 className='SubHeading'>16 June, 2021</h4>
+                                            <h2 className='Title'>Job Type:</h2>
+                                            <h4 className='SubHeading'>{jobData.jobType}</h4>
                                         </div>
                                     </div>
                                     <div className='content'>
                                         <div><Brief className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Experience</h2>
-                                            <h4 className='SubHeading'>7 Years</h4>
+                                            <h4 className='SubHeading'>{jobData.experience}</h4>
                                         </div>
                                     </div>
 
@@ -155,34 +177,25 @@ const CompanyJobDetail = () => {
                                         <div><Brief className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Education</h2>
-                                            <h4 className='SubHeading'>Graduation</h4>
+                                            <h4 className='SubHeading'>{jobData.education}</h4>
                                         </div>
                                     </div>
                                     <div className='content'>
                                         <div><Wallet className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Salary:</h2>
-                                            <h4 className='SubHeading'>$50k-80k/month</h4>
+                                            <h4 className='SubHeading'>${jobData.salaryRange}</h4>
                                         </div>
                                     </div>
                                     <div className='content'>
                                         <div><Map className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Location:</h2>
-                                            <h4 className='SubHeading'>New York, USA</h4>
+                                            <h4 className='SubHeading'>{companyData.location || "N/A"}</h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div className='flex'>
-                                    
-                                    <div className='content'>
-                                        <div><Brief className='IconColor' /></div>
-                                        <div>
-                                            <h2 className='Title'>Job Type:</h2>
-                                            <h4 className='SubHeading'>Full Time</h4>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                             </div>
                         </Box>
@@ -190,7 +203,7 @@ const CompanyJobDetail = () => {
                         <CompanyBox>
                             <div className='profile-intro'>
                                 <div className='profile-logo'>
-                                     <img src={Company} alt='icon'/>
+                                    <img src={companyData.profilepic || Company} alt='icon' />
                                 </div>
                                 <div>
                                     <h2 className='Name'>Instagram</h2>
@@ -201,35 +214,35 @@ const CompanyJobDetail = () => {
                             <div className='content'>
                                 <div className='flex'>
                                     <h2 className='Title'>Founded in:</h2>
-                                    <h4 className='SubHeading'>March 21, 2006</h4>
+                                    <h4 className='SubHeading'>{companyData.yearOfEstablishment || "N/A"}</h4>
                                 </div>
                                 <div className='flex'>
                                     <h2 className='Title'>Organization type:</h2>
-                                    <h4 className='SubHeading'>Private Company</h4>
+                                    <h4 className='SubHeading'>{companyData.organizationType || "N/A"}</h4>
                                 </div>
                                 <div className='flex'>
                                     <h2 className='Title'>Company size:</h2>
-                                    <h4 className='SubHeading'>120-300 Employers</h4>
+                                    <h4 className='SubHeading'>{companyData.teamSize || "N/A"} Employers</h4>
                                 </div>
                                 <div className='flex'>
                                     <h2 className='Title'>Phone</h2>
-                                    <h4 className='SubHeading'>(406) 555-0120</h4>
+                                    <h4 className='SubHeading'>{companyData.phoneNumber || "N/A"}</h4>
                                 </div>
                                 <div className='flex'>
                                     <h2 className='Title'>Email</h2>
-                                    <h4 className='SubHeading'>twitter@gmail.com</h4>
+                                    <h4 className='SubHeading'>{companyData.email || "N/A"}</h4>
                                 </div>
                                 <div className='flex'>
                                     <h2 className='Title'>Website</h2>
-                                    <h4 className='SubHeading'>https://twitter.com</h4>
+                                    <h4 className='SubHeading'>{companyData.companyWebsite || "N/A"}</h4>
                                 </div>
 
                             </div>
                             <div className='flex-icons'>
-                                <span className='Box-icons'><Social1 className='Color' /></span>
-                                <span className='Box-icons'><Social2 className='Color' /></span>
-                                <span className='Box-icons'><Social3 className='Color' /></span>
-                                <span className='Box-icons'><Social4 className='Color' /></span>
+                                <a href={companyData.facebookLink} className='Box-icons'><Social1 className='Color' /></a>
+                                <a href={companyData.twitterLink} className='Box-icons'><Social2 className='Color' /></a>
+                                <a href={companyData.instagramLink} className='Box-icons'><Social3 className='Color' /></a>
+                                <a href={companyData.linkedInLink} className='Box-icons'><Social4 className='Color' /></a>
                             </div>
                         </CompanyBox>
 

@@ -92,6 +92,17 @@ export const useRecruiter = () => {
         }
     }
 
+     const shortlist_applicant_by_id = async(applicationId, body)=>{
 
-    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job , change_recruiter_password}
+        const response = await Recruiter_Endpoints.put_shortlist_applicant_by_id(applicationId , body)
+        
+        if (response?.message) {
+            showSuccess(response.message);
+        } else {
+            showError(response?.message);
+        }
+    }
+
+
+    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job , change_recruiter_password , shortlist_applicant_by_id}
 }

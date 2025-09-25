@@ -18,15 +18,13 @@ const ManageUsers = () => {
 
   const {change_manageUsersStatus} = useAdmin()
 
-  // const [status, setStatus] = useState(null)
+  const handleChangeStatus = async(id, newStatus)=>{
 
-  // const handleChangeStatus = async(id, newStatus)=>{
-
-  //  const res = await change_manageUsersStatus(id, {status: newStatus})
-  //  setUsers(prev=>prev.map(user => user.id === id ? {...user, status: newStatus} : user ))
-  //   console.log("status changed")
-  //   setIsOpen(false)
-  // }
+   const res = await change_manageUsersStatus(id, {type: newStatus})
+   setUsers(prev=>prev.map(user => user.id === id ? {...user, type: newStatus} : user ))
+    console.log("status changed")
+    setIsOpen(false)
+  }
   
     useEffect(()=>{
       const fetchData = async()=>{
@@ -89,9 +87,9 @@ const ManageUsers = () => {
                     {isOpen === items.id &&
                       <div className='dropdown'>
                         <ul>
-                          {/* <li onClick={()=>handleChangeStatus(items.id , "active")}>Activate</li> */}
-                          {/* <li  onClick={()=>handleChangeStatus(items.id , "inactive")}>Deactivate</li> */}
-                          {/* <li onClick={()=>handleChangeStatus(items.id , "banned")}>Report</li> */}
+                          <li onClick={()=>handleChangeStatus(items.id , "active")}>Activate</li>
+                          <li  onClick={()=>handleChangeStatus(items.id , "inactive")}>Deactivate</li>
+                          <li onClick={()=>handleChangeStatus(items.id , "banned")}>Report</li>
                           <li>Delete</li>
                         </ul>
                       </div>

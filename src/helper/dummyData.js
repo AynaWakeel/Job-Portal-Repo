@@ -558,30 +558,6 @@ export const AdminHeroCards = [
 
 
 
-export const CandidateCards = [
-    {
-        id: 1,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 2,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    },
-    {
-        id: 3,
-        logo: Profile,
-        name: 'John',
-        title: 'This is my Title',
-        btn: 'View Profile'
-    }
-]
-
 export const JobCards = [
     {
         id: 1,
