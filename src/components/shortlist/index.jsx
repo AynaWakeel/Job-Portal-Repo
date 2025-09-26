@@ -6,33 +6,47 @@ import Check from '../../assets/icons/CheckCircle.svg'
 import Profile from '../../assets/images/Ellipse 18.png'
 import { useLocation, useNavigate } from 'react-router'
 import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
+import { useRecruiter } from '../../shared/dashboard/recruiter/useRecruiter'
 
 const Shortlist = () => {
     const location = useLocation()
     const jobId = location.state.jobId
-    
-    
     const navigate = useNavigate()
     const [applicants, setApplicants] = useState([])
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!jobId) return;
-            const res = await Recruiter_Endpoints.get_applications(jobId)
-            console.log(res);
-            
+     const { shortlist_applicant_by_id } = useRecruiter()
 
-            if (res?.data?.shortlisted) {
-                setApplicants(res.data.shortlisted)
-                console.log(res.data.shortlisted, "shortlist")
-            }
+    const fetchData = async () => {
+        if (!jobId) return;
+        const res = await Recruiter_Endpoints.get_applications(jobId)
+        console.log(res);
+        
+
+        if (res?.data?.shortlisted) {
+            setApplicants(res.data.shortlisted)
+            console.log(res.data.shortlisted, "shortlist")
         }
+    }
+
+    const onLike = async (applicationId, newStatus) => {
+        const res = await shortlist_applicant_by_id(applicationId, { status: newStatus})
+        if (res) {
+            setApplicants(prev =>
+                prev.map(app =>
+                    app.id === applicationId ? { ...app, status: newStatus } : app
+                )
+            )
+        }
+        fetchData()
+    }
+
+    useEffect(() => {
         fetchData()
     }, [jobId])
 
 
     const gotoProfile = (applicationId) => {
-        // navigate(`/recruiter/dashboard/applications/${jobId}/applicate-profile/${applicationId}`)
+        navigate('/recruiter/dashboard/applicate-profile' , {state:{jobId , applicationId}})
     }
     return (
         <div>
@@ -40,11 +54,11 @@ const Shortlist = () => {
                 <div className='CardDiv'>
                     <div className='Grid'>
                         {applicants.map((items) => (
-                            <div className='Card' onClick={gotoProfile(items.id)}>
+                            <div className='Card'  key={items.id}>
                                 <div className='flex'>
                                     <div className='CardFlex'>
-                                        <div className='IconBox'>
-                                            {/* <img src={items.profilepic || Profile} className='IconColor' /> */}
+                                        <div className='IconBox photo'  onClick={()=>gotoProfile(items.id)}>
+                                            <img src={items.profilepic || Profile} className='IconColor' />
                                         </div>
                                         <div>
                                             <h3 className='Heading'>{items.fullName}</h3>
@@ -52,8 +66,8 @@ const Shortlist = () => {
                                         </div>
                                     </div>
                                     <div className='gap'>
-                                        <img src={Cross} />
-                                        <img src={Check} />
+                                        <img src={Cross} onClick={()=>onLike(items.id, items.status === "shortlisted" && "rejected" )}/>
+                                        <img src={Check} onClick={()=>onLike(items.id, items.status === "shortlisted" && "selected" )}/>
                                     </div>
                                 </div>
                                 <div className='flex-col'>

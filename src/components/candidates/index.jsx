@@ -29,7 +29,7 @@ const Candidates = ({ applicants}) => {
                                             </h4>
                                         </div>
                                     </div>
-                                    <button className='CardBtn' onClick={ViewProfile(items.id)}>View Profile</button>
+                                    <button className='CardBtn' onClick={()=>ViewProfile(items.id)}>View Profile</button>
                                 </div>
                             ))}
 

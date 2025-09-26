@@ -147,6 +147,17 @@ export const useAdmin = () => {
         }
     }
 
+     const change_manageJobsStatus = async(jobId, body)=>{
 
-    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms , update_faq_cms , delete_faq_cms , update_admin_profile , upload_admin_photo , create_industry , delete_industry_by_id , change_manageUsersStatus , create_location , delete_location_by_id , change_admin_password }
+        const response = await Admin_Endpoints.put_manageJobsStatus(jobId, body)
+        const {message} = response
+        if(response){
+            showSuccess(message)
+        }else{
+            showError(message)
+        }
+    }
+
+
+    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms , update_faq_cms , delete_faq_cms , update_admin_profile , upload_admin_photo , create_industry , delete_industry_by_id , change_manageUsersStatus , create_location , delete_location_by_id , change_admin_password , change_manageJobsStatus}
 }

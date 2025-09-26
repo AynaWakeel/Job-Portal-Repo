@@ -1,19 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Form, Jobdiv, SettingDiv } from './style'
 import { Controller, useForm } from 'react-hook-form';
 import { useRecruiter } from '../useRecruiter';
 import SelectIndustry from '../../../../components/select-industry';
+import { useLocation } from 'react-router';
 
 const RecruiterPostaJob = () => {
+  const location = useLocation()
+  const jobId = location.state.jobId
   const industryOptions = [
     { value: "1", label: "Information Technology" },
-    { value: "2", label:"Finance & Banking" },
+    { value: "2", label: "Finance & Banking" },
     { value: "3", label: "Engineering & Manufacturing" },
-    { value: "4", label:"Marketing & Advertising" },
+    { value: "4", label: "Marketing & Advertising" },
     { value: "5", label: "Retail & E-commerce" },
-    { value: "6", label:"Construction & Real Estate" },
+    { value: "6", label: "Construction & Real Estate" },
     { value: "7", label: "Healthcare & Medical" },
   ]
 
@@ -21,14 +24,63 @@ const RecruiterPostaJob = () => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors }
   } = useForm()
 
-  const { post_a_job } = useRecruiter()
+  const { post_a_job, edit_post_job_by_id, have_reported_job_by_id } = useRecruiter()
 
-  const onSubmit = (data) => {
-    post_a_job(data)
-    console.log(data)
+  useEffect(() => {
+    const fetchData = async () => {
+      if (jobId) {
+       const res =  await have_reported_job_by_id(jobId)
+        if (res?.data?.job) {
+          reset({
+            title: res.data.job.title || '',
+            location: res.data.job.location || '',
+            experience: res.data.job.experience || '',
+            tags: res.data.job.tags || '',
+            industryId: res.data.job.industryId || '',
+            jobType: res.data.job.jobType || '',
+            salaryMax: res.data.job.salaryMax || '',
+            salaryMin: res.data.job.salaryMin || '',
+            responsibilities: res.data.job.responsibilities || '',
+            jobExpirationDate: res.data.job.jobExpirationDate || '',
+            education: res.data.job.education || '',
+            description: res.data.job.description || '',
+          })
+
+        } else {
+          reset({
+            title: '',
+            location: '',
+            experience: '',
+            tags: '',
+            industryId: '',
+            jobType: '',
+            salaryMax: '',
+            salaryMin: '',
+            responsibilities: '',
+            jobExpirationDate: '',
+            education: '',
+            description: ''
+          })
+        }
+      }
+    }
+    fetchData()
+  }, [jobId, reset])
+
+  const onSubmit = async (data) => {
+    try {
+      if (jobId) {
+        await edit_post_job_by_id(jobId, data);
+      } else {
+        await post_a_job(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const Modules = {
@@ -65,7 +117,7 @@ const RecruiterPostaJob = () => {
               <div className='FormSpace'>
                 <div className='InputWidth'>
                   <label htmlFor='' className='Label'>Industry Types</label>
-                 
+
                   <SelectIndustry
                     name="industryId"
                     control={control}

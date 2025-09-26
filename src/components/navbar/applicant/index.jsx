@@ -36,12 +36,12 @@ const ApplicantNavbar = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   const OpenMenu = () => {
-    setIsOpen(true)
+    setIsOpen(!isOpen)
   }
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const OpenDropdown = () => {
-    setIsDropdownOpen(true)
+    setIsDropdownOpen(!isDropdownOpen)
   }
 
   const Notification = () => {

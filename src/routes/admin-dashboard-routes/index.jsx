@@ -11,6 +11,7 @@ import AdminProfile from '../../components/container/admin/profile'
 import AdminNotification from '../../components/container/admin/notifications'
 import CompanyJobDetail from '../../shared/findjobs/company-job-detail'
 import ApplicantProfile from '../../shared/dashboard/applicant/profile'
+import ManageJobDetail from '../../components/container/admin/manage-job-detail'
 
 const AdminDashboardRoutes = () => {
   return (
@@ -28,7 +29,7 @@ const AdminDashboardRoutes = () => {
           <Route path='/user-accounts' element={<UserAccounts />} />
           {/* -------------- without sidebar -------------- */}
           <Route path='/applicant-profile' element={<ApplicantProfile />} />
-          <Route path='/job-detail' element={<CompanyJobDetail />} />
+          <Route path='/job-detail' element={<ManageJobDetail />} />
         </Routes>
       </AdminDashboardLayouts>
     </div>

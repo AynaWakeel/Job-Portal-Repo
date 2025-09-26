@@ -68,6 +68,7 @@ padding-block: 20px;
 }
 
 .Grid{
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -128,7 +129,7 @@ padding-block: 20px;
 }
 
 .Card:hover .CardBtn{
-    background-color: var(--purple-600);
+    background-color: #de2222ff;
     color: var(--white-50);
 }
 
@@ -239,12 +240,19 @@ padding-block: 20px;
     line-height: 20px;
 }
 
+.flex-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 8px;
+    align-items: start;
+}
+
 .Activediv{
     display: flex;
     justify-content: start;
     gap: 6px;
     align-items: center;
-    padding-right: 10px;
 }
 
 .Active{
@@ -279,52 +287,22 @@ padding-block: 20px;
     gap: 6px;
     padding-block: 12px;
     padding-inline: 24px;
-    border: 1px solid var(--white-250);
+    border: 1px solid var(--white-50);
     border-radius: 3px;
-    color: var(--purple-600);
-    background-color: var(--purple-50);
+    color:var(--white-50);
+    background-color: var(--dark-red);
     font-size: 16px;
     font-weight: 600;
     font-family: var(--inter);
     cursor: pointer;
 }
 
+
 .IconColor{
     color: var(--purple-600);
 }
 
 .Color{
-    color: var(--purple-600);
-}
-
-.dropdown{
-    display: flex;
-    gap: 8px;
-    position: absolute;
-    right: 30px;
-    bottom: 70px;
-    z-index: 10;
-    background-color: var(--purple-200);
-}
-
-.dropdown ul{
-    list-style: none;
-}
-
-.dropdown li{
-    padding-inline: 20px;
-    padding-block: 8px;
-    font-size: 12px;
-    font-weight: 400;
-    font-family: var(--inter);
-    color: var(--white-50);
-    /* padding-block: 5px; */
-    text-align: center;
-    border-top: 1px solid #e0e0e0ff;
-}
-
-.dropdown li:hover{
-    background-color: var(--purple-50);
     color: var(--purple-600);
 }
 

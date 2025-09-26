@@ -42,11 +42,7 @@ const FindCandidates = () => {
      }   
     }
   }
-
-  const navigate = useNavigate()
-  const DetailPage = () => {
-    navigate('/applicant/findjobs/detail')
-  }
+ 
   // ------------- desktop advance dropdown
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
   const ModalOpen = () => {

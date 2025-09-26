@@ -103,6 +103,28 @@ export const useRecruiter = () => {
         }
     }
 
+    const have_reported_job_by_id = async(jobId, body)=>{
 
-    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job , change_recruiter_password , shortlist_applicant_by_id}
+        const response = await Recruiter_Endpoints.get_reported_job_by_id(jobId , body)
+        
+        if (response?.message) {
+            showSuccess(response.message);
+        } else {
+            showError(response?.message);
+        }
+    }
+
+    const edit_post_job_by_id = async(jobId, body)=>{
+
+        const response = await Recruiter_Endpoints.put_post_job_by_id(jobId , body)
+        
+        if (response?.message) {
+            showSuccess(response.message);
+        } else {
+            showError(response?.message);
+        }
+    }
+
+
+    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job , change_recruiter_password , shortlist_applicant_by_id , have_reported_job_by_id , edit_post_job_by_id }
 }

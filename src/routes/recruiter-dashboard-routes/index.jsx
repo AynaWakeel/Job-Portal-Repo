@@ -8,6 +8,7 @@ import RecruiterPostaJob from '../../shared/dashboard/recruiter/post-jobs'
 import RecruiterSettings from '../../shared/dashboard/recruiter/settings/navbar'
 import RecruiterNotifications from '../../shared/dashboard/recruiter/notifications'
 import ViewProfileApplications from '../../shared/dashboard/recruiter/application-applicant-profile'
+import RecruiterAllJobs from '../../shared/dashboard/recruiter/all-jobs'
 
 const RecruiterDashboardRoutes = () => {
     return (
@@ -18,6 +19,7 @@ const RecruiterDashboardRoutes = () => {
                     <Route path='/applications' element={<JobApplications />} />
                     <Route path='/applicate-profile' element={<ViewProfileApplications />} />
                     <Route path='/myjobs' element={<RecruiterMyJobs />} />
+                    <Route path='/alljobs' element={<RecruiterAllJobs />} />
                     <Route path='/postjob' element={<RecruiterPostaJob />} />
                     <Route path='/settings' element={<RecruiterSettings />} />
                     <Route path='/notifications' element={<RecruiterNotifications />} />

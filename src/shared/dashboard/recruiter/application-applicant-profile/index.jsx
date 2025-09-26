@@ -17,22 +17,25 @@ import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints'
 
 const ViewProfileApplications = () => {
   const [profile, setProfile] = useState({})
-  const {jobId, applicationId} = useParams()
+  // const {jobId, applicationId} = useParams()
+  const location = useLocation()
+  const jobId = location.state.jobId
+   const applicationId = location.state.applicationId
 
   useEffect(() => {
     const fetchProfile = async () => {
       const data = await Recruiter_Endpoints.get_application_detail(jobId, applicationId)
       if (data?.data?.applicant) {
         setProfile(data.data.applicant)
-        console.log(data,'here is data of applicant')
+        console.log(data, 'here is data of applicant')
       }
     }
-    if(jobId, applicationId){
-        fetchProfile();
+    if (jobId, applicationId) {
+      fetchProfile();
     }
   }, [jobId, applicationId])
 
-  const location = useLocation()
+  // const location = useLocation()
 
   const ContentPage = ['/admin/dashboard/profile']
   const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
@@ -66,6 +69,12 @@ const ViewProfileApplications = () => {
               <div>
                 <h2 className='Heading'>Biography</h2>
                 <p className='Sub' dangerouslySetInnerHTML={{ __html: profile.bioGraphy }}></p>
+
+              </div>
+
+              <div>
+                <h2 className='Heading'>Cover Letter</h2>
+                <p className='Sub' dangerouslySetInnerHTML={{ __html: profile.coverLetter }}></p>
 
               </div>
 
@@ -142,12 +151,12 @@ const ViewProfileApplications = () => {
                   <button
                     className='center'
                     onClick={() => {
-                     if(profile?.resume){
-                      const resumePdf = `${profile.resume}`
-                      window.open(resumePdf,"_black")
-                     }else{
-                      showError("resume not found")
-                     }
+                      if (profile?.resume) {
+                        const resumePdf = `${profile.resume}`
+                        window.open(resumePdf, "_black")
+                      } else {
+                        showError("resume not found")
+                      }
                     }}
                   >
                     <div><File className='IconColor' /></div>

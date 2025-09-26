@@ -13,6 +13,10 @@ export const Admin_Endpoints = {
      get_analytics : async(body)=> await getData("/api/admin/adminAnalytics", body),
      //-----dashboard-useracc
      get_userAccounts: async(body)=> await getData("/api/users/userAccounts", body),
+     //-----dashboard-manage jobs
+     get_manageJobs: async(body)=> await getData("/api/jobpost/getJobsOnAdmin", body),
+     put_manageJobsStatus: async(jobId,body)=> await putData(`/api/jobpost/jobs/${jobId}/approval`, body),
+     get_specific_Jobs_detail: async(jobId,body)=> await getData(`/api/jobpost/getJobDetail/${jobId}`, body),
      //-----dashboard-manage users
      get_manageUsers: async(body)=> await getData("/api/users/allmanageUsers", body),
      put_manageUsersStatus: async(id,body)=> await putData(`/api/users/manageUsersStatus/${id}`, body),

@@ -54,11 +54,11 @@ const ApplicationCards = () => {
                 <div className='CardDiv'>
                     <div className='Grid'>
                         {applicants.map((items) => (
-                            <div className='Card'>
+                            <div className='Card' key={items.id}>
                                 <div className='flex'>
                                     <div className='CardFlex'>
-                                        <div className='IconBox'  onClick={() => Profile(items.id)} >
-                                            <img src={ ProfilePic} className='IconColor' />
+                                        <div className='IconBox photo'  onClick={() => Profile(items.id)} >
+                                            <img src={items.profilepic || ProfilePic} className='IconColor' />
                                         </div>
                                         <div>
                                             <h3 className='Heading'>{items.fullName}</h3>
@@ -67,7 +67,7 @@ const ApplicationCards = () => {
                                     </div>
                                     <div>
                                         <Like className={items.status === "shortlisted" ? "tab active" : "tab"}
-                                            onClick={()=>onLike(items.id, items.status === "shortlisted" ? "shortlisted" : "pending")} />
+                                            onClick={()=>onLike(items.id, items.status === "pending" ? "shortlisted" : "pending")} />
                                     </div>
                                 </div>
                                 <div className='flex-col'>

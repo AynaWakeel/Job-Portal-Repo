@@ -41,8 +41,7 @@ const RecruiterProfile = () => {
 
             <Main>
                 <div className='banner'>
-                    <img src={company?.data?.bannerImage || BannerImg} alt='banner' />
-                    {/* <img src={company.bannerImage} alt='banner' /> */}
+                    <img src={company.bannerImage || BannerImg} alt='banner' />
                 </div>
                 <div className='profile'>
                     <div className='profile-intro'>

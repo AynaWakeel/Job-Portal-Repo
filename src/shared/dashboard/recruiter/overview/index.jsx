@@ -1,25 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Overview, Verification, Jobdiv } from './style'
 import Profile from '../../../../assets/images/Employers.png'
 import { ReactComponent as Arrow } from '../../../../assets/icons/fi_arrow-right.svg'
 import { useNavigate } from 'react-router'
 import PostedJobs from '../../../../components/posted-jobs'
 import RecruiterAnalytics from '../../../../components/recruiter-analytics'
+import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints'
 
 const RecruiterOverview = () => {
   const navigate = useNavigate()
   const ViewAll = () => {
     navigate('/recruiter/dashboard/myjobs')
   }
+
+  const [analytics, setAnalytics] = useState({})
+
+  useEffect(()=>{
+    const fetchData = async()=>{
+      const res = await Recruiter_Endpoints.get_recruiter_analytics()
+      if(res?.data?.data){
+        setAnalytics(res.data.data)
+      }
+    }
+    fetchData()
+  },[])
+
   return (
     <div>
       <Overview>
         <div className='Txtdiv'>
-          <h5>Hello, Instagram</h5>
+          <h5>Hello, {analytics.recruiterName}</h5>
           <p>Here is your daily activities and job alerts</p>
         </div>
 
-        <RecruiterAnalytics limit={1} />
+        <RecruiterAnalytics analytics={analytics}/>
         <Verification>
           <div className='Card'>
             <div className='Inner-flex'>

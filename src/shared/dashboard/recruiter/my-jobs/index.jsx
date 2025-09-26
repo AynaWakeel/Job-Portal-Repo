@@ -22,6 +22,7 @@ const RecruiterMyJobs = () => {
 
         <div>
          <PostedJobs/>
+
         </div>
       </Jobdiv>
 

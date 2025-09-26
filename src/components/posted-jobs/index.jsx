@@ -76,9 +76,7 @@ const PostedJobs = () => {
 
                                 return (
 
-                                    <div className='Card'
-                                        key={items.id}
-                                    >
+                                    <div className='Card' key={items.id}>
                                         <div className='Inner-flex'>
                                             <div className='Gap'>
                                                 <div className='Inner-flex'>
@@ -127,12 +125,10 @@ const PostedJobs = () => {
                                         }
 
                                         <div className='Right-side'>
-                                            <button className='CardBtn' onClick={ViewApplications(items.id)}>
+                                            <button className='CardBtn' onClick={()=>ViewApplications(items.id)}>
                                                 <span>View Applications</span>
                                             </button>
-                                            <span className='Box'
-                                                onClick={() => setIsOpen(isOpen === items.id ? null : items.id)}
-                                            >
+                                            <span className='Box' onClick={() => setIsOpen(isOpen === items.id ? null : items.id)}>
                                                 <img src={Threedot} />
                                             </span>
                                         </div>
@@ -160,8 +156,6 @@ const PostedJobs = () => {
                                 )
                             }
                             )
-
-
 
                         ) : (<Loader />)}
 

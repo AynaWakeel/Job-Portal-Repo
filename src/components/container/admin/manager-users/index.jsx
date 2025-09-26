@@ -88,7 +88,7 @@ const ManageUsers = () => {
                       <div className='dropdown'>
                         <ul>
                           <li onClick={()=>handleChangeStatus(items.id , "active")}>Activate</li>
-                          <li  onClick={()=>handleChangeStatus(items.id , "inactive")}>Deactivate</li>
+                          <li onClick={()=>handleChangeStatus(items.id , "inactive")}>Deactivate</li>
                           <li onClick={()=>handleChangeStatus(items.id , "banned")}>Report</li>
                           <li>Delete</li>
                         </ul>

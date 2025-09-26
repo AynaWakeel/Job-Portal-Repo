@@ -25,6 +25,7 @@ const DashboardSidebar = () => {
         { label: "Overview", icon: <Layers />, path: "/recruiter/dashboard/overview" },
         { label: "My Jobs", icon: <Brief />, path: "/recruiter/dashboard/myjobs" },
         { label: "Post a Job", icon: <PlusCircle />, path: "/recruiter/dashboard/postjob" },
+        { label: "All Jobs", icon: <Brief />, path: "/recruiter/dashboard/alljobs" },
         { label: "Settings", icon: <Gear />, path: "/recruiter/dashboard/settings" },
     ]
 

@@ -222,6 +222,7 @@ margin: auto;
 }
 
 .profile-content{
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: start;
@@ -469,6 +470,18 @@ padding: 24px;
     padding-top: 30px;
 }
 
+.photo{
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 60px;
+height: 60px;
+}
+
+.photo img{
+width: 60px;
+height: 60px;
+border-radius: 50%;
+}
 
 .Box-icons{
     width: 40px;

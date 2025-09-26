@@ -17,7 +17,8 @@ import { showError } from '../../../components/toasters'
 
 const ViewApplicantProfile = () => {
   const [profile, setProfile] = useState({})
-  const {id} = useParams()
+  const location = useLocation()
+  const id = location.state.id
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -31,7 +32,6 @@ const ViewApplicantProfile = () => {
    if(id)  fetchProfile(id);
   }, [id])
 
-  const location = useLocation()
 
   const ContentPage = ['/admin/dashboard/profile']
   const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
@@ -154,11 +154,7 @@ const ViewApplicantProfile = () => {
                     </div>
                   </button>
                 </UploadPdf>
-
-
               }
-
-
             </div>
           </div>
         </Main>

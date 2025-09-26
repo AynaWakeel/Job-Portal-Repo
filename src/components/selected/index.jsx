@@ -21,7 +21,7 @@ const Selected = () => {
                             <div className='Card' onClick={Profile}>
                                 <div className='flex'>
                                     <div className='CardFlex'>
-                                        <div className='IconBox'>
+                                        <div className='IconBox photo'>
                                             <img src={Profile} className='IconColor' />
                                         </div>
                                         <div>

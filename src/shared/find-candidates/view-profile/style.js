@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { devices } from "../../../components/breakpoints";
 
 export const Main = styled.div`
-padding-inline: 120px;
 border-radius: 12px;
 box-shadow: 0px 0px 5px var(--purple-50);
 background-color: #FFFF;
@@ -10,32 +9,42 @@ display: flex;
 flex-direction: column;
 justify-content: start;
 align-items: start;
-/* gap: 40px; */
 margin: auto;
 
-    @media ${devices.tablet} {
-        padding-block: 50px;
-        padding-inline: 40px;
-    }
 
-     @media ${devices.mobile} {
-        padding-block: 40px;
-        padding-inline: 20px;
-    }
+.banner{
+    width: 99vw;
+}
 
-    
 .banner img{
     width: 100%;
+    height: 50vh;
     position: relative;
 
-    @media ${devices.mobile}{
-        margin-top: 50px;
+     @media ${devices.mobile}{
+        width: 100vw;
     }
      @media ${devices.tablet}{
-        margin-top: 40px;
+         width: 100vw;
+        height: 55vh;
     }
 }
 
+.profile-flex-col{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: start;
+ gap: 10px;
+
+  @media ${devices.tablet}{
+      gap: 8px;
+    }
+
+      @media ${devices.mobile}{
+       gap: 2px;
+    }
+}
 
 .profile{
     position: absolute;
@@ -53,18 +62,25 @@ margin: auto;
 
     @media ${devices.tablet}{
        width: 80%;
-       top: 190px;
+       top: 240px;
        left: 80px;
     }
 
       @media ${devices.mobile}{
+        padding-block: 15px;
            width: 90%;
-           top: 120px;
+           top: 160px;
            left: 18px;
     }
 }
 
+.IconColor{
+    color: var(--purple-600);
+}
 
+.Color{
+    color: var(--purple-600);
+}
 
 .profile-intro{
     display: flex;
@@ -90,15 +106,6 @@ margin: auto;
     border-radius: 50%;
     width: 60px;
     height: 60px;
-}
-
-
-.profile-flex-col{
- display: flex;
- flex-direction: column;
- justify-content: start;
- align-items: start;
- gap: 10px;
 }
 
 
@@ -138,7 +145,6 @@ margin: auto;
     align-items: center;
 }
 
-
 .Title{
     color: #767F8C;
     font-size: 14px;
@@ -157,8 +163,9 @@ margin: auto;
 }
 
 .profile-content{
+    padding-inline: 120px;
     width: 100%;
-    padding-block: 100px;
+    padding-block: 70px;
     display: flex;
     justify-content: space-between;
     align-items: start;
@@ -166,15 +173,17 @@ margin: auto;
 
     @media ${devices.tablet}{
         flex-direction: column;
-        padding-bottom: 50px;
-        padding-top: 70px;
+        padding-block: 50px;
+        padding-inline: 30px;
     }
 
     @media ${devices.mobile}{
         flex-direction: column;
-         padding-bottom: 50px;
-        padding-top: 100px;
+        padding-block: 40px;
+        padding-inline: 20px;
     }
+
+   
 }
 
 .Sub{
@@ -188,7 +197,7 @@ margin: auto;
 }
 
 .content-left{
-    width: 75%;
+    width: 55%;
 
     @media ${devices.tablet} {
         width: 100%;
@@ -203,9 +212,9 @@ margin: auto;
     display: flex;
     justify-content: start;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     gap: 20px;
-    width: 35%;
+    width: 50%;
 
     @media ${devices.tablet} {
         width: 100%;
@@ -215,26 +224,7 @@ margin: auto;
         width: 100%;
     }
 }
-
-
-.FormError{
-    padding-bottom: 10px;
-    color: #e43f3fff;
-    font-size: 14px;
-    font-weight: 400;
-    font-family: var(--poppin); 
-    text-align: start;
-
-    @media ${devices.tablet} {
-       color: #d14242ff;  
-    }
-     
-    @media ${devices.mobile}{
-    color: #d14242ff;  
-    }
-}
 `
-
 
 export const Box = styled.div`
 border: 1px solid #E7F0FA;
