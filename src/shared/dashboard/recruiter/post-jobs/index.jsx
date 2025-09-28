@@ -6,10 +6,14 @@ import { Controller, useForm } from 'react-hook-form';
 import { useRecruiter } from '../useRecruiter';
 import SelectIndustry from '../../../../components/select-industry';
 import { useLocation } from 'react-router';
+import Select from 'react-select';
 
 const RecruiterPostaJob = () => {
+
+  const [selected, setSelected] = useState(null);
+
   const location = useLocation()
-  const jobId = location.state.jobId
+  // const jobId = location.state?.jobId
   const industryOptions = [
     { value: "1", label: "Information Technology" },
     { value: "2", label: "Finance & Banking" },
@@ -28,60 +32,77 @@ const RecruiterPostaJob = () => {
     formState: { errors }
   } = useForm()
 
-  const { post_a_job, edit_post_job_by_id, have_reported_job_by_id } = useRecruiter()
+  // const { post_a_job, edit_post_job_by_id, have_reported_job_by_id } = useRecruiter()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (jobId) {
-       const res =  await have_reported_job_by_id(jobId)
-        if (res?.data?.job) {
-          reset({
-            title: res.data.job.title || '',
-            location: res.data.job.location || '',
-            experience: res.data.job.experience || '',
-            tags: res.data.job.tags || '',
-            industryId: res.data.job.industryId || '',
-            jobType: res.data.job.jobType || '',
-            salaryMax: res.data.job.salaryMax || '',
-            salaryMin: res.data.job.salaryMin || '',
-            responsibilities: res.data.job.responsibilities || '',
-            jobExpirationDate: res.data.job.jobExpirationDate || '',
-            education: res.data.job.education || '',
-            description: res.data.job.description || '',
-          })
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (jobId) {
+  //      const res =  await have_reported_job_by_id(jobId)
+  //       if (res?.data?.job) {
+  //         reset({
+  //           title: res.data.job.title || '',
+  //           location: res.data.job.location || '',
+  //           experience: res.data.job.experience || '',
+  //           tags: res.data.job.tags || '',
+  //           industryId: res.data.job.industryId || '',
+  //           jobType: res.data.job.jobType || '',
+  //           salaryMax: res.data.job.salaryMax || '',
+  //           salaryMin: res.data.job.salaryMin || '',
+  //           responsibilities: res.data.job.responsibilities || '',
+  //           jobExpirationDate: res.data.job.jobExpirationDate || '',
+  //           education: res.data.job.education || '',
+  //           description: res.data.job.description || '',
+  //         })
 
-        } else {
-          reset({
-            title: '',
-            location: '',
-            experience: '',
-            tags: '',
-            industryId: '',
-            jobType: '',
-            salaryMax: '',
-            salaryMin: '',
-            responsibilities: '',
-            jobExpirationDate: '',
-            education: '',
-            description: ''
-          })
-        }
-      }
-    }
-    fetchData()
-  }, [jobId, reset])
+  //       } else {
+  //         reset({
+  //           title: '',
+  //           location: '',
+  //           experience: '',
+  //           tags: '',
+  //           industryId: '',
+  //           jobType: '',
+  //           salaryMax: '',
+  //           salaryMin: '',
+  //           responsibilities: '',
+  //           jobExpirationDate: '',
+  //           education: '',
+  //           description: ''
+  //         })
+  //       }
+  //     }
+  //   }
+  //   fetchData()
+  // }, [jobId, reset])
 
-  const onSubmit = async (data) => {
-    try {
-      if (jobId) {
-        await edit_post_job_by_id(jobId, data);
-      } else {
-        await post_a_job(data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (jobId) {
+  //       const res = await have_reported_job_by_id(jobId)
+  //       if (res?.data?.job) {
+  //         reset({
+  //           ...res.data.job,
+  //           industryId: { value: res.data.job.industryId, label: res.data.job.industryName }
+  //         })
+  //         setSelected({ value: res.data.job.industryId, label: res.data.job.industryName })
+  //       }
+  //     }
+  //   }
+  //   fetchData()
+  // }, [jobId, reset])
+
+
+  // const onSubmit = async (data) => {
+  //   try {
+  //     if (jobId) {
+  //       await edit_post_job_by_id(jobId, data);
+  //     } else {
+  //       await post_a_job(data);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   const Modules = {
     toolbar: [
@@ -96,7 +117,9 @@ const RecruiterPostaJob = () => {
       <Jobdiv>
         <SettingDiv>
           {/* ------------------------ CREATE RESUME FORM ------------------------------- */}
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            // onSubmit={handleSubmit(onSubmit)}
+          >
             <div>
               <h1 className='TopHeading'>Post a job</h1>
             </div>
@@ -109,24 +132,49 @@ const RecruiterPostaJob = () => {
                 </div>
 
                 <div className='InputWidth FormPassword'>
-                  <label htmlFor='' className='Label'>Tags</label>
-                  <input type='text' placeholder='Job keywords,tags..' className='FormInput'
-                    {...register("tags", { required: "tags are req." })} />
+                  <label htmlFor='' className='Label'>Industry Types</label>
+                  <Controller
+                    name="industryId"
+                    control={control}
+                    rules={{ required: "Industry is required" }}
+                    render={({ field }) => (
+                      <Select
+                        className="inputSelect select"
+                        classNamePrefix="select"
+                        options={industryOptions}
+                        value={industryOptions.find(opt => opt.value === field.value) || null}
+                        onChange={(val) => field.onChange(val.value)}
+                        placeholder="Industry Types"
+                      />
+                    )}
+                  />
+
+
+                  {/* <Select
+                    className="inputSelect select"
+                    classNamePrefix="select"
+                    options={industryOptions}
+                    value={selected}
+                    onChange={setSelected}
+                    placeholder="Industry Types"
+                  /> */}
                 </div>
               </div>
               <div className='FormSpace'>
                 <div className='InputWidth'>
-                  <label htmlFor='' className='Label'>Industry Types</label>
+                  <label htmlFor='' className='Label'>Tags</label>
+                  <input type='text' placeholder='Job keywords,tags..' className='FormInput'
+                    {...register("tags", { required: "tags are req." })} />
 
-                  <SelectIndustry
+                  {/* <SelectIndustry
                     name="industryId"
                     control={control}
                     rules={{ required: "Enter your Industry Types" }}
                     placeholder="Industry Types"
                     options={industryOptions}
-                  />
+                  /> */}
                   <div className='FormError'>
-                    {errors.industryId && <p>Industry id required.</p>}
+                    {errors.tags && <p>Tags are required.</p>}
                   </div>
                 </div>
               </div>
@@ -135,7 +183,7 @@ const RecruiterPostaJob = () => {
                 {errors.title && <p>title is required.</p>}
               </div>
               <div className='FormError'>
-                {errors.tags && <p>Tags are required.</p>}
+                {errors.industryId && <p>Industry id required.</p>}
               </div>
 
 
