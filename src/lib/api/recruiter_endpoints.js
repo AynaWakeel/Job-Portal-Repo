@@ -12,7 +12,7 @@ export const Recruiter_Endpoints = {
     //---------analytics
     get_recruiter_analytics: async(body)=>await getData("/api/admin/recruiterStats", body),
     //------post a job
-    post_job: async(body)=> await postData("/api/jobpost", body),
+    post_job: async(body)=> await postData("/api/jobpost/createJob", body),
     delete_job_by_id: async(id)=> await deleteData(`/api/jobpost/${id}`),
     expire_job_by_id: async(id)=> await putData(`/api/jobpost/expire-jobs/${id}`),
     get_recruiter_job_only : async(body)=> await getData("/api/jobpost/recruiter/job", body),
@@ -21,6 +21,9 @@ export const Recruiter_Endpoints = {
     put_post_job_by_id: async(jobId, body)=> await putData(`/api/jobpost/jobs/recruiter/reported/${jobId}`, body),
     //------all jobs
     get_all_job: async(body)=> await getData("/api/jobpost/jobs/recruiterOnlyjobs", body),
+    //-------get industry
+    get_industry: async(body)=> await getData("/api/industries", body),
+     get_location: async(body)=> await getData("/api/locations", body),
     //----- applications
     get_application_detail: async(jobId,applicationId,body)=> await getData(`/api/application/jobs/${jobId}/applications/${applicationId}`,body),
     get_applications: async(jobId,body)=> await getData(`/api/application/recruiter/jobs/${jobId}/applicants`,body),

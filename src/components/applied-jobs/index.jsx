@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { MainSec } from './style'
 import StatusClose from '../../assets/icons/XCircleRed.svg'
-import { AppliedJobsCards } from '../../helper/dummyData'
 import Check from '../../assets/icons/Check.svg'
+import { ReactComponent as Fav } from '../../assets/icons/Vector.svg'
+import Currency from '../../assets/icons/currency-dollar 1.svg'
+import Map from '../../assets/icons/fi_map-pin.svg'
 import { useNavigate } from 'react-router'
 import { Applicant_Endpoints } from '../../lib/api/applicant_endpoints'
 
 const AppliedJobs = () => {
     const navigate = useNavigate()
+    const viewDetail = (id) =>{
+        navigate('/applicant/company' , {state:{id}})
+    }
     const [Status, setStatus] = useState("Rejected")
     const [jobData, setJobData] = useState([])
 
      useEffect(() => {
         const fetchData = async () => {
-            const res = await Applicant_Endpoints.get_jobs()
-            if (res?.data?.jobs) {
-                setJobData(res.data.jobs)
+            const res = await Applicant_Endpoints.get_applied_jobs()
+            if (res?.data) {
+                setJobData(res.data)
             }
         }
         fetchData()
@@ -35,27 +40,27 @@ const AppliedJobs = () => {
                                         // style={{ backgroundColor: `${items.color}` }}
                                         >
                                              <h3 className='Heading'>{items.id}</h3>
-                                            <img src={items.recruiter.profilepic} />
+                                            {/* <img src={items.recruiter.profilepic} /> */}
                                         </div>
                                         <div className='Gap'>
                                             <div className='Inner-flex'>
-                                                <h3 className='Heading'>{items.title}</h3>
-                                                <span className='Badge'>{items.jobType}</span>
+                                                <h3 className='Heading'>{items.job.title}</h3>
+                                                <span className='Badge'>{items.job.jobType}</span>
                                             </div>
                                             <div className='Inner-flex'>
                                                     <h4 className='FlexIcon'>
-                                                        <span><img src='' /></span>
-                                                        <span className='SubHeading'>{items.location}</span>
+                                                        <span><img src={Map} /></span>
+                                                        <span className='SubHeading'>{items.job.location}</span>
                                                     </h4>
                                                      <h4 className='FlexIcon'>
-                                                        <span><img src='' /></span>
-                                                        <span className='SubHeading'>${items.salaryMin} - ${items.salaryMax}</span>
+                                                        <span><img src={Currency} /></span>
+                                                        <span className='SubHeading'>${items.job.salaryMin} - ${items.job.salaryMax}</span>
                                                     </h4>
                                             </div>
                                         </div>
                                     </div>
                                     <div>
-                                        <span className='SubHeading'>{items.jobExpirationDate}</span>
+                                        <span className='SubHeading'>{items.job.jobExpirationDate}</span>
                                     </div>
 
                                     <div className='status-flex'>
@@ -75,7 +80,7 @@ const AppliedJobs = () => {
 
                                         }
 
-                                         {Status === "Selected" &&
+                                         {items.status === "selected" &&
 
                                             (<div className='Activediv'>
                                                 <span><img src={items.icon} alt='icon' /></span>
@@ -84,7 +89,16 @@ const AppliedJobs = () => {
 
                                         }
 
-                                         {Status === "Rejected" &&
+                                          {items.status === "shortlisted" &&
+
+                                            (<div className='Activediv'>
+                                                <span><img src={Check} alt='icon' /></span>
+                                                <span className='Active'>shortlisted</span>
+                                            </div>)
+
+                                        }
+
+                                         {items.status === "rejected" &&
 
                                             (<div className='Activediv'>
                                                 <span><img src={StatusClose} alt='icon' /></span>
@@ -93,18 +107,18 @@ const AppliedJobs = () => {
 
                                         }
 
-                                         {Status === "Applied" &&
+                                         {items.status === "pending" &&
 
                                             (<div className='Activediv'>
-                                                <span><img src={items.icon} alt='icon' /></span>
-                                                <span className='Active'>Applied</span>
+                                                <span><img src={StatusClose} alt='icon' /></span>
+                                                <span className='red'>Pending</span>
                                             </div>)
 
                                         }
                                     </div>
 
                                     <div className='Right-side'>
-                                        <button className='CardBtn' onClick={()=>navigate(`/applicant/company/${items.id}`)}>
+                                        <button className='CardBtn' onClick={()=>viewDetail(items.id)}>
                                             <span>View Details</span>
                                         </button>
                                     </div>

@@ -3,8 +3,8 @@ import { Overview, Verification, Jobdiv } from './style'
 import Analytics from '../../../../components/analytics'
 import Profile from '../../../../assets/images/Ellipse 18.png'
 import { ReactComponent as Arrow } from '../../../../assets/icons/fi_arrow-right.svg'
-import AppliedJobs from '../../../../components/applied-jobs'
 import { useNavigate } from 'react-router'
+import Jobs from '../../../../components/jobs'
 
 const ApplicantOverview = () => {
   const navigate = useNavigate()
@@ -57,7 +57,8 @@ const ApplicantOverview = () => {
           </div>
 
           <div>
-           <AppliedJobs/>
+
+           <Jobs/>
           </div>
         </Jobdiv>
       </Overview>

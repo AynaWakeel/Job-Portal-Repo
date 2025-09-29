@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Dropdown, Form, SettingDiv } from './style'
 import { ReactComponent as Arrowup } from '../../../../../assets/icons/fi_chevron-up.svg'
 import { ReactComponent as Arrowdown } from '../../../../../assets/icons/fi_chevron-down.svg'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useRecruiter } from '../../useRecruiter'
 import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints'
 import CustomSelect from '../../../../../components/custome-select'
@@ -10,58 +10,21 @@ import Select from 'react-select';
 
 const FoundingInfo = () => {
 
-    const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-]
-  
-const [selected, setSelected] = useState(null);
-const orgOptions = [
-  { value: "business", label: "Business / For-Profit Company" },
-  { value: "nonprofit", label: "Nonprofit / Charity" },
-  { value: "government", label: "Government / Public Sector" },
-  { value: "social-enterprise", label: "Social Enterprise / B-Corporation" },
-  { value: "education", label: "Educational Institution" },
-  { value: "partnership", label: "Partnership" },
-  { value: "sole-proprietorship", label: "Sole Proprietorship" },
-  { value: "llc", label: "Limited Liability Company (LLC)" },
-  { value: "cooperative", label: "Cooperative" },
-  { value: "state-owned", label: "State-Owned Enterprise" },
-]
+  const [industryOptions, setIndustryOptions] = useState([]);
 
-const industryOptions = [
-  { value: "it", label: "Information Technology" },
-  { value: "finance", label: "Finance & Banking" },
-  { value: "engineering", label: "Engineering & Manufacturing" },
-  { value: "marketing", label: "Marketing & Advertising" },
-  { value: "retail", label: "Retail & E-commerce" },
-  { value: "construction", label: "Construction & Real Estate" },
-  { value: "healthcare", label: "Healthcare & Medical" },
-]
-
-  // const orgOptions = [
-  //   "Business / For-Profit Company",
-  //   "Nonprofit / Charity",
-  //   "Government / Public Sector",
-  //   "Social Enterprise / B-Corporation",
-  //   "Educational Institution",
-  //   "Partnership",
-  //   "Sole Proprietorship",
-  //   "Limited Liability Company (LLC)",
-  //   "Cooperative",
-  //   "State-Owned Enterprise",
-  // ]
-
-  // const industryOptions = [
-  //   "Information Technology",
-  //   "Finance & Banking",
-  //   "Engineering & Manufacturing",
-  //   "Marketing & Advertising",
-  //   "Retail & E-commerce",
-  //   "Construction & Real Estate",
-  //   "Healthcare & Medical",
-  // ]
+  const [selected, setSelected] = useState(null);
+  const orgOptions = [
+    { value: "business", label: "Business / For-Profit Company" },
+    { value: "nonprofit", label: "Nonprofit / Charity" },
+    { value: "government", label: "Government / Public Sector" },
+    { value: "social-enterprise", label: "Social Enterprise / B-Corporation" },
+    { value: "education", label: "Educational Institution" },
+    { value: "partnership", label: "Partnership" },
+    { value: "sole-proprietorship", label: "Sole Proprietorship" },
+    { value: "llc", label: "Limited Liability Company (LLC)" },
+    { value: "cooperative", label: "Cooperative" },
+    { value: "state-owned", label: "State-Owned Enterprise" },
+  ]
 
   const {
     register,
@@ -76,20 +39,37 @@ const industryOptions = [
 
   useEffect(() => {
     const fetchData = async () => {
-      const previousData = await Recruiter_Endpoints.get_company_profile();
-      if (previousData?.data) {
-        reset(previousData.data);
-        setHasData(true);
-      } else {
-        reset({
-          organizationType: "",
-          teamSize: "",
-          industryTypes: "",
-          yearOfEstablishment: "",
-          companyWebsite: "",
-        });
-        setHasData(false);
+
+      try {
+
+        const res = await Recruiter_Endpoints.get_industry();
+        if (res?.data) {
+          const options = res.data.map((item) => ({
+            value: item.id,
+            label: item.name,
+          }));
+          setIndustryOptions(options);
+        }
+
+        const previousData = await Recruiter_Endpoints.get_company_profile();
+        if (previousData?.data) {
+          reset(previousData.data);
+          setHasData(true);
+        } else {
+          reset({
+            organizationType: "",
+            teamSize: "",
+            industryTypes: "",
+            yearOfEstablishment: "",
+            companyWebsite: "",
+          });
+          setHasData(false);
+        }
+
+      } catch (error) {
+        console.error(error);
       }
+
     };
     fetchData();
   }, [reset]);
@@ -116,13 +96,6 @@ const industryOptions = [
                   onChange={setSelected}
                   placeholder="Select Organization"
                 />
-                {/* <CustomSelect
-                  name="organizationType"
-                  control={control}
-                  rules={{ required: "Enter your organizationType" }}
-                  placeholder="Organization Types"
-                  options={orgOptions}
-                /> */}
 
                 <div className='FormError'>
                   {errors.organizationType && <p>Organization Type id required.</p>}
@@ -142,21 +115,22 @@ const industryOptions = [
             <div className='FormSpace FormInputDivide'>
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Industry Types</label>
-                 <Select
-                  className="inputSelect select"
-                  classNamePrefix="select"
-                  options={industryOptions}
-                  value={selected}
-                  onChange={setSelected}
-                  placeholder="Industry Types"
-                />
-                {/* <CustomSelect
+                <Controller
                   name="industryTypes"
                   control={control}
-                  rules={{ required: "Enter your Industry Types" }}
-                  placeholder="Industry Types"
-                  options={industryOptions}
-                /> */}
+                  rules={{ required: "Industry is required" }}
+                  render={({ field }) => (
+                    <Select
+                      className="inputSelect select"
+                      classNamePrefix="select"
+                      options={industryOptions}
+                      value={industryOptions.find(opt => opt.value === field.value) || null}
+                      onChange={(val) => field.onChange(val.value)}
+                      placeholder="Industry Types"
+                    />
+                  )}
+                />
+                
                 <div className='FormError'>
                   {errors.industryTypes && <p>Industry Type id required.</p>}
                 </div>

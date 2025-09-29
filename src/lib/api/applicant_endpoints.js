@@ -15,7 +15,11 @@ export const Applicant_Endpoints = {
     //------industry
     get_industry: async (body) => await getData("/api/industries", body),
     //------jobs
-    get_jobs: async (body) => await getData("/api/jobpost", body),
+    get_all_jobs: async (body) => await getData("/api/jobpost", body),
+    get_applied_jobs: async (body) => await getData("/api/application/my-applications", body),
     get_job_detail_by_id: async (id,body) => await getData(`/api/jobpost/getJobDetail/${id}`, body),
     post_apply_job: async(id,body)=> await postData(`/api/application/jobs/${id}/apply`, body),
+
+    //-----fav-jobs
+    get_saved_jobs: async (body) => await getData("/api/saved-jobs", body),
 }

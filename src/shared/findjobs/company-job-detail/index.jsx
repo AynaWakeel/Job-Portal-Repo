@@ -27,6 +27,7 @@ const CompanyJobDetail = () => {
     }
 
     const location = useLocation()
+    const id = location.state.id
 
     const ContentPage = ['/admin/dashboard/job-detail']
     const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
@@ -35,12 +36,13 @@ const CompanyJobDetail = () => {
 
     const [jobData, setJobData] = useState({})
     const [companyData, setCompanyData] = useState({})
-    const { id } = useParams()
+    // const { id } = useParams()
 
     useEffect(() => {
         const fetchData = async () => {
             const res = await Applicant_Endpoints.get_job_detail_by_id(id)
             if (res?.data?.job) {
+                console.log(id,":id")
                 setJobData(res.data.job)
                 setCompanyData(res.data.job.company)
             }

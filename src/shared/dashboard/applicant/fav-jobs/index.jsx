@@ -1,6 +1,6 @@
 import React from 'react'
 import { Jobdiv } from './style'
-import Jobs from '../../../../components/jobs'
+import FavJobCards from '../../../../components/fav-jobs'
 
 const ApplicantFavouriteJobs = () => {
   return (
@@ -11,7 +11,7 @@ const ApplicantFavouriteJobs = () => {
         </div>    
 
         <div>
-          <Jobs/>
+          <FavJobCards/>
         </div>
       </Jobdiv>
     </div>

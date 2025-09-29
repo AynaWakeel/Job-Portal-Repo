@@ -7,22 +7,22 @@ export const useRecruiter = () => {
     const company_profile = async (body) => {
 
         const response = await Recruiter_Endpoints.put_company_setting(body)
-
-        if (response?.data?.message) {
-            showSuccess(response.data.message);
+        const {message} = response
+        if (response) {
+            showSuccess(message);
         } else {
-            showError("Something went wrong");
+            showError(message);
         }
     }
 
     const upload_logo = async (body) => {
 
         const response = await Recruiter_Endpoints.post_logo(body)
-
-        if (response?.message) {
-            showSuccess(response.message);
+        const {message} = response
+        if (response) {
+            showSuccess(message);
         } else {
-            showError(response?.message);
+            showError(message);
         }
 
     }
@@ -30,14 +30,12 @@ export const useRecruiter = () => {
     const upload_banner = async (body) => {
         try {
             const response = await Recruiter_Endpoints.post_banner(body);
-
-            if (response?.data?.message) {
-                showSuccess(response.data.message);          
-            } else if (response?.message) {
-                showSuccess(response.message);
-            } else {
-                showError("Something went wrong!");
-            }
+        const {message} = response
+        if (response) {
+            showSuccess(message);
+        } else {
+            showError(message);
+        }
         } catch (error) {
             showError(error?.response?.data?.message);
         }
@@ -55,19 +53,16 @@ export const useRecruiter = () => {
     }
 
     const post_a_job = async(body)=>{
-        try{
-            const response = await Recruiter_Endpoints.post_job(body)
+
+        const response = await Recruiter_Endpoints.post_job(body)
             
-           if (response?.data?.message) {
-                showSuccess(response.data.message);          
-            } else if (response?.message) {
-                showSuccess(response.message);
-            } else {
-                showError("Something went wrong!");
-            }
-        } catch (error) {
-            showError(error?.response?.data?.message);
+        const {message} = response
+        if (response) {
+            showSuccess(message);
+        } else {
+            showError(message);
         }
+       
     }
 
      const expire_a_job = async(id)=>{
@@ -106,12 +101,14 @@ export const useRecruiter = () => {
     const have_reported_job_by_id = async(jobId, body)=>{
 
         const response = await Recruiter_Endpoints.get_reported_job_by_id(jobId , body)
-        
-        if (response?.message) {
-            showSuccess(response.message);
+        console.log(response);
+        if (response?.data?.success) {
+            showSuccess("fetch");
         } else {
             showError(response?.message);
         }
+        return response;
+        
     }
 
     const edit_post_job_by_id = async(jobId, body)=>{
