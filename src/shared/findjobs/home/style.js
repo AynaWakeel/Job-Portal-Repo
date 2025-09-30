@@ -246,6 +246,68 @@ margin-top: 20px;
 .SelectColor:active{
     color: var(--purple-600);
 }
+
+//---------- select lib
+
+.selectLibrary{
+    /* width: 200px; */
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 400;
+    width: 100%;
+    color: var(--purple-200);
+    caret-color: var(--purple-300);
+    font-family: var(--poppin);
+}
+
+.inputSelect{
+   font-size: 15px;
+    font-weight: 400;
+    color: var(--purple-200);
+    caret-color: var(--purple-300);
+    font-family: var(--poppin);
+}
+
+
+.selectLibrary__control {
+    outline: none;
+  min-height: 40px !important;
+  width: 245px !important;
+  /* min-width: 150px !important; */
+  border: none !important;
+}
+
+.selectLibrary__control--is-focused {
+  border-color: var(--white-250) !important;
+  box-shadow: 0 0 0 1px var(--white-250);
+}
+
+.selectLibrary__control:hover {
+  border-color: var(--white-250) !important;
+}
+
+
+.selectLibrary__menu{
+    padding: 0px;
+}
+
+.selectLibrary__option{
+background-color: #c3b9d1ff;
+}
+
+.selectLibrary__option--is-selected {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--purple-200);
+    font-family: var(--poppin);
+}
+
+.selectLibrary__option--is-focused {
+  background-color: var(--purple-70);
+}
+
 `
 
 //------------- industry dropdown

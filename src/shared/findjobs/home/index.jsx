@@ -10,10 +10,25 @@ import { ReactComponent as Arrowdown } from '../../../assets/icons/fi_chevron-do
 import { useNavigate } from 'react-router'
 import MainJobs from '../../../components/main-jobs'
 import CustomSelect from '../../../components/custome-select'
-
-
+import Select from 'react-select';
 
 const FindJob = () => {
+
+  //  const [industryOptions, setIndustryOptions] = useState([]);
+  
+    const [selected, setSelected] = useState(null);
+    const indOptions = [
+      { value: "business", label: "Business / For-Profit Company" },
+      { value: "nonprofit", label: "Nonprofit / Charity" },
+      { value: "government", label: "Government / Public Sector" },
+      { value: "social-enterprise", label: "Social Enterprise / B-Corporation" },
+      { value: "education", label: "Educational Institution" },
+      { value: "partnership", label: "Partnership" },
+      { value: "sole-proprietorship", label: "Sole Proprietorship" },
+      { value: "llc", label: "Limited Liability Company (LLC)" },
+      { value: "cooperative", label: "Cooperative" },
+      { value: "state-owned", label: "State-Owned Enterprise" },
+    ]
   // const {
   //   control
   // } = useForm()
@@ -108,11 +123,48 @@ const FindJob = () => {
                   <input type='' placeholder='Job title,Keyword..' className='Input' />
                 </div>
                 <div className='InputFlex'>
-                  <Map className='IconColor' />
-                  <input type='' placeholder='Your Location' className='Input' />
+                  {/* <Map className='IconColor' /> */}
+                  {/* <input type='' placeholder='Your Location' className='Input' /> */}
+                  <Select
+                  className="inputSelect selectLibrary"
+                  classNamePrefix="selectLibrary"
+                  options={indOptions}
+                  // value={selected}
+                  // onChange={setSelected}
+                  placeholder="Location"
+                  />
                 </div>
+
+                <div className='SelectFlex'>
+
+                <Select
+                  className="inputSelect selectLibrary"
+                  classNamePrefix="selectLibrary"
+                  options={indOptions}
+                  value={selected}
+                  onChange={setSelected}
+                  placeholder="Select Industry"
+                  />
+
+                </div>
+
+                 {/* <Controller
+                  name="industryTypes"
+                  control={control}
+                  rules={{ required: "Industry is required" }}
+                  render={({ field }) => (
+                    <Select
+                      className="inputSelect select"
+                      classNamePrefix="select"
+                      options={industryOptions}
+                      value={industryOptions.find(opt => opt.value === field.value) || null}
+                      onChange={(val) => field.onChange(val.value)}
+                      placeholder="Industry Types"
+                    />
+                  )}
+                /> */}
                
-                <div className='SelectFlex simple-dropdown' onClick={DropdownOpen}>
+                {/* <div className='SelectFlex simple-dropdown' onClick={DropdownOpen}>
                   <div className='InputFlex'>
                     <Layers className='IconColor' />
                     <h3 className='Input' >Select Industry</h3>
@@ -135,7 +187,8 @@ const FindJob = () => {
                       </ul>
                     </Dropdown>
                   }
-                </div>
+                </div> */}
+
                 <div className='SelectFlex' onClick={ModalOpen}>
                   <h3 className='Input'>Advance Filters</h3>
                   {isSearchModalOpen ?
@@ -156,7 +209,7 @@ const FindJob = () => {
                   <div className='OptionDiv'>
                     <h3 className='OptionTitle'>Experience</h3>
                     <div className='Radiodiv'>
-                      <Radio type="radio" id='' name='experience' value='' checked />
+                      <Radio type="radio" id='' name='experience' value='Freshers' checked />
                       <label htmlFor='' className='RadioLabel'>Freshers</label>
                     </div>
                     <div className='Radiodiv'>
@@ -261,8 +314,16 @@ const FindJob = () => {
                     <input type='' placeholder='Job title,Keyword..' className='Input' />
                   </div>
                   <div className='InputFlex'>
-                    <Map className='IconColor' />
-                    <input type='' placeholder='Your Location' className='Input' />
+                    {/* <Map className='IconColor' /> */}
+                    {/* <input type='' placeholder='Your Location' className='Input' /> */}
+                     <Select
+                  className="inputSelect selectLibrary"
+                  classNamePrefix="selectLibrary"
+                  options={indOptions}
+                  value={selected}
+                  onChange={setSelected}
+                  placeholder="Location"
+                  />
                   </div>
                 </div>
                 <div className='Flexrow'>
