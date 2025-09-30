@@ -10,26 +10,52 @@ import { Controller, useForm } from 'react-hook-form';
 import { useApplicant } from '../../useApplicant';
 import { Applicant_Endpoints } from '../../../../../lib/api/applicant_endpoints';
 import CustomSelect from '../../../../../components/custome-select';
+import Select from 'react-select';
 
 const ApplicantPersonalProfile = () => {
-  const experienceOptions = [
-    "Freshers",
-    "1 - 2 Years",
-    "2 - 4 Years",
-    "4 - 6 Years",
-    "6 - 8 Years",
-    "8 - 10 Years",
-    "10 - 15 Years",
-  ]
+   const [experienceSelected, setExperienceSelected] = useState(null);
+    const experienceOptions = [
+     
+      { value: "Freshers", label: "Freshers" },
+      { value: "1-2", label: "1 - 2 Years" },
+      { value: "2-4", label: "2 - 4 Years" },
+      { value: "4-6", label: "4 - 6 Years" },
+      { value: "6-8", label: "6 - 8 Years" },
+      { value: "8-10", label: "8 - 10 Years" },
+      { value: "10-15", label: "10 - 15 Years" },
 
-  const educationOptions = [
-    "Diploma",
-    "Internship/A-Level",
-    "Bachelor's Degree",
-    "Master's Degree",
-    "MPhil",
-    "PhD",
-  ]
+      
+    ]
+
+  // const experienceOptions = [
+  //   "Freshers",
+  //   "1 - 2 Years",
+  //   "2 - 4 Years",
+  //   "4 - 6 Years",
+  //   "6 - 8 Years",
+  //   "8 - 10 Years",
+  //   "10 - 15 Years",
+  // ]
+
+   const [educationSelected, setEducationSelected] = useState(null);
+    const educationOptions = [
+     
+      { value: "Diploma", label: "Diploma" },
+      { value: "Internship/A-Level", label: "Internship/A-Level" },
+      { value: "Bachelor's Degree", label: "Bachelor's Degree" },
+      { value: "Master's Degree", label: "Master's Degree" },
+      { value: "MPhil", label: "MPhil" },
+      { value: "PhD", label: "PhD" },
+      
+    ]
+  // const educationOptions = [
+  //   "Diploma",
+  //   "Internship/A-Level",
+  //   "Bachelor's Degree",
+  //   "Master's Degree",
+  //   "MPhil",
+  //   "PhD",
+  // ]
 
   const {
     register,
@@ -159,12 +185,21 @@ const ApplicantPersonalProfile = () => {
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth'>
                   <label htmlFor='experience' className='Label'>Experience</label>
-                  <CustomSelect
+                  {/* <CustomSelect
                     name="experience"
                     control={control}
                     rules={{ required: "Enter your experience" }}
                     placeholder="Experience"
                     options={experienceOptions}
+                  /> */}
+
+                  <Select
+                    className="inputSelect select"
+                    classNamePrefix="select"
+                    options={experienceOptions}
+                    value={experienceSelected}
+                    onChange={setExperienceSelected}
+                    placeholder="Experience"
                   />
 
                   <div className='FormError'>
@@ -174,12 +209,21 @@ const ApplicantPersonalProfile = () => {
 
                 <div className='InputWidth'>
                   <label htmlFor='education' className='Label'>Education</label>
-                  <CustomSelect
+                  {/* <CustomSelect
                     name="education"
                     control={control}
                     rules={{ required: "Enter your Education" }}
                     placeholder="Education"
                     options={educationOptions}
+                  /> */}
+
+                  <Select
+                    className="inputSelect select"
+                    classNamePrefix="select"
+                    options={educationOptions}
+                    value={educationSelected}
+                    onChange={setEducationSelected}
+                    placeholder="Education"
                   />
                   <div className='FormError'>
                     {errors.education && <p>education id required.</p>}

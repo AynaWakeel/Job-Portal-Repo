@@ -157,9 +157,28 @@ padding-block: 20px;
     }
 }
 
-/* .Active{
+.Activediv{
+    display: flex;
+    justify-content: start;
+    gap: 6px;
+    align-items: center;
+}
+
+.Active{
+    color: #0BA02C;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
+}
+
+.red{
     color: #E05151;
-} */
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
+}
 
 
 .Right-side{

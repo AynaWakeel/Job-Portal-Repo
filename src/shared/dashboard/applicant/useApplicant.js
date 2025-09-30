@@ -7,8 +7,8 @@ export const useApplicant = () => {
     const profile_pic = async (body) => {
 
         const response = await Applicant_Endpoints.post_profile_pic(body)
-        const { sucess, message } = response
-        if (sucess) {
+        const { message } = response
+        if (response) {
             // localStorage.getItem("token", response.token)
             showSuccess(message)
         } else {
@@ -20,8 +20,8 @@ export const useApplicant = () => {
     const upload_resume = async (body) => {
 
         const response = await Applicant_Endpoints.post_upload_resume(body)
-        const { message, sucess } = response
-        if (sucess) {
+        const { message } = response
+        if (response) {
             showSuccess(message)
         } else {
             showError(message)
@@ -31,8 +31,8 @@ export const useApplicant = () => {
     const profile_setting = async (body) => {
 
         const response = await Applicant_Endpoints.put_profile_setting(body)
-        const { message, sucess } = response
-        if (sucess) {
+        const { message } = response
+        if (response) {
             showSuccess(message)
         } else {
             showError(message)

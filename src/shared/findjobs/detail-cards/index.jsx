@@ -1,6 +1,6 @@
 import React from 'react'
 import { MainSec } from './style'
-import AllJobDetail from '../../../components/all-job-detail'
+import Jobs from '../../../components/jobs'
 
 const JobDetailCards = () => {
   return (
@@ -9,7 +9,8 @@ const JobDetailCards = () => {
         <div className='Flex'>
           <h1 className='TopHeading'>New Jobs</h1>       
         </div>
-        <AllJobDetail/>
+
+        <Jobs/>
       </MainSec>
     </div>
   )

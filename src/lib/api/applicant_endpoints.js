@@ -19,7 +19,12 @@ export const Applicant_Endpoints = {
     get_applied_jobs: async (body) => await getData("/api/application/my-applications", body),
     get_job_detail_by_id: async (id,body) => await getData(`/api/jobpost/getJobDetail/${id}`, body),
     post_apply_job: async(id,body)=> await postData(`/api/application/jobs/${id}/apply`, body),
-
+   
     //-----fav-jobs
+    post_saved_jobs: async(body)=> await postData("/api/saved-jobs", body),
     get_saved_jobs: async (body) => await getData("/api/saved-jobs", body),
+    delete_saved_jobs: async(jobId)=> await postData(`/api/saved-jobs/${jobId}`),
+
+    //----analytics
+    get_applicant_analytics: async (body) => await getData("/api/admin/applicantStats", body),
 }

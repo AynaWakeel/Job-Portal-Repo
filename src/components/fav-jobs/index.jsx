@@ -20,18 +20,17 @@ const FavJobCards = () => {
         }
     }
     const navigate = useNavigate()
-    const ViewDetail = () => {
-        navigate('/applicant/company')
+    const ViewDetail = (id) => {
+        navigate('/applicant/company', {state:{id}})
     }
-
 
     const [savejobData, setSaveJobData] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
             const res = await Applicant_Endpoints.get_saved_jobs()
-            if (res?.data) {
-                setSaveJobData(res.data)
+            if (res?.data?.job) {
+                setSaveJobData(res.data.job)
             }
         }
         fetchData()
@@ -48,29 +47,29 @@ const FavJobCards = () => {
                             <div className='Card' key={items.id}>
                                 <div className='Inner-flex'>
                                     <div className='IconBox' style={{ backgroundColor: `${items.color}` }}>
-                                        <img src={items.logo} />
+                                        <img src={items.profilepic} />
                                     </div>
                                     <div className='Gap'>
                                         <div className='Inner-flex'>
-                                            <h3 className='Heading'>{items.job.title}</h3>
-                                            <span className='Badge'>{items.job.jobType}</span>
+                                            <h3 className='Heading'>{items.title}</h3>
+                                            <span className='Badge'>{items.jobType}</span>
                                         </div>
                                         <div className='Inner-flex'>
 
                                             <h4 className='FlexIcon'>
                                                 <span><img src={Map} /></span>
-                                                <span className='SubHeading'>{items.job.location}</span>
+                                                <span className='SubHeading'>{items.location}</span>
                                             </h4>
                                             <h4 className='FlexIcon'>
                                                 <span><img src={Currency} /></span>
-                                                <span className='SubHeading'>${items.job.salaryMin} - ${items.job.salaryMax}</span>
+                                                <span className='SubHeading'>${items.salaryMin} - ${items.salaryMax}</span>
                                             </h4>
                                             <h4 className='FlexIcon'>
                                                 <span><img src='' /></span>
-                                                <span className='SubHeading'>{items.job.jobExpirationDate}</span>
+                                                <span className='SubHeading'>{items.jobExpirationDate}</span>
                                             </h4>
                                             <div className='status-flex'>
-                                                {items.job.status === "active" ?
+                                                {items.status === "active" ?
 
                                                     (<div className='Activediv'>
                                                         <span><img src={Check} alt='icon' /></span>
@@ -85,7 +84,6 @@ const FavJobCards = () => {
                                                     </div>)
 
                                                 }                                             
-
                                                
                                             </div>
 
@@ -96,8 +94,8 @@ const FavJobCards = () => {
                                 <div className='Right-side'>
                                     <span className='Box' onClick={() => handleFavourite(items.id)}><Fav
                                         className={isSelected.includes(items.id) ? "Color active" : "Color"} /></span>
-                                    <button className='CardBtn' onClick={ViewDetail}>
-                                        <span>Apply Now</span>
+                                    <button className='CardBtn' onClick={()=>ViewDetail(items.id)}>
+                                        <span>View Details</span>
                                         <Arrow className='IconColor' />
                                     </button>
                                 </div>

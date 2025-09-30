@@ -310,6 +310,66 @@ margin-inline: auto;
     max-height: 400px;
     overflow-y: auto;
 }
+
+
+//---------- select lib
+
+.select{
+    outline: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    width: 100%;
+    color: var(--purple-200);
+    caret-color: var(--purple-300);
+    font-family: var(--poppin);
+}
+
+.inputSelect{
+   font-size: 15px;
+    font-weight: 400;
+    color: var(--purple-200);
+    caret-color: var(--purple-300);
+    font-family: var(--poppin);
+}
+
+
+.select__control {
+    outline: none;
+  min-height: 58px !important;
+  border: 1px solid var(--white-200) !important;
+}
+
+.select__control--is-focused {
+  border-color: var(--purple-50) !important;
+  box-shadow: 0 0 0 1px var(--purple-200);
+}
+
+.select__control:hover {
+  border-color: var(--purple-50) !important;
+}
+
+
+.select__menu{
+    padding: 0px;
+}
+
+.select__option{
+background-color: #c3b9d1ff;
+}
+
+.select__option--is-selected {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--purple-200);
+    font-family: var(--poppin);
+}
+
+.select__option--is-focused {
+  background-color: var(--purple-70);
+}
+
 `
 
 export const Dropdown = styled.div`

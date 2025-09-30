@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MainSec } from './style'
-import { JobCards } from '../../helper/dummyData'
+import StatusClose from '../../assets/icons/XCircleRed.svg'
+import Check from '../../assets/icons/Check.svg'
+import Currency from '../../assets/icons/currency-dollar 1.svg'
+import Map from '../../assets/icons/fi_map-pin.svg'
 import { useNavigate } from 'react-router'
 import { ReactComponent as Arrow } from '../../assets/icons/fi_arrow-right.svg'
 import { ReactComponent as Fav } from '../../assets/icons/Vector.svg'
+import { Applicant_Endpoints } from '../../lib/api/applicant_endpoints'
 
-const Jobs = ({limit}) => {
+const Jobs = () => {
     const [isSelected,setIsSelected] = useState([])
     const handleFavourite = (id) =>{
         if(isSelected.includes(id)){
@@ -15,45 +19,84 @@ const Jobs = ({limit}) => {
         }
     }
     const navigate = useNavigate()
-    const ViewDetail = () =>{
-        navigate('/applicant/company')
+    const ViewDetail = (id) =>{
+        navigate('/applicant/company', {state: {id}})
     }
 
-    const ShowCards = limit ? JobCards.slice(0,limit) : JobCards;
+    const [jobData, setJobData] = useState([])
+    
+        useEffect(() => {
+            const fetchData = async () => {
+                const res = await Applicant_Endpoints.get_all_jobs()
+                if (res?.data.jobs) {
+                    setJobData(res.data.jobs)
+                }
+            }
+            fetchData()
+        }, [])
+
     return (
         <div>
             <MainSec>
                 <div className='CardDiv'>
                     <div className='Grid'>
-                        {ShowCards.map((items) =>(
+                        {jobData.map((items) =>(
 
                                 <div className='Card' key={items.id}>                                    
                                     <div className='Inner-flex'>
                                         <div className='IconBox' style={{ backgroundColor: `${items.color}` }}>
-                                           <img src={items.logo}/>
+                                           <img src={items.recruiter.profilepic}/>
                                         </div>
                                         <div className='Gap'>
                                             <div className='Inner-flex'>
                                                 <h3 className='Heading'>{items.title}</h3>
-                                                <span className='Badge'>{items.badge}</span>
+                                                <span className='Badge'>{items.jobType}</span>
                                             </div>
                                             <div className='Inner-flex'>
-                                                {items.detail.map((d)=>(
+                                               
+                                                 <h4 className='FlexIcon'>
+                                                    <span><img src={Map}/></span>
+                                                    <span className='SubHeading'>{items.location}</span>
+                                                </h4>    
                                                 <h4 className='FlexIcon'>
-                                                    <span><img src={d.icon}/></span>
-                                                    <span className='SubHeading'>{d.text}</span>
-                                                </h4>                                              
+                                                    <span><img src={Currency}/></span>
+                                                    <span className='SubHeading'>{items.salaryMin} - {items.salaryMax}</span>
+                                                </h4>    
+                                                 <h4 className='FlexIcon'>
+                                                    <span><img src=''/></span>
+                                                    <span className='SubHeading'>{items.jobExpirationDate}</span>
+                                                </h4>  
 
-                                                ))}
+                                                <div className='status-flex'>
+                                                {items.status === "active" ?
+
+                                                    (<div className='Activediv'>
+                                                        <span><img src={Check} alt='icon' /></span>
+                                                        <span className='Active'>Active</span>
+                                                    </div>)
+
+                                                    :
+
+                                                    (<div className='Activediv'>
+                                                        <span><img src={StatusClose} alt='icon' /></span>
+                                                        <span className='red'>Expire</span>
+                                                    </div>)
+
+                                                }                                             
+                                               
+                                            </div>                                            
+
+                                               
                                             </div>
                                         </div>
                                     </div>
                                    
                                     <div className='Right-side'>
-                                        <span className='Box' onClick={()=>handleFavourite(items.id)}><Fav 
-                                        className={isSelected.includes(items.id) ? "Color active" : "Color"} /></span>
-                                        <button className='CardBtn' onClick={ViewDetail}>
-                                            <span>{items.btn}</span>
+                                        <span className='Box' onClick={()=>handleFavourite(items.id)}>
+                                            <Fav className={isSelected.includes(items.id) ? "Color active" : "Color"} /></span>
+
+                                        <button className='CardBtn' onClick={()=>ViewDetail(items.id)}>
+                                            <span>View Detail</span>
                                             <Arrow className='IconColor' />
                                         </button>
                                     </div>

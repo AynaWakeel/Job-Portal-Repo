@@ -56,6 +56,7 @@ padding-inline: 20px;
 }
 
 .Divide{
+    /* width: 100%; */
     display: flex;
     justify-content: start;
     gap: 20px;
@@ -152,6 +153,7 @@ margin-inline: auto;
     }
 
 .FormSpace{
+    width: 100%;
    padding-block: 10px;
 }
 

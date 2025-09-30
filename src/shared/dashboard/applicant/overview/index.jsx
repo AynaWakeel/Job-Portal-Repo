@@ -1,24 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Overview, Verification, Jobdiv } from './style'
 import Analytics from '../../../../components/analytics'
 import Profile from '../../../../assets/images/Ellipse 18.png'
 import { ReactComponent as Arrow } from '../../../../assets/icons/fi_arrow-right.svg'
 import { useNavigate } from 'react-router'
 import Jobs from '../../../../components/jobs'
+import { Applicant_Endpoints } from '../../../../lib/api/applicant_endpoints'
 
 const ApplicantOverview = () => {
   const navigate = useNavigate()
-  const ViewAll = () =>{
+  const ViewAll = () => {
     navigate('/applicant/dashboard/applied')
   }
+
+  const [analyticsData, setAnalyticsData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await Applicant_Endpoints.get_applicant_analytics()
+      if (res?.data?.data) {
+        setAnalyticsData(res.data.data)
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
     <div>
       <Overview>
         <div className='Txtdiv'>
-          <h5>Hello, Esther Howard</h5>
+          <h5>Hello, {analyticsData.applicantName}</h5>
           <p>Here is your daily activities and job alerts</p>
         </div>
-        <Analytics limit={2} />
+        <Analytics />
 
         <Verification>
           <div className='Card'>
@@ -58,7 +72,7 @@ const ApplicantOverview = () => {
 
           <div>
 
-           <Jobs/>
+            <Jobs />
           </div>
         </Jobdiv>
       </Overview>

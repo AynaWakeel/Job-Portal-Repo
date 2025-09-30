@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { useAdmin } from '../useAdmin'
 import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
 import { showError, showSuccess } from '../../../toasters'
+import ChangePasswordComp from '../../../change-pasword'
 
 const AdminProfile = () => {
     const {
@@ -104,6 +105,7 @@ const AdminProfile = () => {
                         </ProfilePic>
                     </div>
 
+                    <div>
                     <form onSubmit={handleSubmit(onSubmit)}>
 
                     <Form>
@@ -135,9 +137,12 @@ const AdminProfile = () => {
 
                     </form>
 
+                    </div>
+
+
                 </div>
 
-                <div className='ChangePassworddiv'>
+                {/* <div className='ChangePassworddiv'>
                     <h1 className='Title'>Change Password</h1>
 
                     <form onSubmit={handleSubmit(handleChangepassword)}>
@@ -189,7 +194,9 @@ const AdminProfile = () => {
                     </Form>
 
                     </form>
-                </div>
+                </div> */}
+
+                <ChangePasswordComp/>
 
             </Main>
 

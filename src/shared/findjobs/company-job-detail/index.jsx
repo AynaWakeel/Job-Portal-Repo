@@ -36,7 +36,6 @@ const CompanyJobDetail = () => {
 
     const [jobData, setJobData] = useState({})
     const [companyData, setCompanyData] = useState({})
-    // const { id } = useParams()
 
     useEffect(() => {
         const fetchData = async () => {

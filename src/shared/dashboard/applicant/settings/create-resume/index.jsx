@@ -9,17 +9,31 @@ import { useApplicant } from '../../useApplicant';
 import { Controller, useForm } from 'react-hook-form';
 import { Applicant_Endpoints } from '../../../../../lib/api/applicant_endpoints';
 import CustomSelect from '../../../../../components/custome-select';
+import Select from 'react-select';
 
 const ApplicantCreateResume = () => {
-  const experienceOptions = [
-    "Freshers",
-    "1 - 2 Years",
-    "2 - 4 Years",
-    "4 - 6 Years",
-    "6 - 8 Years",
-    "8 - 10 Years",
-    "10 - 15 Years",
-  ]
+   const [selected, setSelected] = useState(null);
+    const experienceOptions = [
+     
+      { value: "Freshers", label: "Freshers" },
+      { value: "1 - 2 Years", label: "1 - 2 Years" },
+      { value: "2 - 4 Years", label: "2 - 4 Years" },
+      { value: "4 - 6 Years", label: "4 - 6 Years" },
+      { value: "6 - 8 Years", label: "6 - 8 Years" },
+      { value: "8 - 10 Years", label: "8 - 10 Years" },
+      { value: "10 - 15 Years", label: "10 - 15 Years" },
+
+      
+    ]
+  // const experienceOptions = [
+  //   "Freshers",
+  //   "1 - 2 Years",
+  //   "2 - 4 Years",
+  //   "4 - 6 Years",
+  //   "6 - 8 Years",
+  //   "8 - 10 Years",
+  //   "10 - 15 Years",
+  // ]
   const {
     register,
     handleSubmit,
@@ -53,21 +67,29 @@ const ApplicantCreateResume = () => {
           email: "",
           personalwebsite: "",
           biography: ""
-        });
+        })
         setHasResume(false);
       }
-    };
-    fetchData();
-  }, [reset]);
+    }
+    fetchData()
+  }, [reset])
 
   const onSubmit = (data) => {
+    const body = {
+      ...data,
+      experience:selected?.value
+    }
+    console.log(body,'here is data');
+    
     if (data.resume?.[0]) {
       const resumeData = new FormData()
       resumeData.append("resume", data.resume[0])
+      resumeData.append("experience",selected?.value)
+
       update_applicant_resume(resumeData)
 
     }
-    create_resume(data)
+    create_resume(body)
     console.log(data)
   }
   const [isResumeOpen, setIsResumeOpen] = useState(false)
@@ -82,6 +104,9 @@ const ApplicantCreateResume = () => {
   const isOpen = () => {
     setIsResumeOpen(true)
   }
+
+  console.log(selected,'value');
+  
 
 
   return (
@@ -165,15 +190,23 @@ const ApplicantCreateResume = () => {
 
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth FormPassword'>
-                  <label htmlFor='' className='Label'>Experience</label>
-                  <CustomSelect
+                  <label htmlFor='experience' className='Label'>Experience</label>
+                  {/* <CustomSelect
                     name="experience"
                     control={control}
                     rules={{ required: "Enter your experience" }}
-                    placeholder="Experience"
                     options={experienceOptions}
+                    /> */}
+                  <Select
+                    name='experience'
+                    className="inputSelect select"
+                    classNamePrefix="select"
+                    options={experienceOptions}
+                    value={selected}
+                    onChange={setSelected}
+                    placeholder="Experience"
                   />
-                
+
                   <div className='FormError'>
                     {errors.experience && <p>experience id required.</p>}
                   </div>
