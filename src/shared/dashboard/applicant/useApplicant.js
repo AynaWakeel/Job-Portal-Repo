@@ -86,5 +86,27 @@ export const useApplicant = () => {
         }
     }
 
-    return { profile_pic, upload_resume, profile_setting, create_resume, update_applicant_resume, change_applicant_password , apply_job_by_id}
+     const save_job = async (body) => {
+
+        const response = await Applicant_Endpoints.post_saved_jobs(body)
+        const { message } = response
+        if (response) {
+            showSuccess(message)
+        } else {
+            showError(message)
+        }
+    }
+
+     const remove_save_job = async (jobId) => {
+
+        const response = await Applicant_Endpoints.delete_saved_jobs(jobId)
+        const { message } = response
+        if (response) {
+            showSuccess(message)
+        } else {
+            showError(message)
+        }
+    }
+
+    return { profile_pic, upload_resume, profile_setting, create_resume, update_applicant_resume, change_applicant_password , apply_job_by_id , save_job , remove_save_job}
 }

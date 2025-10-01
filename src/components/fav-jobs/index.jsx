@@ -9,8 +9,14 @@ import Map from '../../assets/icons/fi_map-pin.svg'
 import { ReactComponent as Arrow } from '../../assets/icons/fi_arrow-right.svg'
 import { ReactComponent as Fav } from '../../assets/icons/Vector.svg'
 import { Applicant_Endpoints } from '../../lib/api/applicant_endpoints'
+import { useApplicant } from '../../shared/dashboard/applicant/useApplicant'
+import Loader from '../loading-spinner'
 
 const FavJobCards = () => {
+    const [isLoading, setIsLoading] =  useState(true)
+
+    const {remove_save_job} = useApplicant()
+
     const [isSelected, setIsSelected] = useState([])
     const handleFavourite = (id) => {
         if (isSelected.includes(id)) {
@@ -24,17 +30,26 @@ const FavJobCards = () => {
         navigate('/applicant/company', {state:{id}})
     }
 
+     const handleUnFavourite = async(jobId) =>{
+
+        await remove_save_job(jobId)
+        fetchData()
+    }
+
     const [savejobData, setSaveJobData] = useState([])
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await Applicant_Endpoints.get_saved_jobs()
-            if (res?.data?.job) {
-                setSaveJobData(res.data.job)
-            }
+    const fetchData = async () => {
+        const res = await Applicant_Endpoints.get_saved_jobs()
+        if (res?.data) {
+            setSaveJobData(res.data)
+            setIsLoading(false)
         }
+    }
+    useEffect(() => {
         fetchData()
     }, [])
+
+    if(isLoading) return <Loader/>
 
 
     return (
@@ -44,29 +59,29 @@ const FavJobCards = () => {
                     <div className='Grid'>
                         {savejobData.map((items) => (
 
-                            <div className='Card' key={items.id}>
+                            <div className='Card' key={items.job.id}>
                                 <div className='Inner-flex'>
-                                    <div className='IconBox' style={{ backgroundColor: `${items.color}` }}>
-                                        <img src={items.profilepic} />
+                                    <div className='IconBox photo' style={{ backgroundColor: `${items.color}` }}>
+                                        <img src={items.job.profilepic} />
                                     </div>
                                     <div className='Gap'>
                                         <div className='Inner-flex'>
-                                            <h3 className='Heading'>{items.title}</h3>
-                                            <span className='Badge'>{items.jobType}</span>
+                                            <h3 className='Heading'>{items.job.title}</h3>
+                                            <span className='Badge'>{items.job.jobType}</span>
                                         </div>
                                         <div className='Inner-flex'>
 
                                             <h4 className='FlexIcon'>
                                                 <span><img src={Map} /></span>
-                                                <span className='SubHeading'>{items.location}</span>
+                                                <span className='SubHeading'>{items.job.location}</span>
                                             </h4>
                                             <h4 className='FlexIcon'>
                                                 <span><img src={Currency} /></span>
-                                                <span className='SubHeading'>${items.salaryMin} - ${items.salaryMax}</span>
+                                                <span className='SubHeading'>${items.job.salaryMin} - ${items.job.salaryMax}</span>
                                             </h4>
                                             <h4 className='FlexIcon'>
                                                 <span><img src='' /></span>
-                                                <span className='SubHeading'>{items.jobExpirationDate}</span>
+                                                <span className='SubHeading'>{items.job.jobExpirationDate}</span>
                                             </h4>
                                             <div className='status-flex'>
                                                 {items.status === "active" ?
@@ -92,9 +107,12 @@ const FavJobCards = () => {
                                 </div>
 
                                 <div className='Right-side'>
-                                    <span className='Box' onClick={() => handleFavourite(items.id)}><Fav
-                                        className={isSelected.includes(items.id) ? "Color active" : "Color"} /></span>
-                                    <button className='CardBtn' onClick={()=>ViewDetail(items.id)}>
+                                    <span className='Box' 
+                                    onClick={()=>handleUnFavourite(items.job.id)}
+                                    >
+                                        <Fav className={isSelected.includes(items.job.id) ? "Color " : "Color active"} /></span>
+
+                                    <button className='CardBtn' onClick={()=>ViewDetail(items.job.id)}>
                                         <span>View Details</span>
                                         <Arrow className='IconColor' />
                                     </button>

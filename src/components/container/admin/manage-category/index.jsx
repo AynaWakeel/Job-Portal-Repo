@@ -5,8 +5,10 @@ import AddIndustryModal from '../../../../components/add-industry-modal'
 import { ReactComponent as Del } from '../../../../assets/icons/XCircle.svg'
 import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
 import { useAdmin } from '../useAdmin'
+import Loader from '../../../loading-spinner'
 
 const ManageCategory = () => {
+   const [isLoading, setIsLoading] =  useState(true)
   const [industryList, setIndustryList] = useState([])
   const [locationList, setLocationList] = useState([])
 
@@ -16,6 +18,7 @@ const ManageCategory = () => {
     const res = await Admin_Endpoints.get_industry()
     if(res?.data){
         setIndustryList(res.data)
+        setIsLoading(false)
     }
   }
 
@@ -23,6 +26,7 @@ const ManageCategory = () => {
     const res = await Admin_Endpoints.get_location()
     if(res?.data){
       setLocationList(res.data)
+      setIsLoading(false)
     }
   }
 
@@ -52,6 +56,9 @@ const ManageCategory = () => {
   const IndustryModal = () => {
     setIsIndustryOpen(true)
   }
+
+   if(isLoading) return <Loader/>
+
   return (
     <div>
 

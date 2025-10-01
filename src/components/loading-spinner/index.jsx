@@ -7,7 +7,7 @@ const Loader = () => {
     <div>
        
        <Wrapper>
-       <PulseLoader size={15} color="#40189d" speedMultiplier={0.7}  margin={7}/>
+       <PulseLoader size={13} color="#40189d" speedMultiplier={0.7}  margin={7}/>
        </Wrapper>
 
     </div>

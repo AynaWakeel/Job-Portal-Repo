@@ -9,8 +9,10 @@ import { RecentlyPostedJobs } from '../../helper/dummyData'
 import { useNavigate } from 'react-router'
 import { Admin_Endpoints } from '../../lib/api/admin_endpoints'
 import { useAdmin } from '../container/admin/useAdmin'
+import Loader from '../loading-spinner'
 
 const ManageJobCards = () => {
+     const [isLoading, setIsLoading] =  useState(true)
     const [jobData, setJobData] = useState([])
     const [Status, setStatus] = useState([])
     const [isOpen, setIsOpen] = useState(null)
@@ -19,6 +21,7 @@ const ManageJobCards = () => {
         const res = await Admin_Endpoints.get_manageJobs()
         if (res?.data?.jobs) {
             setJobData(res.data.jobs)
+            setIsLoading(false)
         }
     }
     useEffect(() => {
@@ -49,6 +52,8 @@ const ManageJobCards = () => {
     const ViewDetails = (jobId) => {
         navigate('/admin/dashboard/job-detail', {state:{jobId}})
     }
+
+     if(isLoading) return <Loader/>
 
     return (
         <div>

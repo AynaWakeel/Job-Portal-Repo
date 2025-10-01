@@ -71,6 +71,19 @@ padding-inline: 20px;
 }
 
 
+.form-div{
+    width: 80%;
+
+     @media ${devices.tablet} {
+        width: 100%;
+    }
+
+    @media ${devices.mobile} {
+        width: 100%;
+    }
+}
+
+
 .SubHeading{
     margin-top: 20px;
     color: var(--dark-800);

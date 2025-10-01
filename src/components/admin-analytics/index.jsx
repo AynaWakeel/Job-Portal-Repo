@@ -3,8 +3,10 @@ import { MainSec } from './style';
 import { ReactComponent as Brief } from '../../assets/icons/briefcase-duotone 1.svg'
 import { ReactComponent as Building } from '../../assets/icons/buildings-duotone 1.svg'
 import { Admin_Endpoints } from '../../lib/api/admin_endpoints';
+import Loader from '../loading-spinner';
 
 const AdminAnalyticCards = () => {
+    //  const [isLoading, setIsLoading] =  useState(true)
     const [analytics, setAnalytics] = useState({})
 
     useEffect(() => {
@@ -12,15 +14,19 @@ const AdminAnalyticCards = () => {
             const res = await Admin_Endpoints.get_analytics()
             if (res?.data?.totals) {
                 setAnalytics(res.data.totals)
+                // setIsLoading(false)
                 console.log(res.data)
             }
         }
         fetchData()
     }, [])
 
+    // if(isLoading) return <Loader/>
+
     return (
         <div>
 
+            
             <MainSec>
                 <div className='CardDiv'>
                     <div className='Grid'>
@@ -60,6 +66,7 @@ const AdminAnalyticCards = () => {
 
                 </div>
             </MainSec>
+
 
 
         </div>

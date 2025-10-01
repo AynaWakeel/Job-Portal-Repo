@@ -24,18 +24,7 @@ const ApplicantPersonalProfile = () => {
       { value: "8-10", label: "8 - 10 Years" },
       { value: "10-15", label: "10 - 15 Years" },
 
-      
     ]
-
-  // const experienceOptions = [
-  //   "Freshers",
-  //   "1 - 2 Years",
-  //   "2 - 4 Years",
-  //   "4 - 6 Years",
-  //   "6 - 8 Years",
-  //   "8 - 10 Years",
-  //   "10 - 15 Years",
-  // ]
 
    const [educationSelected, setEducationSelected] = useState(null);
     const educationOptions = [
@@ -48,14 +37,6 @@ const ApplicantPersonalProfile = () => {
       { value: "PhD", label: "PhD" },
       
     ]
-  // const educationOptions = [
-  //   "Diploma",
-  //   "Internship/A-Level",
-  //   "Bachelor's Degree",
-  //   "Master's Degree",
-  //   "MPhil",
-  //   "PhD",
-  // ]
 
   const {
     register,
@@ -185,13 +166,6 @@ const ApplicantPersonalProfile = () => {
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth'>
                   <label htmlFor='experience' className='Label'>Experience</label>
-                  {/* <CustomSelect
-                    name="experience"
-                    control={control}
-                    rules={{ required: "Enter your experience" }}
-                    placeholder="Experience"
-                    options={experienceOptions}
-                  /> */}
 
                   <Select
                     className="inputSelect select"
@@ -209,14 +183,7 @@ const ApplicantPersonalProfile = () => {
 
                 <div className='InputWidth'>
                   <label htmlFor='education' className='Label'>Education</label>
-                  {/* <CustomSelect
-                    name="education"
-                    control={control}
-                    rules={{ required: "Enter your Education" }}
-                    placeholder="Education"
-                    options={educationOptions}
-                  /> */}
-
+                 
                   <Select
                     className="inputSelect select"
                     classNamePrefix="select"

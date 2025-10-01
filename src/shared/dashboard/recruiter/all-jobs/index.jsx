@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Jobdiv } from './style'
 import AllTypesOfJobs from '../../../../components/all-types-of-jobs'
 import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints'
+import Loader from '../../../../components/loading-spinner'
 
 const RecruiterAllJobs = () => {
+   const [isLoading, setIsLoading] =  useState(true)
   const [jobs, setJobs] = useState([])
   const [activeStatus, setActiveStatus] = useState("pending")
 
@@ -26,6 +28,7 @@ const RecruiterAllJobs = () => {
     const res = await Recruiter_Endpoints.get_all_job()
     if (res?.data?.jobs?.pending) {
         setJobs(res.data.jobs.pending)
+        setIsLoading(false)
         console.log(res.data.jobs)
     }
   }
@@ -33,6 +36,8 @@ const RecruiterAllJobs = () => {
   useEffect(() => {
     fetchData()
   }, [])
+
+   if(isLoading) return <Loader/>
 
 
   return (
@@ -48,12 +53,10 @@ const RecruiterAllJobs = () => {
               onClick={() => handleFilter("pending")}
             >Pending</button>
             <button
-              // className='CardBtn'
               className={`CardBtn ${activeStatus === "reported" ? "active" : ""}`}
               onClick={() => handleFilter("reported")}
             >Reported</button>
             <button
-              //  className='CardBtn'
               className={`CardBtn ${activeStatus === "rejected" ? "active" : ""}`}
               onClick={() => handleFilter("rejected")}
             >Rejected</button>

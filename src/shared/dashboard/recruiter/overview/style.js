@@ -121,7 +121,7 @@ justify-content: center;
 
 export const Jobdiv = styled.div`
 padding-block: 10px;
-
+width: 100%;
 
 .Flex{
     display: flex;

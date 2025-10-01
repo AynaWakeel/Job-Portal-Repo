@@ -7,8 +7,10 @@ import Currency from '../../assets/icons/currency-dollar 1.svg'
 import Map from '../../assets/icons/fi_map-pin.svg'
 import { useNavigate } from 'react-router'
 import { Applicant_Endpoints } from '../../lib/api/applicant_endpoints'
+import Loader from '../loading-spinner'
 
 const AppliedJobs = () => {
+     const [isLoading, setIsLoading] =  useState(true)
     const navigate = useNavigate()
     const viewDetail = (id) =>{
         navigate('/applicant/company' , {state:{id}})
@@ -21,10 +23,13 @@ const AppliedJobs = () => {
             const res = await Applicant_Endpoints.get_applied_jobs()
             if (res?.data) {
                 setJobData(res.data)
+                setIsLoading(false)
             }
         }
         fetchData()
     }, [])
+
+    if(isLoading) return <Loader/>
 
    
     return (

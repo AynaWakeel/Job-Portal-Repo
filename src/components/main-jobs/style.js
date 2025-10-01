@@ -41,6 +41,7 @@ export const CompanyCards = styled.div`
     width: 416px;
     height: 200px;
     border: 1px solid #EDEFF5;
+     /* text-overflow: ellipsis; */
 
 @media ${devices.tablet}{
     width: 375px;
@@ -84,6 +85,10 @@ export const CompanyCards = styled.div`
     font-family: var(--inter);
     padding-bottom: 5px;
     line-height: 28px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .FlexIcon{

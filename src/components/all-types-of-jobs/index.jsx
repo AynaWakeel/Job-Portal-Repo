@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { MainSec } from './style'
 import StatusClose from '../../assets/icons/XCircleRed.svg'
 import DOt from '../../assets/icons/•.svg'
-import Loader from '../loading-spinner'
 import { useNavigate } from 'react-router'
 
-const AllTypesOfJobs = ({jobs}) => {
+const AllTypesOfJobs = ({ jobs }) => {
     const navigate = useNavigate()
 
-    const Edit = (jobId)=>{
-         navigate('/recruiter/dashboard/postjob' , {state: { jobId }})
+    const Edit = (jobId) => {
+        navigate('/recruiter/dashboard/postjob', { state: { jobId } })
     }
 
     return (
@@ -70,7 +69,7 @@ const AllTypesOfJobs = ({jobs}) => {
 
                                                 <div className='Right-side'>
                                                     <button className='CardBtn'
-                                                    onClick={() => Edit(items.id)}
+                                                        onClick={() => Edit(items.id)}
                                                     >
                                                         <span>Edit Job</span>
                                                     </button>
@@ -81,15 +80,26 @@ const AllTypesOfJobs = ({jobs}) => {
 
                                         }
 
-
-
                                     </div>
 
                                 )
                             }
                             )
 
-                        ) : (<Loader />)}
+                        ) : (
+
+                            <div className='Card'>
+                                <div className='Inner-flex'>
+                                    <div className='Gap'>
+                                        <div className='Inner-flex'>
+                                            <h3 className='Heading'>No Data Found</h3>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+
+                            </div>
+                        )}
 
 
                     </div>

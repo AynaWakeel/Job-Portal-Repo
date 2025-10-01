@@ -42,13 +42,13 @@ const FoundingInfo = () => {
 
       try {
 
-        const res = await Recruiter_Endpoints.get_industry();
+        const res = await Recruiter_Endpoints.get_industry()
         if (res?.data) {
           const options = res.data.map((item) => ({
             value: item.id,
             label: item.name,
-          }));
-          setIndustryOptions(options);
+          }))
+          setIndustryOptions(options)
         }
 
         const previousData = await Recruiter_Endpoints.get_company_profile();

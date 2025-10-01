@@ -5,8 +5,10 @@ import { FaqCards } from '../../helper/dummyData'
 import { Answer, Faq, FaqSec, Title } from './style'
 import { Admin_Endpoints } from '../../lib/api/admin_endpoints'
 import { useAdmin } from '../container/admin/useAdmin'
+import Loader from '../loading-spinner'
 
 const FaqCardComp = ({onEdit}) => {
+     const [isLoading, setIsLoading] =  useState(true)
     const [content, setContent] = useState([])
 
     const { delete_faq_cms } = useAdmin()
@@ -15,6 +17,7 @@ const FaqCardComp = ({onEdit}) => {
         const res = await Admin_Endpoints.get_faqs()
         if (res?.data?.data) {
             setContent(res.data.data)
+            setIsLoading(false)
             console.log(res.data.data)
         }
     }
@@ -41,6 +44,9 @@ const FaqCardComp = ({onEdit}) => {
             setIsFaqOpen(id)
         }
     }
+
+     if(isLoading) return <Loader/>
+
     return (
         <div>
 

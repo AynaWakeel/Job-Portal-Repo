@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Chart from 'chart.js/auto';
 import { Bar } from "react-chartjs-2"
 import { Admin_Endpoints } from '../../lib/api/admin_endpoints';
+import Loader from '../loading-spinner';
 
 const BarChart = () => {
+     const [isLoading, setIsLoading] =  useState(true)
     const [analytics, setAnalytics] = useState({})
 
     useEffect(() => {
@@ -11,11 +13,14 @@ const BarChart = () => {
             const res = await Admin_Endpoints.get_analytics()
             if (res?.data?.series) {
                 setAnalytics(res.data.series)
+                setIsLoading(false)
                 console.log(res.data.series)
             }
         }
         fetchData()
     }, [])
+
+     if(isLoading) return <Loader/>
 
     return (
         <div>

@@ -219,6 +219,13 @@ padding-block: 20px;
     padding-bottom: 2px;
     line-height: 28px;
 }
+/* 
+.Mid{
+     display: flex;
+    justify-content: center;
+    align-items: center;
+   text-align: center;
+} */
 
 .Badge{
     color: var(--purple-600);

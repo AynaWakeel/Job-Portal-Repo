@@ -4,17 +4,22 @@ import ThreeDot from '../../../../assets/icons/DotsThreeVertical.svg'
 import { useNavigate } from 'react-router'
 import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
 import { useAdmin } from '../useAdmin'
+import Loader from '../../../loading-spinner'
 
 const ManageUsers = () => {
+   const [isLoading, setIsLoading] =  useState(true)
   const [isOpen, setIsOpen] = useState(null)
   const [users, setUsers] = useState([])
   const [allUsers, setAllUsers] = useState([])
-  const [activeRole, setActiveRole] = useState("recruiter")
+  const [activeRole, setActiveRole] = useState("all")
 
   const handleFilter = (role) => {
-    setUsers(allUsers.filter(user => user.role === role))
-    fetchData()
     setActiveRole(role)
+    if(activeRole === "all"){
+      setUsers(allUsers)
+    }else{
+      setUsers(allUsers.filter(user => user.role === role))
+    }
   }
 
   const { change_manageUsersStatus } = useAdmin()
@@ -30,13 +35,23 @@ const ManageUsers = () => {
   const fetchData = async () => {
     const res = await Admin_Endpoints.get_manageUsers()
     if (res?.data) {
-      setAllUsers(res.data)
+
+      if(activeRole === "all"){
+        setUsers(res.data)
+        setIsLoading(false)
+        
+      }else{
+        setUsers(res.data.filter(user => user.role === activeRole))
+        setIsLoading(false)
+      }
+
     }
     console.log(res.data)
   }
+
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [activeRole])
 
 
   const Opendropdown = (rowIndex) => {
@@ -51,6 +66,9 @@ const ManageUsers = () => {
   const Profile = () => {
     navigate('/admin/dashboard/applicant-profile')
   }
+
+   if(isLoading) return <Loader/>
+
   return (
     <div>
 
@@ -58,7 +76,7 @@ const ManageUsers = () => {
         <div className='flex-box'>
           <h1 className='TopHeading'>Manage Users</h1>
           <div className='flex'>
-            {/* <button className={`CardBtn ${activeRole === "applicant" ? "active" : ""}`} onClick={()=>handleAll()}>All</button> */}
+            <button className={`CardBtn ${activeRole === "all" ? "active" : ""}`} onClick={()=>handleFilter("all")}>All</button>
             <button className={`CardBtn ${activeRole === "recruiter" ? "active" : ""}`} onClick={() => handleFilter("recruiter")}>Recruiter</button>
             <button className={`CardBtn ${activeRole === "applicant" ? "active" : ""}`} onClick={() => handleFilter("applicant")}>Applicant</button>
           </div>

@@ -148,6 +148,10 @@ margin: auto;
     font-family: var(--inter);
     padding-bottom: 2px;
     line-height: 28px;
+     max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 
     @media ${devices.tablet}{
         font-size: 20px;
@@ -219,6 +223,10 @@ margin: auto;
     font-family: var(--inter);
     line-height: 28px;
     padding-bottom: 20px;
+     max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .profile-content{

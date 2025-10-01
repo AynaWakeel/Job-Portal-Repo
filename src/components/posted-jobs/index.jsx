@@ -14,12 +14,14 @@ import Loader from '../loading-spinner'
 import { useRecruiter } from '../../shared/dashboard/recruiter/useRecruiter'
 
 const PostedJobs = () => {
+     const [isLoading, setIsLoading] =  useState(true)
     const { delete_a_job , expire_a_job } = useRecruiter()
 
     const fetchData = async () => {
         const res = await Recruiter_Endpoints.get_recruiter_job_only()
         if (res?.data?.jobs) {
             setJobs(res.data.jobs)
+            setIsLoading(false)
             console.log(res.data.jobs)
         }
     }
@@ -60,6 +62,8 @@ const PostedJobs = () => {
        navigate("/recruiter/dashboard/applications", { state: { jobId } })
 
     }
+
+     if(isLoading) return <Loader/>
 
 
     return (
@@ -157,7 +161,21 @@ const PostedJobs = () => {
                             }
                             )
 
-                        ) : (<Loader />)}
+                        ) : (
+                            
+                             <div className='Card'>
+                                <div className='Inner-flex'>
+                                    <div className='Gap'>
+                                        <div className='Inner-flex'>
+                                            <h3 className='Heading'>No Data Found</h3>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+
+                            </div>
+                        
+                        )}
 
 
                     </div>

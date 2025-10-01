@@ -3,6 +3,7 @@ import { devices } from "../breakpoints/index";
 
 export const MainSec = styled.div`
 padding-block: 20px;
+/* min-width: 1070px; */
 
 .Flex{
     display: flex;
@@ -68,6 +69,7 @@ padding-block: 20px;
 }
 
 .Grid{
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -217,6 +219,10 @@ padding-block: 20px;
     font-family: var(--inter);
     padding-bottom: 2px;
     line-height: 28px;
+     max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .Badge{
@@ -237,6 +243,10 @@ padding-block: 20px;
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
+     max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .flex-col{

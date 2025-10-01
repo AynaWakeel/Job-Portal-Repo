@@ -215,6 +215,10 @@ padding-block: 20px;
     font-family: var(--inter);
     padding-bottom: 2px;
     line-height: 28px;
+     max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .Badge{
@@ -296,5 +300,18 @@ padding-block: 20px;
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
+}
+
+.photo{
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 60px;
+height: 60px;
+}
+
+.photo img{
+width: 60px;
+height: 60px;
+border-radius: 50%;
 }
 `

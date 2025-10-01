@@ -4,9 +4,10 @@ import { Main } from './style'
 import StatusClose from '../../../../assets/icons/XCircleRed.svg'
 import Check from '../../../../assets/icons/CheckCircle.svg'
 import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
+import Loader from '../../../loading-spinner'
 
 const UserAccounts = () => {
-
+   const [isLoading, setIsLoading] =  useState(true)
   const [users, setUsers] = useState([])
 
   useEffect(()=>{
@@ -14,11 +15,15 @@ const UserAccounts = () => {
       const res = await Admin_Endpoints.get_userAccounts()
       if(res?.data){
         setUsers(res?.data)
+        setIsLoading(false)
       }
       console.log(res.data)
     }
     fetchData()
   },[])
+
+   if(isLoading) return <Loader/>
+
   return (
     <div>
 

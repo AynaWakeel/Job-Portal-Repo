@@ -7,17 +7,36 @@ import Map from '../../assets/icons/fi_map-pin.svg'
 import { useNavigate } from 'react-router'
 import { ReactComponent as Arrow } from '../../assets/icons/fi_arrow-right.svg'
 import { ReactComponent as Fav } from '../../assets/icons/Vector.svg'
+import UnFav from '../../assets/icons/bookmark_remove.svg'
 import { Applicant_Endpoints } from '../../lib/api/applicant_endpoints'
+import { useApplicant } from '../../shared/dashboard/applicant/useApplicant'
+import Loader from '../loading-spinner'
 
 const Jobs = () => {
+     const [isLoading, setIsLoading] =  useState(true)
     const [isSelected,setIsSelected] = useState([])
-    const handleFavourite = (id) =>{
+    const {save_job , remove_save_job } = useApplicant()
+
+    const handleFavourite = async(id) =>{
+        
+        const body =  {jobId:id}
         if(isSelected.includes(id)){
             setIsSelected(isSelected.filter((item)=> item !== id))
         }else{
-           setIsSelected([...isSelected,id])
+            setIsSelected([...isSelected,id])
+
+            await save_job(body)
         }
+        if(body) return fetchData()
     }
+
+    const handleUnFavourite = async(jobId) =>{
+
+        await remove_save_job(jobId)
+        fetchData()
+
+    }
+
     const navigate = useNavigate()
     const ViewDetail = (id) =>{
         navigate('/applicant/company', {state: {id}})
@@ -25,15 +44,18 @@ const Jobs = () => {
 
     const [jobData, setJobData] = useState([])
     
+    const fetchData = async () => {
+        const res = await Applicant_Endpoints.get_all_jobs()
+        if (res?.data.jobs) {
+            setJobData(res.data.jobs)
+            setIsLoading(false)
+        }
+    }
         useEffect(() => {
-            const fetchData = async () => {
-                const res = await Applicant_Endpoints.get_all_jobs()
-                if (res?.data.jobs) {
-                    setJobData(res.data.jobs)
-                }
-            }
             fetchData()
         }, [])
+
+        if(isLoading) return <Loader/>
 
     return (
         <div>
@@ -44,7 +66,7 @@ const Jobs = () => {
 
                                 <div className='Card' key={items.id}>                                    
                                     <div className='Inner-flex'>
-                                        <div className='IconBox' style={{ backgroundColor: `${items.color}` }}>
+                                        <div className='IconBox photo' style={{ backgroundColor: `${items.color}` }}>
                                            <img src={items.recruiter.profilepic}/>
                                         </div>
                                         <div className='Gap'>
@@ -92,8 +114,14 @@ const Jobs = () => {
                                     </div>
                                    
                                     <div className='Right-side'>
-                                        <span className='Box' onClick={()=>handleFavourite(items.id)}>
-                                            <Fav className={isSelected.includes(items.id) ? "Color active" : "Color"} /></span>
+                                        {/* {isSelected.includes(items.id)} */}
+                                        <span className='Box' onClick={()=>handleFavourite(items.id)} >
+                                            <Fav className={isSelected.includes(items.id) ? "Color active" : "Color "} />
+                                        </span>
+
+                                         <span className='Box' onClick={()=>handleUnFavourite(items.id)} >                                          
+                                            <img src={UnFav} className={isSelected.includes(items.id)} />
+                                        </span>
 
                                         <button className='CardBtn' onClick={()=>ViewDetail(items.id)}>
                                             <span>View Detail</span>

@@ -28,7 +28,7 @@ const Analytics = () => {
                           <div className='Card'>
                             <div>
                                 <h3 className='Heading'>Applied jobs</h3>
-                                <h4 className='SubHeading'>{analyticsData.totalSavedJobs}</h4>
+                                <h4 className='SubHeading'>{analyticsData.totalAppliedJobs}</h4>
                             </div>
                             <div className='IconBox'>
                                 <Building className='IconColor' />

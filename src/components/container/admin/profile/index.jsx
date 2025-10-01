@@ -11,57 +11,57 @@ import ChangePasswordComp from '../../../change-pasword'
 
 const AdminProfile = () => {
     const {
-      register,
-      reset,
-      handleSubmit,
-      formState: {errors}
+        register,
+        reset,
+        handleSubmit,
+        formState: { errors }
     } = useForm()
 
     const [hasData, setHasData] = useState(false)
-  
-    const {update_admin_profile, upload_admin_photo , change_admin_password} = useAdmin()
 
-    useEffect(()=>{
-        const fetchData = async()=>{
+    const { update_admin_profile, upload_admin_photo, change_admin_password } = useAdmin()
+
+    useEffect(() => {
+        const fetchData = async () => {
             const prev = await Admin_Endpoints.get_profile()
-            if(prev?.data){
-              reset(prev.data)
-              setHasData(true)
-            }else{
+            if (prev?.data) {
+                reset(prev.data)
+                setHasData(true)
+            } else {
                 reset({
-                    fullName:"",
-                    phoneNumber:""
+                    fullName: "",
+                    phoneNumber: ""
                 })
                 setHasData(false)
             }
         }
         fetchData()
-    },[reset])
+    }, [reset])
 
-    const onSubmit = (data) =>{
+    const onSubmit = (data) => {
         update_admin_profile(data)
         console.log("data")
     }
 
     const handleProfilePic = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      const picData = new FormData()
-      picData.append("profilepic", file)
-      upload_admin_photo(picData);
+        const file = e.target.files[0]
+        if (file) {
+            const picData = new FormData()
+            picData.append("profilepic", file)
+            upload_admin_photo(picData);
+        }
     }
-  }
 
-  const handleChangepassword = (data) =>{
-    const {oldPassword , newPassword , confirmPassword} = data
-    if(oldPassword === newPassword){
-        showError("Enter new Password..")
-    }else if(newPassword !== confirmPassword){
-        showError("Password donot match")
-    }else{
-        change_admin_password(data)
+    const handleChangepassword = (data) => {
+        const { oldPassword, newPassword, confirmPassword } = data
+        if (oldPassword === newPassword) {
+            showError("Enter new Password..")
+        } else if (newPassword !== confirmPassword) {
+            showError("Password donot match")
+        } else {
+            change_admin_password(data)
+        }
     }
-}
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
@@ -99,47 +99,45 @@ const AdminProfile = () => {
                                 <div>
                                     <h5 className='TopHeading'>Browse photo <span>or drop here</span></h5>
                                     <h6 className='Para'>A photo larger than 400 pixels work best. Max photo size 5 MB.</h6>
-                                    <input type="file" accept=".png" hidden onChange={handleProfilePic}/>
+                                    <input type="file" accept=".png" hidden onChange={handleProfilePic} />
                                 </div>
                             </label>
                         </ProfilePic>
                     </div>
 
-                    <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className='form-div'>
+                        <form onSubmit={handleSubmit(onSubmit)}>
 
-                    <Form>
-                        <div className='FormSpace FormInputDivide'>
-                            <div className='InputWidth'>
-                                <label htmlFor='' className='Label'>Name</label>
-                                <input type="text" placeholder='Name' className='FormInput'
-                                  {...register("fullName",{required:"name is req"})} />
-                            </div>
-                              <div className='FormError'>
-                                {errors.location && <p>Location is required.</p>}
-                            </div>
+                            <Form>
+                                <div className='FormSpace FormInputDivide'>
+                                    <div className='InputWidth'>
+                                        <label htmlFor='' className='Label'>Name</label>
+                                        <input type="text" placeholder='Name' className='FormInput'
+                                            {...register("fullName", { required: "name is req" })} />
+                                    </div>
+                                    <div className='FormError'>
+                                        {errors.location && <p>Location is required.</p>}
+                                    </div>
 
-                            <div className='InputWidth'>
-                                <label htmlFor='' className='Label'>Email</label>
-                                <input type="email" placeholder='Email' className='FormInput'  readOnly 
-                                  {...register("email")}/>
-                            </div>
-                        </div>
+                                    <div className='InputWidth'>
+                                        <label htmlFor='' className='Label'>Email</label>
+                                        <input type="email" placeholder='Email' className='FormInput' readOnly
+                                            {...register("email")} />
+                                    </div>
+                                </div>
 
-                        <div className='FormSpace'>
-                            <label htmlFor='' className='Label'>Phone Number</label>
-                            <input type="tel" placeholder='Number' className='FormInput'
-                              {...register("phoneNumber")}/>
-                        </div>
+                                <div className='FormSpace'>
+                                    <label htmlFor='' className='Label'>Phone Number</label>
+                                    <input type="tel" placeholder='Number' className='FormInput'
+                                        {...register("phoneNumber")} />
+                                </div>
 
-                        <button type='submit' className='FormBtn'>Save Changes</button>
-                    </Form>
+                                <button type='submit' className='FormBtn'>Save Changes</button>
+                            </Form>
 
-                    </form>
+                        </form>
 
                     </div>
-
-
                 </div>
 
                 {/* <div className='ChangePassworddiv'>
@@ -196,7 +194,7 @@ const AdminProfile = () => {
                     </form>
                 </div> */}
 
-                <ChangePasswordComp/>
+                <ChangePasswordComp />
 
             </Main>
 

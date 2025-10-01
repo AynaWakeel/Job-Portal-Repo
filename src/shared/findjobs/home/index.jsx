@@ -11,40 +11,81 @@ import { useNavigate } from 'react-router'
 import MainJobs from '../../../components/main-jobs'
 import CustomSelect from '../../../components/custome-select'
 import Select from 'react-select';
+import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
+import { Controller, useForm } from 'react-hook-form'
 
 const FindJob = () => {
+  const {
+    control
+  } = useForm()
 
-  //  const [industryOptions, setIndustryOptions] = useState([]);
-  
-    const [selected, setSelected] = useState(null);
-    const indOptions = [
-      { value: "business", label: "Business / For-Profit Company" },
-      { value: "nonprofit", label: "Nonprofit / Charity" },
-      { value: "government", label: "Government / Public Sector" },
-      { value: "social-enterprise", label: "Social Enterprise / B-Corporation" },
-      { value: "education", label: "Educational Institution" },
-      { value: "partnership", label: "Partnership" },
-      { value: "sole-proprietorship", label: "Sole Proprietorship" },
-      { value: "llc", label: "Limited Liability Company (LLC)" },
-      { value: "cooperative", label: "Cooperative" },
-      { value: "state-owned", label: "State-Owned Enterprise" },
+  const [industryOptions, setIndustryOptions] = useState([])
+  const [locationOptions, setLocationOptions] = useState([])
+
+  const fetchLocation = async () => {
+    const res = await Applicant_Endpoints.get_location()
+    if (res?.data) {
+      const options = res.data.map((items) => ({
+        value: items.id,
+        label: items.name
+      }))
+      setLocationOptions(options)
+    }
+  }
+
+  const fetchIndustry = async () => {
+    const res = await Applicant_Endpoints.get_industry()
+    if (res?.data) {
+      const options = res.data.map((items) => ({
+        value: items.id,
+        label: items.name
+      }))
+      setIndustryOptions(options)
+    }
+  }
+
+  useEffect(() => {
+    fetchIndustry()
+    fetchLocation()
+  }, [])
+
+   const [experienceSelected, setExperienceSelected] = useState(null)
+    const experienceOptions = [
+     
+      { value: "Freshers", label: "Freshers" },
+      { value: "1-2", label: "1 - 2 Years" },
+      { value: "2-4", label: "2 - 4 Years" },
+      { value: "4-6", label: "4 - 6 Years" },
+      { value: "6-8", label: "6 - 8 Years" },
+      { value: "8-10", label: "8 - 10 Years" },
+      { value: "10-15", label: "10 - 15 Years" },  
     ]
-  // const {
-  //   control
-  // } = useForm()
 
-  // const [industryList, setIndustryList] = useState({})
+    const [salarySelected, setSalarySelected] = useState(null)
+    const salaryOptions = [
 
-  //  useEffect(()=>{
-  //   const fetchData = async()=>{
-  //     const res = await Applicant_Endpoints.get_industry()
-  //     if(res){
-  //         setIndustryList(res)
-  //     }
-  //   }
-  //   fetchData()
-  //  },[])
-
+      { value: "50 - 1000", label: "$50 - $1000" },
+      { value: "1000 - 2000", label: "$1000 - $2000" },
+      { value: "2000 - 4000", label: "$2000 - $4000" },
+      { value: "4000 - 6000", label: "$4000 - $6000" },
+      { value: "6000 - 8000", label: "$6000 - $8000" },
+      { value: "8000 - 10000", label: "$8000 - $10000" },
+      { value: "10000 - 15000", label: "$10000 - $15000" },
+      
+    ]
+    const [jobTypeSelected, setJobTypeSelected] = useState(null)
+    const jobTypeOptions = [
+     
+      { value: "All", label: "All" },
+      { value: "Freshers", label: "Freshers" },
+      { value: "Full Time", label: "Full Time" },
+      { value: "Part Time", label: "Part Time" },
+      { value: "Internship", label: "Internship" },
+      { value: "Remote", label: "Remote" },
+      { value: "temporary", label: "temporary" },
+      { value: "Contract base", label: "Contract base" },
+      
+    ]
   const navigate = useNavigate()
   const DetailPage = () => {
     navigate('/applicant/findjobs/detail')
@@ -124,70 +165,43 @@ const FindJob = () => {
                 </div>
                 <div className='InputFlex'>
                   {/* <Map className='IconColor' /> */}
-                  {/* <input type='' placeholder='Your Location' className='Input' /> */}
-                  <Select
-                  className="inputSelect selectLibrary"
-                  classNamePrefix="selectLibrary"
-                  options={indOptions}
-                  // value={selected}
-                  // onChange={setSelected}
-                  placeholder="Location"
+                  <Controller
+                    name="location"
+                    control={control}
+                    rules={{ required: "Location is required" }}
+                    render={({ field }) => (
+                      <Select
+                        className="inputSelect selectLibrary"
+                        classNamePrefix="selectLibrary"
+                        options={locationOptions}
+                        value={locationOptions.find(opt => opt.value === field.value) || null}
+                        onChange={(val) => field.onChange(val.value)}
+                        placeholder="Location"
+                      />
+                    )}
                   />
                 </div>
 
                 <div className='SelectFlex'>
 
-                <Select
-                  className="inputSelect selectLibrary"
-                  classNamePrefix="selectLibrary"
-                  options={indOptions}
-                  value={selected}
-                  onChange={setSelected}
-                  placeholder="Select Industry"
+                  <Controller
+                    name="industryType"
+                    control={control}
+                    rules={{ required: "Industry is required" }}
+                    render={({ field }) => (
+                      <Select
+                        className="inputSelect selectLibrary"
+                        classNamePrefix="selectLibrary"
+                        options={industryOptions}
+                        value={industryOptions.find(opt => opt.value === field.value) || null}
+                        onChange={(val) => field.onChange(val.value)}
+                        placeholder="Industry Type"
+                      />
+                    )}
                   />
 
-                </div>
 
-                 {/* <Controller
-                  name="industryTypes"
-                  control={control}
-                  rules={{ required: "Industry is required" }}
-                  render={({ field }) => (
-                    <Select
-                      className="inputSelect select"
-                      classNamePrefix="select"
-                      options={industryOptions}
-                      value={industryOptions.find(opt => opt.value === field.value) || null}
-                      onChange={(val) => field.onChange(val.value)}
-                      placeholder="Industry Types"
-                    />
-                  )}
-                /> */}
-               
-                {/* <div className='SelectFlex simple-dropdown' onClick={DropdownOpen}>
-                  <div className='InputFlex'>
-                    <Layers className='IconColor' />
-                    <h3 className='Input' >Select Industry</h3>
-                  </div>
-                 
-                  {isDropdownOpen ?
-                    <Arrowup className='SelectColor' /> :
-                    <Arrowdown className='SelectColor' />
-                  }
-                  {isDropdownOpen &&
-                    <Dropdown>
-                      <ul className='options'>
-                        <li>Information Technology</li>
-                        <li>Finance & Banking</li>
-                        <li>Engineering & Manufacturing</li>
-                        <li>Marketing & Advertising</li>
-                        <li>Retail & E-commerce</li>
-                        <li>Construction & Real Estate</li>
-                        <li>Healthcare & Medical</li>
-                      </ul>
-                    </Dropdown>
-                  }
-                </div> */}
+                </div>
 
                 <div className='SelectFlex' onClick={ModalOpen}>
                   <h3 className='Input'>Advance Filters</h3>
@@ -314,41 +328,43 @@ const FindJob = () => {
                     <input type='' placeholder='Job title,Keyword..' className='Input' />
                   </div>
                   <div className='InputFlex'>
-                    {/* <Map className='IconColor' /> */}
-                    {/* <input type='' placeholder='Your Location' className='Input' /> */}
-                     <Select
-                  className="inputSelect selectLibrary"
-                  classNamePrefix="selectLibrary"
-                  options={indOptions}
-                  value={selected}
-                  onChange={setSelected}
-                  placeholder="Location"
-                  />
+                    <Controller
+                      name="location"
+                      control={control}
+                      rules={{ required: "Location is required" }}
+                      render={({ field }) => (
+                        <Select
+                          className="inputSelect selectLibrary"
+                          classNamePrefix="selectLibrary"
+                          options={locationOptions}
+                          value={locationOptions.find(opt => opt.value === field.value) || null}
+                          onChange={(val) => field.onChange(val.value)}
+                          placeholder="Location"
+                        />
+                      )}
+                    />
                   </div>
                 </div>
                 <div className='Flexrow'>
-                  <div className='SelectFlex simple-dropdown' onClick={DropdownOpen}>
+                  <div className='SelectFlex simple-dropdown'>
                     <div className='InputFlex'>
-                      <Layers className='IconColor' />
-                      <h3 className='Select' >Select Industry</h3>
+                      <Controller
+                        name="industryType"
+                        control={control}
+                        rules={{ required: "Industry is required" }}
+                        render={({ field }) => (
+                          <Select
+                            className="inputSelect selectLibrary"
+                            classNamePrefix="selectLibrary"
+                            options={industryOptions}
+                            value={industryOptions.find(opt => opt.value === field.value) || null}
+                            onChange={(val) => field.onChange(val.value)}
+                            placeholder="Industry Type"
+                          />
+                        )}
+                      />
                     </div>
-                    {isDropdownOpen ?
-                      <Arrowup className='SelectColor' /> :
-                      <Arrowdown className='SelectColor' />
-                    }
-                    {isDropdownOpen &&
-                      <Dropdown>
-                        <ul className='options'>
-                          <li>Information Technology</li>
-                          <li>Finance & Banking</li>
-                          <li>Engineering & Manufacturing</li>
-                          <li>Marketing & Advertising</li>
-                          <li>Retail & E-commerce</li>
-                          <li>Construction & Real Estate</li>
-                          <li>Healthcare & Medical</li>
-                        </ul>
-                      </Dropdown>
-                    }
+
                   </div>
                   <div className='SelectFlex advance-dropdown' onClick={TabletModalOpen}>
                     <div className='InputFlex'>
@@ -373,7 +389,15 @@ const FindJob = () => {
 
                 <div className='SearchOptions'>
                   <div className='Flexrow'>
-                    <div className='SelectFlex simple-dropdown' onClick={ExperienceDropdownOpen}>
+                    <Select
+                      className="inputSelect advanceSelect"
+                      classNamePrefix="advanceSelect"
+                      options={experienceOptions}
+                      value={experienceSelected}
+                      onChange={setExperienceSelected}
+                      placeholder="Experience"
+                    />
+                    {/* <div className='SelectFlex simple-dropdown' onClick={ExperienceDropdownOpen}>
                       <div className='InputFlex'>
                         <h3 className='Select' >Experience</h3>
                       </div>
@@ -394,11 +418,19 @@ const FindJob = () => {
                           </ul>
                         </SubDropdown>
                       }
-                    </div>
+                    </div> */}
 
                   </div>
                   <div className='Flexrow'>
-                    <div className='SelectFlex simple-dropdown' onClick={SalaryDropdownOpen}>
+                     <Select
+                      className="inputSelect advanceSelect"
+                      classNamePrefix="advanceSelect"
+                      options={salaryOptions}
+                      value={salarySelected}
+                      onChange={setSalarySelected}
+                      placeholder="Salary"
+                    />
+                    {/* <div className='SelectFlex simple-dropdown' onClick={SalaryDropdownOpen}>
                       <div className='InputFlex'>
                         <h3 className='Select' >Salary</h3>
                       </div>
@@ -419,11 +451,19 @@ const FindJob = () => {
                           </ul>
                         </SubDropdown>
                       }
-                    </div>
+                    </div> */}
 
                   </div>
                   <div className='Flexrow'>
-                    <div className='SelectFlex simple-dropdown' onClick={JobTypeDropdownOpen}>
+                     <Select
+                      className="inputSelect advanceSelect"
+                      classNamePrefix="advanceSelect"
+                      options={jobTypeOptions}
+                      value={jobTypeSelected}
+                      onChange={setJobTypeSelected}
+                      placeholder="Job Type"
+                    />
+                    {/* <div className='SelectFlex simple-dropdown' onClick={JobTypeDropdownOpen}>
                       <div className='InputFlex'>
                         <h3 className='Select' >Job Type</h3>
                       </div>
@@ -444,7 +484,7 @@ const FindJob = () => {
                           </ul>
                         </SubDropdown>
                       }
-                    </div>
+                    </div> */}
 
                   </div>
 

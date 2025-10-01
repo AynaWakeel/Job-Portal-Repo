@@ -13,7 +13,7 @@ const RecruiterPostaJob = () => {
 
   const [isEdit, setIsEdit] = useState(null);
   const [industryOptions, setIndustryOptions] = useState([])
-  const [locationOptions, setLocationOptions] = useState([]);
+  const [locationOptions, setLocationOptions] = useState([])
   const location = useLocation()
  const jobId = location?.state?.jobId || null;
 

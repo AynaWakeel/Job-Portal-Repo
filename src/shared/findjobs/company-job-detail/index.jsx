@@ -19,8 +19,10 @@ import ApplyModal from '../../../components/apply-job-modal'
 import Company from '../../../assets/images/Logo.png'
 import { useLocation, useParams } from 'react-router'
 import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
+import Loader from '../../../components/loading-spinner'
 
 const CompanyJobDetail = () => {
+     const [isLoading, setIsLoading] =  useState(true)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const PopupModal = () => {
         setIsModalOpen(!isModalOpen)
@@ -43,6 +45,7 @@ const CompanyJobDetail = () => {
             if (res?.data?.job) {
                 console.log(id,":id")
                 setJobData(res.data.job)
+                setIsLoading(false)
                 setCompanyData(res.data.job.company)
             }
            
@@ -50,6 +53,8 @@ const CompanyJobDetail = () => {
         if (id) fetchData()
 
     }, [id])
+
+     if(isLoading) return <Loader/>
 
     return (
         <div>
@@ -86,11 +91,21 @@ const CompanyJobDetail = () => {
                     <div className='profile-flex-col'>
                         {!hideContent &&
                             <div className='Right-side'>
+                                {jobData.status === "active" &&
+
+                                <>
+                                
                                 <span className='Box'><FavIcon className='Color' /></span>
+                                
                                 <button className='CardBtn' onClick={PopupModal}>
                                     <span>Apply Now</span>
                                     <ArrowIcon className='IconColor' />
                                 </button>
+
+                                </>
+
+                               
+                               }
                                 {isModalOpen &&
                                     <ApplyModal jobId={jobData.id} onClose={() => setIsModalOpen(false)} />
                                 }

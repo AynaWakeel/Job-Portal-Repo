@@ -273,10 +273,11 @@ margin-top: 20px;
 
 .selectLibrary__control {
     outline: none;
+    border: none !important;
   min-height: 40px !important;
-  width: 245px !important;
+  min-width: 245px !important;
+   /* max-width: 355px !important; */
   /* min-width: 150px !important; */
-  border: none !important;
 }
 
 .selectLibrary__control--is-focused {
@@ -574,6 +575,73 @@ padding-inline: 20px;
 .SelectColor:active{
     color: var(--purple-600);
 }
+
+//---------- tablet select lib
+
+.selectLibrary{
+    /* width: 200px; */
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 400;
+    width: 100%;
+    color: var(--purple-200);
+    caret-color: var(--purple-300);
+    font-family: var(--poppin);
+}
+
+.inputSelect{
+   font-size: 15px;
+    font-weight: 400;
+    color: var(--purple-200);
+    caret-color: var(--purple-300);
+    font-family: var(--poppin);
+}
+
+
+.selectLibrary__control {
+  outline: none;
+ border: none !important;
+  min-height: 40px !important;
+min-width: 240px !important;
+  
+  @media ${devices.mobile} {
+      
+      min-width: 300px !important;
+  }
+
+}
+
+.selectLibrary__control--is-focused {
+  border-color: var(--white-250) !important;
+  box-shadow: 0 0 0 1px var(--white-250);
+}
+
+.selectLibrary__control:hover {
+  border-color: var(--white-250) !important;
+}
+
+
+.selectLibrary__menu{
+    padding: 0px;
+}
+
+.selectLibrary__option{
+background-color: #c3b9d1ff;
+}
+
+.selectLibrary__option--is-selected {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--purple-200);
+    font-family: var(--poppin);
+}
+
+.selectLibrary__option--is-focused {
+  background-color: var(--purple-70);
+}
+
 `
 
 //-------------------------- tablet search modal
@@ -596,7 +664,7 @@ export const TabletSearchModal = styled.div`
     margin: auto;        
     width:240px;          
     max-width: 340px;     
-    top: 545px;            
+    top: 580px;            
     position: absolute;  
 }
 
@@ -666,6 +734,76 @@ width: 100%;
 .advance-dropdown{
     position: relative;
 }
+
+//---------- tablet search modal select lib
+
+.advanceSelect{
+    /* width: 200px; */
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 400;
+    width: 100%;
+    color: var(--purple-200);
+    caret-color: var(--purple-300);
+    font-family: var(--poppin);
+    /* background-color: #9e69e9ff; */
+}
+
+.inputSelect{
+   font-size: 15px;
+    font-weight: 400;
+    color: var(--purple-200);
+    caret-color: var(--purple-300);
+    font-family: var(--poppin);
+}
+
+
+.advanceSelect__control {
+  outline: none;
+ border: none !important;
+  min-height: 40px !important;
+min-width: 240px !important;
+background-color: #b39ed1ff;
+color: var(--white-50);
+  
+  @media ${devices.mobile} {
+      
+      min-width: 300px !important;
+  }
+
+}
+
+.advanceSelect__control--is-focused {
+  border-color: var(--white-250) !important;
+  box-shadow: 0 0 0 1px var(--white-250);
+}
+
+.advanceSelect__control:hover {
+  border-color: var(--white-250) !important;
+}
+
+
+.advanceSelect__menu{
+    padding: 0px;
+}
+
+.advanceSelect__option{
+background-color: #c3b9d1ff;
+}
+
+.advanceSelect__option--is-selected {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--purple-200);
+    font-family: var(--poppin);
+}
+
+.advanceSelect__option--is-focused {
+  background-color: var(--purple-70);
+}
+
 
 `
 
