@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { useRecruiter } from '../../useRecruiter'
 import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints'
 import { showError, showSuccess } from '../../../../../components/toasters'
+import TwoFactorComp from '../../../../../components/two-factor-comp'
 
 const RecruiterAccountSetting = () => {
   const {
@@ -109,6 +110,8 @@ const RecruiterAccountSetting = () => {
             </Form>
           </form>
         </div>
+
+        <TwoFactorComp/>
 
 
         <div className='ChangePassworddiv'>

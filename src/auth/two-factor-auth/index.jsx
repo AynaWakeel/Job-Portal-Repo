@@ -1,55 +1,54 @@
-import React from 'react'
-import { FormDiv, QrForm } from './style'
-import ScanCode from '../../components/qrcode'
-import { useForm } from 'react-hook-form'
+// import React from 'react'
+// import { FormDiv, QrForm } from './style'
+// import { useForm } from 'react-hook-form'
 
-const TwoFactorAuth = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm()
+// const TwoFactorAuth = () => {
+//     const {
+//         register,
+//         handleSubmit,
+//         formState: { errors },
+//     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+//     const onSubmit = (data) => console.log(data)
 
-    return (
-        <div>
+//     return (
+//         <div>
 
-            <FormDiv>
-                <div className='FormBox'>
-                    <h1 className='FormH1'>Two Factor Authentication</h1>
+//             <FormDiv>
+//                 <div className='FormBox'>
+//                     <h1 className='FormH1'>Two Factor Authentication</h1>
 
-                    <div className='middiv'>
-                        <div className='QRBox'>
-                            <ScanCode />
-                        </div>
-                    </div>
+//                     <div className='middiv'>
+//                         <div className='QRBox'>
+//                             
+//                         </div>
+//                     </div>
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
+//                     <form onSubmit={handleSubmit(onSubmit)}>
 
 
-                        <QrForm>
-                            <div className='Formdiv'>
-                                <div className='flex-col'>
-                                    {/* <label htmlFor='' className='Label'>Code</label> */}
-                                    <input type="" placeholder='Code' className='qrInput'
-                                        {...register("code", { required: 'enter your password' })} />
-                                    <div className='FormError'>
-                                        {errors.code && <span>Code is required</span>}
-                                    </div>
+//                         <QrForm>
+//                             <div className='Formdiv'>
+//                                 <div className='flex-col'>
+//                                     {/* <label htmlFor='' className='Label'>Code</label> */}
+//                                     <input type="" placeholder='Code' className='qrInput'
+//                                         {...register("code", { required: 'enter your password' })} />
+//                                     <div className='FormError'>
+//                                         {errors.code && <span>Code is required</span>}
+//                                     </div>
 
-                                    <button type='submit' className='Btn'>Enter</button>
+//                                     <button type='submit' className='Btn'>Enter</button>
 
-                                </div>
-                            </div>
+//                                 </div>
+//                             </div>
 
-                        </QrForm>
-                    </form>
-                </div>
-            </FormDiv>
+//                         </QrForm>
+//                     </form>
+//                 </div>
+//             </FormDiv>
 
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
-export default TwoFactorAuth
+// export default TwoFactorAuth

@@ -2,29 +2,78 @@ import React, { useEffect, useState } from 'react'
 import { Form, QrForm, SettingDiv } from './style'
 import { ReactComponent as EyeIcon } from '../../assets/icons/eye.svg'
 import { ReactComponent as EyeClose } from '../../assets/icons/eye-close.svg'
-import ScanCode from '../../components/qrcode'
 import ReactSwitch from 'react-switch'
 import { useForm } from 'react-hook-form'
 import { showError } from '../../components/toasters'
 import { useApplicant } from '../../shared/dashboard/applicant/useApplicant'
+import { useAuthentication } from '../../shared/dashboard/useAuthentication'
+// import QRCode from 'react-qr-code'
 
 const TwoFactorComp = () => {
-     const [isChecked, setIsChecked] = useState(false)
-        const handleChange = nextChecked => {
-            setIsChecked(nextChecked);
+    const {
+        register,
+        handleSubmit
+    } = useForm()
+
+    const { Enable, Verify, Disable } = useAuthentication()
+
+    const [isChecked, setIsChecked] = useState(false)
+    const [qrCode, setQrCode] = useState()
+    // const handleChange = nextChecked => {
+    //     setIsChecked(nextChecked)
+
+    //     if(nextChecked){
+    //         handleAdd({})
+    //     }else{
+    //         handleRemove({})
+    //     }
+    // }
+
+    const handleAdd = async () => {
+        const res = await Enable()
+        console.log("enable:", res);
+
+        if (res?.qrCode) {
+            setQrCode(res.qrCode)
+            console.log("enable", res.qrCode)
         }
-   
+        setIsChecked(true)
+    }
+
+    const onSubmit = (data) => {
+        Verify(data)
+        console.log("verify", data);
+    }
+
+    const handleRemove = async () => {
+        await Disable()
+        setIsChecked(false)
+        setQrCode("")
+        console.log("disable");
+    }
+
+    // useEffect(()=>{
+    //     const fetchData = async()=>{
+    //         await 
+    //     }
+    // },[])
+
     return (
         <div>
             <SettingDiv>
-              
+
                 <div className='Gapdiv '>
                     <h1 className='TopHeading'>Two Factor Authentication</h1>
-                    {/* <span className='SubHeading'>You want to on two factor authentication?</span> */}
                     <div>
                         <ReactSwitch
                             checked={isChecked}
-                            onChange={handleChange}
+                            onChange={(nextChecked) => {
+                                if (nextChecked) {
+                                    handleAdd()
+                                } else {
+                                    handleRemove()
+                                }
+                            }}
                             onColor="#86d3ff"
                             onHandleColor="#2693e6"
                             handleDiameter={24}
@@ -42,15 +91,25 @@ const TwoFactorComp = () => {
                         (<div>
                             <div className='middiv'>
                                 <div className='QRBox'>
-                                    <ScanCode />
+                                   
+
+                                    <img
+                                        src={qrCode}
+                                        alt="QR Code"
+                                         style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                                        // style={{ width: 280, height: 280 }}
+                                    />
                                 </div>
                             </div>
                             <QrForm>
                                 <div className='Formdiv'>
                                     <div className='flex-col'>
-                                        {/* <label htmlFor='' className='Label'>Code</label> */}
-                                        <input type="" placeholder='Code' className='qrInput' />
-                                        <button type='submit' className='Btn'>Save</button>
+                                        <form onSubmit={handleSubmit(onSubmit)}>
+
+                                            <input type="number" placeholder='Code' className='qrInput' {...register("token")} />
+                                            <button type='submit' className='Btn'>Save</button>
+
+                                        </form>
 
                                     </div>
                                 </div>
@@ -65,7 +124,7 @@ const TwoFactorComp = () => {
                     }
 
                 </div>
-             
+
             </SettingDiv>
         </div>
     )
