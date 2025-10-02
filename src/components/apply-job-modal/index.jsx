@@ -16,6 +16,8 @@ const ApplyModal = ({ jobId , onClose }) => {
 
     const onSubmit = (data) =>{
         apply_job_by_id(jobId,data)
+        console.log(jobId, data, "from apply job");
+        
     }
 
     const Modules = {
@@ -43,8 +45,9 @@ const ApplyModal = ({ jobId , onClose }) => {
                         <Controller
                           name='coverLetter'
                           control={control}
+                          defaultValue=""
                           render={(field)=>(                             
-                              <ReactQuill theme="snow" modules={Modules} className='Quillbar' value={field.value} />
+                              <ReactQuill theme="snow" modules={Modules} className='Quillbar' value={field.value}  onChange={field.onChange} />
                           )}
                         />
                     </div>

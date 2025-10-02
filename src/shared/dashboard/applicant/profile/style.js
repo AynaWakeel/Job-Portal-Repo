@@ -14,6 +14,7 @@ margin: auto;
 
 .banner{
     width: 99vw;
+     height: 50vh;
 }
 
 .banner img{

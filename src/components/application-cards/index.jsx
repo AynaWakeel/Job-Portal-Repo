@@ -53,7 +53,9 @@ const ApplicationCards = () => {
             <CompanyCards>
                 <div className='CardDiv'>
                     <div className='Grid'>
-                        {applicants.map((items) => (
+                        {applicants.length > 0 ?
+                        
+                        applicants.map((items) => (
                             <div className='Card' key={items.id}>
                                 <div className='flex'>
                                     <div className='CardFlex'>
@@ -81,7 +83,16 @@ const ApplicationCards = () => {
                                     </h4>
                                 </div>
                             </div>
-                        ))}
+                        ))
+
+                        :
+
+                        (
+                            <h3 className='Heading'>No Data Found</h3>
+                        )
+                    
+                    
+                    }
 
                     </div>
                 </div>

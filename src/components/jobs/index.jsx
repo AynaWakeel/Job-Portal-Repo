@@ -14,7 +14,7 @@ import Loader from '../loading-spinner'
 
 const Jobs = () => {
     const [isLoading, setIsLoading] = useState(true)
-    const [isSelected, setIsSelected] = useState([])
+    // const [isSelected, setIsSelected] = useState([])
     const [jobData, setJobData] = useState([])
     const [savedJobData , setSavedJobData] = useState([])
 

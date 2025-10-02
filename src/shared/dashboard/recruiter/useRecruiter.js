@@ -87,9 +87,9 @@ export const useRecruiter = () => {
         }
     }
 
-     const shortlist_applicant_by_id = async(applicationId, body)=>{
+     const change_applicantion_Status_by_id = async(applicationId, body)=>{
 
-        const response = await Recruiter_Endpoints.put_shortlist_applicant_by_id(applicationId , body)
+        const response = await Recruiter_Endpoints.put_applicantion_Status_by_id(applicationId , body)
         
         if (response?.message) {
             showSuccess(response.message);
@@ -123,5 +123,5 @@ export const useRecruiter = () => {
     }
 
 
-    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job , change_recruiter_password , shortlist_applicant_by_id , have_reported_job_by_id , edit_post_job_by_id }
+    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job , change_recruiter_password , change_applicantion_Status_by_id , have_reported_job_by_id , edit_post_job_by_id }
 }

@@ -7,14 +7,16 @@ import Profile from '../../assets/images/Ellipse 18.png'
 import { useLocation, useNavigate } from 'react-router'
 import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 import { useRecruiter } from '../../shared/dashboard/recruiter/useRecruiter'
+import Loader from '../loading-spinner'
 
 const Shortlist = () => {
     const location = useLocation()
     const jobId = location.state.jobId
     const navigate = useNavigate()
     const [applicants, setApplicants] = useState([])
+    const [isLoading, setIsLoading] = useState()
 
-     const { shortlist_applicant_by_id } = useRecruiter()
+    const { change_applicantion_Status_by_id } = useRecruiter()
 
     const fetchData = async () => {
         if (!jobId) return;
@@ -24,12 +26,13 @@ const Shortlist = () => {
 
         if (res?.data?.shortlisted) {
             setApplicants(res.data.shortlisted)
+            setIsLoading(false)
             console.log(res.data.shortlisted, "shortlist")
         }
     }
 
     const onLike = async (applicationId, newStatus) => {
-        const res = await shortlist_applicant_by_id(applicationId, { status: newStatus})
+        const res = await change_applicantion_Status_by_id(applicationId, { status: newStatus})
         if (res) {
             setApplicants(prev =>
                 prev.map(app =>
@@ -48,12 +51,17 @@ const Shortlist = () => {
     const gotoProfile = (applicationId) => {
         navigate('/recruiter/dashboard/applicate-profile' , {state:{jobId , applicationId}})
     }
+
+    if(isLoading) return <Loader/>
+
     return (
         <div>
             <CompanyCards>
                 <div className='CardDiv'>
                     <div className='Grid'>
-                        {applicants.map((items) => (
+                        {applicants.length > 0 ?
+                        
+                        applicants.map((items) => (
                             <div className='Card'  key={items.id}>
                                 <div className='flex'>
                                     <div className='CardFlex'>
@@ -81,7 +89,15 @@ const Shortlist = () => {
                                     </h4>
                                 </div>
                             </div>
-                        ))}
+                        ))
+
+                        :
+
+                        (
+                            <h3 className='Heading'>No Data Found</h3>
+                        )
+                        
+                        }
 
                     </div>
                 </div>

@@ -103,9 +103,9 @@ export const useAdmin = () => {
         }
     }
 
-    const delete_industry_by_id = async(id,body) =>{
+    const delete_industry_by_id = async(id) =>{
 
-        const response = await Admin_Endpoints.delete_industry(id,body)
+        const response = await Admin_Endpoints.delete_industry(id)
         const {message} = response
         if(response){
             showSuccess(message)
@@ -125,9 +125,9 @@ export const useAdmin = () => {
         }
     }
 
-    const delete_location_by_id = async(id,body) =>{
+    const delete_location_by_id = async(id) =>{
 
-        const response = await Admin_Endpoints.delete_location(id,body)
+        const response = await Admin_Endpoints.delete_location(id)
         const {message} = response
         if(response){
             showSuccess(message)

@@ -17,7 +17,6 @@ import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints'
 
 const ViewProfileApplications = () => {
   const [profile, setProfile] = useState({})
-  // const {jobId, applicationId} = useParams()
   const location = useLocation()
   const jobId = location.state.jobId
    const applicationId = location.state.applicationId
@@ -35,7 +34,6 @@ const ViewProfileApplications = () => {
     }
   }, [jobId, applicationId])
 
-  // const location = useLocation()
 
   const ContentPage = ['/admin/dashboard/profile']
   const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
