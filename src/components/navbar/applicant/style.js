@@ -29,7 +29,7 @@ box-shadow: 0px 0px 5px var(--purple-50);
     display: flex;
     justify-content: end;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     
     @media ${devices.mobile}{
         display: none;
@@ -202,6 +202,11 @@ z-index: 999;
 
 @media ${devices.mobile}{
     display: none;
+}
+
+@media ${devices.tablet}{
+    top: 65px;
+   right: 50px;
 }
 
 .Navright{

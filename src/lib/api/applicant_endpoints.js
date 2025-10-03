@@ -20,6 +20,7 @@ export const Applicant_Endpoints = {
     get_all_jobs: async () => await getData("/api/jobpost"),
     get_applied_jobs: async () => await getData("/api/application/my-applications"),
     get_job_detail_by_id: async (id) => await getData(`/api/jobpost/getJobDetail/${id}`),
+    get_job_match_score_by_id: async (jobId) => await getData(`/api/matchScore/jobs/${jobId}/match`),
     post_apply_job: async(id,body)=> await postData(`/api/application/jobs/${id}/apply`, body),
    
     //-----fav-jobs

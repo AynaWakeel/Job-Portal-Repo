@@ -13,8 +13,8 @@ const UseAuth = () => {
 
         const { sucess, message, user } = response
         if (sucess) {
-            localStorage.setItem('token',response.token)
-             localStorage.setItem('role',response.user.role)
+            localStorage.setItem('token', response.token)
+            localStorage.setItem('role', response.user.role)
             showSuccess(message);
 
             if (user.role === ROLE.RECRUITER) {
@@ -23,11 +23,11 @@ const UseAuth = () => {
 
             } else if (user.role === ROLE.APPLICANT) {
                 navigate('/applicant/dashboard/overview');
-                 console.log(response.user.role)
+                console.log(response.user.role)
 
             } else if (user.role === ROLE.ADMIN) {
                 navigate('/admin/dashboard/overview');
-                 console.log(response.user.role)
+                console.log(response.user.role)
             }
 
         } else {
@@ -37,17 +37,17 @@ const UseAuth = () => {
 
     }
 
-    const signin_google = async({token}) => {
-        const res = await ApiEndPoints.google_signin({token})
-        if(res){
+    const signin_google = async ({ token }) => {
+        const res = await ApiEndPoints.google_signin({ token })
+        if (res) {
             localStorage.setItem("token", res.token)
             // localStorage.setItem("role", res.role)
             return res
-        }else{
+        } else {
             console.log("err")
             return null
         }
-        
+
     }
 
 
@@ -76,26 +76,26 @@ const UseAuth = () => {
 
     }
 
-     const send_otp = async ({email, type}) => {
-        
-         const response = await ApiEndPoints.otp({email, type})
-         const { message } = response
-         if (response) {
-             showSuccess(message);
-             return response
- 
-         } else {
-             showError(message);
-             return null
-         }
+    const send_otp = async ({ email, type }) => {
+
+        const response = await ApiEndPoints.otp({ email, type })
+        const { message } = response
+        if (response) {
+            showSuccess(message);
+            return response
+
+        } else {
+            showError(message);
+            return null
+        }
 
     }
 
-     const verify_otp = async ({email, otpCode, type}) => {
+    const verify_otp = async ({ email, otpCode, type }) => {
 
-        const response = await ApiEndPoints.otp({email, otpCode, type})
+        const response = await ApiEndPoints.otp({ email, otpCode, type })
 
-        const {message } = response
+        const { message } = response
         if (response) {
             showSuccess(message);
             return response
@@ -108,23 +108,42 @@ const UseAuth = () => {
     }
 
 
-    const reset_password = async ({newPassword, tempToken}) => {
+    // const reset_password = async ({newPassword, tempToken}) => {
 
-        const body = { newPassword }
-        if( tempToken ) body.tempToken = tempToken
-        const response = await ApiEndPoints.reset_password(body)
+    //     const body = { newPassword }
+    //     if( tempToken ) body.tempToken = tempToken
+    //     const response = await ApiEndPoints.reset_password(body)
 
-        const { message } = response
-        if (response) {
-            showSuccess(message);
+    //     const { message } = response
+    //     if (response) {
+    //         showSuccess(message);
+    //         return response
 
-        } else {
-            showError(message);
+    //     } else {
+    //         showError(message);
+    //         return null
+    //     }
+    // }
+
+    const reset_password = async ({ newPassword, tempToken }) => {
+        try {
+            const body = { newPassword }
+            if (tempToken) body.tempToken = tempToken;
+
+            const response = await ApiEndPoints.reset_password(body);
+
+            showSuccess(response.message);
+            return true
+        } catch (error) {
+            const msg = error?.response?.data?.message || "Reset failed";
+            showError(msg);
+            return false
         }
-    }
+    };
 
 
-    return { login, signin_google, logout, signup ,send_otp , verify_otp, reset_password}
+
+    return { login, signin_google, logout, signup, send_otp, verify_otp, reset_password }
 }
 
 export default UseAuth

@@ -48,7 +48,7 @@ const AdminProfile = () => {
         if (file) {
             const picData = new FormData()
             picData.append("profilepic", file)
-            upload_admin_photo(picData);
+            upload_admin_photo(picData)
         }
     }
 
@@ -139,60 +139,6 @@ const AdminProfile = () => {
 
                     </div>
                 </div>
-
-                {/* <div className='ChangePassworddiv'>
-                    <h1 className='Title'>Change Password</h1>
-
-                    <form onSubmit={handleSubmit(handleChangepassword)}>
-
-                    <Form>
-                        <div className='FormSpace FormInputDivide'>
-                            <div className='InputWidth'>
-                                <label htmlFor='' className='Label'>Current Password</label>
-                                <input type={isPasswordVisible ? "text" : "password"} placeholder='Current Password' className='FormInput' {...register("oldPassword",{required:"oldPassword is required."})}/>
-                                <div onClick={PasswordVisibility}>
-                                    {isPasswordVisible ?
-                                        <EyeIcon className='eyeimg' /> :
-                                        <EyeClose className='eyeimg' />
-                                    }
-                                </div>
-                              <div className='FormError'>
-                                {errors.oldPassword && <p>oldPassword is required.</p>}
-                            </div>
-                            </div>
-                            <div className='InputWidth'>
-                                <label htmlFor='' className='Label'>New Password</label>
-                                <input type={isNewPasswordVisible ? "text" : "password"} placeholder='New Password' className='FormInput'  {...register("newPassword",{required:"New Password is required."})} />
-                                <div onClick={NewPasswordVisibility}>
-                                    {isNewPasswordVisible ?
-                                        <EyeIcon className='eyeimg' /> :
-                                        <EyeClose className='eyeimg' />
-                                    }
-                                </div>
-                              <div className='FormError'>
-                                {errors.newPassword && <p>newPassword is required.</p>}
-                            </div>
-                            </div>
-                            <div className='InputWidth'>
-                                <label htmlFor='' className='Label'>Confirm Password</label>
-                                <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput' {...register("confirmPassword",{required:"Confirm Password is required."})} />
-                                <div onClick={ConfirmationVisibility}>
-                                    {isConfirmationVisible ?
-                                        <EyeIcon className='eyeimg' /> :
-                                        <EyeClose className='eyeimg' />
-                                    }
-                                </div>
-                              <div className='FormError'>
-                                {errors.confirmPassword && <p>confirmPassword is required.</p>}
-                            </div>
-                            </div>
-                        </div>
-
-                        <button type='submit' className='FormBtn'>Save Changes</button>
-                    </Form>
-
-                    </form>
-                </div> */}
 
                 <ChangePasswordComp />
 

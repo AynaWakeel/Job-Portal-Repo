@@ -87,7 +87,7 @@ const Jobs = () => {
 
                                             <h4 className='FlexIcon'>
                                                 <span><img src={Map} /></span>
-                                                <span className='SubHeading'>{items.location}</span>
+                                                <span className='SubHeading'>{items.locationId}</span>
                                             </h4>
                                             <h4 className='FlexIcon'>
                                                 <span><img src={Currency} /></span>

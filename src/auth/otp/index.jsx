@@ -3,6 +3,7 @@ import { Form, FormDiv, TextDiv } from './style'
 import { useLocation, useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
+import { showError } from '../../components/toasters'
 
 const Otp = () => {
     const {state} = useLocation()
@@ -22,7 +23,7 @@ const Otp = () => {
     const onSubmit = async(data)=>{ 
         const otpCode = data.otpCode
         if(!email){
-            return alert("email missing")
+            showError("email missing")
         }
         const res = await verify_otp({email, otpCode, type})
         if(!res) return

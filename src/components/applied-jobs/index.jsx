@@ -55,7 +55,7 @@ const AppliedJobs = () => {
                                             <div className='Inner-flex'>
                                                     <h4 className='FlexIcon'>
                                                         <span><img src={Map} /></span>
-                                                        <span className='SubHeading'>{items.job.location}</span>
+                                                        <span className='SubHeading'>{items.job.locationId}</span>
                                                     </h4>
                                                      <h4 className='FlexIcon'>
                                                         <span><img src={Currency} /></span>

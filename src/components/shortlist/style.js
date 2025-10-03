@@ -84,6 +84,10 @@ border-radius: 50%;
     font-family: var(--inter);
     padding-bottom: 5px;
     line-height: 28px;
+     max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .FlexIcon{

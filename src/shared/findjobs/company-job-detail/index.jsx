@@ -34,23 +34,34 @@ const CompanyJobDetail = () => {
     const ContentPage = ['/admin/dashboard/job-detail']
     const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
 
-    console.log(location, 'here is the location');
-
     const [jobData, setJobData] = useState({})
     const [companyData, setCompanyData] = useState({})
+     const [match, setMatch] = useState({})
+
+    const fetchData = async () => {
+        const res = await Applicant_Endpoints.get_job_detail_by_id(id)
+        if (res?.data?.job) {
+            console.log(id,":id")
+            setJobData(res.data.job)
+            setIsLoading(false)
+            setCompanyData(res.data.job.company)
+        }
+    }
+    
+    const fetchScore = async()=>{
+        const matchRes = await Applicant_Endpoints.get_job_match_score_by_id(id)
+        if(matchRes?.data?.matchScore){
+            console.log(matchRes.data.matchScore.jobId,":jobId")
+            setMatch(matchRes.data.matchScore)
+            console.log(matchRes.data.matchScore);          
+            setIsLoading(false)
+        }
+    }
 
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await Applicant_Endpoints.get_job_detail_by_id(id)
-            if (res?.data?.job) {
-                console.log(id,":id")
-                setJobData(res.data.job)
-                setIsLoading(false)
-                setCompanyData(res.data.job.company)
-            }
-           
-        }
+
         if (id) fetchData()
+        if(id) fetchScore()
 
     }, [id])
 
@@ -69,7 +80,7 @@ const CompanyJobDetail = () => {
                                 <h2 className='Name'>{jobData.title}</h2>
                                 <span className='Badge'>{jobData.jobType}</span>
                                 {!hideContent &&
-                                    <span className='Badge'>Total Job match 40%</span>
+                                    <span className='Badge'>Total Job match {match.totalMatchScore}</span>
                                 }
                             </div>
                             <div className='detail-flex'>
@@ -144,17 +155,17 @@ const CompanyJobDetail = () => {
                                     <div className='content-row'>
                                         <Calender className='IconColor' />
                                         <h2 className='Title'>Skills:</h2>
-                                        <h4 className='SubHeading'>80%</h4>
+                                        <h4 className='SubHeading'>{match.skillsMatchScore}%</h4>
                                     </div>
                                     <div className='content-row'>
                                         <Brief className='IconColor' />
                                         <h2 className='Title'>Education:</h2>
-                                        <h4 className='SubHeading'>60%</h4>
+                                        <h4 className='SubHeading'>{match.educationMatchScore}%</h4>
                                     </div>
                                     <div className='content-row'>
                                         <Timer className='IconColor' />
                                         <h2 className='Title'>Experience</h2>
-                                        <h4 className='SubHeading'>70%</h4>
+                                        <h4 className='SubHeading'>{match.experienceMatchScore}%</h4>
                                     </div>
                                 </div>
                             </div>

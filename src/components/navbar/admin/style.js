@@ -28,7 +28,7 @@ box-shadow: 0px 0px 5px var(--purple-50);
     display: flex;
     justify-content: end;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     
     @media ${devices.mobile}{
         display: none;
@@ -202,7 +202,16 @@ background-color: var(--white-50);
 }
 
 .photo{
-    border-radius: 50%;
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 50px;
+height: 50px;
+}
+
+.photo img{
+width: 50px;
+height: 50px;
+border-radius: 50%;
 }
 
 .Navlinks{
@@ -307,6 +316,11 @@ z-index: 999;
 
 @media ${devices.mobile}{
     display: none;
+}
+
+@media ${devices.tablet}{
+    top: 65px;
+   right: 50px;
 }
 
 .Navlinks{

@@ -36,6 +36,7 @@ const ResetPassword = () => {
     const { newPassword, confirmPassword} = data
     if(newPassword !== confirmPassword){
       showError('Password do not match')
+      return
     }
     const res = await reset_password({ newPassword, tempToken})
     if(res){

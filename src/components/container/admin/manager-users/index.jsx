@@ -54,11 +54,11 @@ const ManageUsers = () => {
   }, [activeRole])
 
 
-  const Opendropdown = (rowIndex) => {
-    if (isOpen === rowIndex) {
+  const Opendropdown = (id) => {
+    if (isOpen === id) {
       setIsOpen(null)
     } else {
-      setIsOpen(rowIndex)
+      setIsOpen(id)
     }
   }
 

@@ -20,6 +20,8 @@ const ForgetPassword = () => {
         console.log(res)
         if(res){
             navigate('/auth/otp',{state:{email,type: "password_reset"}})
+        }else{
+            return
         }
     }
 
