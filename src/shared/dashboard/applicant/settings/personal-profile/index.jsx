@@ -78,14 +78,27 @@ const ApplicantPersonalProfile = () => {
     console.log(data)
   }
 
-  const handleProfilePic = (e) => {
+  // const [picName, setPicName] = useState()
+
+  const handleProfilePic = async(e) => {
     const file = e.target.files[0]
     if (file) {
       const picData = new FormData()
       picData.append("profilepic", file)
-      profile_pic(picData);
+      const res = await profile_pic(picData)
+      // if(res?.data){
+      //   localStorage.setItem("profileImage, res.data.name)
+      //     setPicName(res.data.name)
+      // }
     }
   }
+
+//  useEffect(() => {
+//   const savedImage = localStorage.getItem("profileImage");
+//   if (savedImage) setPicName(savedImage);
+// }, [])
+
+
   const handleUploadResume = (e) => {
     const file = e.target.files[0]
     if (file) {

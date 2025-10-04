@@ -23,17 +23,17 @@ const Register = () => {
 
     const onSubmit = async (formData) => {
         try {
-            const signupRes = await signup(formData);
+            const signupRes = await signup(formData)
             if (!signupRes) return;
 
-            const { email } = formData;
+            const { email } = formData
 
-            const otpRes = await send_otp({ email, type: "email_verification" });
+            const otpRes = await send_otp({ email, type: "email_verification" })
             if (!otpRes) return;
-            navigate("/auth/otp", { state: { email, type: "email_verification" } });
+            navigate("/auth/otp", { state: { email, type: "email_verification" } })
 
         } catch (err) {
-            console.error("Signup failed.", err);
+            console.error("Signup failed.", err)
         }
     }
 

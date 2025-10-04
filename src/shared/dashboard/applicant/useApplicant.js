@@ -11,8 +11,10 @@ export const useApplicant = () => {
         if (response) {
             // localStorage.getItem("token", response.token)
             showSuccess(message)
+            return response
         } else {
             showError(message)
+            return null
         }
 
     }
