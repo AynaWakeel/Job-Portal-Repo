@@ -78,12 +78,12 @@ export const SettingDiv = styled.div`
 
     
 @media ${devices.tablet}{
-    font-size: 15px;
+    font-size: 15px !important;
 
 }
 
 @media ${devices.mobile}{
-    font-size: 15px;
+    font-size: 15px !important;
 }
 }
 

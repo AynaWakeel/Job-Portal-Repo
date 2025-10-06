@@ -30,7 +30,8 @@ const ResetPassword = () => {
   } = useForm()
 
   const { reset_password } = UseAuth()
-  const tempToken = state?.tempToken
+  const tempToken = state?.tempToken || localStorage.getItem("tempToken")
+
 
   const onSubmit = async(data) => {
     const { newPassword, confirmPassword} = data
@@ -38,8 +39,13 @@ const ResetPassword = () => {
       showError('Password do not match')
       return
     }
+    if (!tempToken) {
+    showError('Token and new password are required..')
+    return
+  }
     const res = await reset_password({ newPassword, tempToken})
     if(res){
+      console.log("Token sent ", tempToken);
       navigate('/auth/login', { state: { tempToken } })
     }
   }

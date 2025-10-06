@@ -14,10 +14,10 @@ const ApplicationCards = () => {
     const jobId = location.state.jobId
     const [applicants, setApplicants] = useState([])
 
-    const { shortlist_applicant_by_id } = useRecruiter()
+    const { change_applicantion_Status_by_id } = useRecruiter()
 
     const onLike = async (applicationId, newStatus) => {
-        const res = await shortlist_applicant_by_id(applicationId, { status: newStatus})
+        const res = await change_applicantion_Status_by_id(applicationId, { status: newStatus})
         if (res) {
             setApplicants(prev =>
                 prev.map(app =>

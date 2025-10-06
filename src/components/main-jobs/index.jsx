@@ -7,27 +7,27 @@ import { useNavigate } from 'react-router'
 import Loader from '../loading-spinner'
 
 
-const MainJobs = ({jobData}) => {
-    // const [isLoading, setIsLoading] = useState(true)
+const MainJobs = ({job}) => {
+    const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
     const ViewDetail = (id) => {
         navigate('/applicant/company', { state: { id } })
     }
 
-    // const [jobData, setJobData] = useState([])
+    const [jobData, setJobData] = useState([])
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const res = await Applicant_Endpoints.get_all_jobs()
-    //         if (res?.data.jobs) {
-    //             setJobData(res.data.jobs)
-    //             setIsLoading(false)
-    //         }
-    //     }
-    //     fetchData()
-    // }, [])
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await Applicant_Endpoints.get_all_jobs()
+            if (res?.data.jobs) {
+                setJobData(res.data.jobs)
+                setIsLoading(false)
+            }
+        }
+        fetchData()
+    }, [])
 
-    // if (isLoading) return <Loader />
+    if (isLoading) return <Loader />
 
     return (
         <div>

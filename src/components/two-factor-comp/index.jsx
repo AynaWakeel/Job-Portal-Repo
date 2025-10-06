@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { showError } from '../../components/toasters'
 import { useApplicant } from '../../shared/dashboard/applicant/useApplicant'
 import { useAuthentication } from '../../shared/dashboard/useAuthentication'
+import { TwoFactor_Endpoints } from '../../lib/api/twoFactor_endpoints'
 // import QRCode from 'react-qr-code'
 
 const TwoFactorComp = () => {
@@ -18,16 +19,8 @@ const TwoFactorComp = () => {
     const { Enable, Verify, Disable } = useAuthentication()
 
     const [isChecked, setIsChecked] = useState(false)
+    const [isEnabled, setIsEnabled] = useState(false)
     const [qrCode, setQrCode] = useState()
-    // const handleChange = nextChecked => {
-    //     setIsChecked(nextChecked)
-
-    //     if(nextChecked){
-    //         handleAdd({})
-    //     }else{
-    //         handleRemove({})
-    //     }
-    // }
 
     const handleAdd = async () => {
         const res = await Enable()
@@ -40,9 +33,13 @@ const TwoFactorComp = () => {
         setIsChecked(true)
     }
 
-    const onSubmit = (data) => {
-        Verify(data)
-        console.log("verify", data);
+    const onSubmit = async(data) => {
+        const res = await  Verify(data)
+        if(res?.data?.success){
+            setIsEnabled(true)
+            setQrCode("")
+            console.log("verify", data);
+        }
     }
 
     const handleRemove = async () => {
@@ -52,11 +49,18 @@ const TwoFactorComp = () => {
         console.log("disable");
     }
 
-    // useEffect(()=>{
-    //     const fetchData = async()=>{
-    //         await 
-    //     }
-    // },[])
+    useEffect(()=>{
+        const fetchData = async()=>{
+           const res = await TwoFactor_Endpoints.get_authentication_status()
+           if(res?.data?.is2FAEnabled){
+            setIsChecked(true)
+            setIsEnabled(true)
+            console.log(res.data.is2FAEnabled,"2FA");
+            
+           }
+        }
+        fetchData()
+    },[])
 
     return (
         <div>
@@ -86,7 +90,7 @@ const TwoFactorComp = () => {
                         />
                     </div>
 
-                    {isChecked ?
+                    {isChecked && !isEnabled && qrCode ?
 
                         (<div>
                             <div className='middiv'>
@@ -117,9 +121,14 @@ const TwoFactorComp = () => {
                             </QrForm>
                         </div>)
 
+                        : isChecked && isEnabled === true ?
+
+                       ( <span className='SubHeading'>You have enabled two factor authentication.</span>)
+
                         :
 
-                        <span className='SubHeading'>You want to on two factor authentication?</span>
+                       ( <span className='SubHeading'>You want to on two factor authentication?</span>)
+
 
                     }
 

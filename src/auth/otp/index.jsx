@@ -28,11 +28,20 @@ const Otp = () => {
         const res = await verify_otp({email, otpCode, type})
         if(!res) return
 
-        const tempToken = res?.tempToken || res?.data?.tempToken
-        if ( type === "password_reset"){
-            navigate('/auth/reset', {state: {email, tempToken}})
-        }else if(type == "email_verification"){
-            navigate('/auth/login')
+        const tempToken = res?.response?.tempToken
+        if(tempToken){
+            console.log("Token sent:", tempToken);
+
+            if (type === "password_reset"){
+                 localStorage.setItem("tempToken", tempToken)
+                navigate('/auth/reset', {state: {email, tempToken}})
+            }else if(type == "email_verification"){
+                navigate('/auth/login')
+            }
+
+        }else{
+            console.log("token not found");
+            
         }
     }
 

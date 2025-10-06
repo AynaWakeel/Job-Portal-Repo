@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Checkbox, ForgetDiv, Form, FormDiv, SocialMediaDiv, TextDiv } from './style'
 import google from '../../assets/icons/google-icon.svg'
 import { ReactComponent as EyeIcon } from '../../assets/icons/eye.svg'
@@ -9,10 +9,14 @@ import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from "jwt-decode";
+import { TwoFactor_Endpoints } from '../../lib/api/twoFactor_endpoints'
 
 
 const Login = () => {
     const navigate = useNavigate()
+    const [isVisible, setIsVisible] = useState(false)
+    // const [isEnabled, setIsEnabled] = useState(false)
+
     const { login, signin_google } = UseAuth();
     const {
         register,
@@ -22,6 +26,9 @@ const Login = () => {
 
     const onSubmit = (data) => {
         login(data)
+        // if(isEnabled){
+        //     navigate('/auth/two-factor-authentication')
+        // }
     }
 
     const Register = () => {
@@ -31,11 +38,22 @@ const Login = () => {
         navigate('/auth/forget')
     }
 
-    const [isVisible, setIsVisible] = useState(false)
 
     const Visibility = () => {
         setIsVisible(!isVisible)
     }
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const res = await TwoFactor_Endpoints.get_authentication_status()
+    //         if (res?.data?.is2FAEnabled) {
+    //             setIsEnabled(true)
+    //             console.log(res.data.is2FAEnabled, "2FA");
+
+    //         }
+    //     }
+    //     fetchData()
+    // }, [])
 
 
     return (
@@ -74,6 +92,7 @@ const Login = () => {
                                     {errors.password && <p>Password id required.</p>}
                                 </div>
                             </div>
+                          
                             <ForgetDiv>
                                 <span className='CheckBoxSpan'>
                                     <Checkbox type="checkbox" />Remember Me
@@ -87,17 +106,17 @@ const Login = () => {
                                 {/* <button className='MediaBtn'>
                                     <img src={google} alt="icon" className='GoogleIcon' />
                                 </button> */}
-                                    <GoogleLogin
-                                        onSuccess={async (credentialResponse) => {
-                                            const token = credentialResponse.credential;
-                                            const userInfo = jwtDecode(token);
-                                            console.log("User Info:", userInfo);
+                                <GoogleLogin
+                                    onSuccess={async (credentialResponse) => {
+                                        const token = credentialResponse.credential;
+                                        const userInfo = jwtDecode(token);
+                                        console.log("User Info:", userInfo);
 
-                                            const res = await signin_google({ token });
-                                            if (res) {
-                                                navigate('/applicant/dashboard');
-                                            }
-                                        }} />
+                                        const res = await signin_google({ token });
+                                        if (res) {
+                                            navigate('/applicant/dashboard');
+                                        }
+                                    }} />
                             </SocialMediaDiv>
                         </Form>
                     </form>

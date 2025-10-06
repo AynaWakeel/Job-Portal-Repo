@@ -100,9 +100,9 @@ export const QrForm = styled.div`
 }
 
 .Label{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
-    color: var(--dark-800);
+    color: var(--white-250);
     font-family: var(--inter);
 }
 

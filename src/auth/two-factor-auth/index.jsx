@@ -1,54 +1,74 @@
-// import React from 'react'
-// import { FormDiv, QrForm } from './style'
-// import { useForm } from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
+import { FormDiv, QrForm } from './style'
+import { useForm } from 'react-hook-form'
+import { TwoFactor_Endpoints } from '../../lib/api/twoFactor_endpoints'
+import { useAuthentication } from '../../shared/dashboard/useAuthentication'
 
-// const TwoFactorAuth = () => {
-//     const {
-//         register,
-//         handleSubmit,
-//         formState: { errors },
-//     } = useForm()
+const TwoFactorAuth = () => {
+    const [isEnabled, setIsEnabled] = useState(false)
+    const [qrCode, setQrCode] = useState()
+    const { Verify } = useAuthentication()
 
-//     const onSubmit = (data) => console.log(data)
+    
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm()
 
-//     return (
-//         <div>
+     const onSubmit = async(data) => {
+        const res = await  Verify(data)
+        if(res?.data?.success){
+            setQrCode("")
+            console.log("verify", data);
+        }
+    }
 
-//             <FormDiv>
-//                 <div className='FormBox'>
-//                     <h1 className='FormH1'>Two Factor Authentication</h1>
+    //  useEffect(() => {
+    //         const fetchData = async () => {
+    //             const res = await TwoFactor_Endpoints.get_authentication_status()
+    //             if (res?.data?.is2FAEnabled) {
+    //                 setIsEnabled(true)
+    //                 console.log(res.data.is2FAEnabled, "2FA");
+    
+    //             }
+    //         }
+    //         fetchData()
+    //     }, [])
+    
 
-//                     <div className='middiv'>
-//                         <div className='QRBox'>
-//                             
-//                         </div>
-//                     </div>
+    return (
+        <div>
 
-//                     <form onSubmit={handleSubmit(onSubmit)}>
+            <FormDiv>
+                <div className='FormBox'>
+                    <h1 className='FormH1'>Two Factor Authentication</h1>
+
+                    <form onSubmit={handleSubmit(onSubmit)}>
 
 
-//                         <QrForm>
-//                             <div className='Formdiv'>
-//                                 <div className='flex-col'>
-//                                     {/* <label htmlFor='' className='Label'>Code</label> */}
-//                                     <input type="" placeholder='Code' className='qrInput'
-//                                         {...register("code", { required: 'enter your password' })} />
-//                                     <div className='FormError'>
-//                                         {errors.code && <span>Code is required</span>}
-//                                     </div>
+                        <QrForm>
+                            <div className='Formdiv'>
+                                <div className='flex-col'>
+                                    <label htmlFor='' className='Label'>Code</label>
+                                    <input type="" placeholder='Code' className='qrInput'
+                                        {...register("token", { required: 'Enter your code' })} />
+                                    <div className='FormError'>
+                                        {errors.code && <span>Code is required</span>}
+                                    </div>
 
-//                                     <button type='submit' className='Btn'>Enter</button>
+                                    <button type='submit' className='Btn'>Enter</button>
 
-//                                 </div>
-//                             </div>
+                                </div>
+                            </div>
 
-//                         </QrForm>
-//                     </form>
-//                 </div>
-//             </FormDiv>
+                        </QrForm>
+                    </form>
+                </div>
+            </FormDiv>
 
-//         </div>
-//     )
-// }
+        </div>
+    )
+}
 
-// export default TwoFactorAuth
+export default TwoFactorAuth

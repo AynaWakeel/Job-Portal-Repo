@@ -32,7 +32,7 @@ export const Applicant_Endpoints = {
     //     return await getData(`/api/jobs/filter/search?${params.toString()}`);
     // },
 
-    // get_jobs_by_filter: async({title,locationId,industryId,experience,salary,jobType})=>await getData(`/api/jobs/filter/search?title=${title}?locationId=${locationId}?industryId=${industryId}?experience=${experience}?salary=${salary}?jobType=${jobType}`),
+    get_jobs_by_filter: async({title,locationId,industryId,experience,salary,jobType})=>await getData(`/api/jobs/filter/search?title=${title}&locationId=${locationId}&industryId=${industryId}&experience=${experience}&salary=${salary}&jobType=${jobType}`),
     get_applied_jobs: async () => await getData("/api/application/my-applications"),
     get_job_detail_by_id: async (id) => await getData(`/api/jobpost/getJobDetail/${id}`),
     get_job_match_score_by_id: async (jobId) => await getData(`/api/matchScore/jobs/${jobId}/match`),

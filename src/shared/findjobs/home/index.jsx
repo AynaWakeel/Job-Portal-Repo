@@ -31,24 +31,24 @@ const FindJob = () => {
   //   }
   // }
 
-  // const onSearch = async () => {
+  const onSearch = async () => {
 
-  //   if (searchTerm) {
-  //     const res = await Applicant_Endpoints.get_jobs_by_filter(
-  //       {
-  //       title,
-  //       locationId,
-  //       industryId,
-  //       experience,
-  //       salary,
-  //       jobType
-  //     }
-  //   )
-  //     if (res?.data) {
-  //       setJobData(res.data)
-  //     }
-  //   }
-  // }
+    if (searchTerm) {
+      const res = await Applicant_Endpoints.get_jobs_by_filter(
+        {
+        // title,
+        // locationId,
+        // industryId,
+        // experience,
+        // salary,
+        // jobType
+      }
+    )
+      if (res?.data) {
+        setJobData(res.data)
+      }
+    }
+  }
 
   const [industryOptions, setIndustryOptions] = useState([])
   const [locationOptions, setLocationOptions] = useState([])
@@ -194,7 +194,7 @@ const FindJob = () => {
                 <div className='InputFlex'>
                   <SearchIcon className='IconColor' />
                   <input type='' placeholder='Job title,Keyword..' className='Input'
-                    // onChange={(e) => setSearchTerm(e.target.value)} 
+                    onChange={(e) => setSearchTerm(e.target.value)} 
                   />
                 </div>
                 <div className='InputFlex'>
@@ -246,7 +246,7 @@ const FindJob = () => {
                 </div>
                 <div>
                   <button type='submit' 
-                  // onClick={handleSubmit(onSearch)} 
+                  onClick={handleSubmit(onSearch)} 
                   className='SearchBtn'>Find Job</button>
                 </div>
               </Searchbar>
@@ -543,7 +543,9 @@ const FindJob = () => {
             <Arrow className='IconColor' />
           </button>
         </div>
-        <MainJobs jobData={jobData} />
+        <MainJobs 
+        job={jobData} 
+        />
       </MainSec>
     </div>
   )
