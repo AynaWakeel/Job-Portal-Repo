@@ -16,8 +16,39 @@ import { Controller, useForm } from 'react-hook-form'
 
 const FindJob = () => {
   const {
-    control
+    control,
+    handleSubmit
   } = useForm()
+
+  const [searchTerm, setSearchTerm] = useState("")
+  const [jobData, setJobData] = useState([])
+
+  // const fetchJobsData = async () => {
+  //   const res = await Applicant_Endpoints.get_all_jobs()
+  //   if (res?.data.jobs) {
+  //     setJobData(res.data.jobs)
+  //     // setIsLoading(false)
+  //   }
+  // }
+
+  // const onSearch = async () => {
+
+  //   if (searchTerm) {
+  //     const res = await Applicant_Endpoints.get_jobs_by_filter(
+  //       {
+  //       title,
+  //       locationId,
+  //       industryId,
+  //       experience,
+  //       salary,
+  //       jobType
+  //     }
+  //   )
+  //     if (res?.data) {
+  //       setJobData(res.data)
+  //     }
+  //   }
+  // }
 
   const [industryOptions, setIndustryOptions] = useState([])
   const [locationOptions, setLocationOptions] = useState([])
@@ -45,47 +76,48 @@ const FindJob = () => {
   }
 
   useEffect(() => {
+    // fetchJobsData()
     fetchIndustry()
     fetchLocation()
   }, [])
 
-   const [experienceSelected, setExperienceSelected] = useState(null)
-    const experienceOptions = [
-     
-      { value: "Freshers", label: "Freshers" },
-      { value: "1-2", label: "1 - 2 Years" },
-      { value: "2-4", label: "2 - 4 Years" },
-      { value: "4-6", label: "4 - 6 Years" },
-      { value: "6-8", label: "6 - 8 Years" },
-      { value: "8-10", label: "8 - 10 Years" },
-      { value: "10-15", label: "10 - 15 Years" },  
-    ]
+  const [experienceSelected, setExperienceSelected] = useState(null)
+  const experienceOptions = [
 
-    const [salarySelected, setSalarySelected] = useState(null)
-    const salaryOptions = [
+    { value: "Freshers", label: "Freshers" },
+    { value: "1-2", label: "1 - 2 Years" },
+    { value: "2-4", label: "2 - 4 Years" },
+    { value: "4-6", label: "4 - 6 Years" },
+    { value: "6-8", label: "6 - 8 Years" },
+    { value: "8-10", label: "8 - 10 Years" },
+    { value: "10-15", label: "10 - 15 Years" },
+  ]
 
-      { value: "50 - 1000", label: "$50 - $1000" },
-      { value: "1000 - 2000", label: "$1000 - $2000" },
-      { value: "2000 - 4000", label: "$2000 - $4000" },
-      { value: "4000 - 6000", label: "$4000 - $6000" },
-      { value: "6000 - 8000", label: "$6000 - $8000" },
-      { value: "8000 - 10000", label: "$8000 - $10000" },
-      { value: "10000 - 15000", label: "$10000 - $15000" },
-      
-    ]
-    const [jobTypeSelected, setJobTypeSelected] = useState(null)
-    const jobTypeOptions = [
-     
-      { value: "All", label: "All" },
-      { value: "Freshers", label: "Freshers" },
-      { value: "Full Time", label: "Full Time" },
-      { value: "Part Time", label: "Part Time" },
-      { value: "Internship", label: "Internship" },
-      { value: "Remote", label: "Remote" },
-      { value: "temporary", label: "temporary" },
-      { value: "Contract base", label: "Contract base" },
-      
-    ]
+  const [salarySelected, setSalarySelected] = useState(null)
+  const salaryOptions = [
+
+    { value: "50 - 1000", label: "$50 - $1000" },
+    { value: "1000 - 2000", label: "$1000 - $2000" },
+    { value: "2000 - 4000", label: "$2000 - $4000" },
+    { value: "4000 - 6000", label: "$4000 - $6000" },
+    { value: "6000 - 8000", label: "$6000 - $8000" },
+    { value: "8000 - 10000", label: "$8000 - $10000" },
+    { value: "10000 - 15000", label: "$10000 - $15000" },
+
+  ]
+  const [jobTypeSelected, setJobTypeSelected] = useState(null)
+  const jobTypeOptions = [
+
+    { value: "All", label: "All" },
+    { value: "Freshers", label: "Freshers" },
+    { value: "Full Time", label: "Full Time" },
+    { value: "Part Time", label: "Part Time" },
+    { value: "Internship", label: "Internship" },
+    { value: "Remote", label: "Remote" },
+    { value: "temporary", label: "temporary" },
+    { value: "Contract base", label: "Contract base" },
+
+  ]
   const navigate = useNavigate()
   const DetailPage = () => {
     navigate('/applicant/findjobs/detail')
@@ -161,7 +193,9 @@ const FindJob = () => {
               <Searchbar>
                 <div className='InputFlex'>
                   <SearchIcon className='IconColor' />
-                  <input type='' placeholder='Job title,Keyword..' className='Input' />
+                  <input type='' placeholder='Job title,Keyword..' className='Input'
+                    // onChange={(e) => setSearchTerm(e.target.value)} 
+                  />
                 </div>
                 <div className='InputFlex'>
                   {/* <Map className='IconColor' /> */}
@@ -211,7 +245,9 @@ const FindJob = () => {
                   }
                 </div>
                 <div>
-                  <button type='submit' className='SearchBtn'>Find Job</button>
+                  <button type='submit' 
+                  // onClick={handleSubmit(onSearch)} 
+                  className='SearchBtn'>Find Job</button>
                 </div>
               </Searchbar>
 
@@ -422,7 +458,7 @@ const FindJob = () => {
 
                   </div>
                   <div className='Flexrow'>
-                     <Select
+                    <Select
                       className="inputSelect advanceSelect"
                       classNamePrefix="advanceSelect"
                       options={salaryOptions}
@@ -455,7 +491,7 @@ const FindJob = () => {
 
                   </div>
                   <div className='Flexrow'>
-                     <Select
+                    <Select
                       className="inputSelect advanceSelect"
                       classNamePrefix="advanceSelect"
                       options={jobTypeOptions}
@@ -507,7 +543,7 @@ const FindJob = () => {
             <Arrow className='IconColor' />
           </button>
         </div>
-        <MainJobs />
+        <MainJobs jobData={jobData} />
       </MainSec>
     </div>
   )

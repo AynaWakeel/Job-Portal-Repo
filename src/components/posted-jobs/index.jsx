@@ -108,7 +108,7 @@ const PostedJobs = () => {
 
                                             <div className='Activediv'>
                                                 <span><Eye className='closeicon' /></span>
-                                                <span className='SubHeading'>800 Views</span>
+                                                {/* <span className='SubHeading'>{items.views}</span> */}
                                             </div>
                                         </div>
 
