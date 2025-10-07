@@ -8,21 +8,23 @@ import FindCandidates from '../../shared/find-candidates/home'
 import ChatSystem from '../../components/chat-system/chat-sidebar'
 import RecruiterDashboardRoutes from '../recruiter-dashboard-routes'
 import ViewApplicantProfile from '../../shared/find-candidates/view-profile'
+import ViewApplicantResume from '../../shared/find-candidates/view-resume'
 
 
 const RecruiterRoutes = () => {
   return (
     <div>
-    <RecruiterLayouts>
-      <Routes>
-        <Route path='/find-candidates' element={<FindCandidates/>}/>
-        <Route path='/profile' element={<RecruiterProfile/>}/>
-        <Route path='/chat' element={<ChatSystem/>}/>
-        <Route path='/applicant-profile' element={<ViewApplicantProfile/>}/>
-        <Route path='/dashboard/*' element={<RecruiterDashboardRoutes/>}/>
-        <Route path='/support' element={<Support/>}/>
-      </Routes>
-    </RecruiterLayouts>
+      <RecruiterLayouts>
+        <Routes>
+          <Route path='/find-candidates' element={<FindCandidates />} />
+          <Route path='/profile' element={<RecruiterProfile />} />
+          <Route path='/chat' element={<ChatSystem />} />
+          <Route path='/applicant-profile' element={<ViewApplicantProfile />} />
+          <Route path='/applicant-resume' element={<ViewApplicantResume />} />
+          <Route path='/dashboard/*' element={<RecruiterDashboardRoutes />} />
+          <Route path='/support' element={<Support />} />
+        </Routes>
+      </RecruiterLayouts>
     </div>
   )
 }

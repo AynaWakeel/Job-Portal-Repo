@@ -10,12 +10,13 @@ import { ReactComponent as Global } from '../../../assets/icons/GlobeSimple.svg'
 import { ReactComponent as Envelope } from '../../../assets/icons/Envelope.svg'
 import { ReactComponent as Phone } from '../../../assets/icons/phone-call-duotone 1.svg'
 import { ReactComponent as File } from '../../../assets/icons/FileText.svg'
-import { useLocation, useParams } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import { Recruiter_Endpoints } from '../../../lib/api/recruiter_endpoints'
 import Loader from '../../../components/loading-spinner'
 import { showError } from '../../../components/toasters'
 
 const ViewApplicantProfile = () => {
+  const navigate = useNavigate()
   const [profile, setProfile] = useState({})
   const location = useLocation()
   const id = location.state.id
@@ -31,6 +32,10 @@ const ViewApplicantProfile = () => {
     }
     if (id) fetchProfile(id);
   }, [id])
+
+  const viewresume = (userId)=>{
+      navigate('/recruiter/applicant-resume', {state:{userId}})
+  }
 
 
   const ContentPage = ['/admin/dashboard/profile']
@@ -165,6 +170,7 @@ const ViewApplicantProfile = () => {
 
                         <UploadPdf>
                           <button
+                           onClick={()=>viewresume(profile.id)}
                             className='center' >
                             <div><File className='IconColor' /></div>
                             <div>

@@ -27,7 +27,7 @@ export const Recruiter_Endpoints = {
     //----- applications
     get_application_detail: async(jobId,applicationId)=> await getData(`/api/application/jobs/${jobId}/applications/${applicationId}`),
     get_applications: async(jobId)=> await getData(`/api/application/recruiter/jobs/${jobId}/applicants`),
-    // put_shortlist_applicant_by_id: async(applicationId, body)=> await putData(`/api/application/applications/${applicationId}/status`, body),
+    get_resume_by_id: async(userId)=> await getData(`/api/structuredresume/resume/${userId}`),
     put_applicantion_Status_by_id: async(applicationId, body)=> await putData(`/api/application/applications/${applicationId}/status`, body),
 
 
