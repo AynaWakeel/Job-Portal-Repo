@@ -7,27 +7,27 @@ import { useNavigate } from 'react-router'
 import Loader from '../loading-spinner'
 
 
-const MainJobs = ({job}) => {
+const MainJobs = ({jobData}) => {
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
     const ViewDetail = (id) => {
         navigate('/applicant/company', { state: { id } })
     }
 
-    const [jobData, setJobData] = useState([])
+    // const [jobData, setJobData] = useState([])
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await Applicant_Endpoints.get_all_jobs()
-            if (res?.data.jobs) {
-                setJobData(res.data.jobs)
-                setIsLoading(false)
-            }
-        }
-        fetchData()
-    }, [])
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const res = await Applicant_Endpoints.get_all_jobs()
+    //         if (res?.data?.jobs) {
+    //             setJobData(res.data.jobs)
+    //             setIsLoading(false)
+    //         }
+    //     }
+    //     fetchData()
+    // }, [])
 
-    if (isLoading) return <Loader />
+    // if (isLoading) return <Loader />
 
     return (
         <div>
@@ -38,14 +38,14 @@ const MainJobs = ({job}) => {
                             {jobData.map((items) => (
                                 <div className='Card' key={items.id} onClick={() => ViewDetail(items.id)}>
                                     <div className='CardFlex'>
-                                        <div className='IconBox' style={{ backgroundColor: `${items.color}` }}>
-                                            <img src={items.recruiter.profilepic} className='IconColor' />
+                                        <div className='IconBox' >
+                                            {/* <img src={items.recruiter.profilepic} className='IconColor' /> */}
                                         </div>
                                         <div>
                                             <h3 className='Heading'>{items.title}</h3>
                                             <h4 className='FlexIcon'>
                                                 <span><img src={Map} /></span>
-                                                <span className='SubHeading'>{items.location}</span>
+                                                <span className='SubHeading'>{items.locationId}</span>
                                             </h4>
                                         </div>
                                     </div>
@@ -70,3 +70,4 @@ const MainJobs = ({job}) => {
 }
 
 export default MainJobs
+

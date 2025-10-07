@@ -87,11 +87,13 @@ const Jobs = () => {
 
                                             <h4 className='FlexIcon'>
                                                 <span><img src={Map} /></span>
-                                                <span className='SubHeading'>{items.locationId}</span>
+                                                <span className='SubHeading'>{items.locationId || "karachi"}</span>
                                             </h4>
                                             <h4 className='FlexIcon'>
                                                 <span><img src={Currency} /></span>
-                                                <span className='SubHeading'>{items.salaryMin} - {items.salaryMax}</span>
+                                                <span className='SubHeading'>{items.salaryRange}</span>
+                                               
+                                                {/* <span className='SubHeading'>{items.salaryMin} - {items.salaryMax}</span> */}
                                             </h4>
                                             <h4 className='FlexIcon'>
                                                 <span><img src='' /></span>

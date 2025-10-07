@@ -20,19 +20,36 @@ export const Applicant_Endpoints = {
     get_all_jobs: async () => await getData("/api/jobpost"),
 
     // get_jobs_by_filter: async (filters) => {
-    //     const params = new URLSearchParams();
-
-    //     if (filters.title) params.append("title", filters.title);
-    //     if (filters.locationId) params.append("locationId", filters.locationId);
-    //     if (filters.industryId) params.append("industryId", filters.industryId);
-    //     if (filters.experience) params.append("experience", filters.experience);
-    //     if (filters.salary) params.append("salary", filters.salary);
-    //     if (filters.jobType) params.append("jobType", filters.jobType);
-
-    //     return await getData(`/api/jobs/filter/search?${params.toString()}`);
+    //     const params = new URLSearchParams(filters).toString();
+    //     return await getData(`/api/jobs/filter/search?${params}`);
     // },
 
-    get_jobs_by_filter: async({title,locationId,industryId,experience,salary,jobType})=>await getData(`/api/jobs/filter/search?title=${title}&locationId=${locationId}&industryId=${industryId}&experience=${experience}&salary=${salary}&jobType=${jobType}`),
+    get_jobs_by_filter: async (filters) => {
+        const query = Object.entries(filters)
+            .filter(([_, value]) => value && value !== "" && value.length !== 0)
+            .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+            .join('&');
+
+        return await getData(`/api/jobs/filter/search?${query}`);
+    },
+
+    // get_jobs_by_filter: async (filters) => {
+    //     const clean = Object.entries(filters)
+    //         .filter(([_, v]) => {
+    //             if (v === undefined || v === null) return false;
+    //             if (typeof v === "string") return v.trim() !== "";
+    //             if (Array.isArray(v)) return v.length > 0;
+    //             return true;
+    //         })
+    //         .map(([k, v]) => `${k}=${encodeURIComponent(Array.isArray(v) ? v.join(",") : v)}`)
+    //         .join("&");
+
+    //     return await getData(`/api/jobs/filter/search?${clean}`);
+    // },
+
+
+
+
     get_applied_jobs: async () => await getData("/api/application/my-applications"),
     get_job_detail_by_id: async (id) => await getData(`/api/jobpost/getJobDetail/${id}`),
     get_job_match_score_by_id: async (jobId) => await getData(`/api/matchScore/jobs/${jobId}/match`),

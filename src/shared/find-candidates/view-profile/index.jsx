@@ -23,13 +23,13 @@ const ViewApplicantProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const data = await Recruiter_Endpoints.get_profile_by_id(id)
-     
+
       if (data?.data?.applicant) {
         setProfile(data.data.applicant)
-        console.log(data,'here is data of applicant')
+        console.log(data, 'here is data of applicant')
       }
     }
-   if(id)  fetchProfile(id);
+    if (id) fetchProfile(id);
   }, [id])
 
 
@@ -86,7 +86,7 @@ const ViewApplicantProfile = () => {
                         <h4 className='SubHeading'>{profile.location || "N/A"}</h4>
                       </div>
                     </div>
-                   
+
                   </div>
                   <div className='content'>
                     <div><Phone className='IconColor' /></div>
@@ -135,25 +135,52 @@ const ViewApplicantProfile = () => {
 
               {!hideContent &&
 
-                <UploadPdf>
-                  <button
-                    className='center'
-                    onClick={() => {
-                     if(profile?.resume){
-                      const resumePdf = `${profile.resume}`
-                      window.open(resumePdf,"_black")
-                     }else{
-                      showError("resume not found")
-                     }
-                    }}
-                  >
-                    <div><File className='IconColor' /></div>
-                    <div>
-                      <h5 className='Title'>Professional Resume</h5>
-                      <h6 className='info'>Click to View</h6>
+                <>
+                  <Box>
+                    <div className='flex-col'>
+
+
+                      <div className='flex'>
+                        <UploadPdf>
+                          <button
+                            className='center'
+                            onClick={() => {
+                              if (profile?.resume) {
+                                const resumePdf = `${profile.resume}`
+                                window.open(resumePdf, "_black")
+                              } else {
+                                showError("resume not found")
+                              }
+                            }}
+                          >
+                            <div><File className='IconColor' /></div>
+                            <div>
+                              <h5 className='Title'>Pdf Resume</h5>
+                              <h6 className='info'>Click to View</h6>
+                            </div>
+                          </button>
+                        </UploadPdf>
+
+
+
+                        <UploadPdf>
+                          <button
+                            className='center' >
+                            <div><File className='IconColor' /></div>
+                            <div>
+                              <h5 className='Title'>Professional Resume</h5>
+                              <h6 className='info'>Click to View</h6>
+                            </div>
+                          </button>
+                        </UploadPdf>
+
+
+                      </div>
                     </div>
-                  </button>
-                </UploadPdf>
+
+                  </Box>
+                </>
+
               }
             </div>
           </div>

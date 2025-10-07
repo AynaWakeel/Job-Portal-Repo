@@ -175,11 +175,19 @@ const CompanyJobDetail = () => {
                             <h3 className='boxHeading'>Job Overview</h3>
                             <div className='flex-col'>
                                 <div className='flex'>
-                                    <div className='content'>
+                                    {/* <div className='content'>
                                         <div><Calender className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Job Posted:</h2>
                                             <h4 className='SubHeading'>14 June, 2021</h4>
+                                        </div>
+                                    </div> */}
+
+                                    <div className='content'>
+                                        <div><Map className='IconColor' /></div>
+                                        <div>
+                                            <h2 className='Title'>Location:</h2>
+                                            <h4 className='SubHeading'>{companyData.location || "N/A"}</h4>
                                         </div>
                                     </div>
 
@@ -194,7 +202,7 @@ const CompanyJobDetail = () => {
                                         <div><Brief className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Experience</h2>
-                                            <h4 className='SubHeading'>{jobData.experience}</h4>
+                                            <h4 className='SubHeading'>{jobData.experience} years</h4>
                                         </div>
                                     </div>
 
@@ -214,13 +222,13 @@ const CompanyJobDetail = () => {
                                             <h4 className='SubHeading'>${jobData.salaryRange}</h4>
                                         </div>
                                     </div>
-                                    <div className='content'>
+                                    {/* <div className='content'>
                                         <div><Map className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Location:</h2>
                                             <h4 className='SubHeading'>{companyData.location || "N/A"}</h4>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
 
 
