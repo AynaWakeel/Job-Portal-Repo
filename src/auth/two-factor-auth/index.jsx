@@ -1,41 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { FormDiv, QrForm } from './style'
+import { Form, FormDiv, QrForm } from './style'
 import { useForm } from 'react-hook-form'
-import { TwoFactor_Endpoints } from '../../lib/api/twoFactor_endpoints'
-import { useAuthentication } from '../../shared/dashboard/useAuthentication'
+import UseAuth from '../useAuth'
+import { useLocation } from 'react-router'
 
 const TwoFactorAuth = () => {
+    const location = useLocation()
+    const email = location.state.email
     const [isEnabled, setIsEnabled] = useState(false)
-    const [qrCode, setQrCode] = useState()
-    const { Verify } = useAuthentication()
+    const [userEmail, setUserEmail] = useState(email)
 
-    
+    const {login_with_2FA} = UseAuth()
+
+    console.log("email from login:",email)
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm()
 
-     const onSubmit = async(data) => {
-        const res = await  Verify(data)
-        if(res?.data?.success){
-            setQrCode("")
-            console.log("verify", data);
+    const onSubmit = async (data) => {
+        const res = await login_with_2FA(data)
+        if (res?.data) {
+            console.log("loin with 2Fa", res.data)
         }
     }
 
-    //  useEffect(() => {
-    //         const fetchData = async () => {
-    //             const res = await TwoFactor_Endpoints.get_authentication_status()
-    //             if (res?.data?.is2FAEnabled) {
-    //                 setIsEnabled(true)
-    //                 console.log(res.data.is2FAEnabled, "2FA");
-    
-    //             }
-    //         }
-    //         fetchData()
-    //     }, [])
-    
 
     return (
         <div>
@@ -46,23 +37,27 @@ const TwoFactorAuth = () => {
 
                     <form onSubmit={handleSubmit(onSubmit)}>
 
-
-                        <QrForm>
-                            <div className='Formdiv'>
-                                <div className='flex-col'>
-                                    <label htmlFor='' className='Label'>Code</label>
-                                    <input type="" placeholder='Code' className='qrInput'
-                                        {...register("token", { required: 'Enter your code' })} />
-                                    <div className='FormError'>
-                                        {errors.code && <span>Code is required</span>}
-                                    </div>
-
-                                    <button type='submit' className='Btn'>Enter</button>
-
-                                </div>
+                        <Form>
+                            <div className='FormSpace'>
+                                <input type="email" placeholder='Email' className='FormInput'
+                                    {...register('email', { required: "Enter your email" })} 
+                                    value={userEmail} onChange={(e)=>setUserEmail(e.target.value)}
+                                />
+                            </div>
+                            <div className='FormError'>
+                                {errors.email && <p>Email is required.</p>}
+                            </div>
+                            <div className='FormSpace'>
+                                <input type="number" placeholder='Code' className='FormInput'
+                                    {...register("token", { required: 'Enter your code' })} />
+                            </div>
+                            <div className='FormError'>
+                                {errors.code && <span>Code is required</span>}
                             </div>
 
-                        </QrForm>
+                            <button type='submit' className='FormBtn'>Enter</button>
+
+                        </Form>
                     </form>
                 </div>
             </FormDiv>

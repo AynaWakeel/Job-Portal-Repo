@@ -12,8 +12,15 @@ const UseAuth = () => {
 
         const response = await ApiEndPoints.login(body)
 
-        const { success, message, user } = response
-        if (success) {
+        const { is2FAEnabled, success, message, user } = response
+
+        if (is2FAEnabled) {
+            const email = user.email
+            navigate('/auth/two-factor-authentication', { state: { email } })
+            showSuccess(message)
+            return response
+
+        } else if(!is2FAEnabled){
             localStorage.setItem('token', response.token)
             localStorage.setItem('role', response.user.role)
             showSuccess(message)
@@ -31,53 +38,41 @@ const UseAuth = () => {
                 console.log(response.user.role)
             }
 
-        } else {
+        }
+
+        else {
             showError(message);
             navigate('/auth/register')
         }
 
     }
 
-    // const login = async (body) => {
+    const login_with_2FA = async (body) => {
 
-    //     const response = await ApiEndPoints.login(body)
+        const response = await ApiEndPoints.login_2FA(body)
 
-    //     const { success, message, user } = response
-    //     if (success) {
-    //         localStorage.setItem('token', response.token)
-    //         localStorage.setItem('role', response.user.role)
-    //         showSuccess(message)
-    //         try {
-    //             const res = await TwoFactor_Endpoints.get_authentication_status()
+        const { success, message, user } = response
+        if (success) {
+            localStorage.setItem('token', response.token)
+            localStorage.setItem('role', response.user.role)
+            showSuccess(message)
 
-    //             if (res?.data?.is2FAEnabled) {
-    //                 navigate('/auth/two-factor-authentication')
-    //             } else {
-    //                 if (user.role === ROLE.RECRUITER) {
-    //                     navigate('/recruiter/dashboard/overview')
-    //                 } else if (user.role === ROLE.APPLICANT) {
-    //                     navigate('/applicant/dashboard/overview')
-    //                 } else if (user.role === ROLE.ADMIN) {
-    //                     navigate('/admin/dashboard/overview')
-    //                 }
-    //             }
-    //         } catch (err) {
-    //             console.error('Error checking 2FA status:', err)
-    //             if (user.role === ROLE.RECRUITER) {
-    //                 navigate('/recruiter/dashboard/overview')
-    //             } else if (user.role === ROLE.APPLICANT) {
-    //                 navigate('/applicant/dashboard/overview')
-    //             } else if (user.role === ROLE.ADMIN) {
-    //                 navigate('/admin/dashboard/overview')
-    //             }
-    //         }
+            if (user.role === ROLE.RECRUITER) {
+                navigate('/recruiter/dashboard/overview')
+                console.log(response.user.role)
 
-    //     } else {
-    //         showError(message);
-    //         navigate('/auth/register');
-    //     }
+            } else if (user.role === ROLE.APPLICANT) {
+                navigate('/applicant/dashboard/overview')
+                console.log(response.user.role)
 
-    // }
+            }
+
+        } else {
+            showError(message);
+            navigate('/auth/register');
+        }
+
+    }
 
     const signin_google = async ({ token }) => {
         const res = await ApiEndPoints.google_signin({ token })
@@ -189,7 +184,7 @@ const UseAuth = () => {
 
 
 
-    return { login, signin_google, logout, signup, send_otp, verify_otp, reset_password }
+    return { login, signin_google, logout, signup, send_otp, verify_otp, reset_password, login_with_2FA }
 }
 
 export default UseAuth

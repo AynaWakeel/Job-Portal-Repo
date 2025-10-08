@@ -146,6 +146,11 @@ const ViewApplicantProfile = () => {
 
 
                       <div className='flex'>
+
+
+
+                        {profile.resume !== null &&
+                        
                         <UploadPdf>
                           <button
                             className='center'
@@ -165,8 +170,8 @@ const ViewApplicantProfile = () => {
                             </div>
                           </button>
                         </UploadPdf>
-
-
+                        
+                        }
 
                         <UploadPdf>
                           <button
@@ -179,6 +184,8 @@ const ViewApplicantProfile = () => {
                             </div>
                           </button>
                         </UploadPdf>
+
+
 
 
                       </div>

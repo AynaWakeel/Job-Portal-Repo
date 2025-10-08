@@ -56,7 +56,15 @@ margin: auto;
 
 `
 
-export const QrForm = styled.div`
+
+export const Form = styled.div`
+margin-top: 10px;
+/* width: 100%; */
+margin-inline: auto;
+
+.FormSpace{
+   padding-block: 10px;
+}
 
 .FormError{
     padding-bottom: 10px;
@@ -75,59 +83,39 @@ export const QrForm = styled.div`
     }
 }
 
-.flex-col{
-   padding-block: 10px;
-   display: flex;
-   flex-direction: column;
-   justify-content: start;
-   align-items: start;
-}
-
-.qrInput{
+.FormInput{
     outline: none;
     border: 1px solid var(--white-200);
     border-radius: 4px;
     padding-block: 16px;
-    margin-top: 10px;
     padding-inline: 20px;
     font-size: 15px;
     font-weight: 400;
     width: 100%;
     color: var(--purple-200);
-    caret-color: var(--purple-300);
-    font-family: var(--poppin);
-
+    caret-color: var(--purple-300);  
+    font-family: var(--poppin); 
 }
 
-.Label{
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--white-250);
-    font-family: var(--inter);
-}
-
-.qrInput::placeholder{
+.FormInput::placeholder{
     color: var(--gray-250);
     font-family: var(--poppin);
     font-weight: 400;
     font-size: 16px;
 }
 
-.Btn{
+.FormBtn{
     background-color: var(--purple-600);
     color: var(--white-50);
     outline: none;
     border: none;
-    padding-block: 15px;
-    padding-inline: 20px;
+    width: 100%;
+    padding-block: 16px;
     border-radius: 4px;
-    margin-top: 8px;
+    margin-top: 10px;
     cursor: pointer;
     font-size: 18px;
     font-weight: 500;
-    width: 100%;
 }
+
 `
-
-
-

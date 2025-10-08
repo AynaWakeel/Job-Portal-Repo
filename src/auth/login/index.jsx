@@ -9,13 +9,11 @@ import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from "jwt-decode";
-import { TwoFactor_Endpoints } from '../../lib/api/twoFactor_endpoints'
 
 
 const Login = () => {
     const navigate = useNavigate()
     const [isVisible, setIsVisible] = useState(false)
-    // const [isEnabled, setIsEnabled] = useState(false)
 
     const { login, signin_google } = UseAuth();
     const {
@@ -26,9 +24,7 @@ const Login = () => {
 
     const onSubmit = (data) => {
         login(data)
-        // if(isEnabled){
-        //     navigate('/auth/two-factor-authentication')
-        // }
+        
     }
 
     const Register = () => {
@@ -42,18 +38,6 @@ const Login = () => {
     const Visibility = () => {
         setIsVisible(!isVisible)
     }
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const res = await TwoFactor_Endpoints.get_authentication_status()
-    //         if (res?.data?.is2FAEnabled) {
-    //             setIsEnabled(true)
-    //             console.log(res.data.is2FAEnabled, "2FA");
-
-    //         }
-    //     }
-    //     fetchData()
-    // }, [])
 
 
     return (

@@ -23,7 +23,7 @@ const Candidates = ({ applicants}) => {
                                         </div>
 
                                         <div>
-                                            <h3 className='Heading'>{items.name}</h3>
+                                            <h3 className='Heading'>{items.name} - {items.id}</h3>
                                             <h4 className='FlexIcon'>
                                                 <span className='SubHeading'>{items.title}</span>
                                             </h4>

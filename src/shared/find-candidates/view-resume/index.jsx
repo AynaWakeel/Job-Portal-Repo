@@ -8,29 +8,31 @@ import { ReactComponent as Phone } from '../../../assets/icons/phone-call-duoton
 import { ReactComponent as Layers } from '../../../assets/icons/fi_layers.svg'
 import { ReactComponent as Cap } from '../../../assets/icons/GraduationCap.svg'
 import { ReactComponent as Clipboard } from '../../../assets/icons/ClipboardText.svg'
-import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
 import BannerImg from '../../../assets/images/banner.png'
 import Company from '../../../assets/images/Logo.png'
 import { useLocation } from 'react-router'
+import { Recruiter_Endpoints } from '../../../lib/api/recruiter_endpoints'
 
 
 
 const ViewApplicantResume = () => {
     const location = useLocation()
     const [isResume, setIsResume] = useState({})
-    // const userId = location.state.userId
+    const userId = location.state.userId
 
-    // useEffect(() => {
-    //     const fetchProfile = async () => {
-    //         const res = await Applicant_Endpoints.get_resume_by_id(userId)
-    //         if (res?.data) {
-    //             setIsResume(res.data)
-    //             console.log(res.data)
-    //         }
-    //     }
-    //     fetchProfile();
+    useEffect(() => {
+                console.log("userid",userId)
 
-    // }, [])
+        const fetchResume = async () => {
+            const res = await Recruiter_Endpoints.get_resume_by_id(userId)
+            if (res?.data?.resume) {
+                setIsResume(res.data.resume)
+                console.log(res.data.resume)
+            }
+        }
+      if(userId)   fetchResume(userId)
+
+    }, [userId])
 
     return (
 
@@ -40,12 +42,12 @@ const ViewApplicantResume = () => {
             </div>
             <div className='profile'>
                 <div className='profile-intro'>
-                    <div className='profile-pic'>
+                    {/* <div className='profile-pic'>
                         <img src={Company} alt='profile' />
-                    </div>
+                    </div> */}
                     <div className='profile-flex-col'>
                         <div className='detail-flex'>
-                            <h2 className='Name'>{isResume.fullName || "name"}</h2>
+                            <h2 className='Name'>{isResume.fullname || "name"}</h2>
                         </div>
                         <div className='sub-flex'>
                             <h4 className='Title'>{isResume.title || "title"}</h4>
@@ -59,7 +61,7 @@ const ViewApplicantResume = () => {
                         <h2 className='Heading'>Biography</h2>
                         <p className='Sub'>Biography</p>
 
-                        <p className='Sub' dangerouslySetInnerHTML={{ __html: isResume.bioGraphy || "bioGraphy" }}></p>
+                        <p className='Sub' dangerouslySetInnerHTML={{ __html: isResume.biography || "bioGraphy" }}></p>
 
                     </div>
 
