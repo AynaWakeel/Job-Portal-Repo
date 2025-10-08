@@ -78,6 +78,19 @@ export const CompanyCards = styled.div`
    
 }
 
+.photo{
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 60px;
+height: 60px;
+}
+
+.photo img{
+width: 60px;
+height: 60px;
+border-radius: 50%;
+}
+
 .Heading{
     color: #18191C;
     font-size: 18px;

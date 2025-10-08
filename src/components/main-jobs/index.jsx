@@ -38,8 +38,8 @@ const MainJobs = ({jobData}) => {
                             {jobData.map((items) => (
                                 <div className='Card' key={items.id} onClick={() => ViewDetail(items.id)}>
                                     <div className='CardFlex'>
-                                        <div className='IconBox' >
-                                            {/* <img src={items.recruiter.profilepic} className='IconColor' /> */}
+                                        <div className='IconBox photo' >
+                                            <img src={items.profilepic} className='IconColor' />
                                         </div>
                                         <div>
                                             <h3 className='Heading'>{items.title}</h3>
