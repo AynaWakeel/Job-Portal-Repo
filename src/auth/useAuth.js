@@ -20,7 +20,7 @@ const UseAuth = () => {
             showSuccess(message)
             return response
 
-        } else if(!is2FAEnabled){
+        } else if (!is2FAEnabled) {
             localStorage.setItem('token', response.token)
             localStorage.setItem('role', response.user.role)
             showSuccess(message)
@@ -74,8 +74,8 @@ const UseAuth = () => {
 
     }
 
-    const signin_google = async ({ token }) => {
-        const res = await ApiEndPoints.google_signin({ token })
+    const signin_google = async (body) => {
+        const res = await ApiEndPoints.google_signin({token:body.token})
         if (res) {
             localStorage.setItem("token", res.token)
             // localStorage.setItem("role", res.role)
@@ -184,7 +184,7 @@ const UseAuth = () => {
 
 
 
-    return { login, signin_google, logout, signup, send_otp, verify_otp, reset_password, login_with_2FA }
+    return { login, signin_google , logout, signup, send_otp, verify_otp, reset_password, login_with_2FA }
 }
 
 export default UseAuth

@@ -9,12 +9,14 @@ import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from "jwt-decode";
+import { ApiEndPoints } from '../../lib/api/auth_endpoints'
 
 
 const Login = () => {
     const navigate = useNavigate()
     const [isVisible, setIsVisible] = useState(false)
-
+    console.log('client id:', process.env.REACT_APP_GOOGLE_CLIENT_ID);
+    
     const { login, signin_google } = UseAuth();
     const {
         register,
@@ -24,7 +26,7 @@ const Login = () => {
 
     const onSubmit = (data) => {
         login(data)
-        
+
     }
 
     const Register = () => {
@@ -38,6 +40,15 @@ const Login = () => {
     const Visibility = () => {
         setIsVisible(!isVisible)
     }
+
+    // const googleLogin = async(body) => {
+
+    //     const token = body.credential;
+    //      await signin_google({token});
+    //     navigate('/applicant/dashboard');
+
+    // }
+
 
 
     return (
@@ -76,7 +87,7 @@ const Login = () => {
                                     {errors.password && <p>Password id required.</p>}
                                 </div>
                             </div>
-                          
+
                             <ForgetDiv>
                                 <span className='CheckBoxSpan'>
                                     <Checkbox type="checkbox" />Remember Me
@@ -87,20 +98,47 @@ const Login = () => {
 
                             <h5 className='OR'>OR</h5>
                             <SocialMediaDiv>
-                                {/* <button className='MediaBtn'>
+                                {/* <button className='MediaBtn' onSuccess={googleLogin}>
                                     <img src={google} alt="icon" className='GoogleIcon' />
+                                    Signin with google
                                 </button> */}
-                                <GoogleLogin
+                                {/* <GoogleLogin
                                     onSuccess={async (credentialResponse) => {
                                         const token = credentialResponse.credential;
                                         const userInfo = jwtDecode(token);
                                         console.log("User Info:", userInfo);
 
-                                        const res = await signin_google({ token });
+                                        const res = await signin_google(body);
                                         if (res) {
                                             navigate('/applicant/dashboard');
                                         }
-                                    }} />
+                                    }} /> */}
+
+
+
+                                <GoogleLogin
+                                    onSuccess={async (credentialResponse) => {
+                                        const token = credentialResponse.credential; 
+                                        const decoded = jwtDecode(token);
+                                        console.log("Decoded Google user:", decoded);
+
+                                        const res = await signin_google({ token });
+
+                                        if (res?.token) {
+                                            localStorage.setItem("token", res.token);
+                                            localStorage.setItem("role", res.user.role);
+                                            
+                                            navigate("/applicant/dashboard/overview");
+                                           
+                                        } else {
+                                            console.error("Google login failed!", res);
+                                        }
+                                    }}
+                                    onError={() => {
+                                        console.error("Google Login Failed");
+                                    }}
+                                />
+
                             </SocialMediaDiv>
                         </Form>
                     </form>

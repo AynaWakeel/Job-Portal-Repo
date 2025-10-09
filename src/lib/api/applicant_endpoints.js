@@ -19,11 +19,6 @@ export const Applicant_Endpoints = {
     //------jobs
     get_all_jobs: async () => await getData("/api/jobpost"),
 
-    // get_jobs_by_filter: async (filters) => {
-    //     const params = new URLSearchParams(filters).toString();
-    //     return await getData(`/api/jobs/filter/search?${params}`);
-    // },
-
     get_jobs_by_filter: async (filters) => {
         const query = Object.entries(filters)
             .filter(([_, value]) => value && value !== "" && value.length !== 0)
@@ -33,23 +28,7 @@ export const Applicant_Endpoints = {
         return await getData(`/api/jobs/filter/search?${query}`);
     },
 
-    // get_jobs_by_filter: async (filters) => {
-    //     const clean = Object.entries(filters)
-    //         .filter(([_, v]) => {
-    //             if (v === undefined || v === null) return false;
-    //             if (typeof v === "string") return v.trim() !== "";
-    //             if (Array.isArray(v)) return v.length > 0;
-    //             return true;
-    //         })
-    //         .map(([k, v]) => `${k}=${encodeURIComponent(Array.isArray(v) ? v.join(",") : v)}`)
-    //         .join("&");
-
-    //     return await getData(`/api/jobs/filter/search?${clean}`);
-    // },
-
-
-
-
+   
     get_applied_jobs: async () => await getData("/api/application/my-applications"),
     get_job_detail_by_id: async (id) => await getData(`/api/jobpost/getJobDetail/${id}`),
     get_job_match_score_by_id: async (jobId) => await getData(`/api/matchScore/jobs/${jobId}/match`),

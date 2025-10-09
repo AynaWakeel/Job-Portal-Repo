@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MainSec } from './style'
+import { MainSec, Pagination } from './style'
 import StatusClose from '../../assets/icons/XCircleRed.svg'
 import Check from '../../assets/icons/Check.svg'
 import Currency from '../../assets/icons/currency-dollar 1.svg'
@@ -16,7 +16,10 @@ const Jobs = () => {
     const [isLoading, setIsLoading] = useState(true)
     // const [isSelected, setIsSelected] = useState([])
     const [jobData, setJobData] = useState([])
-    const [savedJobData , setSavedJobData] = useState([])
+    const [savedJobData, setSavedJobData] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const limit = 10
 
     const { save_job, remove_save_job } = useApplicant()
 
@@ -40,7 +43,19 @@ const Jobs = () => {
     const ViewDetail = (id) => {
         navigate('/applicant/company', { state: { id } })
     }
- 
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
     const fetchData = async () => {
         const res = await Applicant_Endpoints.get_all_jobs()
 
@@ -53,7 +68,7 @@ const Jobs = () => {
     const fetchSavedData = async () => {
         const savedRes = await Applicant_Endpoints.get_saved_jobs()
 
-          if (savedRes?.data) {
+        if (savedRes?.data) {
             setSavedJobData(savedRes.data.map(job => job.job.id))
             setIsLoading(false)
         }
@@ -64,6 +79,26 @@ const Jobs = () => {
         fetchSavedData()
     }, [])
 
+    // const fetchJobs = async ({page, limit}) => {
+    //     try {
+    //         const res = await Applicant_Endpoints.get_all_jobs({page , limit})
+
+    //         const { currentPage, totalPages } = response.data;
+    // if (res?.data.jobs) {
+    //     setJobData(res.data.jobs)
+    //     setTotalPages(totalPages);
+    //     setIsLoading(false)
+    // }
+    //      
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     fetchJobs(currentPage);
+    // }, [currentPage]);
+
     if (isLoading) return <Loader />
 
     return (
@@ -71,84 +106,118 @@ const Jobs = () => {
             <MainSec>
                 <div className='CardDiv'>
                     <div className='Grid'>
-                        {jobData.map((items) => (
+                        {jobData.length > 0 ?
 
-                            <div className='Card' key={items.id}>
-                                <div className='Inner-flex'>
-                                    <div className='IconBox photo' style={{ backgroundColor: `${items.color}` }}>
-                                        <img src={items.recruiter.profilepic} />
-                                    </div>
-                                    <div className='Gap'>
-                                        <div className='Inner-flex'>
-                                            <h3 className='Heading'>{items.title}</h3>
-                                            <span className='Badge'>{items.jobType}</span>
+                            jobData.map((items) => (
+
+                                <div className='Card' key={items.id}>
+                                    <div className='Inner-flex'>
+                                        <div className='IconBox photo' style={{ backgroundColor: `${items.color}` }}>
+                                            <img src={items.recruiter.profilepic} />
                                         </div>
-                                        <div className='Inner-flex'>
+                                        <div className='Gap'>
+                                            <div className='Inner-flex'>
+                                                <h3 className='Heading'>{items.title}</h3>
+                                                <span className='Badge'>{items.jobType}</span>
+                                            </div>
+                                            <div className='Inner-flex'>
 
-                                            <h4 className='FlexIcon'>
-                                                <span><img src={Map} /></span>
-                                                <span className='SubHeading'>{items.locationId || "karachi"}</span>
-                                            </h4>
-                                            <h4 className='FlexIcon'>
-                                                <span><img src={Currency} /></span>
-                                                <span className='SubHeading'>{items.salaryRange}</span>
-                                               
-                                                {/* <span className='SubHeading'>{items.salaryMin} - {items.salaryMax}</span> */}
-                                            </h4>
-                                            <h4 className='FlexIcon'>
-                                                <span><img src='' /></span>
-                                                <span className='SubHeading'>{items.jobExpirationDate}</span>
-                                            </h4>
+                                                <h4 className='FlexIcon'>
+                                                    <span><img src={Map} /></span>
+                                                    <span className='SubHeading'>{items.locationId || "karachi"}</span>
+                                                </h4>
+                                                <h4 className='FlexIcon'>
+                                                    <span><img src={Currency} /></span>
+                                                    <span className='SubHeading'>{items.salaryRange}</span>
 
-                                            <div className='status-flex'>
-                                                {items.status === "active" ?
+                                                    {/* <span className='SubHeading'>{items.salaryMin} - {items.salaryMax}</span> */}
+                                                </h4>
+                                                <h4 className='FlexIcon'>
+                                                    <span><img src='' /></span>
+                                                    <span className='SubHeading'>{items.jobExpirationDate}</span>
+                                                </h4>
 
-                                                    (<div className='Activediv'>
-                                                        <span><img src={Check} alt='icon' /></span>
-                                                        <span className='Active'>Active</span>
-                                                    </div>)
+                                                <div className='status-flex'>
+                                                    {items.status === "active" ?
 
-                                                    :
+                                                        (<div className='Activediv'>
+                                                            <span><img src={Check} alt='icon' /></span>
+                                                            <span className='Active'>Active</span>
+                                                        </div>)
 
-                                                    (<div className='Activediv'>
-                                                        <span><img src={StatusClose} alt='icon' /></span>
-                                                        <span className='red'>Expire</span>
-                                                    </div>)
+                                                        :
 
-                                                }
+                                                        (<div className='Activediv'>
+                                                            <span><img src={StatusClose} alt='icon' /></span>
+                                                            <span className='red'>Expire</span>
+                                                        </div>)
 
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className='Right-side'>
+                                        {savedJobData.includes(items.id) ?
+
+                                            <span className='Box' onClick={() => handleUnFavourite(items.id)} >
+                                                <img src={UnFav} className="Color" />
+                                            </span>
+
+                                            :
+
+                                            <span className='Box' onClick={() => handleFavourite(items.id)} >
+                                                <Fav className="Color " />
+                                            </span>
+
+                                        }
+
+                                        <button className='CardBtn' onClick={() => ViewDetail(items.id)}>
+                                            <span>View Detail</span>
+                                            <Arrow className='IconColor' />
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
+
+                            :
+
+                            (
+
+                                <div className='Card'>
+                                    <div className='Inner-flex'>
+                                        <div className='Gap'>
+                                            <div className='Inner-flex'>
+                                                <h3 className='Heading'>No Data Found</h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            )
 
-                                <div className='Right-side'>
-                                    {savedJobData.includes(items.id) ? 
-                                    
-                                    <span className='Box' onClick={() => handleUnFavourite(items.id)} >
-                                        <img src={UnFav} className="Color" />
-                                    </span>
 
-                                    :
-
-                                    <span className='Box' onClick={() => handleFavourite(items.id)} >
-                                        <Fav className="Color "  />
-                                    </span>
-
-                                    }
-                                    
-                                    <button className='CardBtn' onClick={() => ViewDetail(items.id)}>
-                                        <span>View Detail</span>
-                                        <Arrow className='IconColor' />
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
+                        }
 
                     </div>
 
-
                 </div>
+
+
+
+                <Pagination>
+                    <div>
+                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                    </div>
+                    <div>
+                        <span className='Num'>{currentPage}</span>
+                    </div>
+                    <div>
+                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                    </div>
+                </Pagination>
+
             </MainSec>
         </div>
     )

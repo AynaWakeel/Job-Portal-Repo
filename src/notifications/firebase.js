@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+import axios from "axios";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken } from "firebase/messaging";
 
@@ -26,6 +27,19 @@ export const generateToken = async()=>{
         vapidKey: process.env.REACT_APP_NOTIFY_KEY
     });
     console.log(token);
+
+
+    try{
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/notifications/save-token`,{
+        fcmToken :token
+      })
+      console.log("token sent");
+      
+    }catch(err){
+      console.log(err);
+      
+    }
+
    }
 
    
