@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CompanyCards } from './style'
+import { CompanyCards , Pagination} from './style'
 import Dot from '../../assets/icons/•.svg'
 import { ReactComponent as Like } from '../../assets/icons/fi_thumbs-up.svg'
 import ProfilePic from '../../assets/images/Ellipse 18.png'
@@ -12,7 +12,11 @@ const ApplicationCards = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const jobId = location.state.jobId
+    const [isLike, setIsLike] = useState(false)
     const [applicants, setApplicants] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const limit = 10
 
     const { change_applicantion_Status_by_id } = useRecruiter()
 
@@ -43,11 +47,45 @@ const ApplicationCards = () => {
     const Profile = (applicationId) => {
         navigate('/recruiter/dashboard/applicate-profile' , {state:{jobId , applicationId}})
     }
-    const [isLike, setIsLike] = useState(false)
+
+     const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
+     // const fetchJobs = async ({ page, limit }) => {
+    //     try {
+    //         const res = await ({ page, limit })
+
+    //         const { currentPage, totalPages } = response.data;
+    //         if (res?.data.jobs) {
+    //             setApplicants(res.data.jobs)
+    //             setTotalPages(totalPages)
+    //             setIsLoading(false)
+    //         }
+
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     fetchJobs(currentPage)
+    // }, [currentPage])
+
 
     const Active = () => {
         setIsLike(!isLike)
     }
+
+
     return (
         <div>
             <CompanyCards>
@@ -96,6 +134,18 @@ const ApplicationCards = () => {
 
                     </div>
                 </div>
+
+                   <Pagination>
+                    <div>
+                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                    </div>
+                    <div>
+                        <span className='Num'>{currentPage}</span>
+                    </div>
+                    <div>
+                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                    </div>
+                </Pagination>
 
             </CompanyCards>
         </div>

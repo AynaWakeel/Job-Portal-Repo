@@ -30,7 +30,7 @@ export const generateToken = async()=>{
 
 
     try{
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/notifications/save-token`,{
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/notifications/save-token`,{
         fcmToken :token
       })
       console.log("token sent");

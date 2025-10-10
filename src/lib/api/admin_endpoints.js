@@ -12,13 +12,13 @@ export const Admin_Endpoints = {
      //-----DASHBOARD-analytics
      get_analytics : async()=> await getData("/api/admin/adminAnalytics"),
      //-----dashboard-useracc
-     get_userAccounts: async()=> await getData("/api/users/userAccounts"),
+     get_userAccounts: async(page = 1, limit = 10)=> await getData(`/api/users/userAccounts?page=${page}&limit=${limit}`),
      //-----dashboard-manage jobs
-     get_manageJobs: async()=> await getData("/api/jobpost/getJobsOnAdmin"),
+     get_manageJobs: async(page = 1, limit = 10)=> await getData(`/api/jobpost/getJobsOnAdmin?page=${page}&limit=${limit}`),
      put_manageJobsStatus: async(jobId,body)=> await putData(`/api/jobpost/jobs/${jobId}/approval`, body),
      get_specific_Jobs_detail: async(jobId)=> await getData(`/api/jobpost/getJobDetail/${jobId}`),
      //-----dashboard-manage users
-     get_manageUsers: async()=> await getData("/api/users/allmanageUsers"),
+     get_manageUsers: async(page = 1, limit = 10)=> await getData(`/api/users/allmanageUsers?page=${page}&limit=${limit}`),
      put_manageUsersStatus: async(id,body)=> await putData(`/api/users/manageUsersStatus/${id}`, body),
      //------dashboard-category-industry
      get_industry: async()=> await getData("/api/industries"),

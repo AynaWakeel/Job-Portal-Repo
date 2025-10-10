@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import { MainSec } from './style'
+import { MainSec , Pagination } from './style'
 import StatusClose from '../../assets/icons/XCircleRed.svg'
 import DOt from '../../assets/icons/•.svg'
 import { useNavigate } from 'react-router'
 
 const AllTypesOfJobs = ({ jobs }) => {
     const navigate = useNavigate()
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     const Edit = (jobId) => {
         navigate('/recruiter/dashboard/postjob', { state: { jobId } })
     }
+
+     const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
 
     return (
         <div>
@@ -104,6 +119,20 @@ const AllTypesOfJobs = ({ jobs }) => {
 
                     </div>
                 </div>
+
+
+                <Pagination>
+                    <div>
+                        <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                    </div>
+                    <div>
+                        <span className='Num'>{currentPage}</span>
+                    </div>
+                    <div>
+                        <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                    </div>
+                </Pagination>
+
             </MainSec>
         </div>
     )

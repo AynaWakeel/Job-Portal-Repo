@@ -19,7 +19,6 @@ const Jobs = () => {
     const [savedJobData, setSavedJobData] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
-    const limit = 10
 
     const { save_job, remove_save_job } = useApplicant()
 
@@ -48,56 +47,41 @@ const Jobs = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
-    };
+    }
 
     const handleNextPage = () => {
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
-    };
+    }
 
-    const fetchData = async () => {
-        const res = await Applicant_Endpoints.get_all_jobs()
+    const fetchData = async (page = 1, limit = 10) => {
+        const res = await Applicant_Endpoints.get_all_jobs(page, limit)
 
         if (res?.data.jobs) {
             setJobData(res.data.jobs)
+            setTotalPages(res.data.totalPages)
+            setCurrentPage(res.data.currentPage)
             setIsLoading(false)
         }
     }
 
-    const fetchSavedData = async () => {
-        const savedRes = await Applicant_Endpoints.get_saved_jobs()
+    const fetchSavedData = async (page = 1, limit = 10) => {
+        const savedRes = await Applicant_Endpoints.get_saved_jobs(page, limit)
 
-        if (savedRes?.data) {
-            setSavedJobData(savedRes.data.map(job => job.job.id))
+        if (savedRes?.data?.savedJobs) {
+            setSavedJobData(savedRes.data.savedJobs.map(job => job.job.id))
+             setTotalPages(savedRes.data.totalPages)
+            setCurrentPage(savedRes.data.currentPage)
             setIsLoading(false)
         }
     }
 
     useEffect(() => {
-        fetchData()
-        fetchSavedData()
-    }, [])
+        fetchData(currentPage)
+        fetchSavedData(currentPage)
+    }, [currentPage])
 
-    // const fetchJobs = async ({page, limit}) => {
-    //     try {
-    //         const res = await Applicant_Endpoints.get_all_jobs({page , limit})
-
-    //         const { currentPage, totalPages } = response.data;
-    // if (res?.data.jobs) {
-    //     setJobData(res.data.jobs)
-    //     setTotalPages(totalPages);
-    //     setIsLoading(false)
-    // }
-    //      
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchJobs(currentPage);
-    // }, [currentPage]);
 
     if (isLoading) return <Loader />
 
@@ -208,13 +192,13 @@ const Jobs = () => {
 
                 <Pagination>
                     <div>
-                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                        <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
                     </div>
                     <div>
                         <span className='Num'>{currentPage}</span>
                     </div>
                     <div>
-                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                        <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
                     </div>
                 </Pagination>
 

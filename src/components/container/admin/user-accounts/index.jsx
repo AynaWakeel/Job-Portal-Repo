@@ -1,28 +1,45 @@
 
 import React, { useEffect, useState } from 'react'
-import { Main } from './style'
+import { Main , Pagination } from './style'
 import StatusClose from '../../../../assets/icons/XCircleRed.svg'
 import Check from '../../../../assets/icons/CheckCircle.svg'
 import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
 import Loader from '../../../loading-spinner'
 
 const UserAccounts = () => {
-   const [isLoading, setIsLoading] =  useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [users, setUsers] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
 
-  useEffect(()=>{
-    const fetchData = async()=>{
-      const res = await Admin_Endpoints.get_userAccounts()
-      if(res?.data){
-        setUsers(res?.data)
-        setIsLoading(false)
-      }
-      console.log(res.data)
+   const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
     }
-    fetchData()
-  },[])
 
-   if(isLoading) return <Loader/>
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
+  const fetchData = async (page = 1, limit = 10) => {
+    const res = await Admin_Endpoints.get_userAccounts(page, limit)
+    if (res?.data?.users) {
+      setUsers(res?.data.users)
+      setTotalPages(res.data.totalPages)
+      setCurrentPage(res.data.currentPage)
+      setIsLoading(false)
+    }
+    console.log(res.data)
+  }
+
+  useEffect(() => {
+    fetchData(currentPage)
+  }, [currentPage])
+
+  if (isLoading) return <Loader />
 
   return (
     <div>
@@ -49,7 +66,7 @@ const UserAccounts = () => {
                 <td>{items.email}</td>
                 <td>{items.phoneNumber}</td>
                 <td>
-                  {items.status === 'active'  &&
+                  {items.status === 'active' &&
 
                     <div className='Activediv'>
                       <span><img src={Check} alt='icon' /></span>
@@ -86,6 +103,19 @@ const UserAccounts = () => {
         </table>
 
       </Main>
+
+      <Pagination>
+        <div>
+          <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+        </div>
+        <div>
+          <span className='Num'>{currentPage}</span>
+        </div>
+        <div>
+          <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+        </div>
+      </Pagination>
+
 
     </div>
   )

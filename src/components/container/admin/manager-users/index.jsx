@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Main } from './style'
+import { Main , Pagination } from './style'
 import ThreeDot from '../../../../assets/icons/DotsThreeVertical.svg'
 import { useNavigate } from 'react-router'
 import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
@@ -7,22 +7,25 @@ import { useAdmin } from '../useAdmin'
 import Loader from '../../../loading-spinner'
 
 const ManageUsers = () => {
-   const [isLoading, setIsLoading] =  useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(null)
   const [users, setUsers] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
   const [allUsers, setAllUsers] = useState([])
   const [activeRole, setActiveRole] = useState("all")
 
+  const { change_manageUsersStatus } = useAdmin()
+
   const handleFilter = (role) => {
     setActiveRole(role)
-    if(activeRole === "all"){
+    if (activeRole === "all") {
       setUsers(allUsers)
-    }else{
+    } else {
       setUsers(allUsers.filter(user => user.role === role))
     }
   }
 
-  const { change_manageUsersStatus } = useAdmin()
 
   const handleChangeStatus = async (id, newStatus) => {
 
@@ -32,16 +35,20 @@ const ManageUsers = () => {
     console.log("status changed")
   }
 
-  const fetchData = async () => {
-    const res = await Admin_Endpoints.get_manageUsers()
-    if (res?.data) {
+  const fetchData = async (page = 1, limit = 10) => {
+    const res = await Admin_Endpoints.get_manageUsers(page, limit)
+    if (res?.data?.users) {
 
-      if(activeRole === "all"){
-        setUsers(res.data)
+      if (activeRole === "all") {
+        setUsers(res.data.users)
+        setTotalPages(res.data.totalPages)
+        setCurrentPage(res.data.currentPage)
         setIsLoading(false)
-        
-      }else{
-        setUsers(res.data.filter(user => user.role === activeRole))
+
+      } else {
+        setUsers(res.data.users.filter(user => user.role === activeRole))
+         setTotalPages(res.data.totalPages)
+        setCurrentPage(res.data.currentPage)
         setIsLoading(false)
       }
 
@@ -49,9 +56,22 @@ const ManageUsers = () => {
     console.log(res.data)
   }
 
+
+   const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
   useEffect(() => {
-    fetchData()
-  }, [activeRole])
+    fetchData(currentPage)
+  }, [activeRole , currentPage])
 
 
   const Opendropdown = (id) => {
@@ -67,7 +87,7 @@ const ManageUsers = () => {
     navigate('/admin/dashboard/applicant-profile')
   }
 
-   if(isLoading) return <Loader/>
+  if (isLoading) return <Loader />
 
   return (
     <div>
@@ -76,7 +96,7 @@ const ManageUsers = () => {
         <div className='flex-box'>
           <h1 className='TopHeading'>Manage Users</h1>
           <div className='flex'>
-            <button className={`CardBtn ${activeRole === "all" ? "active" : ""}`} onClick={()=>handleFilter("all")}>All</button>
+            <button className={`CardBtn ${activeRole === "all" ? "active" : ""}`} onClick={() => handleFilter("all")}>All</button>
             <button className={`CardBtn ${activeRole === "recruiter" ? "active" : ""}`} onClick={() => handleFilter("recruiter")}>Recruiter</button>
             <button className={`CardBtn ${activeRole === "applicant" ? "active" : ""}`} onClick={() => handleFilter("applicant")}>Applicant</button>
           </div>
@@ -123,8 +143,20 @@ const ManageUsers = () => {
           </tbody>
         </table>
 
+
       </Main>
 
+        <Pagination>
+          <div>
+            <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+          </div>
+          <div>
+            <span className='Num'>{currentPage}</span>
+          </div>
+          <div>
+            <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+          </div>
+        </Pagination>
 
     </div>
   )

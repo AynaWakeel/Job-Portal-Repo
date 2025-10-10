@@ -21,6 +21,7 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 
+
 @media ${devices.tablet}{
     flex-direction: column;
     align-items: start;
@@ -45,20 +46,22 @@ align-items: center;
     }
 }
 
-.sec-form{
-    width: 44%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
+.sec-img{
+    width: 30%;
 
-    @media ${devices.tablet}{
-        width: 70%;
-    }
-    
-    @media ${devices.mobile}{
-        width: 100%;
-    }
+@media ${devices.tablet}{
+    width: 60%;
 }
+
+@media ${devices.mobile}{
+    width: 100%;
+}
+}
+
+.sec-img img{
+    width: 100%;
+}
+
 
 .H4{
 font-size: 16px;
@@ -106,74 +109,4 @@ padding-bottom: 20px;
     font-size: 18px;
     font-weight: 500;
 }
-`
-
-
-export const Form = styled.div`
-margin-top: 10px;
-margin-inline: auto;
-padding-block: 30px;
-padding-inline: 35px;
-border-radius: 8px;
-box-shadow: 0px 0px 15px var(--purple-50);
-   
-    @media ${devices.mobile}{
-        padding-block: 24px;
-        padding-inline: 18px;
-    }
-
-.FormH1{
-font-size: 22px;
-font-family: var(--inter);
-font-weight: 500;
-color: #18191C;
-padding-bottom: 20px;
-}
-
-.FormSpace{
-   padding-block: 5px;
-}
-
-.FormInputDivide{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-
-.FormInput{
-    outline: none;
-    border: 1px solid var(--white-200);
-    border-radius: 4px;
-    padding-block: 16px;
-    padding-inline: 20px;
-    font-size: 15px;
-    font-weight: 400;
-    width: 100%;
-    color: var(--purple-200);
-    caret-color: var(--purple-300);
-    font-family: var(--poppin);
-}
-
-.FormInput::placeholder{
-    color: var(--gray-250);
-    font-family: var(--poppin);
-    font-weight: 400;
-    font-size: 16px;
-}
-
-.FormBtn{
-    background-color: var(--purple-600);
-    color: var(--white-50);
-    outline: none;
-    border: none;
-    width: 100%;
-    padding-block: 16px;
-    border-radius: 4px;
-    margin-top: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 500;
-}
-
 `

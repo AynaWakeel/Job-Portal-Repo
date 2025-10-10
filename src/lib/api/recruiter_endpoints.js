@@ -15,12 +15,13 @@ export const Recruiter_Endpoints = {
     post_job: async(body)=> await postData("/api/jobpost/createJob", body),
     delete_job_by_id: async(id)=> await deleteData(`/api/jobpost/${id}`),
     expire_job_by_id: async(id)=> await putData(`/api/jobpost/expire-jobs/${id}`),
-    get_recruiter_job_only : async()=> await getData("/api/jobpost/recruiter/job"),
+    get_recruiter_job_only: async ( page = 1, limit = 10 ) => await getData(`/api/jobpost/recruiter/job?page=${page}&limit=${limit}`),
+
     //------post a job ( reported job data )
     get_reported_job_by_id: async(jobId)=> await getData(`/api/jobpost/jobs/recruiter/reported/${jobId}`),
     put_post_job_by_id: async(jobId, body)=> await putData(`/api/jobpost/jobs/recruiter/reported/${jobId}`, body),
     //------all jobs
-    get_all_job: async()=> await getData("/api/jobpost/jobs/recruiterOnlyjobs"),
+    get_all_job: async( page = 1, limit = 10 )=> await getData(`/api/jobpost/jobs/recruiterOnlyjobs?page=${page}&limit=${limit}`),
     //-------get industry
     get_industry: async()=> await getData("/api/industries"),
      get_location: async()=> await getData("/api/locations"),

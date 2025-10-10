@@ -17,7 +17,7 @@ export const Applicant_Endpoints = {
     //------location
     get_location: async () => await getData("/api/locations"),
     //------jobs
-    get_all_jobs: async () => await getData("/api/jobpost"),
+    get_all_jobs: async (page = 1, limit = 10) => await getData(`/api/jobpost?page=${page}&limit=${limit}`),
 
     get_jobs_by_filter: async (filters) => {
         const query = Object.entries(filters)
@@ -29,14 +29,14 @@ export const Applicant_Endpoints = {
     },
 
    
-    get_applied_jobs: async () => await getData("/api/application/my-applications"),
+    get_applied_jobs: async (page = 1, limit = 10) => await getData(`/api/application/my-applications?page=${page}&limit=${limit}`),
     get_job_detail_by_id: async (id) => await getData(`/api/jobpost/getJobDetail/${id}`),
     get_job_match_score_by_id: async (jobId) => await getData(`/api/matchScore/jobs/${jobId}/match`),
     post_apply_job: async (id, body) => await postData(`/api/application/jobs/${id}/apply`, body),
 
     //-----fav-jobs
     post_saved_jobs: async (body) => await postData("/api/saved-jobs", body),
-    get_saved_jobs: async () => await getData("/api/saved-jobs"),
+    get_saved_jobs: async (page = 1, limit = 10) => await getData(`/api/saved-jobs?page=${page}&limit=${limit}`),
     delete_saved_jobs: async (jobId) => await deleteData(`/api/saved-jobs/${jobId}`),
 
     //----analytics

@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { devices } from "../breakpoints/index";
 
 export const MainSec = styled.div`
-padding-block: 20px;
+padding-top: 20px;
+padding-bottom: 30px;
+
 
 .Flex{
     display: flex;
@@ -65,6 +67,7 @@ padding-block: 20px;
     flex-direction: column;
     align-items: start;
     gap: 24px;
+    min-height: 80vh;
 }
 
 .Grid{
@@ -342,5 +345,57 @@ padding-block: 20px;
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
+}
+`
+
+export const Pagination = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding-top: 25px;
+padding-inline: 20px;
+
+
+.Num{
+
+    padding: 10px 15px;
+    border: 1px solid var(--white-250);
+    border-radius: 50%;
+    background-color: var(--white-200);
+    color: var(--test);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--inter);
+}
+
+.Btn{
+    padding-block: 8px;
+    padding-inline: 20px;
+    border: 1px solid var(--white-250);
+    border-radius: 3px;
+    color: var(--white-250);
+    background-color: var(--test);
+    font-size: 13px;
+    font-weight: 400;
+    font-family: var(--inter);
+    cursor: pointer;
+}
+
+.Btn:hover{
+    color: var(--white-200);
+    background-color: var(--purple-600);
+}
+.BtnOff{
+    background-color: var(--white-200);
+    color: var(--purple-600);
+     padding-block: 8px;
+    padding-inline: 20px;
+    border: 1px solid var(--white-250);
+    border-radius: 3px;
+    
+    font-size: 13px;
+    font-weight: 400;
+    font-family: var(--inter);
+    cursor: pointer;
 }
 `

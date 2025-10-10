@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MainSec } from './style'
+import { MainSec , Pagination } from './style'
 import { JobCards } from '../../helper/dummyData'
 import { useNavigate } from 'react-router'
 import StatusClose from '../../assets/icons/XCircleRed.svg'
@@ -14,17 +14,13 @@ import Loader from '../loading-spinner'
 
 const FavJobCards = () => {
     const [isLoading, setIsLoading] =  useState(true)
-
+    const [savejobData, setSaveJobData] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const [isSelected, setIsSelected] = useState([])
     const {remove_save_job} = useApplicant()
 
-    const [isSelected, setIsSelected] = useState([])
-    const handleFavourite = (id) => {
-        if (isSelected.includes(id)) {
-            setIsSelected(isSelected.filter((item) => item !== id))
-        } else {
-            setIsSelected([...isSelected, id])
-        }
-    }
+   
     const navigate = useNavigate()
     const ViewDetail = (id) => {
         navigate('/applicant/company', {state:{id}})
@@ -36,18 +32,30 @@ const FavJobCards = () => {
         fetchData()
     }
 
-    const [savejobData, setSaveJobData] = useState([])
+     const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
 
-    const fetchData = async () => {
-        const res = await Applicant_Endpoints.get_saved_jobs()
-        if (res?.data) {
-            setSaveJobData(res.data)
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
+    const fetchData = async (page = 1, limit = 10) => {
+        const res = await Applicant_Endpoints.get_saved_jobs(page, limit)
+        if (res?.data?.savedJobs) {
+            setSaveJobData(res.data.savedJobs)
+            setTotalPages(res.data.totalPages)
+            setCurrentPage(res.data.currentPage)
             setIsLoading(false)
         }
     }
     useEffect(() => {
-        fetchData()
-    }, [])
+        fetchData(currentPage)
+    }, [currentPage])
 
     if(isLoading) return <Loader/>
 
@@ -121,9 +129,20 @@ const FavJobCards = () => {
                         ))}
 
                     </div>
-
-
                 </div>
+
+                  <Pagination>
+                    <div>
+                        <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                    </div>
+                    <div>
+                        <span className='Num'>{currentPage}</span>
+                    </div>
+                    <div>
+                        <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                    </div>
+                </Pagination>
+
             </MainSec>
         </div>
     )

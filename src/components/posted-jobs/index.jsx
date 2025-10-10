@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MainSec } from './style'
+import { MainSec, Pagination } from './style'
 import { ReactComponent as Close } from '../../assets/icons/XCircle.svg'
 import { ReactComponent as Eye } from '../../assets/icons/fi_eye.svg'
 import StatusClose from '../../assets/icons/XCircleRed.svg'
@@ -13,21 +13,33 @@ import Loader from '../loading-spinner'
 import { useRecruiter } from '../../shared/dashboard/recruiter/useRecruiter'
 
 const PostedJobs = () => {
-     const [isLoading, setIsLoading] =  useState(true)
-    const { delete_a_job , expire_a_job } = useRecruiter()
 
-    const fetchData = async () => {
-        const res = await Recruiter_Endpoints.get_recruiter_job_only()
-        if (res?.data?.jobs) {
-            setJobs(res.data.jobs)
-            setIsLoading(false)
-            console.log(res.data.jobs)
-        }
+    const navigate = useNavigate()
+    const [isOpen, setIsOpen] = useState(null)
+    const [jobs, setJobs] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [isLoading, setIsLoading] = useState(true)
+    const { delete_a_job, expire_a_job } = useRecruiter()
+
+    const fetchData = async (page = 1, limit = 10) => {
+        try {
+            const res = await Recruiter_Endpoints.get_recruiter_job_only(page, limit)
+            if (res?.data?.jobs) {
+                setJobs(res.data.jobs)
+                setTotalPages(res.data.totalPages)
+                setCurrentPage(res.data.currentPage)
+                setIsLoading(false)
+            }
+        } catch (err) {
+            console.log(err)
+        } 
     }
 
     useEffect(() => {
-        fetchData()
-    }, [])
+        fetchData(currentPage)
+    }, [currentPage])
+
 
     const handleDelete = async (id) => {
         await delete_a_job(id)
@@ -35,7 +47,6 @@ const PostedJobs = () => {
         console.log("job deleted")
     }
 
-   
     const [isStatusExpire, setIsStatusExpire] = useState([])
     const handleStatus = (id) => {
         if (!isStatusExpire.includes(id)) {
@@ -43,26 +54,32 @@ const PostedJobs = () => {
         }
     }
 
-     const handleExpire = async(id)=>{
+    const handleExpire = async (id) => {
         await expire_a_job(id)
         fetchData()
         console.log('job expired')
         handleStatus(id)
     }
 
-    const [isOpen, setIsOpen] = useState(null)
-
-    const navigate = useNavigate()
-    const [jobs, setJobs] = useState([])
-
-
-
     const ViewApplications = (jobId) => {
-       navigate("/recruiter/dashboard/applications", { state: { jobId } })
+        navigate("/recruiter/dashboard/applications", { state: { jobId } })
 
     }
 
-     if(isLoading) return <Loader/>
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
+
+    if (isLoading) return <Loader />
 
 
     return (
@@ -128,7 +145,7 @@ const PostedJobs = () => {
                                         }
 
                                         <div className='Right-side'>
-                                            <button className='CardBtn' onClick={()=>ViewApplications(items.id)}>
+                                            <button className='CardBtn' onClick={() => ViewApplications(items.id)}>
                                                 <span>View Applications</span>
                                             </button>
                                             <span className='Box' onClick={() => setIsOpen(isOpen === items.id ? null : items.id)}>
@@ -140,16 +157,16 @@ const PostedJobs = () => {
 
                                             <div className='dropdown'>
 
-                                                { !Expired &&
+                                                {!Expired &&
 
-                                                <div className="dropdown-row"  onClick={() => handleExpire(items.id)}>
-                                                    <span><Close className='closeicon' /></span>
-                                                    <span className='expire'>Expire</span>
-                                                </div>
-                                                
+                                                    <div className="dropdown-row" onClick={() => handleExpire(items.id)}>
+                                                        <span><Close className='closeicon' /></span>
+                                                        <span className='expire'>Expire</span>
+                                                    </div>
+
                                                 }
-                                                <div className='dropdown-row'  onClick={()=>handleDelete(items.id)}>
-                                                    <span><Close className='closeicon'/></span>
+                                                <div className='dropdown-row' onClick={() => handleDelete(items.id)}>
+                                                    <span><Close className='closeicon' /></span>
                                                     <span className='expire'>Delete</span>
                                                 </div>
                                             </div>
@@ -161,24 +178,39 @@ const PostedJobs = () => {
                             )
 
                         ) : (
-                            
-                             <div className='Card'>
+
+                            <div className='Card'>
                                 <div className='Inner-flex'>
                                     <div className='Gap'>
                                         <div className='Inner-flex'>
                                             <h3 className='Heading'>No Data Found</h3>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
 
                             </div>
-                        
+
                         )}
 
 
                     </div>
                 </div>
+
+
+                <Pagination>
+                    <div>
+                        <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                    </div>
+                    <div>
+                        <span className='Num'>{currentPage}</span>
+                    </div>
+                    <div>
+                        <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                    </div>
+                </Pagination>
+
+
             </MainSec>
         </div>
     )

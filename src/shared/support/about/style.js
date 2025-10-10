@@ -21,8 +21,7 @@ export const Section = styled.div`
 display: flex;
 justify-content: space-between;
 align-items: start;
-gap: 60px;
-padding-top: 100px;
+
 
 @media ${devices.tablet}{
     flex-direction: column-reverse;

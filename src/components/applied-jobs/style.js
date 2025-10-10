@@ -352,4 +352,17 @@ padding-inline: 20px;
     color: var(--white-200);
     background-color: var(--purple-600);
 }
+.BtnOff{
+    background-color: var(--white-200);
+    color: var(--purple-600);
+     padding-block: 8px;
+    padding-inline: 20px;
+    border: 1px solid var(--white-250);
+    border-radius: 3px;
+    
+    font-size: 13px;
+    font-weight: 400;
+    font-family: var(--inter);
+    cursor: pointer;
+}
 `

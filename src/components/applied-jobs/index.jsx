@@ -12,22 +12,40 @@ import Loader from '../loading-spinner'
 const AppliedJobs = () => {
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
+    const [Status, setStatus] = useState("Rejected")
+    const [jobData, setJobData] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
     const viewDetail = (id) => {
         navigate('/applicant/company', { state: { id } })
     }
-    const [Status, setStatus] = useState("Rejected")
-    const [jobData, setJobData] = useState([])
+
+     const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
+    const fetchData = async (page = 1, limit = 10) => {
+        const res = await Applicant_Endpoints.get_applied_jobs(page, limit)
+        if (res?.data?.applications) {
+            setJobData(res.data.applications)
+             setTotalPages(res.data.totalPages)
+            setCurrentPage(res.data.currentPage)
+            setIsLoading(false)
+        }
+    }
 
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await Applicant_Endpoints.get_applied_jobs()
-            if (res?.data) {
-                setJobData(res.data)
-                setIsLoading(false)
-            }
-        }
-        fetchData()
-    }, [])
+        fetchData(currentPage)
+    }, [currentPage])
 
     if (isLoading) return <Loader />
 
@@ -91,7 +109,7 @@ const AppliedJobs = () => {
                                                 {items.status === "selected" &&
 
                                                     (<div className='Activediv'>
-                                                        <span><img src={items.icon} alt='icon' /></span>
+                                                       <span><img src={Check} alt='icon' /></span>
                                                         <span className='Active'>Accepted</span>
                                                     </div>)
 
@@ -159,13 +177,13 @@ const AppliedJobs = () => {
 
                 <Pagination>
                     <div>
-                        <button className='Btn'>Prev</button>
+                        <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
                     </div>
                     <div>
-                        <span className='Num'>5</span>
+                        <span className='Num'>{currentPage}</span>
                     </div>
                     <div>
-                        <button className='Btn'>Next</button>
+                        <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
                     </div>
                 </Pagination>
 

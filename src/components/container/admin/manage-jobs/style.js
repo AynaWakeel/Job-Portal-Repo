@@ -3,7 +3,7 @@ import { devices } from "../../../breakpoints";
 
 
 export const Main = styled.div`
-padding-block: 50px;
+padding-top: 50px;
 padding-inline: 20px;
 
 .TopHeading{

@@ -3,8 +3,10 @@ import { devices } from "../../../breakpoints";
 
 
 export const Main = styled.div`
-padding-block: 50px;
+padding-top: 50px;
+padding-bottom: 0px;
 padding-inline: 20px;
+min-height: 80vh;
 
 .TopHeading{
     color: #18191C;
@@ -102,4 +104,58 @@ padding-inline: 20px;
     line-height: 20px;
 }
 
+`
+
+
+export const Pagination = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding-block: 20px;
+padding-inline: 20px;
+
+.Num{
+    padding: 10px 17px;
+    border: 1px solid var(--white-250);
+    border-radius: 50%;
+    background-color: var(--white-200);
+    color: var(--test);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--inter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Btn{
+    padding-block: 8px;
+    padding-inline: 20px;
+    border: 1px solid var(--white-250);
+    border-radius: 3px;
+    color: var(--white-250);
+    background-color: var(--test);
+    font-size: 13px;
+    font-weight: 400;
+    font-family: var(--inter);
+    cursor: pointer;
+}
+
+.Btn:hover{
+    color: var(--white-200);
+    background-color: var(--purple-600);
+}
+.BtnOff{
+    background-color: var(--white-200);
+    color: var(--purple-600);
+     padding-block: 8px;
+    padding-inline: 20px;
+    border: 1px solid var(--white-250);
+    border-radius: 3px;
+    
+    font-size: 13px;
+    font-weight: 400;
+    font-family: var(--inter);
+    cursor: pointer;
+}
 `

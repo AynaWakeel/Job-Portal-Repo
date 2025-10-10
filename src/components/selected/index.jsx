@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CompanyCards } from './style'
+import { CompanyCards , Pagination} from './style'
 import { JobApplicationCards } from '../../helper/dummyData'
 import Dot from '../../assets/icons/•.svg'
 import Check from '../../assets/icons/CheckCircle.svg'
@@ -12,6 +12,9 @@ const Selected = () => {
     const jobId = location.state.jobId
     const navigate = useNavigate()
     const [applicants, setApplicants] = useState([])
+     const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const limit = 10
 
     const fetchData = async () => {
         if (!jobId) return
@@ -33,6 +36,39 @@ const Selected = () => {
     const gotoProfile = (applicationId) => {
         navigate('/recruiter/dashboard/applicate-profile' , {state:{jobId , applicationId}})
     }
+
+     const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
+     // const fetchJobs = async ({ page, limit }) => {
+    //     try {
+    //         const res = await ({ page, limit })
+
+    //         const { currentPage, totalPages } = response.data;
+    //         if (res?.data.jobs) {
+    //             setApplicants(res.data.jobs)
+    //             setTotalPages(totalPages)
+    //             setIsLoading(false)
+    //         }
+
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     fetchJobs(currentPage)
+    // }, [currentPage])
+
 
     return (
         <div>
@@ -78,6 +114,19 @@ const Selected = () => {
 
                     </div>
                 </div>
+
+
+                <Pagination>
+                    <div>
+                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                    </div>
+                    <div>
+                        <span className='Num'>{currentPage}</span>
+                    </div>
+                    <div>
+                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                    </div>
+                </Pagination>
 
             </CompanyCards>
         </div>
