@@ -50,7 +50,7 @@ export const MainSec = styled.div`
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    background-color: var(--white-50);
+    background-color: var(--purple-50);
     border: 1px solid #EDEFF5;
     border-radius: 12px;
     padding-block: 16px;

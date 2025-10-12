@@ -89,7 +89,6 @@ padding-block: 20px;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    background-color: var(--white-50);
     border: 1px solid #EDEFF5;
     border-radius: 12px;
     padding-block: 16px;
@@ -111,6 +110,15 @@ padding-block: 20px;
 }
 
 }
+
+.Card.unRead{
+ background-color: var(--purple-50);
+}
+
+.Card.readed{
+ background-color: var(--white-50);
+}
+
 
 .Card:hover{
     box-shadow: 1px 5px 18px var(--purple-50);

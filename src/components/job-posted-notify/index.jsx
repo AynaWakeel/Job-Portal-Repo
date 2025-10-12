@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MainSec } from './style'
 import { RecentlyPostedJobs } from '../../helper/dummyData'
 
 const JobPostedNotify = () => {
+
+    const [isRead , setIsRead] = useState("unread")
+
+    const handleReadStatus = (id)=>{
+        setIsRead("read")
+       
+    }
+
     return (
         <div>
 
@@ -12,21 +20,15 @@ const JobPostedNotify = () => {
                         {RecentlyPostedJobs.map((items) => {
 
                             return (
-                                <div className='Card' key={items.id}>
+                                <div className={`Card ${isRead === "unread" ? "readed" : "unRead"}`} 
+                                key={items.id} onClick={()=>handleReadStatus(items.id)}>
+
                                     <div className='Inner-flex'>
                                         <div className='Gap'>
                                             <div className='Inner-flex'>
                                                 <h3 className='Heading'>{items.title}</h3>
                                             </div>
-                                            {/* <div className='Inner-flex'>
-                                                {items.detail.map((d) => (
-                                                    <h4 className='FlexIcon'>
-                                                        <span><img src={d.icon} /></span>
-                                                        <span className='SubHeading'>{d.text}</span>
-                                                    </h4>
-
-                                                ))}
-                                            </div> */}
+                                            
                                         </div>
                                     </div>
 

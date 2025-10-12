@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MainSec } from './style'
 import { RecentlyPostedJobs } from '../../helper/dummyData'
 
 const ApplicationsNotify = () => {
+
+    const [isRead , setIsRead] = useState("unread")
+
+    const handleReadStatus = (id)=>{
+        setIsRead("read")
+       
+    }
+
     return (
         <div>
             <MainSec>
@@ -11,7 +19,9 @@ const ApplicationsNotify = () => {
                         {RecentlyPostedJobs.map((items) => {
 
                             return (
-                                <div className='Card' key={items.id}>
+                                <div className={`Card ${isRead === "unread" ? "readed" : "unRead"}`} 
+                                key={items.id} onClick={()=>handleReadStatus(items.id)}>
+
                                     <div className='Inner-flex'>
                                         <div className='Gap'>
                                             <div className='Inner-flex'>
