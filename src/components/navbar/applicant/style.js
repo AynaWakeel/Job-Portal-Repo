@@ -36,6 +36,10 @@ box-shadow: 0px 0px 5px var(--purple-50);
     }
 }
 
+.Navright img{
+    cursor: pointer;
+}
+
 .NavBtn{
     padding-block: 12px;
     padding-inline: 24px;
@@ -82,6 +86,7 @@ gap: 60px;
     justify-content: start;
     align-items: center;
     gap: 5px;
+    cursor: pointer;
 }
 
 .IconColor{
@@ -92,6 +97,7 @@ gap: 60px;
     font-size: 24px;
     font-weight: 600;
     font-family: var(--inter);
+    cursor: pointer;
 }
 
 .Navlinks{
@@ -132,6 +138,7 @@ gap: 60px;
 .Navlinks a:hover{
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
+    cursor: pointer;
 }
 `
 
@@ -161,6 +168,10 @@ display: none;
     /* position: relative; */
 }
 
+.Navright img{
+    cursor: pointer;
+}
+
 .profile{
     width: 40px;
 }
@@ -185,6 +196,7 @@ display: none;
 .Navlinks a:hover{
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
+    cursor: pointer;
 }
 `
 //----------- desktop dropdown
@@ -216,6 +228,9 @@ z-index: 999;
     gap: 0px;
 }
 
+.Navright img{
+    cursor: pointer;
+}
 
 .Navlinks{
     display: flex;
@@ -237,5 +252,6 @@ z-index: 999;
 .Navlinks a:hover{
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
+    cursor: pointer;
 }
 `

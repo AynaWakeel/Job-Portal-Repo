@@ -7,6 +7,7 @@ import { useRecruiter } from '../../useRecruiter'
 import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints'
 import { showError, showSuccess } from '../../../../../components/toasters'
 import TwoFactorComp from '../../../../../components/two-factor-comp'
+import ChangePasswordComp from '../../../../../components/change-pasword'
 
 const RecruiterAccountSetting = () => {
   const {
@@ -114,7 +115,10 @@ const RecruiterAccountSetting = () => {
         <TwoFactorComp/>
 
 
-        <div className='ChangePassworddiv'>
+        <ChangePasswordComp/>
+
+
+        {/* <div className='ChangePassworddiv'>
           <h1 className='TopHeading'>Change Password</h1>
 
           <form onSubmit={handleSubmit(onChangepassword)}>
@@ -169,7 +173,7 @@ const RecruiterAccountSetting = () => {
             </Form>
 
           </form>
-        </div>
+        </div> */}
 
 
       </SettingDiv>

@@ -9,16 +9,16 @@ const DashboardLayouts = ({ children }) => {
 
   const navigate = useNavigate()
   
-    useEffect(() => {
-      const params = new URLSearchParams(window.location.search);
-      const token = params.get("token");
+    // useEffect(() => {
+    //   const params = new URLSearchParams(window.location.search);
+    //   const token = params.get("token");
   
-      if (token) {
-        localStorage.setItem("token", token);
-        showSuccess("Login successful with Google");
-        window.history.replaceState({}, document.title, "/applicant/dashboard");
-      }
-    }, [navigate]);
+    //   if (token) {
+    //     localStorage.setItem("token", token);
+    //     showSuccess("Login successful with Google");
+    //     window.history.replaceState({}, document.title, "/applicant/dashboard");
+    //   }
+    // }, [navigate]);
   
 
   return (

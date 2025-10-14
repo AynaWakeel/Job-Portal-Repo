@@ -47,5 +47,6 @@ background-color: var(--purple-50);
 .List li a:hover{
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
+    cursor: pointer;
 }
 `

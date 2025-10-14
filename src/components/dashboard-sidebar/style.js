@@ -72,10 +72,12 @@ top: 90px;
 .Navlinks li:hover{
     background-color: var(--purple-50);
     border-left: 3px solid var(--purple-600);
+    cursor: pointer;
 } 
 
 .Navlinks li:hover a{
     color: var(--purple-600);
+    cursor: pointer;
 }
 
 .Navlinks li:hover .IconColor{
@@ -145,11 +147,12 @@ display: none;
 .Navlinks li:hover{
     background-color: var(--purple-50);
     border-left: 3px solid var(--purple-600);
+    cursor: pointer;
 } 
 
 .Navlinks li:hover a{
     color: var(--purple-600);
-
+    cursor: pointer;
 }
 
 .Navlinks li:hover .IconColor{

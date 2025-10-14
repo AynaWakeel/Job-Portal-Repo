@@ -138,6 +138,11 @@ font-family: var(--inter);
 font-weight: 400;
 color: #767F8C;
 }
+
+.list ul li a:hover{
+ color: var(--purple-50);
+ cursor: pointer;
+}
 `
 
 export const Down = styled.div`

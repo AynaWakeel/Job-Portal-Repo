@@ -6,8 +6,12 @@ import { useNavigate } from 'react-router'
 import PostedJobs from '../../../../components/posted-jobs'
 import RecruiterAnalytics from '../../../../components/recruiter-analytics'
 import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints'
+import { TwoFactor_Endpoints } from '../../../../lib/api/twoFactor_endpoints'
 
 const RecruiterOverview = () => {
+
+  // const [isEnabled, setIsEnabled] = useState(false)
+
   const navigate = useNavigate()
   const ViewAll = () => {
     navigate('/recruiter/dashboard/myjobs')
@@ -15,15 +19,23 @@ const RecruiterOverview = () => {
 
   const [analytics, setAnalytics] = useState({})
 
-  useEffect(()=>{
-    const fetchData = async()=>{
+  useEffect(() => {
+    const fetchData = async () => {
       const res = await Recruiter_Endpoints.get_recruiter_analytics()
-      if(res?.data?.data){
+      if (res?.data?.data) {
         setAnalytics(res.data.data)
       }
+
+      // const auth = await TwoFactor_Endpoints.get_authentication_status()
+      // if (auth?.data?.is2FAEnabled) {
+      //   setIsEnabled(true)
+      //   console.log(auth.data.is2FAEnabled, "2FA");
+
+      // }
     }
     fetchData()
-  },[])
+  }, [])
+
 
   return (
     <div>
@@ -33,7 +45,8 @@ const RecruiterOverview = () => {
           <p>Here is your daily activities and job alerts</p>
         </div>
 
-        <RecruiterAnalytics analytics={analytics}/>
+        <RecruiterAnalytics analytics={analytics} />
+
         <Verification>
           <div className='Card'>
             <div className='Inner-flex'>

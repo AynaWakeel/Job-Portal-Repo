@@ -61,6 +61,7 @@ box-shadow: 0px 0px 5px var(--purple-50);
 .Navlinks a:hover{
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
+    cursor: pointer;
 }
 
 .Navright{
@@ -75,6 +76,10 @@ box-shadow: 0px 0px 5px var(--purple-50);
      @media ${devices.tablet}{
         display: none;
     }
+}
+
+.Navright img{
+    cursor: pointer;
 }
 
 .NavBtn{
@@ -129,6 +134,7 @@ gap: 60px;
     justify-content: start;
     align-items: center;
     gap: 5px;
+    cursor: pointer;
 }
 
 .IconColor{
@@ -139,6 +145,7 @@ gap: 60px;
     font-size: 24px;
     font-weight: 600;
     font-family: var(--inter);
+    cursor: pointer;
 }
 
 `
@@ -171,8 +178,13 @@ display: none;
     padding-bottom: 20px;
 }
 
+.Navright img{
+    cursor: pointer;
+}
+
 .profile{
     width: 40px;
+    cursor: pointer;
 }
 
 .Navlinks{
@@ -195,6 +207,7 @@ display: none;
 .Navlinks a:hover{
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
+    cursor: pointer;
 }
 `
 
@@ -227,6 +240,9 @@ z-index: 999;
     gap: 0px;
 }
 
+.Navright img{
+    cursor: pointer;
+}
 
 .Navlinks{
     display: flex;
@@ -248,5 +264,6 @@ z-index: 999;
 .Navlinks a:hover{
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
+    cursor: pointer;
 }
 `
