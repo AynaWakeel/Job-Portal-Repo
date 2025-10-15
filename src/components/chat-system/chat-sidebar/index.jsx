@@ -19,6 +19,30 @@ const ChatSystem = () => {
     setIsChatOpen(false);
   };
 
+  const person = [
+    {
+      name:'sara',
+      msg:'hey! how r u?',
+      time:'9:00 AM'
+    },
+     {
+      name:'eman',
+      msg:'hey! how r u?',
+      time:'9:00 AM'
+    },
+     {
+      name:'ali',
+      msg:'hey! how r u?',
+      time:'9:00 AM'
+    },
+    {
+      name:'hassan',
+      msg:'hey! how r u?',
+      time:'9:00 AM'
+    },
+    
+  ]
+
   return (
     <ChatDiv>
       {/* ------------------ desktop  --------------- */}
@@ -30,83 +54,24 @@ const ChatSystem = () => {
           </div>
         </form>
 
+        {person.map((items)=>(
+
         <div className="channel active" onClick={openDm}>
           <div className="channeltxt">
             <img src={profile} alt="img" className="circle" />
             <div>
-              <h4 className="Heading active">Name</h4>
-              <p className="SubHeading active">Lorem ipsum dolor sit amet.</p>
+              <h4 className="Heading active">{items.name}</h4>
+              <p className="SubHeading active">{items.msg}</p>
             </div>
           </div>
           <div className="SubHeading active">
-            <span>9.10</span>&nbsp;<span>AM</span>
+            <span>{items.time}</span>&nbsp;<span>AM</span>
           </div>
         </div>
 
-        <div className="channel" onClick={openDm}>
-          <div className="channeltxt">
-            <img src={profile2} alt="img" className="circle" />
-            <div>
-              <h4 className="Heading">Name</h4>
-              <p className="SubHeading">Lorem ipsum dolor sit amet.</p>
-            </div>
-          </div>
-          <div className="SubHeading">
-            <span>9.10</span>&nbsp;<span>AM</span>
-          </div>
-        </div>
+        ))}
 
-         <div className="channel " onClick={openDm}>
-          <div className="channeltxt">
-            <img src={profile} alt="img" className="circle" />
-            <div>
-              <h4 className="Heading ">Name</h4>
-              <p className="SubHeading ">Lorem ipsum dolor sit amet.</p>
-            </div>
-          </div>
-          <div className="SubHeading ">
-            <span>9.10</span>&nbsp;<span>AM</span>
-          </div>
-        </div>
-
-        <div className="channel" onClick={openDm}>
-          <div className="channeltxt">
-            <img src={profile2} alt="img" className="circle" />
-            <div>
-              <h4 className="Heading">Name</h4>
-              <p className="SubHeading">Lorem ipsum dolor sit amet.</p>
-            </div>
-          </div>
-          <div className="SubHeading">
-            <span>9.10</span>&nbsp;<span>AM</span>
-          </div>
-        </div>
-
-         <div className="channel " onClick={openDm}>
-          <div className="channeltxt">
-            <img src={profile} alt="img" className="circle" />
-            <div>
-              <h4 className="Heading ">Name</h4>
-              <p className="SubHeading ">Lorem ipsum dolor sit amet.</p>
-            </div>
-          </div>
-          <div className="SubHeading ">
-            <span>9.10</span>&nbsp;<span>AM</span>
-          </div>
-        </div>
-
-        <div className="channel" onClick={openDm}>
-          <div className="channeltxt">
-            <img src={profile2} alt="img" className="circle" />
-            <div>
-              <h4 className="Heading">Name</h4>
-              <p className="SubHeading">Lorem ipsum dolor sit amet.</p>
-            </div>
-          </div>
-          <div className="SubHeading">
-            <span>9.10</span>&nbsp;<span>AM</span>
-          </div>
-        </div>
+      
       </ChatSidebar>
 
       <DmChat className="desktop">
@@ -116,7 +81,7 @@ const ChatSystem = () => {
       {/* ------------- moobile chat msg ----------------- */}
       {isChatOpen ? (
         <DmChat className="mobile">
-          <Messages onBack={backToSidebar}/>
+          <Messages onBack={backToSidebar} />
         </DmChat>
       ) : (
         <ChatSidebar className="mobile">
@@ -127,57 +92,24 @@ const ChatSystem = () => {
             </div>
           </form>
 
-           <div className="channel active" onClick={openDm}>
-          <div className="channeltxt">
-            <img src={profile} alt="img" className="circle" />
-            <div>
-              <h4 className="Heading active">Name</h4>
-              <p className="SubHeading active">Lorem ipsum dolor sit amet.</p>
-            </div>
-          </div>
-          <div className="SubHeading active">
-            <span>9.10</span>&nbsp;<span>AM</span>
-          </div>
-        </div>
+        {person.map((items)=>(
 
-        <div className="channel" onClick={openDm}>
-          <div className="channeltxt">
-            <img src={profile2} alt="img" className="circle" />
-            <div>
-              <h4 className="Heading">Name</h4>
-              <p className="SubHeading">Lorem ipsum dolor sit amet.</p>
+          <div className="channel active" onClick={openDm}>
+            <div className="channeltxt">
+              <img src={profile} alt="img" className="circle" />
+              <div>
+                <h4 className="Heading active">{items.name}</h4>
+                <p className="SubHeading active">{items.msg}</p>
+              </div>
+            </div>
+            <div className="SubHeading active">
+              <span>{items.time}</span>&nbsp;<span>AM</span>
             </div>
           </div>
-          <div className="SubHeading">
-            <span>9.10</span>&nbsp;<span>AM</span>
-          </div>
-        </div>
 
-         <div className="channel " onClick={openDm}>
-          <div className="channeltxt">
-            <img src={profile} alt="img" className="circle" />
-            <div>
-              <h4 className="Heading ">Name</h4>
-              <p className="SubHeading ">Lorem ipsum dolor sit amet.</p>
-            </div>
-          </div>
-          <div className="SubHeading ">
-            <span>9.10</span>&nbsp;<span>AM</span>
-          </div>
-        </div>
+        ))}
 
-        <div className="channel" onClick={openDm}>
-          <div className="channeltxt">
-            <img src={profile2} alt="img" className="circle" />
-            <div>
-              <h4 className="Heading">Name</h4>
-              <p className="SubHeading">Lorem ipsum dolor sit amet.</p>
-            </div>
-          </div>
-          <div className="SubHeading">
-            <span>9.10</span>&nbsp;<span>AM</span>
-          </div>
-        </div>
+
         </ChatSidebar>
       )}
     </ChatDiv>

@@ -91,7 +91,7 @@ const UseAuth = () => {
     const logout = () => {
 
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        localStorage.removeItem("role");
         showSuccess("you are logout")
 
     }
