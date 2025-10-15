@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Checkbox, ForgetDiv, Form, FormDiv, SocialMediaDiv, TextDiv } from './style'
 import google from '../../assets/icons/google-icon.svg'
 import { ReactComponent as EyeIcon } from '../../assets/icons/eye.svg'
 import { ReactComponent as EyeClose } from '../../assets/icons/eye-close.svg'
-// import axios from 'axios'
 import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from "jwt-decode";
-import { ApiEndPoints } from '../../lib/api/auth_endpoints'
-
 
 const Login = () => {
     const navigate = useNavigate()
@@ -40,15 +37,6 @@ const Login = () => {
     const Visibility = () => {
         setIsVisible(!isVisible)
     }
-
-    // const googleLogin = async(body) => {
-
-    //     const token = body.credential;
-    //      await signin_google({token});
-    //     navigate('/applicant/dashboard');
-
-    // }
-
 
 
     return (
@@ -98,24 +86,7 @@ const Login = () => {
 
                             <h5 className='OR'>OR</h5>
                             <SocialMediaDiv>
-                                {/* <button className='MediaBtn' onSuccess={googleLogin}>
-                                    <img src={google} alt="icon" className='GoogleIcon' />
-                                    Signin with google
-                                </button> */}
-                                {/* <GoogleLogin
-                                    onSuccess={async (credentialResponse) => {
-                                        const token = credentialResponse.credential;
-                                        const userInfo = jwtDecode(token);
-                                        console.log("User Info:", userInfo);
-
-                                        const res = await signin_google(body);
-                                        if (res) {
-                                            navigate('/applicant/dashboard');
-                                        }
-                                    }} /> */}
-
-
-
+                               
                                 <GoogleLogin
                                     onSuccess={async (credentialResponse) => {
                                         const token = credentialResponse.credential; 

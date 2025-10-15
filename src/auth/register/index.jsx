@@ -3,15 +3,18 @@ import { Checkbox, ForgetDiv, Form, FormDiv, SocialMediaDiv, TextDiv } from './s
 import google from '../../assets/icons/google-icon.svg'
 import { ReactComponent as EyeIcon } from '../../assets/icons/eye.svg'
 import { ReactComponent as EyeClose } from '../../assets/icons/eye-close.svg'
-import axios from 'axios'
-import { useLocation, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
-// import { GoogleLogin } from '@react-oauth/google'
-// import { jwtDecode } from "jwt-decode";
+import { GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from "jwt-decode";
 
 
 const Register = () => {
+    const navigate = useNavigate()
+    console.log('client id:', process.env.REACT_APP_GOOGLE_CLIENT_ID);
+
+
     const {
         register,
         handleSubmit,
@@ -19,7 +22,7 @@ const Register = () => {
         formState: { errors },
     } = useForm()
 
-    const { signup, send_otp, signin_google} = UseAuth()
+    const { signup, send_otp, signin_google } = UseAuth()
 
     const onSubmit = async (formData) => {
         try {
@@ -38,8 +41,6 @@ const Register = () => {
     }
 
     const password = watch("password")
-
-    const navigate = useNavigate()
 
     const Login = () => {
         navigate('/auth/login')
@@ -174,20 +175,30 @@ const Register = () => {
 
                             <h5 className='OR'>OR</h5>
                             <SocialMediaDiv>
-                                <button className='MediaBtn' onClick={() => window.location.href = "http://localhost:3000/api/oauth/google"}>
-                                    <img src={google} alt="icon" className='GoogleIcon' />
-                                </button>
-                                    {/* <GoogleLogin
-                                        onSuccess={async (credentialResponse) => {
-                                            const token = credentialResponse.credential;
-                                            const userInfo = jwtDecode(token);
-                                            console.log("info", userInfo);
 
-                                            const res = await signin_google({ token });
-                                            if (res) {
-                                                navigate('/applicant/dashboard');
-                                            }
-                                        }} /> */}
+                                <GoogleLogin
+                                    onSuccess={async (credentialResponse) => {
+                                        const token = credentialResponse.credential;
+                                        const decoded = jwtDecode(token);
+                                        console.log("Decoded Google user:", decoded);
+
+                                        const res = await signin_google({ token });
+
+                                        if (res?.token) {
+                                            localStorage.setItem("token", res.token);
+                                            localStorage.setItem("role", res.user.role);
+
+                                            navigate("/applicant/dashboard/overview");
+
+                                        } else {
+                                            console.error("Google login failed!", res);
+                                        }
+                                    }}
+                                    onError={() => {
+                                        console.error("Google Login Failed");
+                                    }}
+                                />
+
                             </SocialMediaDiv>
                         </Form>
                     </form>
