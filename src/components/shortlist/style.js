@@ -191,7 +191,7 @@ align-items: center;
 padding-top: 25px;
 padding-inline: 20px;
 
-.Num{
+/* .Num{
 
     padding: 10px 15px;
     border: 1px solid var(--white-250);
@@ -201,23 +201,32 @@ padding-inline: 20px;
     font-size: 16px;
     font-weight: 600;
     font-family: var(--inter);
+} */
+
+/* .Btn{
+        padding-block: 8px;
+        padding-inline: 20px;
+        border: 1px solid var(--white-250);
+        border-radius: 3px;
+        color: var(--white-250);
+        background-color: var(--test);
+        font-size: 13px;
+        font-weight: 400;
+        font-family: var(--inter);
+        cursor: pointer;
+}
+    
+.Btn:hover{
+        color: var(--white-200);
+        background-color: var(--purple-600);
+} */
+
+.Num{
+    color: var(--test);
 }
 
 .Btn{
-    padding-block: 8px;
-    padding-inline: 20px;
-    border: 1px solid var(--white-250);
-    border-radius: 3px;
     color: var(--white-250);
-    background-color: var(--test);
-    font-size: 13px;
-    font-weight: 400;
-    font-family: var(--inter);
-    cursor: pointer;
 }
 
-.Btn:hover{
-    color: var(--white-200);
-    background-color: var(--purple-600);
-}
 `

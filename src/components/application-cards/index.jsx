@@ -3,6 +3,8 @@ import { CompanyCards , Pagination} from './style'
 import Dot from '../../assets/icons/•.svg'
 import { ReactComponent as Like } from '../../assets/icons/fi_thumbs-up.svg'
 import ProfilePic from '../../assets/images/Ellipse 18.png'
+import RightArrow from '../../assets/icons/fi_arrow-right.svg'
+import LeftArrow from '../../assets/icons/fi_arrow-left.svg'
 import { useLocation, useNavigate } from 'react-router'
 import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 import { useRecruiter } from '../../shared/dashboard/recruiter/useRecruiter'
@@ -32,7 +34,7 @@ const ApplicationCards = () => {
         fetchData()
     }
     const fetchData = async () => {
-        if (!jobId) return;
+        // if (!jobId) return;
         const res = await Recruiter_Endpoints.get_applications(jobId)
 
         if (res?.data?.all) {
@@ -137,15 +139,20 @@ const ApplicationCards = () => {
 
                    <Pagination>
                     <div>
-                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>
+                            <img src={LeftArrow} alt='left'/>
+                        </button>
                     </div>
                     <div>
                         <span className='Num'>{currentPage}</span>
                     </div>
                     <div>
-                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>
+                            <img src={RightArrow} alt='right'/>
+                        </button>
                     </div>
                 </Pagination>
+
 
             </CompanyCards>
         </div>

@@ -11,8 +11,9 @@ import Image4 from '../../../assets/images/men1.jpg'
 import Image5 from '../../../assets/images/men2.jpg'
 import Image6 from '../../../assets/images/men3.jpg'
 import Image7 from '../../../assets/images/welcome.png'
-import FileIconPdf from '../../../assets/icons/Filetype example.svg'
-import FileIconXl from '../../../assets/icons/Filetype example1.svg'
+import FileIconPdf from '../../../assets/icons/page-black-icon.svg'
+import ReportIcon from '../../../assets/icons/ban-solid-full.svg'
+import Trash from '../../../assets/icons/trash-solid-full.svg'
 import download from '../../../assets/icons/download.svg'
 import { ChatLeft, ChatRight, DmChat, MessageBox, Options } from './style'
 
@@ -40,27 +41,27 @@ const Messages = ({ onBack }) => {
     { id: 15, user: "sender", fileName: 'Film Script', filetype: '.pdf', fileSize: '2 MB', time: "9.11 AM" },
     { id: 16, user: "sender", fileName: 'Xl file', filetype: '.xlsx', fileSize: '3 MB', time: "9.11 AM" },
     { id: 17, user: "sender", pic: [Image1, Image2, Image1, Image3, Image2, Image3], time: "9.30 AM", status: "delivered" },
-    { id: 17, user: "receiver", pic: [Image4, Image5, Image6,Image7], time: "9.30 AM", status: "delivered" },
+    { id: 17, user: "receiver", pic: [Image4, Image5, Image6, Image7], time: "9.30 AM", status: "delivered" },
   ];
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [lightboxImages, setLightboxImages] = useState([]);
+  const [isOpen, setIsOpen] = useState(false)
+  const [photoIndex, setPhotoIndex] = useState(0)
+  const [lightboxImages, setLightboxImages] = useState([])
+  const [blockStatus, setBlockStatus] = useState("block")
 
-  // Open gallery with selected images
   const OpenGallery = (images, index) => {
-    setLightboxImages(images.map(img => ({ src: img })));
+    setLightboxImages(images.map(img => ({ src: img })))
     setPhotoIndex(index);
     setIsOpen(true);
-  };
+  }
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const docRef = useRef(null);
-  const photoRef = useRef(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const docRef = useRef(null)
+  const photoRef = useRef(null)
 
   const OpenFileInput = (type) => {
-    if (type === "document") docRef.current.click();
-    else if (type === "photo") photoRef.current.click();
+    if (type === "document") docRef.current.click()
+    else if (type === "photo") photoRef.current.click()
   };
 
   return (
@@ -75,10 +76,23 @@ const Messages = ({ onBack }) => {
               <img src={profile} alt="img" className="circle" />
             </div>
             <div>
-              <h4 className="Heading active">Designer</h4>
-              <p className="SubHeading active">Online for 10 mins</p>
+              <h4 className="Heading">Ali</h4>
+              <p className="SubHeading">Online</p>
             </div>
           </div>
+          {blockStatus === "unblock" ?
+
+            <div className='banDiv'>
+              <img src={ReportIcon} alt='ban' />
+              <p className="red">Block</p>
+            </div>
+
+            :
+
+             <div className='banDiv'>
+              <p className="red">Blocked</p>
+            </div>
+          }
         </div>
 
         <MessageBox>
@@ -98,11 +112,8 @@ const Messages = ({ onBack }) => {
                     {msg.fileName ? (
                       <div className="fileInput">
                         <div className="file-div">
-                          {msg.filetype === '.pdf' ? (
-                            <img src={FileIconPdf} alt="icon" />
-                          ) : (
-                            <img src={FileIconXl} alt="icon" />
-                          )}
+                          <img src={FileIconPdf} alt="icon" className='fileImg' />
+
                           <div className="file-txt-flex">
                             <h5 className={`filename ${msg.user === "sender" ? "right" : ""}`}>
                               {msg.fileName}
@@ -111,7 +122,7 @@ const Messages = ({ onBack }) => {
                             <p className={`filesize ${msg.user === "sender" ? "right" : ""}`}>{msg.fileSize}</p>
                           </div>
                         </div>
-                        <span><img src={download} alt="icon" /></span>
+                        <span><img src={download} alt="icon" className='downloadImg' /></span>
                       </div>
                     ) : (
                       <>
@@ -160,11 +171,11 @@ const Messages = ({ onBack }) => {
             plugins={[Thumbnails]}
             carousel={{ finite: true }}
             render={{
-              // hide prev/next if only one image
+
               buttonPrev: lightboxImages.length > 1 ? undefined : () => null,
               buttonNext: lightboxImages.length > 1 ? undefined : () => null,
 
-              // custom toolbar with download button
+
               toolbar: ({ currentSlide }) => (
                 <button
                   style={{
@@ -189,15 +200,37 @@ const Messages = ({ onBack }) => {
           />
         )}
 
-        <div className="msgBar">
-          <img src={attach} alt="icon" onClick={() => setIsDropdownOpen(!isDropdownOpen)} />
-          <form action="">
-            <input type="search" placeholder="Type your message" className="msginput" />
-          </form>
-          <span className="circle">
-            <img src={send} alt="icon" />
-          </span>
-        </div>
+        {/* block or unblock */}
+
+        {blockStatus === "unblock" ?
+
+          <div className="msgBar">
+            <img src={attach} alt="icon" onClick={() => setIsDropdownOpen(!isDropdownOpen)} />
+            <form action="">
+              {/* <input type="text" placeholder="Type your message" className="msginput" /> */}
+              <textarea type="text" placeholder="Type your message" className="msgtextbox" ></textarea>
+            </form>
+            <span className="circle">
+              <img src={send} alt="icon" />
+            </span>
+          </div>
+
+          :
+
+          <div className='blockBar'>
+            <div className='banDiv'>
+              <img src={Trash} alt='del' />
+              <p className="red">Delete</p>
+            </div>
+            <div className='banDiv'>
+              <img src={ReportIcon} alt='ban' />
+              <p className="red">Unblock</p>
+            </div>
+          </div>
+
+
+        }
+
 
         {isDropdownOpen && (
           <Options>

@@ -64,16 +64,13 @@ const RecruiterAllJobs = () => {
           <div className='flex'>
             <button
               className={`CardBtn ${activeStatus === "pending" ? "active" : ""}`}
-              onClick={() => handleFilter("pending")}
-            >Pending</button>
+              onClick={() => handleFilter("pending")}>Pending</button>
             <button
               className={`CardBtn ${activeStatus === "reported" ? "active" : ""}`}
-              onClick={() => handleFilter("reported")}
-            >Reported</button>
+              onClick={() => handleFilter("reported")}>Reported</button>
             <button
               className={`CardBtn ${activeStatus === "rejected" ? "active" : ""}`}
-              onClick={() => handleFilter("rejected")}
-            >Rejected</button>
+              onClick={() => handleFilter("rejected")}>Rejected</button>
           </div>
         </div>
 

@@ -29,8 +29,11 @@ export const DmChat = styled.div`
 
 //------------top bar
 .bar {
-    /* border-bottom: 1px solid #dbdde1; */
     padding-bottom: 8px;
+     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 30px;
 }
 
 .channelheader {
@@ -38,6 +41,15 @@ export const DmChat = styled.div`
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.banDiv {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
   }
 
 .display {
@@ -55,7 +67,7 @@ export const DmChat = styled.div`
     color: var(--purple-600);
 }
 
-.Heading.active {
+.Heading {
     color: var(--purple-200);
     font-size: 16px;
     font-weight: 500;
@@ -64,10 +76,19 @@ export const DmChat = styled.div`
     padding-bottom: 5px;
   }
 
-  .SubHeading.active {
+  .SubHeading {
     color: var(--purple-200);
     font-size: 14px;
     font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
+  }
+
+   .red {
+    padding-top: 3px;
+    color: var(--red);
+    font-size: 16px;
+    font-weight: 500;
     font-family: var(--inter);
     line-height: 20px;
   }
@@ -78,6 +99,16 @@ export const DmChat = styled.div`
     align-items: center;
     gap: 8px;
     margin: 0 10px 10px;
+  }
+
+  .blockBar{
+    background-color: var(--dark-800);
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
   }
 
   .msginput {
@@ -102,6 +133,24 @@ export const DmChat = styled.div`
         min-width: 380px;
         max-width: 400px;
     }
+  }
+
+   .msgtextbox {
+    min-width: 925px;
+    max-width: 926px;
+    min-height: 58px;
+    max-height: 59px;
+    border: 1px solid #dbdde1;
+    background-color: var(--white-50);
+    border-radius: 30px;
+    padding: 14px 20px;
+    outline: none;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--purple-200);
+    caret-color: var(--purple-300);
+    font-family: var(--poppin);
+
   }
 
   .msginput::placeholder {
@@ -352,6 +401,10 @@ position: relative;
   }
 }
 
+.fileImg{
+  width: 36px;
+}
+
 .fileInput{
   display: flex;
   justify-content: space-between;
@@ -359,7 +412,7 @@ position: relative;
   align-items: start;
 }
 
-.fileInput img{
+.downloadImg{
   width: 40px;
 }
 

@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MainSec } from './style'
 import StatusClose from '../../assets/icons/XCircleRed.svg'
+import Check from '../../assets/icons/Check.svg'
 import { AppliedJobsCards } from '../../helper/dummyData'
-// import { useNavigate } from 'react-router'
 
 const JobRejectedNotify = () => {
+
+    const [notify, setNotify] = useState([])
     const [Status, setStatus] = useState("Rejected")
 
     const [isRead, setIsRead] = useState("unread")
@@ -13,6 +15,17 @@ const JobRejectedNotify = () => {
         setIsRead("read")
 
     }
+
+    // const fetch = async () => {
+    //     const res = await api()
+    //     if (res?.data) {
+    //         setNotify(res.data)
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     fetch()
+    // }, [])
 
 
     return (
@@ -44,7 +57,7 @@ const JobRejectedNotify = () => {
                                         {Status === "Selected" &&
 
                                             (<div className='Activediv'>
-                                                <span><img src={items.icon} alt='icon' /></span>
+                                                <span><img src={Check} alt='icon' /></span>
                                                 <span className='Active'>Accepted</span>
                                             </div>)
 
@@ -62,7 +75,7 @@ const JobRejectedNotify = () => {
                                         {Status === "Applied" &&
 
                                             (<div className='Activediv'>
-                                                <span><img src={items.icon} alt='icon' /></span>
+                                                <span><img src={Check} alt='icon' /></span>
                                                 <span className='Active'>Applied</span>
                                             </div>)
 

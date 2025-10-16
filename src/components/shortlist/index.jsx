@@ -4,6 +4,8 @@ import Dot from '../../assets/icons/•.svg'
 import Cross from '../../assets/icons/XCircleRed.svg'
 import Check from '../../assets/icons/CheckCircle.svg'
 import Profile from '../../assets/images/Ellipse 18.png'
+import RightArrow from '../../assets/icons/fi_arrow-right.svg'
+import LeftArrow from '../../assets/icons/fi_arrow-left.svg'
 import { useLocation, useNavigate } from 'react-router'
 import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 import { useRecruiter } from '../../shared/dashboard/recruiter/useRecruiter'
@@ -22,7 +24,7 @@ const Shortlist = () => {
     const { change_applicantion_Status_by_id } = useRecruiter()
 
     const fetchData = async () => {
-        if (!jobId) return;
+        // if (!jobId) return;
         const res = await Recruiter_Endpoints.get_applications(jobId)
         console.log(res);
         
@@ -141,13 +143,17 @@ const Shortlist = () => {
 
                 <Pagination>
                     <div>
-                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>
+                            <img src={LeftArrow} alt='left'/>
+                        </button>
                     </div>
                     <div>
                         <span className='Num'>{currentPage}</span>
                     </div>
                     <div>
-                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>
+                            <img src={RightArrow} alt='right'/>
+                        </button>
                     </div>
                 </Pagination>
 

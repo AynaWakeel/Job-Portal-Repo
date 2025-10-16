@@ -1,15 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MainSec } from './style'
+import Check from '../../assets/icons/Check.svg'
 import { RecentlyPostedJobs } from '../../helper/dummyData'
 
 const JobPostedNotify = () => {
 
+    const [notify , setNotify] = useState([])
     const [isRead , setIsRead] = useState("unread")
 
     const handleReadStatus = (id)=>{
         setIsRead("read")
-       
     }
+
+    // const fetch = async()=>{
+    //     const res = await api()
+    //     if(res?.data){
+    //         setNotify(res.data)
+    //     }
+    // }
+
+    // useEffect(()=>{
+    //     fetch()
+    // },[])
 
     return (
         <div>
@@ -33,7 +45,8 @@ const JobPostedNotify = () => {
                                     </div>
 
                                     <div className='Activediv'>
-                                        <span><img src={items.icon} alt='icon' /></span>
+                                        <span><img src={Check} alt='icon' /></span>
+                                        <span className='Active'>{items.applications}</span>&
                                         <span className='Active'>Job Posted</span>
                                     </div>
 

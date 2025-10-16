@@ -184,7 +184,7 @@ align-items: center;
 padding-top: 25px;
 padding-inline: 20px;
 
-.Num{
+/* .Num{
 
     padding: 10px 15px;
     border: 1px solid var(--white-250);
@@ -212,5 +212,15 @@ padding-inline: 20px;
 .Btn:hover{
     color: var(--white-200);
     background-color: var(--purple-600);
+} */
+
+.Num{
+    color: var(--test);
 }
+
+.Btn{
+    color: var(--white-250);
+}
+
+ 
 `

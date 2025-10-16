@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { CompanyCards , Pagination} from './style'
+import { CompanyCards, Pagination } from './style'
 import { JobApplicationCards } from '../../helper/dummyData'
 import Dot from '../../assets/icons/•.svg'
 import Check from '../../assets/icons/CheckCircle.svg'
 import Profile from '../../assets/images/Ellipse 18.png'
+import RightArrow from '../../assets/icons/fi_arrow-right.svg'
+import LeftArrow from '../../assets/icons/fi_arrow-left.svg'
 import { useLocation, useNavigate } from 'react-router'
 import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 
 const Selected = () => {
-     const location = useLocation()
+    const location = useLocation()
     const jobId = location.state.jobId
     const navigate = useNavigate()
     const [applicants, setApplicants] = useState([])
-     const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const limit = 10
 
@@ -34,10 +36,10 @@ const Selected = () => {
 
 
     const gotoProfile = (applicationId) => {
-        navigate('/recruiter/dashboard/applicate-profile' , {state:{jobId , applicationId}})
+        navigate('/recruiter/dashboard/applicate-profile', { state: { jobId, applicationId } })
     }
 
-     const handlePrevPage = () => {
+    const handlePrevPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
@@ -49,7 +51,7 @@ const Selected = () => {
         }
     }
 
-     // const fetchJobs = async ({ page, limit }) => {
+    // const fetchJobs = async ({ page, limit }) => {
     //     try {
     //         const res = await ({ page, limit })
 
@@ -76,57 +78,61 @@ const Selected = () => {
                 <div className='CardDiv'>
                     <div className='Grid'>
                         {applicants.length > 0 ?
-                        
-                        applicants.map((items) => (
-                            <div className='Card'>
-                                <div className='flex'>
-                                    <div className='CardFlex'>
-                                        <div className='IconBox photo'  onClick={()=>gotoProfile(items.id)}>
-                                            <img src={items.profilepic} className='IconColor' />
-                                        </div>
-                                        <div>
-                                            <h3 className='Heading'>{items.fullName}</h3>
-                                            <span className='SubHeading'>{items.title}</span>
-                                        </div>
-                                    </div>
-                                     
-                                </div>
-                                <div className='flex-col'>
-                                    <h4 className='FlexIcon'>
-                                        <span><img src={Dot} /></span>
-                                        <span className='small'>{items.experience}</span>
-                                    </h4>
-                                    <h4 className='FlexIcon'>
-                                        <span><img src={Dot} /></span>
-                                        <span className='small'>{items.education}</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        ))
-                        
-                        :
 
-                        (
-                            <h3 className='Heading'>No Data Found</h3>
-                        )
-                        
+                            applicants.map((items) => (
+                                <div className='Card'>
+                                    <div className='flex'>
+                                        <div className='CardFlex'>
+                                            <div className='IconBox photo' onClick={() => gotoProfile(items.id)}>
+                                                <img src={items.profilepic} className='IconColor' />
+                                            </div>
+                                            <div>
+                                                <h3 className='Heading'>{items.fullName}</h3>
+                                                <span className='SubHeading'>{items.title}</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div className='flex-col'>
+                                        <h4 className='FlexIcon'>
+                                            <span><img src={Dot} /></span>
+                                            <span className='small'>{items.experience}</span>
+                                        </h4>
+                                        <h4 className='FlexIcon'>
+                                            <span><img src={Dot} /></span>
+                                            <span className='small'>{items.education}</span>
+                                        </h4>
+                                    </div>
+                                </div>
+                            ))
+
+                            :
+
+                            (
+                                <h3 className='Heading'>No Data Found</h3>
+                            )
+
                         }
 
                     </div>
                 </div>
 
-
                 <Pagination>
                     <div>
-                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                        <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>
+                            <img src={LeftArrow} alt='left' />
+                        </button>
                     </div>
                     <div>
                         <span className='Num'>{currentPage}</span>
                     </div>
                     <div>
-                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                        <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>
+                            <img src={RightArrow} alt='right' />
+                        </button>
                     </div>
                 </Pagination>
+
 
             </CompanyCards>
         </div>
