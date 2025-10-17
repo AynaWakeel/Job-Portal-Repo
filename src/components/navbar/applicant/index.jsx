@@ -1,24 +1,50 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DropdownMenu, Menu, Navbar, NavbarNav } from './style'
 import { ReactComponent as Myjob } from '../../../assets/icons/MyJobLogo.svg'
 import Menubar from '../../../assets/icons/fi_menu.svg'
 import Close from '../../../assets/icons/fi_x.svg'
 import Profile from '../../../assets/images/Ellipse 18.png'
-import Notify from '../../../assets/icons/bell-solid-full.svg'
+import NotifyIcon from '../../../assets/icons/bell-solid-full.svg'
 import Chat from '../../../assets/icons/comments-solid-full.svg'
 import { useNavigate } from 'react-router'
 import UseAuth from '../../../auth/useAuth'
+import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
 
 const ApplicantNavbar = () => {
+  
+  const [notify, setNotify] = useState([])
+  const [analyticsData, setAnalyticsData] = useState([])
   const [isActive, setIsActive] = useState('Dashboard')
 
   const navigate = useNavigate()
   const { logout } = UseAuth()
 
-   const onLogout =()=>{
+  const onLogout = () => {
     logout()
     navigate('/auth/login')
   }
+  
+   const fetchUnreadCount = async () => {
+        const res = await Applicant_Endpoints.get_unread_notifications()
+        if (res?.data) {
+            setNotify(res.data)
+            console.log("noti", res.data);
+        }
+    }
+
+
+  const fetchData = async () => {
+    const res = await Applicant_Endpoints.get_applicant_analytics()
+    if (res?.data?.data) {
+      setAnalyticsData(res.data.data)
+    }
+
+  }
+
+  useEffect(() => {
+    fetchData()
+    fetchUnreadCount()
+  }, [])
 
   const FindJob = () => {
     navigate('/applicant/findjobs')
@@ -74,8 +100,13 @@ const ApplicantNavbar = () => {
         <div>
           <div className='Navright'>
             <img src={Chat} alt='msg' onClick={Message} />
-            <img src={Notify} alt='notify' onClick={Notification} />
-            <img src={Profile} alt='profile' onClick={OpenDropdown} />
+             <div className='unreadNotify'>
+              <img src={NotifyIcon} alt='notify' onClick={Notification} />
+              <span className='count'>{notify.unreadCount}</span>
+            </div>
+            <div className='photo'>
+              <img src={analyticsData.profilepic} alt='profile' onClick={OpenDropdown} />
+            </div>
           </div>
           {isDropdownOpen &&
             <DropdownMenu>
@@ -95,14 +126,20 @@ const ApplicantNavbar = () => {
           <Menu>
             <div>
               <div className='Navright'>
-                <img src={Notify} alt='notify' className='notify' onClick={Notification} />
-                <img src={Profile} alt='profile' className='profile' onClick={ApplicanntProfile} />
+                <img src={Chat} alt='msg' onClick={Message} />
+                <div className='unreadNotify'>
+                <img src={NotifyIcon} alt='notify' className='notify' onClick={Notification} />
+                  <span className='count'>{notify.unreadCount}</span>
+                </div>
+                <div className='photo'>
+                  <img src={analyticsData.profilepic} alt='profile' className='profile' onClick={ApplicanntProfile} />
+                </div>
               </div>
               <ul className='Navlinks'>
                 <li><a onClick={FindJob}>Find Jobs</a></li>
                 <li><a onClick={Dashboard}>Dashboard</a></li>
                 <li><a onClick={Support}>Customer Support</a></li>
-                 <li><a onClick={onLogout}>Logout</a></li>
+                <li><a onClick={onLogout}>Logout</a></li>
               </ul>
             </div>
           </Menu>

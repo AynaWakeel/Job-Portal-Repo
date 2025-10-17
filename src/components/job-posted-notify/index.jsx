@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MainSec } from './style'
 import Check from '../../assets/icons/Check.svg'
 import { RecentlyPostedJobs } from '../../helper/dummyData'
+import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 
 const JobPostedNotify = () => {
 
@@ -12,16 +13,18 @@ const JobPostedNotify = () => {
         setIsRead("read")
     }
 
-    // const fetch = async()=>{
-    //     const res = await api()
-    //     if(res?.data){
-    //         setNotify(res.data)
-    //     }
-    // }
+    const fetch = async()=>{
+        const res = await Recruiter_Endpoints.get_unread_notifications()
+        if(res?.data){
+            setNotify(res.data.data)
+            console.log("noti", res.data.data);
+            console.log("noti", res.data.unreadCount);
+        }
+    }
 
-    // useEffect(()=>{
-    //     fetch()
-    // },[])
+    useEffect(()=>{
+        fetch()
+    },[])
 
     return (
         <div>
@@ -29,7 +32,7 @@ const JobPostedNotify = () => {
             <MainSec>
                 <div className='CardDiv'>
                     <div className='Grid'>
-                        {RecentlyPostedJobs.map((items) => {
+                        {notify.map((items) => {
 
                             return (
                                 <div className={`Card ${isRead === "unread" ? "readed" : "unRead"}`} 
@@ -46,8 +49,9 @@ const JobPostedNotify = () => {
 
                                     <div className='Activediv'>
                                         <span><img src={Check} alt='icon' /></span>
-                                        <span className='Active'>{items.applications}</span>&
-                                        <span className='Active'>Job Posted</span>
+                                        <span className='Active'>{items.status || "12 applications"}</span>&
+                                        <span className='Active'>{items.status || "job posted"}</span>
+                                         {/* <span className='Active'>{items.status || items.title}</span> */}
                                     </div>
 
                                 </div>

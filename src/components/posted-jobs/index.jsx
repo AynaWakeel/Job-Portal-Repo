@@ -125,7 +125,7 @@ const PostedJobs = () => {
 
                                             <div className='Activediv'>
                                                 <span><Eye className='closeicon' /></span>
-                                                {/* <span className='SubHeading'>{items.views}</span> */}
+                                                <span className='SubHeading'>{items.views}</span>
                                             </div>
                                         </div>
 

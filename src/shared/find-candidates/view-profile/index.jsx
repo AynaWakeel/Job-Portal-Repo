@@ -5,6 +5,7 @@ import { ReactComponent as Map } from '../../../assets/icons/MapPinLine.svg'
 import { ReactComponent as Brief } from '../../../assets/icons/briefcase2.svg'
 import { ReactComponent as Timer } from '../../../assets/icons/Timer.svg'
 import Company from '../../../assets/images/Ellipse 18.png'
+import Chat from '../../../assets/icons/comments-solid-full.svg'
 import BannerImg from '../../../assets/images/banner.png'
 import { ReactComponent as Global } from '../../../assets/icons/GlobeSimple.svg'
 import { ReactComponent as Envelope } from '../../../assets/icons/Envelope.svg'
@@ -37,6 +38,9 @@ const ViewApplicantProfile = () => {
       navigate('/recruiter/applicant-resume', {state:{userId}})
   }
 
+   const Message = () => {
+    navigate('/recruiter/chat')
+  }
 
   const ContentPage = ['/admin/dashboard/profile']
   const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
@@ -58,6 +62,7 @@ const ViewApplicantProfile = () => {
               <div className='profile-flex-col'>
                 <div className='detail-flex'>
                   <h2 className='Name'>{profile.fullName}</h2>
+                  <img src={Chat} alt='msg' onClick={Message} />
                 </div>
                 <div className='sub-flex'>
                   <h4 className='Title'>{profile.title}</h4>
@@ -147,10 +152,8 @@ const ViewApplicantProfile = () => {
 
                       <div className='flex'>
 
-
-
-                        {profile.resume !== null &&
-                        
+                         {profile.resume !== null && 
+                         
                         <UploadPdf>
                           <button
                             className='center'
@@ -170,9 +173,14 @@ const ViewApplicantProfile = () => {
                             </div>
                           </button>
                         </UploadPdf>
-                        
-                        }
+                         
+                         }
 
+
+                        
+
+                        {profile.hasStructuredResume !== false &&
+                        
                         <UploadPdf>
                           <button
                            onClick={()=>viewresume(profile.id)}
@@ -185,8 +193,7 @@ const ViewApplicantProfile = () => {
                           </button>
                         </UploadPdf>
 
-
-
+                        }
 
                       </div>
                     </div>

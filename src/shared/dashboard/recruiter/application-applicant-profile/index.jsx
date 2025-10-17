@@ -94,9 +94,7 @@ const ViewProfileApplications = () => {
                         <h4 className='SubHeading'>{profile.location}</h4>
                       </div>
                     </div>
-                    {/* <div>
-                    <p className='Title'>Zone/Block Basement 1 Unit B2, 1372 Spring Avenue, Portland, </p>
-                  </div> */}
+                
                   </div>
                   <div className='content'>
                     <div><Phone className='IconColor' /></div>

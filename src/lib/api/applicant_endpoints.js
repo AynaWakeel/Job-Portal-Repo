@@ -41,4 +41,7 @@ export const Applicant_Endpoints = {
 
     //----analytics
     get_applicant_analytics: async () => await getData("/api/admin/applicantStats"),
+
+     //notifications
+    get_unread_notifications: async()=>await getData("/api/notifications/unread-notification"),
 }

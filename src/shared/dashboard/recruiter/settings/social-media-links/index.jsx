@@ -102,7 +102,13 @@ const SocialMediaProfile = () => {
                 {errors.linkedInLink && <p>LinkedInLink is required.</p>}
               </div>
 
-              <button type='submit' className='FormBtn'>Save Changes</button>
+              <button type='submit' className='FormBtn'>
+                {hasData ? 
+                "Update" :
+                "Save" 
+                 }
+                
+              </button>
             </Form>
           </div>
 

@@ -65,6 +65,41 @@ box-shadow: 0px 0px 5px var(--purple-50);
     display: block;
     }
 }
+
+.photo{
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 50px;
+height: 50px;
+}
+
+.photo img{
+width: 50px;
+height: 50px;
+border-radius: 50%;
+}
+
+.unreadNotify{
+    position: relative;
+}
+
+.count{
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    width: 15px;
+    height: 15px;
+    padding: 2px 6px;
+    background-color: var(--purple-50);
+    border-radius: 50%;
+    color: var(--purple-600);
+    font-size: 10px;
+    font-weight: 600;
+    font-family: var(--inter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 `
 
 export const NavbarNav = styled.div`
@@ -140,6 +175,8 @@ gap: 60px;
     border-bottom: 2px solid var(--purple-600);
     cursor: pointer;
 }
+
+
 `
 
 // ----- menu bar
@@ -198,6 +235,39 @@ display: none;
     border-bottom: 2px solid var(--purple-600);
     cursor: pointer;
 }
+
+.photo{
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 50px;
+height: 50px;
+}
+
+.photo img{
+width: 50px;
+height: 50px;
+border-radius: 50%;
+}
+
+.unreadNotify{
+    position: relative;
+}
+
+.count{
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    width: 15px;
+    height: 15px;
+    padding: 2px 6px;
+    background-color: var(--purple-50);
+    border-radius: 50%;
+    color: var(--purple-600);
+    font-size: 10px;
+    font-weight: 600;
+    font-family: var(--inter);
+}
+
 `
 //----------- desktop dropdown
 

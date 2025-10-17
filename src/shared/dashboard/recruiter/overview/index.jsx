@@ -10,7 +10,7 @@ import { TwoFactor_Endpoints } from '../../../../lib/api/twoFactor_endpoints'
 
 const RecruiterOverview = () => {
 
-  // const [isEnabled, setIsEnabled] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(false)
 
   const navigate = useNavigate()
   const ViewAll = () => {
@@ -26,12 +26,12 @@ const RecruiterOverview = () => {
         setAnalytics(res.data.data)
       }
 
-      // const auth = await TwoFactor_Endpoints.get_authentication_status()
-      // if (auth?.data?.is2FAEnabled) {
-      //   setIsEnabled(true)
-      //   console.log(auth.data.is2FAEnabled, "2FA");
+      const auth = await TwoFactor_Endpoints.get_authentication_status()
+      if (auth?.data?.is2FAEnabled) {
+        setIsEnabled(true)
+        console.log(auth.data.is2FAEnabled, "2FA");
 
-      // }
+      }
     }
     fetchData()
   }, [])
@@ -47,11 +47,13 @@ const RecruiterOverview = () => {
 
         <RecruiterAnalytics analytics={analytics} />
 
+        {!isEnabled && 
+        
         <Verification>
           <div className='Card'>
             <div className='Inner-flex'>
               <div className='profile'>
-                <img src={Profile} alt='img' />
+                <img src={analytics.profilepic} alt='img' />
               </div>
               <div>
                 <h3 className='Heading'>Two-Factor Authentication Incomplete</h3>
@@ -64,6 +66,7 @@ const RecruiterOverview = () => {
             </button>
           </div>
         </Verification>
+        }
 
         <Jobdiv>
           <div className='Flex'>

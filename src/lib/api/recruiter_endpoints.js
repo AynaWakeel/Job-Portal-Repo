@@ -36,4 +36,7 @@ export const Recruiter_Endpoints = {
     get_all_applicants: async()=>await getData("/api/users/allApplicants"),
     get_applicants_by_title: async(title)=>await getData(`/api/users/applicants/search?title=${title}`),
     get_profile_by_id: async(id)=>await getData(`/api/users/applicants/${id}`),
+
+    //notifications
+    get_unread_notifications: async()=>await getData("/api/notifications/unread-notification"),
 }

@@ -214,12 +214,34 @@ padding-inline: 20px;
     background-color: var(--purple-600);
 } */
 
- .Num{
+.Num{
+    padding: 5px 10px;
+    border: 1px solid var(--white-250);
+    border-radius: 50%;
+    background-color: var(--white-200);
     color: var(--test);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--inter);
 }
 
 .Btn{
-    color: var(--white-250);
+
+    border: none;
+    outline: none;
+    /* color: var(--white-250); */
+    background-color: var(--purple-50);
+    font-size: 13px;
+    font-weight: 400;
+    font-family: var(--inter);
+    cursor: pointer;
 }
+
+.color{
+     fill: var(--test2);
+    color: var(--purple-600);
+}
+
+ 
 
 `

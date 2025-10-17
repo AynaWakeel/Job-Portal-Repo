@@ -10,9 +10,11 @@ import Select from 'react-select';
 
 const FoundingInfo = () => {
 
-  const [industryOptions, setIndustryOptions] = useState([]);
+  const [industryOptions, setIndustryOptions] = useState([])
+  const [selected, setSelected] = useState(null)
+  const { company_profile } = useRecruiter()
+  const [hasData, setHasData] = useState(false)
 
-  const [selected, setSelected] = useState(null);
   const orgOptions = [
     { value: "business", label: "Business / For-Profit Company" },
     { value: "nonprofit", label: "Nonprofit / Charity" },
@@ -34,8 +36,6 @@ const FoundingInfo = () => {
     formState: { errors }
   } = useForm()
 
-  const { company_profile } = useRecruiter()
-  const [hasData, setHasData] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -157,7 +157,12 @@ const FoundingInfo = () => {
             </div>
 
             <div className='FormSpace'>
-              <button type='submit' className='FormBtn'>Save Changes</button>
+              <button type='submit' className='FormBtn'>
+                 {hasData ? 
+                "Update" :
+                "Save" 
+                 }
+              </button>
             </div>
           </Form>
 

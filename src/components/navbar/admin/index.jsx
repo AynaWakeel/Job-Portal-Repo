@@ -116,7 +116,9 @@ const AdminNavbar = () => {
                   :
 
                   <div className='Navright'>
+                    <div className='photo'>
                     <img src={Profile} alt='profile' />
+                    </div>
                     <h4 className='adminname'>Admin</h4>
                   </div>
 

@@ -140,7 +140,7 @@ const ApplicationCards = () => {
                    <Pagination>
                     <div>
                         <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>
-                            <img src={LeftArrow} alt='left'/>
+                            <img src={LeftArrow} alt='left' className='color'/>
                         </button>
                     </div>
                     <div>
@@ -148,7 +148,7 @@ const ApplicationCards = () => {
                     </div>
                     <div>
                         <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>
-                            <img src={RightArrow} alt='right'/>
+                            <img src={RightArrow} alt='right' className='color'/>
                         </button>
                     </div>
                 </Pagination>

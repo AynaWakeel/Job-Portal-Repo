@@ -14,7 +14,7 @@ const RecruiterNotifications = () => {
 
         <div>
           <JobPostedNotify/>
-          <ApplicationsNotify/>
+          {/* <ApplicationsNotify/> */}
         </div>
       </Jobdiv>
 

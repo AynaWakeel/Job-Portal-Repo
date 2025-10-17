@@ -6,8 +6,10 @@ import { ReactComponent as Arrow } from '../../../../assets/icons/fi_arrow-right
 import { useNavigate } from 'react-router'
 import Jobs from '../../../../components/jobs'
 import { Applicant_Endpoints } from '../../../../lib/api/applicant_endpoints'
+import { TwoFactor_Endpoints } from '../../../../lib/api/twoFactor_endpoints'
 
 const ApplicantOverview = () => {
+  const [isEnabled, setIsEnabled] = useState(false)
   const navigate = useNavigate()
   const ViewAll = () => {
     navigate('/applicant/dashboard/applied')
@@ -20,6 +22,13 @@ const ApplicantOverview = () => {
       const res = await Applicant_Endpoints.get_applicant_analytics()
       if (res?.data?.data) {
         setAnalyticsData(res.data.data)
+      }
+
+      const auth = await TwoFactor_Endpoints.get_authentication_status()
+      if (auth?.data?.is2FAEnabled) {
+        setIsEnabled(true)
+        console.log(auth.data.is2FAEnabled, "2FA");
+
       }
     }
     fetchData()
@@ -34,11 +43,15 @@ const ApplicantOverview = () => {
         </div>
         <Analytics />
 
+        {!isEnabled &&
+        
         <Verification>
           <div className='Card'>
             <div className='Inner-flex'>
               <div className='profile'>
-                <img src={Profile} alt='img' />
+                <div className='photo'>
+                <img src={analyticsData.profilepic} alt='img' />
+                </div>
               </div>
               <div>
                 <h3 className='Heading'>Two-Factor Authentication Incomplete</h3>
@@ -51,6 +64,8 @@ const ApplicantOverview = () => {
             </button>
           </div>
         </Verification>
+        }
+
 
         <Jobdiv>
           <div className='Flex'>

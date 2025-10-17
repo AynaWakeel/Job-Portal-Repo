@@ -79,6 +79,19 @@ justify-content: center;
     width: 120%;
 }
 
+.photo{
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 50px;
+height: 50px;
+}
+
+.photo img{
+width: 50px;
+height: 50px;
+border-radius: 50%;
+}
+
 .Heading{
     color: var(--white-50);
     font-size: 18px;

@@ -3,6 +3,7 @@ import { MainSec } from './style'
 import StatusClose from '../../assets/icons/XCircleRed.svg'
 import Check from '../../assets/icons/Check.svg'
 import { AppliedJobsCards } from '../../helper/dummyData'
+import { Applicant_Endpoints } from '../../lib/api/applicant_endpoints'
 
 const JobRejectedNotify = () => {
 
@@ -16,16 +17,18 @@ const JobRejectedNotify = () => {
 
     }
 
-    // const fetch = async () => {
-    //     const res = await api()
-    //     if (res?.data) {
-    //         setNotify(res.data)
-    //     }
-    // }
+    const fetch = async () => {
+        const res = await Applicant_Endpoints.get_unread_notifications()
+        if (res?.data) {
+            setNotify(res.data.data)
+            console.log("noti", res.data.data);
+            console.log("noti", res.data.unreadCount);
+        }
+    }
 
-    // useEffect(() => {
-    //     fetch()
-    // }, [])
+    useEffect(() => {
+        fetch()
+    }, [])
 
 
     return (
@@ -33,7 +36,7 @@ const JobRejectedNotify = () => {
             <MainSec>
                 <div className='CardDiv'>
                     <div className='Grid'>
-                        {AppliedJobsCards.map((items) => {
+                        {notify.map((items) => {
                             return (
 
                                 <div className={`Card ${isRead === "unread" ? "readed" : "unRead"}`}
@@ -41,7 +44,7 @@ const JobRejectedNotify = () => {
 
                                     <div className='Inner-flex'>
                                         <div className='IconBox'>
-                                            <img src={items.logo} />
+                                            <img src={items.profilepic || "no"} />
                                         </div>
                                         <div className='Gap'>
                                             <div className='Inner-flex'>
@@ -54,7 +57,7 @@ const JobRejectedNotify = () => {
                                     <div className='status-flex'>
 
 
-                                        {Status === "Selected" &&
+                                        {items.status === "selected" &&
 
                                             (<div className='Activediv'>
                                                 <span><img src={Check} alt='icon' /></span>
@@ -63,7 +66,7 @@ const JobRejectedNotify = () => {
 
                                         }
 
-                                        {Status === "Rejected" &&
+                                        {items.status === "rejected" &&
 
                                             (<div className='Activediv'>
                                                 <span><img src={StatusClose} alt='icon' /></span>
@@ -72,11 +75,20 @@ const JobRejectedNotify = () => {
 
                                         }
 
-                                        {Status === "Applied" &&
+                                        {items.status === "pending" &&
 
                                             (<div className='Activediv'>
                                                 <span><img src={Check} alt='icon' /></span>
                                                 <span className='Active'>Applied</span>
+                                            </div>)
+
+                                        }
+
+                                         {items.status === "shortlisted" &&
+
+                                            (<div className='Activediv'>
+                                                <span><img src={Check} alt='icon' /></span>
+                                                <span className='Active'>Shortlisted</span>
                                             </div>)
 
                                         }

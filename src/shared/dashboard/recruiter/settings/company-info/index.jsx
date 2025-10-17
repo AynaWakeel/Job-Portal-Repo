@@ -8,6 +8,7 @@ import { useRecruiter } from '../../useRecruiter';
 import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints';
 
 const CompanyInfo = () => {
+  const [hasData, setHasData] = useState(false)
   const {
     register,
     handleSubmit,
@@ -18,14 +19,13 @@ const CompanyInfo = () => {
 
   const { company_profile, upload_banner, upload_logo } = useRecruiter()
 
-  const [hasData, setHasData] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const previousData = await Recruiter_Endpoints.get_company_profile();
+      const previousData = await Recruiter_Endpoints.get_company_profile()
       if (previousData?.data) {
-        reset(previousData.data);
-        setHasData(true);
+        reset(previousData.data)
+        setHasData(true)
       } else {
         reset({
           profilepic:"",
@@ -34,12 +34,12 @@ const CompanyInfo = () => {
           title:"",
           aboutUs: "",
 
-        });
+        })
         setHasData(false);
       }
-    };
-    fetchData();
-  }, [reset]);
+    }
+    fetchData()
+  }, [reset])
 
   const onSubmit = (data) => {
     company_profile(data)
@@ -153,7 +153,12 @@ const CompanyInfo = () => {
                 />
               </div>
 
-              <button type='submit' className='FormBtn'>Save Changes</button>
+              <button type='submit' className='FormBtn'>
+               {hasData ? 
+                "Update" :
+                "Save" 
+                 }
+              </button>
             </Form>
 
           </div>

@@ -154,7 +154,7 @@ const onSubmit = async (data) => {
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Location</label>
                   <Controller
-                    name="location"
+                    name="locationId"
                     control={control}
                     rules={{ required: "Location is required" }}
                     render={({ field }) => (
@@ -299,8 +299,8 @@ const onSubmit = async (data) => {
                 </div>
                 <button type='submit' className='FormBtn'>
                   {isEdit ? 
-                  " Post a job"  :
-                  "Update job"
+                  "Update"  :
+                  "Post"
                   
                   }
                 </button>

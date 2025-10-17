@@ -96,7 +96,7 @@ const Jobs = () => {
 
                                 <div className='Card' key={items.id}>
                                     <div className='Inner-flex'>
-                                        <div className='IconBox photo' style={{ backgroundColor: `${items.color}` }}>
+                                        <div className='IconBox photo'>
                                             <img src={items.recruiter.profilepic} />
                                         </div>
                                         <div className='Gap'>
@@ -112,9 +112,7 @@ const Jobs = () => {
                                                 </h4>
                                                 <h4 className='FlexIcon'>
                                                     <span><img src={Currency} /></span>
-                                                    <span className='SubHeading'>{items.salaryRange}</span>
-
-                                                    {/* <span className='SubHeading'>{items.salaryMin} - {items.salaryMax}</span> */}
+                                                    <span className='SubHeading'>{items.salaryMin} - {items.salaryMax}</span>
                                                 </h4>
                                                 <h4 className='FlexIcon'>
                                                     <span><img src='' /></span>

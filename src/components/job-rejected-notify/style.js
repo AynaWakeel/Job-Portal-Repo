@@ -68,6 +68,7 @@ padding-block: 20px;
 }
 
 .Grid{
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -217,6 +218,10 @@ padding-block: 20px;
     font-family: var(--inter);
     padding-bottom: 2px;
     line-height: 28px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .Badge{
