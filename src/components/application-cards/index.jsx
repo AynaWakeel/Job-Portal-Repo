@@ -17,8 +17,7 @@ const ApplicationCards = () => {
     const [isLike, setIsLike] = useState(false)
     const [applicants, setApplicants] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const limit = 10
+    const [totalPages, setTotalPages] = useState(1);
 
     const { change_applicantion_Status_by_id } = useRecruiter()
 
@@ -31,20 +30,21 @@ const ApplicationCards = () => {
                 )
             )
         }
-        fetchData()
+        fetchData(currentPage)
     }
-    const fetchData = async () => {
+    const fetchData = async ( page = 1, limit = 10) => {
         // if (!jobId) return;
-        const res = await Recruiter_Endpoints.get_applications(jobId)
-
-        if (res?.data?.all) {
-            setApplicants(res.data.all)
-            console.log(res.data.all)
+        const res = await Recruiter_Endpoints.get_applications(jobId , page, limit )
+        const { currentPage, totalPages } = res.data.all;
+        if (res?.data?.all?.data) {
+            setApplicants(res.data.all.data)
+            setTotalPages(totalPages)
+            console.log(res.data.all.data)
         }
     }
     useEffect(() => {
-        fetchData()
-    }, [jobId])
+        fetchData(currentPage)
+    }, [jobId, currentPage])
 
     const Profile = (applicationId) => {
         navigate('/recruiter/dashboard/applicate-profile' , {state:{jobId , applicationId}})
@@ -61,27 +61,6 @@ const ApplicationCards = () => {
             setCurrentPage(currentPage + 1);
         }
     }
-
-     // const fetchJobs = async ({ page, limit }) => {
-    //     try {
-    //         const res = await ({ page, limit })
-
-    //         const { currentPage, totalPages } = response.data;
-    //         if (res?.data.jobs) {
-    //             setApplicants(res.data.jobs)
-    //             setTotalPages(totalPages)
-    //             setIsLoading(false)
-    //         }
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchJobs(currentPage)
-    // }, [currentPage])
-
 
     const Active = () => {
         setIsLike(!isLike)
@@ -100,7 +79,7 @@ const ApplicationCards = () => {
                                 <div className='flex'>
                                     <div className='CardFlex'>
                                         <div className='IconBox photo'  onClick={() => Profile(items.id)} >
-                                            <img src={items.profilepic || ProfilePic} className='IconColor' />
+                                            <img src={items.profilepic} className='IconColor' />
                                         </div>
                                         <div>
                                             <h3 className='Heading'>{items.fullName}</h3>

@@ -14,6 +14,11 @@ const UseAuth = () => {
 
         const { is2FAEnabled, success, message, user } = response
 
+        if(success === false){
+            showError(message);
+            navigate('/auth/register')
+        }
+
         if (is2FAEnabled) {
             const email = user.email
             navigate('/auth/two-factor-authentication', { state: { email } })
@@ -38,12 +43,10 @@ const UseAuth = () => {
                 console.log(response.user.role)
             }
 
+        }else{
+            showError(message)
         }
 
-        else {
-            showError(message);
-            navigate('/auth/register')
-        }
 
     }
 
@@ -92,6 +95,7 @@ const UseAuth = () => {
 
         localStorage.removeItem("token");
         localStorage.removeItem("role");
+        localStorage.removeItem("tempToken")
         showSuccess("you are logout")
 
     }
@@ -144,23 +148,6 @@ const UseAuth = () => {
 
     }
 
-
-    // const reset_password = async ({newPassword, tempToken}) => {
-
-    //     const body = { newPassword }
-    //     if( tempToken ) body.tempToken = tempToken
-    //     const response = await ApiEndPoints.reset_password(body)
-
-    //     const {success , message } = response
-    //     if (success) {
-    //         showSuccess(message);
-    //         return response
-
-    //     } else {
-    //         showError(message);
-    //         return null
-    //     }
-    // }
 
     const reset_password = async ({ newPassword, tempToken }) => {
         try {

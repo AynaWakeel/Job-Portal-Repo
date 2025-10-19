@@ -8,12 +8,13 @@ import { useForm } from 'react-hook-form'
 import UseAuth from '../useAuth'
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from "jwt-decode";
+import { showError } from '../../components/toasters'
 
 const Login = () => {
     const navigate = useNavigate()
     const [isVisible, setIsVisible] = useState(false)
     console.log('client id:', process.env.REACT_APP_GOOGLE_CLIENT_ID);
-    
+
     const { login, signin_google } = UseAuth();
     const {
         register,
@@ -21,8 +22,15 @@ const Login = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => {
-        login(data)
+    const onSubmit = async (data) => {
+        try {
+
+            const res = await login(data)
+           
+        } catch (err) {
+            showError(err)
+            console.log(err);
+        }
 
     }
 
@@ -86,10 +94,10 @@ const Login = () => {
 
                             <h5 className='OR'>OR</h5>
                             <SocialMediaDiv>
-                               
+
                                 <GoogleLogin
                                     onSuccess={async (credentialResponse) => {
-                                        const token = credentialResponse.credential; 
+                                        const token = credentialResponse.credential;
                                         const decoded = jwtDecode(token);
                                         console.log("Decoded Google user:", decoded);
 
@@ -98,9 +106,9 @@ const Login = () => {
                                         if (res?.token) {
                                             localStorage.setItem("token", res.token);
                                             localStorage.setItem("role", res.user.role);
-                                            
+
                                             navigate("/applicant/dashboard/overview");
-                                           
+
                                         } else {
                                             console.error("Google login failed!", res);
                                         }

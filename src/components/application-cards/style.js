@@ -12,6 +12,7 @@ export const CompanyCards = styled.div`
 }
 
 .Grid{
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -25,6 +26,7 @@ export const CompanyCards = styled.div`
 }
 
 .Card{
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: start;

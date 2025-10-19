@@ -1,11 +1,24 @@
-import React from 'react'
-import { CompanyCards, MainSec } from './style'
+import React, { useState } from 'react'
+import { CompanyCards, MainSec, Pagination } from './style'
 import { useNavigate } from 'react-router'
 
-const Candidates = ({ applicants}) => {
+const Candidates = ({ applicants, currentPage, totalPages, setCurrentPage }) => {
     const navigate = useNavigate()
+
     const ViewProfile = (id) => {
-        navigate('/recruiter/applicant-profile' , {state:{id}})
+        navigate('/recruiter/applicant-profile', { state: { id } })
+    }
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
     }
 
     return (
@@ -19,7 +32,7 @@ const Candidates = ({ applicants}) => {
                                 <div className='Card'>
                                     <div className='CardFlex'>
                                         <div className='photo'>
-                                          <img src={items.profilepic} className='IconColor' />
+                                            <img src={items.profilepic} className='IconColor' />
                                         </div>
 
                                         <div>
@@ -29,7 +42,7 @@ const Candidates = ({ applicants}) => {
                                             </h4>
                                         </div>
                                     </div>
-                                    <button className='CardBtn' onClick={()=>ViewProfile(items.id)}>View Profile</button>
+                                    <button className='CardBtn' onClick={() => ViewProfile(items.id)}>View Profile</button>
                                 </div>
                             ))}
 
@@ -37,6 +50,19 @@ const Candidates = ({ applicants}) => {
                     </div>
 
                 </CompanyCards>
+
+                <Pagination>
+                    <div>
+                        <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                    </div>
+                    <div>
+                        <span className='Num'>{currentPage}</span>
+                    </div>
+                    <div>
+                        <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                    </div>
+                </Pagination>
+
             </MainSec>
         </div>
     )

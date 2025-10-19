@@ -37,4 +37,8 @@ export const Admin_Endpoints = {
      get_faqs: async()=> await getData("/api/cms/faq"),
      put_faqs: async(id,body)=> await putData(`/api/cms/faq/${id}`, body),
      delete_faqs: async (id) => await deleteData(`/api/cms/faq/${id}`),
+
+     //notifications
+    get_unread_notifications: async()=>await getData("/api/notifications/unread-notification-admin"),
+    put_read_notifications_by_id: async(id)=> await putData(`/api/notifications/mark-read/${id}`),
 }

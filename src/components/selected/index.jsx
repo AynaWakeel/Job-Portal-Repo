@@ -14,25 +14,26 @@ const Selected = () => {
     const jobId = location.state.jobId
     const navigate = useNavigate()
     const [applicants, setApplicants] = useState([])
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const limit = 10
+   const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
-    const fetchData = async () => {
-        if (!jobId) return
-        const res = await Recruiter_Endpoints.get_applications(jobId)
+    const fetchData = async (page = 1, limit = 10) => {
+        // if (!jobId) return
+        const res = await Recruiter_Endpoints.get_applications(jobId , page, limit )
         console.log(res);
 
-        if (res?.data?.selected) {
-            setApplicants(res.data.selected)
-            console.log(res.data.selected, "selected")
+        const { currentPage, totalPages } = res.data.selected;
+        if (res?.data?.selected?.data) {
+            setApplicants(res.data.selected.data)
+            setTotalPages(totalPages)
+            console.log(res.data.selected.data, "selected")
         }
     }
 
 
-    useEffect(() => {
-        fetchData()
-    }, [jobId])
+     useEffect(() => {
+        fetchData(currentPage)
+    }, [jobId, currentPage])
 
 
     const gotoProfile = (applicationId) => {
@@ -50,26 +51,6 @@ const Selected = () => {
             setCurrentPage(currentPage + 1);
         }
     }
-
-    // const fetchJobs = async ({ page, limit }) => {
-    //     try {
-    //         const res = await ({ page, limit })
-
-    //         const { currentPage, totalPages } = response.data;
-    //         if (res?.data.jobs) {
-    //             setApplicants(res.data.jobs)
-    //             setTotalPages(totalPages)
-    //             setIsLoading(false)
-    //         }
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchJobs(currentPage)
-    // }, [currentPage])
 
 
     return (

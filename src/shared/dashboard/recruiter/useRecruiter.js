@@ -122,6 +122,18 @@ export const useRecruiter = () => {
         }
     }
 
+     const read_notifications = async(id)=>{
 
-    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job , change_recruiter_password , change_applicantion_Status_by_id , have_reported_job_by_id , edit_post_job_by_id }
+        const response = await Recruiter_Endpoints.put_read_notifications_by_id(id)
+        
+        if (response?.message) {
+            showSuccess(response.message);
+        } else {
+            showError(response?.message);
+        }
+        return response
+    }
+
+
+    return { company_profile, upload_logo, upload_banner, post_a_job , delete_a_job , expire_a_job , change_recruiter_password , change_applicantion_Status_by_id , have_reported_job_by_id , edit_post_job_by_id , read_notifications}
 }

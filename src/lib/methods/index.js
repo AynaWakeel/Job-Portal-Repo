@@ -1,3 +1,4 @@
+import { showError } from '../../components/toasters';
 import axios from '../config/axios.config';
 
 export const postData = async (url, data, params = {}) => {
@@ -5,8 +6,8 @@ export const postData = async (url, data, params = {}) => {
       const response = await axios.post(url, data, params);
       return response.data;
     } catch (error) {
+      // throw error;
       return errorHandler(error);
-      // alert("login successfull")
     }
   };
   export const getData = async (url, params = {}) => {
@@ -45,27 +46,57 @@ export const postData = async (url, data, params = {}) => {
       return errorHandler(error);
     }
   };
-  export const errorHandler = (error) => {
-    let message = "An unknown error occurred.";
-    if (error.response) {
-      const res = error.response.data;
   
-      if (error.response.status === 401) {
-        // alert("Session expired. Please log in again.");
-        // errorToaster(warningMessages.sessionExpired);
-      } else {
-        // alert("Something went wrong. Please try again later.");
-        // errorToaster(errorMessages.somethingWentWrong);
-      }
-      if (res) {
-        message = res.message || res.metadata?.message || message;
-      } else {
-        message = JSON.stringify(res);
-      }
-    } else if (error?.message) {
-      message = error.message;
-      // alert(message);
-      // errorToaster(message);
+  // export const errorHandler = (error) => {
+  //   let message = "An unknown error occurred.";
+  //   if (error.response) {
+  //     const res = error.response.data;
+  
+  //     if (error.response.status === 401) {
+  //       // alert(" Please log in again.");
+  //       showError(res.message);
+  //     } else {
+  //       // alert("Something went wrong. Please try again later.");
+  //       showError(res.message);
+  //     }
+  //     if (res) {
+  //       message = res.message || res.metadata?.message || message;
+  //     } else {
+  //       message = JSON.stringify(res);
+  //     }
+  //   } else if (error?.message) {
+  //     message = error.message;
+  //     // alert(message);
+  //     showError(message);
+  //   }
+  //   return { error: message };
+  // };
+
+  export const errorHandler = (error) => {
+  let message = "An unknown error occurred.";
+
+  if (error.response) {
+    const res = error.response.data;
+
+    if (res?.message) {
+      message = res.message;
+    } else if (res?.metadata?.message) {
+      message = res.metadata.message;
     }
-    return { error: message };
-  };
+
+    showError(message);
+
+    console.error("API Error:", error.response.status, message);
+
+  } else if (error.request) {
+    message = "Network error — server not responding.";
+    showError(message);
+    console.error("Network Error:", error);
+  } else {
+    message = error.message || message;
+    showError(message);
+    console.error("Unexpected Error:", error);
+  }
+
+  throw new Error(message);
+};

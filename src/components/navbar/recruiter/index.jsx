@@ -41,14 +41,17 @@ const RecruiterNavbar = () => {
 
   const Notification = () => {
     navigate('/recruiter/dashboard/notifications')
+     setIsOpen(false)
   }
 
   const ProfilePage = () => {
     navigate('/recruiter/profile')
     setIsDropdownOpen(false)
+     setIsOpen(false)
   }
   const Message = () => {
     navigate('/recruiter/chat')
+     setIsOpen(false)
   }
 
   const [isActive, setIsActive] = useState('Dashboard')
@@ -56,15 +59,18 @@ const RecruiterNavbar = () => {
   const FindCandidates = () => {
     navigate('/recruiter/find-candidates')
     setIsActive("Find Candidates")
+     setIsOpen(false)
   }
   const Dashboard = () => {
     navigate('/recruiter/dashboard/overview')
     setIsActive("Dashboard")
+     setIsOpen(false)
   }
 
   const Support = () => {
     navigate('/recruiter/support')
     setIsActive("Customer Support")
+    setIsOpen(false)
   }
 
   const [isOpen, setIsOpen] = useState(false)

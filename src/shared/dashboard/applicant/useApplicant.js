@@ -110,5 +110,18 @@ export const useApplicant = () => {
         }
     }
 
-    return { profile_pic, upload_resume, profile_setting, create_resume, update_applicant_resume, change_applicant_password , apply_job_by_id , save_job , remove_save_job}
+      const read_notifications = async(id)=>{
+    
+            const response = await Applicant_Endpoints.put_read_notifications_by_id(id)
+            
+            if (response?.message) {
+                showSuccess(response.message);
+            } else {
+                showError(response?.message);
+            }
+            return response
+        }
+
+
+    return { profile_pic, upload_resume, profile_setting, create_resume, update_applicant_resume, change_applicant_password , apply_job_by_id , save_job , remove_save_job , read_notifications}
 }

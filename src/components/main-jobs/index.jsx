@@ -8,24 +8,11 @@ import Loader from '../loading-spinner'
 
 
 const MainJobs = ({jobData}) => {
-    const [isLoading, setIsLoading] = useState(true)
+    // const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
     const ViewDetail = (id) => {
         navigate('/applicant/company', { state: { id } })
     }
-
-    // const [jobData, setJobData] = useState([])
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const res = await Applicant_Endpoints.get_all_jobs()
-    //         if (res?.data?.jobs) {
-    //             setJobData(res.data.jobs)
-    //             setIsLoading(false)
-    //         }
-    //     }
-    //     fetchData()
-    // }, [])
 
     // if (isLoading) return <Loader />
 
@@ -39,7 +26,7 @@ const MainJobs = ({jobData}) => {
                                 <div className='Card' key={items.id} onClick={() => ViewDetail(items.id)}>
                                     <div className='CardFlex'>
                                         <div className='IconBox photo' >
-                                            <img src={items.profilepic} className='IconColor' />
+                                            <img src={items.recruiter.profilepic} className='IconColor' />
                                         </div>
                                         <div>
                                             <h3 className='Heading'>{items.title}</h3>

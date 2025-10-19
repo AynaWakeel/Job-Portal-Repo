@@ -16,6 +16,7 @@ const ApplyModal = ({ jobId , onClose }) => {
 
     const onSubmit = (data) =>{
         apply_job_by_id(jobId,data)
+        onClose()
         console.log(jobId, data, "from apply job");
         
     }

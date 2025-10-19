@@ -4,18 +4,26 @@ import StatusClose from '../../assets/icons/XCircleRed.svg'
 import Check from '../../assets/icons/Check.svg'
 import { AppliedJobsCards } from '../../helper/dummyData'
 import { Applicant_Endpoints } from '../../lib/api/applicant_endpoints'
+import { useApplicant } from '../../shared/dashboard/applicant/useApplicant'
 
 const JobRejectedNotify = () => {
 
     const [notify, setNotify] = useState([])
-    const [Status, setStatus] = useState("Rejected")
 
-    const [isRead, setIsRead] = useState("unread")
+    const {read_notifications} = useApplicant()
 
-    const handleReadStatus = (id) => {
-        setIsRead("read")
-
+    const handleReadStatus = async (id) => {
+    const res = await read_notifications(id)
+    if (res) {
+        setNotify(prev =>
+            prev.map(item =>
+                item.id === id ? { ...item, is_read: true } : item
+            )
+        )
+        fetch()
     }
+}
+
 
     const fetch = async () => {
         const res = await Applicant_Endpoints.get_unread_notifications()
@@ -39,8 +47,8 @@ const JobRejectedNotify = () => {
                         {notify.map((items) => {
                             return (
 
-                                <div className={`Card ${isRead === "unread" ? "readed" : "unRead"}`}
-                                    key={items.id} onClick={() => handleReadStatus(items.id)}>
+                                <div className={`Card ${items.is_read === false ? "unRead" : "readed"}`} 
+                                key={items.id} onClick={()=>handleReadStatus(items.id)}>
 
                                     <div className='Inner-flex'>
                                         <div className='IconBox'>
@@ -79,7 +87,7 @@ const JobRejectedNotify = () => {
 
                                             (<div className='Activediv'>
                                                 <span><img src={Check} alt='icon' /></span>
-                                                <span className='Active'>Applied</span>
+                                                <span className='Active'>Pending</span>
                                             </div>)
 
                                         }

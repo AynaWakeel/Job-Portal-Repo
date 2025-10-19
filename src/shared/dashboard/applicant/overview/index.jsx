@@ -15,6 +15,10 @@ const ApplicantOverview = () => {
     navigate('/applicant/dashboard/applied')
   }
 
+  const Auth = () =>{
+    navigate('/applicant/dashboard/personal-profile')
+  }
+
   const [analyticsData, setAnalyticsData] = useState([])
 
   useEffect(() => {
@@ -58,7 +62,7 @@ const ApplicantOverview = () => {
                 <span className='SubHeading'>For your account’s security, please finish setting up two-factor authentication.</span>
               </div>
             </div>
-            <button className='CardBtn'>
+            <button className='CardBtn'  onClick={Auth}>
               <span>Enable Now</span>
               <Arrow className='IconColor' />
             </button>

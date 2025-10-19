@@ -27,16 +27,17 @@ export const Recruiter_Endpoints = {
      get_location: async()=> await getData("/api/locations"),
     //----- applications
     get_application_detail: async(jobId,applicationId)=> await getData(`/api/application/jobs/${jobId}/applications/${applicationId}`),
-    get_applications: async(jobId)=> await getData(`/api/application/recruiter/jobs/${jobId}/applicants`),
+    get_applications: async(jobId , page = 1 , limit = 10)=> await getData(`/api/application/recruiter/jobs/${jobId}/applicants?page=${page}&limit=${limit}`),
     get_resume_by_id: async(userId)=> await getData(`/api/structuredresume/resume/${userId}`),
     put_applicantion_Status_by_id: async(applicationId, body)=> await putData(`/api/application/applications/${applicationId}/status`, body),
 
 
     //-------find candidates
-    get_all_applicants: async()=>await getData("/api/users/allApplicants"),
+    get_all_applicants: async(page = 1 , limit = 10)=>await getData(`/api/users/allApplicants?page=${page}&limit=${limit}`),
     get_applicants_by_title: async(title)=>await getData(`/api/users/applicants/search?title=${title}`),
     get_profile_by_id: async(id)=>await getData(`/api/users/applicants/${id}`),
 
     //notifications
     get_unread_notifications: async()=>await getData("/api/notifications/unread-notification"),
+    put_read_notifications_by_id: async(id)=> await putData(`/api/notifications/mark-read/${id}`),
 }

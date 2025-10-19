@@ -1,6 +1,6 @@
 import React from 'react'
 import { Main } from './style'
-import JobPostedNotify from '../../../../components/job-posted-notify'
+import AdminNotify from '../../../applications-notify'
 
 const AdminNotification = () => {
     return (
@@ -12,7 +12,7 @@ const AdminNotification = () => {
                 </div>
 
                 <div>
-                    <JobPostedNotify/>
+                    <AdminNotify/>
                 </div>
             </Main>
 

@@ -158,6 +158,18 @@ export const useAdmin = () => {
         }
     }
 
+      const read_notifications = async(id)=>{
 
-    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms , update_faq_cms , delete_faq_cms , update_admin_profile , upload_admin_photo , create_industry , delete_industry_by_id , change_manageUsersStatus , create_location , delete_location_by_id , change_admin_password , change_manageJobsStatus}
+        const response = await Admin_Endpoints.put_read_notifications_by_id(id)
+        
+        if (response?.message) {
+            showSuccess(response.message);
+        } else {
+            showError(response?.message);
+        }
+        return response
+    }
+
+
+    return { update_AboutUs_cms , updata_ContactUs_cms , create_faq_cms , update_faq_cms , delete_faq_cms , update_admin_profile , upload_admin_photo , create_industry , delete_industry_by_id , change_manageUsersStatus , create_location , delete_location_by_id , change_admin_password , change_manageJobsStatus , read_notifications}
 }

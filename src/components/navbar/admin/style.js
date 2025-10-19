@@ -66,6 +66,28 @@ height: 50px;
 border-radius: 50%;
 }
 
+.unreadNotify{
+    position: relative;
+}
+
+.count{
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    width: 15px;
+    height: 15px;
+    padding: 2px 6px;
+    background-color: var(--purple-50);
+    border-radius: 50%;
+    color: var(--purple-600);
+    font-size: 10px;
+    font-weight: 600;
+    font-family: var(--inter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 `
 
 export const NavbarNav = styled.div`
@@ -343,5 +365,27 @@ z-index: 999;
 .Navlinks a:hover{
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
+}
+
+.unreadNotify{
+    position: relative;
+}
+
+.count{
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    width: 15px;
+    height: 15px;
+    padding: 2px 6px;
+    background-color: var(--purple-50);
+    border-radius: 50%;
+    color: var(--purple-600);
+    font-size: 10px;
+    font-weight: 600;
+    font-family: var(--inter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 `

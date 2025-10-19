@@ -10,13 +10,14 @@ import { ReactComponent as Myjob } from '../../../assets/icons/MyJobLogo.svg'
 import Menubar from '../../../assets/icons/fi_menu.svg'
 import Close from '../../../assets/icons/fi_x.svg'
 import Profile from '../../../assets/images/Ellipse 18.png'
-import Notify from '../../../assets/icons/bell-solid-full.svg'
+import NotifyIcon from '../../../assets/icons/bell-solid-full.svg'
 import { useNavigate } from 'react-router'
 import UseAuth from '../../../auth/useAuth'
 import { Admin_Endpoints } from '../../../lib/api/admin_endpoints'
 
 const AdminNavbar = () => {
   const [isActive, setIsActive] = useState("Overview")
+  const [notify, setNotify] = useState([])
   const navigate = useNavigate()
   const { logout } = UseAuth()
 
@@ -31,7 +32,16 @@ const AdminNavbar = () => {
 
   useEffect(() => {
     fetchData()
+    fetchCount()
   }, [])
+
+  const fetchCount = async () => {
+    const res = await Admin_Endpoints.get_unread_notifications()
+    if (res?.data) {
+      setNotify(res.data)
+      console.log("noti", res.data.unreadCount);
+    }
+  }
 
   const onLogout = () => {
     logout()
@@ -108,7 +118,7 @@ const AdminNavbar = () => {
 
                   <div className='Navright'>
                     <div className='photo'>
-                    <img src={adminName.profilepic || Profile} alt='profile'/>
+                      <img src={adminName.profilepic} alt='profile' />
                     </div>
                     <h4 className='adminname'>{adminName.fullName}</h4>
                   </div>
@@ -117,7 +127,7 @@ const AdminNavbar = () => {
 
                   <div className='Navright'>
                     <div className='photo'>
-                    <img src={Profile} alt='profile' />
+                      <img src={Profile} alt='profile' />
                     </div>
                     <h4 className='adminname'>Admin</h4>
                   </div>
@@ -155,7 +165,10 @@ const AdminNavbar = () => {
               </div>
 
               <div className='logout'>
-                <img src={Notify} alt='profile' />
+                <div className='unreadNotify'>
+                  <img src={NotifyIcon} alt='notify' onClick={Notification} />
+                  <span className='count'>{notify.unreadCount}</span>
+                </div>
                 <button type='button' className='NavBtn' onClick={onLogout}>Logout</button>
               </div>
             </MobileSidebar>
@@ -168,17 +181,20 @@ const AdminNavbar = () => {
         </NavbarNav>
 
         <div className='Navright'>
-          <img src={Notify} alt='notify' onClick={AdminNotify} />
+          <div className='unreadNotify'>
+            <img src={NotifyIcon} alt='notify' onClick={Notification} />
+            <span className='count'>{notify.unreadCount}</span>
+          </div>
           {adminName ?
-          <>
-          
+            <>
+
               <img src={adminName.profilepic || Profile} alt='profile' onClick={OpenDropdown} className='photo' />
               <h4 className='adminname'>{adminName.fullName}</h4>
-          </>
+            </>
 
             :
-           
-              <h4 className='adminname'>Admin</h4>
+
+            <h4 className='adminname'>Admin</h4>
 
           }
         </div>

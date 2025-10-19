@@ -220,4 +220,12 @@ padding-block: 20px;
     color: var(--purple-600);
 }
 
+.red{
+    color: #E05151;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
+}
+
 `

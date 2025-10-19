@@ -1,40 +1,69 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MainSec } from './style'
-import { RecentlyPostedJobs } from '../../helper/dummyData'
+import StatusClose from '../../assets/icons/XCircleRed.svg'
+import { Admin_Endpoints } from '../../lib/api/admin_endpoints'
+import { useAdmin } from '../container/admin/useAdmin'
 
-const ApplicationsNotify = () => {
+const AdminNotify = () => {
+    const [notify, setNotify] = useState([])
 
-    const [isRead , setIsRead] = useState("unread")
+    const { read_notifications } = useAdmin()
 
-    const handleReadStatus = (id)=>{
-        setIsRead("read")
-       
+    const handleReadStatus = async (id) => {
+        const res = await read_notifications(id);
+        if (res) {
+            setNotify(prev =>
+                prev.map(item =>
+                    item.id === id ? { ...item, is_read: true } : item
+                )
+            );
+            fetch()
+        }
     }
+
+    const fetch = async () => {
+        const res = await Admin_Endpoints.get_unread_notifications()
+        if (res?.data) {
+            setNotify(res.data.data)
+            console.log("noti", res.data.data);
+            console.log("noti", res.data.unreadCount);
+        }
+    }
+
+    useEffect(() => {
+        fetch()
+    }, [])
+
 
     return (
         <div>
             <MainSec>
                 <div className='CardDiv'>
                     <div className='Grid'>
-                        {RecentlyPostedJobs.map((items) => {
+                        {notify.map((items) => {
 
                             return (
-                                <div className={`Card ${isRead === "unread" ? "readed" : "unRead"}`} 
-                                key={items.id} onClick={()=>handleReadStatus(items.id)}>
+                                <div className={`Card ${items.is_read === false ? "unRead" : "readed"}`}
+                                    key={items.id} onClick={() => handleReadStatus(items.id)}>
 
                                     <div className='Inner-flex'>
                                         <div className='Gap'>
                                             <div className='Inner-flex'>
-                                                <h3 className='Heading'>{items.title}</h3>
+                                                <h3 className='Heading'>{items.jobTitle}</h3>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
 
-                                    <div className='Activediv'>
-                                        <span><img src={items.icon} alt='icon' /></span>
-                                        <span className='Active'>234 Applications</span>
-                                    </div>
+                                    { items.approvalStatus === "pending" &&
+
+                                    (<div className='Activediv'>
+                                        <span><img src={StatusClose} alt='icon' /></span>
+                                        <span className='red'>{items.approvalStatus}</span>
+                                    </div>)
+
+                                   
+                                }
 
                                 </div>
                             );
@@ -47,4 +76,4 @@ const ApplicationsNotify = () => {
     )
 }
 
-export default ApplicationsNotify
+export default AdminNotify

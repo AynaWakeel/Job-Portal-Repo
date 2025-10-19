@@ -12,6 +12,7 @@ export const CompanyCards = styled.div`
 }
 
 .Grid{
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;

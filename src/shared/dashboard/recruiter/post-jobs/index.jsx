@@ -5,17 +5,17 @@ import { Form, Jobdiv, SettingDiv } from './style'
 import { Controller, useForm } from 'react-hook-form';
 import { useRecruiter } from '../useRecruiter';
 import SelectIndustry from '../../../../components/select-industry';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
 import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints';
 
 const RecruiterPostaJob = () => {
-
-  const [isEdit, setIsEdit] = useState(null);
+  const navigate = useNavigate()
+  const [hasData, setHasData] = useState(false);
   const [industryOptions, setIndustryOptions] = useState([])
   const [locationOptions, setLocationOptions] = useState([])
   const location = useLocation()
- const jobId = location?.state?.jobId || null;
+  const jobId = location?.state?.jobId || null;
 
 
   const {
@@ -29,73 +29,88 @@ const RecruiterPostaJob = () => {
   const { post_a_job, edit_post_job_by_id, have_reported_job_by_id } = useRecruiter()
 
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const res = await Recruiter_Endpoints.get_industry();
-      if (res?.data) {
-        const industry = res.data.map((item) => ({
-          value: item.id,
-          label: item.name,
-        }));
-        setIndustryOptions(industry);
-      }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await Recruiter_Endpoints.get_industry();
+        if (res?.data) {
+          const industry = res.data.map((item) => ({
+            value: item.id,
+            label: item.name,
+          }));
+          setIndustryOptions(industry);
+        }
 
-      const locationres = await Recruiter_Endpoints.get_location();
-      if (locationres?.data) {
-        const locationOtp = locationres.data.map((item) => ({
-          value: item.id,
-          label: item.name,
-        }));
-        setLocationOptions(locationOtp);
+        const locationres = await Recruiter_Endpoints.get_location();
+        if (locationres?.data) {
+          const locationOtp = locationres.data.map((item) => ({
+            value: item.id,
+            label: item.name,
+          }));
+          setLocationOptions(locationOtp);
+        }
+
+        if (jobId) {
+          const jobRes = await have_reported_job_by_id(jobId);
+          
+          if (jobRes?.data?.job) {
+            reset(jobRes.data.job)
+            setHasData(true)
+            console.log(jobRes);
+          } else {
+            reset({
+              title: "",
+              experience: "",
+              salaryMin: "",
+              salaryMax: "",
+              jobType: "",
+              education: "",
+              jobExpirationDate: "",
+              description: "",
+              responsibilities: "",
+              tags: "",
+              // industryId: "",
+              // locationId:"",
+            })
+            setHasData(false)
+          }
+
+        }
+      } catch (err) {
+        console.error(err);
       }
+    };
+
+    fetchData();
+  }, [jobId, reset]);
+
+
+  const onSubmit = async (data) => {
+    try {
 
       if (jobId) {
-        const jobRes = await have_reported_job_by_id(jobId);
-        console.log(jobRes);
-        
-        if (jobRes?.data?.job) {
-          const job = jobRes.data.job;
-          reset(
-            {
-            title: job.title || "",
-            experience: job.experience || "",
-            salaryMin: job.salaryMin || "",
-            salaryMax: job.salaryMax || "",
-            jobType: job.jobType || "",
-            education: job.education || "",
-            jobExpirationDate: job.jobExpirationDate?.split("T")[0] || "",
-            description: job.description || "",
-            responsibilities: job.responsibilities || "",
-            tags: [job.tags?.join(", ")] || "",
-            industryId: job.industryId,
-          }
-        );
-        }
+        await edit_post_job_by_id(jobId, data);
+        reset({
+              title: "",
+              experience: "",
+              salaryMin: "",
+              salaryMax: "",
+              jobType: "",
+              education: "",
+              jobExpirationDate: "",
+              description: "",
+              responsibilities: "",
+              tags: "",
+              // industryId: "",
+              // locationId:"",
+            })
+      } else {
+        await post_a_job(data);
       }
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
-  };
-
-  fetchData();
-}, [jobId, reset]);
-
-
-const onSubmit = async (data) => {
-  try {
-
-    if (jobId) {
-      await edit_post_job_by_id(jobId, data);
-      setIsEdit(true)
-    } else {
-      await post_a_job(data);
-      setIsEdit(false)
-    }
-  } catch (error) {
-    console.error(error);
   }
-}
 
   const Modules = {
     toolbar: [
@@ -144,7 +159,7 @@ const onSubmit = async (data) => {
 
                 </div>
               </div>
-               <div className='FormSpace FormInputDivide'>
+              <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='' className='Label'>Tags</label>
                   <input type='text' placeholder='Job keywords,tags..' className='FormInput'
@@ -171,7 +186,7 @@ const onSubmit = async (data) => {
 
                 </div>
               </div>
-             
+
 
               <div className='FormError'>
                 {errors.title && <p>title is required.</p>}
@@ -298,10 +313,10 @@ const onSubmit = async (data) => {
                   />
                 </div>
                 <button type='submit' className='FormBtn'>
-                  {isEdit ? 
-                  "Update"  :
-                  "Post"
-                  
+                  {hasData ?
+                    "Update" :
+                    "Post"
+
                   }
                 </button>
 

@@ -22,76 +22,37 @@ const FindCandidates = () => {
 
   const [applicants, setApplicants] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const fetchData = async () => {
-      const res = await Recruiter_Endpoints.get_all_applicants()
-      if (res?.data?.applicants) {
-          setApplicants(res.data.applicants)
-      }
-  }
-   useEffect(() => {
-        fetchData()
-    }, [])
 
-  const onSearch = async() => {
+  const fetchData = async (page = 1, limit = 10) => {
+    const res = await Recruiter_Endpoints.get_all_applicants(page, limit)
+    if (res?.data) {
+      setApplicants(res.data.applicants)
+      setTotalPages(res.data.totalPages)
+      setCurrentPage(res.data.currentPage)
 
-    if(searchTerm){
-     const res = await Recruiter_Endpoints.get_applicants_by_title(searchTerm) 
-      if (res?.data?.candidates) {
-       setApplicants(res.data.candidates)
-     }   
+      console.log(res.data.applicants)
+      console.log(res.data.totalPages)
+      console.log(res.data.currentPage)
     }
   }
- 
-  // ------------- desktop advance dropdown
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
-  const ModalOpen = () => {
-    setIsSearchModalOpen(!isSearchModalOpen)
-    setIsDropdownOpen(false)
+  useEffect(() => {
+    fetchData(currentPage)
+  }, [currentPage])
+
+  const onSearch = async () => {
+
+    if (searchTerm) {
+      const res = await Recruiter_Endpoints.get_applicants_by_title(searchTerm)
+      if (res?.data?.candidates) {
+        setApplicants(res.data.candidates)
+      }
+    }
   }
 
-  //--------------- tablet advance dropdown
-  const [isTabletModalOpen, setIsTabletModalOpen] = useState(false)
-  const TabletModalOpen = () => {
-    setIsTabletModalOpen(!isTabletModalOpen)
-    setIsDropdownOpen(false)
-  }
 
-  //------------- tablet dropdown ( experience )
-  const [isExperienceDropdownOpen, setIsExperienceDropdownOpen] = useState(false)
-  const ExperienceDropdownOpen = () => {
-    setIsExperienceDropdownOpen(!isExperienceDropdownOpen)
-    setIsDropdownOpen(false)
-    setIsSalaryDropdownOpen(false)
-    setIsJobTypeDropdownOpen(false)
-  }
-
-  //------------- tablet dropdown ( salary )
-  const [isSalaryDropdownOpen, setIsSalaryDropdownOpen] = useState(false)
-  const SalaryDropdownOpen = () => {
-    setIsSalaryDropdownOpen(!isSalaryDropdownOpen)
-    setIsDropdownOpen(false)
-    setIsExperienceDropdownOpen(false)
-    setIsJobTypeDropdownOpen(false)
-  }
-
-  //------------- tablet dropdown ( job type )
-  const [isJobTypeDropdownOpen, setIsJobTypeDropdownOpen] = useState(false)
-  const JobTypeDropdownOpen = () => {
-    setIsJobTypeDropdownOpen(!isJobTypeDropdownOpen)
-    setIsDropdownOpen(false)
-    setIsSalaryDropdownOpen(false)
-    setIsExperienceDropdownOpen(false)
-  }
-
-  //------------- simple dropdown ( industry )
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const DropdownOpen = () => {
-    setIsDropdownOpen(!isDropdownOpen)
-    setIsSearchModalOpen(false)
-    setIsExperienceDropdownOpen(false)
-    setIsTabletModalOpen(false)
-  }
   return (
     <div>
 
@@ -115,8 +76,8 @@ const FindCandidates = () => {
               <Searchbar>
                 <div className='InputFlex'>
                   <SearchIcon className='IconColor' />
-                  <input type='text' placeholder='Job title,Keyword..' className='Input' 
-                  onChange={(e) => setSearchTerm(e.target.value)} />
+                  <input type='text' placeholder='Job title,Keyword..' className='Input'
+                    onChange={(e) => setSearchTerm(e.target.value)} />
                 </div>
 
                 <div>
@@ -138,7 +99,13 @@ const FindCandidates = () => {
           <h1 className='TopHeading'>Few Candidates</h1>
         </div>
 
-        <Candidates applicants={applicants}/>
+        <Candidates
+          applicants={applicants}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
+
       </MainSec>
 
 

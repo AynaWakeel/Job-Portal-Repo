@@ -49,15 +49,18 @@ const ApplicantNavbar = () => {
   const FindJob = () => {
     navigate('/applicant/findjobs')
     setIsActive("Find Jobs")
+     setIsOpen(false)
   }
   const Dashboard = () => {
     navigate('/applicant/dashboard/overview')
     setIsActive("Dashboard")
+     setIsOpen(false)
   }
 
   const Support = () => {
     navigate('/applicant/support')
     setIsActive("Customer Support")
+     setIsOpen(false)
   }
 
   const [isOpen, setIsOpen] = useState(false)
@@ -72,14 +75,17 @@ const ApplicantNavbar = () => {
 
   const Notification = () => {
     navigate('/applicant/dashboard/notifications')
+     setIsOpen(false)
   }
 
   const ApplicanntProfile = () => {
     navigate('/applicant/profile')
     setIsDropdownOpen(false)
+     setIsOpen(false)
   }
   const Message = () => {
     navigate('/applicant/chat')
+     setIsOpen(false)
   }
   return (
     <div>

@@ -60,7 +60,7 @@ const RecruiterOverview = () => {
                 <span className='SubHeading'>For your account’s security, please finish setting up two-factor authentication.</span>
               </div>
             </div>
-            <button className='CardBtn'>
+            <button className='CardBtn' onClick={()=>navigate('/recruiter/dashboard/settings')}>
               <span>Enable Now</span>
               <Arrow className='IconColor' />
             </button>

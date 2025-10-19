@@ -17,20 +17,20 @@ const Shortlist = () => {
     const navigate = useNavigate()
     const [applicants, setApplicants] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const limit = 10
+    const [totalPages, setTotalPages] = useState(1);
     const [isLoading, setIsLoading] = useState()
 
     const { change_applicantion_Status_by_id } = useRecruiter()
 
-    const fetchData = async () => {
+    const fetchData = async (page = 1, limit = 10) => {
         // if (!jobId) return;
-        const res = await Recruiter_Endpoints.get_applications(jobId)
+        const res = await Recruiter_Endpoints.get_applications(jobId , page, limit )
         console.log(res);
         
-
-        if (res?.data?.shortlisted) {
-            setApplicants(res.data.shortlisted)
+        const { currentPage, totalPages } = res.data.shortlisted;
+        if (res?.data?.shortlisted?.data) {
+            setApplicants(res.data.shortlisted.data)
+            setTotalPages(totalPages)
             setIsLoading(false)
             console.log(res.data.shortlisted, "shortlist")
         }
@@ -45,12 +45,12 @@ const Shortlist = () => {
                 )
             )
         }
-        fetchData()
+        fetchData(currentPage)
     }
 
-    useEffect(() => {
-        fetchData()
-    }, [jobId])
+     useEffect(() => {
+            fetchData(currentPage)
+    }, [jobId, currentPage])
 
 
     const gotoProfile = (applicationId) => {
@@ -69,26 +69,6 @@ const Shortlist = () => {
         }
     }
 
-     // const fetchJobs = async ({ page, limit }) => {
-    //     try {
-    //         const res = await ({ page, limit })
-
-    //         const { currentPage, totalPages } = response.data;
-    //         if (res?.data.jobs) {
-    //             setApplicants(res.data.jobs)
-    //             setTotalPages(totalPages)
-    //             setIsLoading(false)
-    //         }
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchJobs(currentPage)
-    // }, [currentPage])
-
 
     if(isLoading) return <Loader/>
 
@@ -104,7 +84,7 @@ const Shortlist = () => {
                                 <div className='flex'>
                                     <div className='CardFlex'>
                                         <div className='IconBox photo'  onClick={()=>gotoProfile(items.id)}>
-                                            <img src={items.profilepic || Profile} className='IconColor' />
+                                            <img src={items.profilepic} className='IconColor' />
                                         </div>
                                         <div>
                                             <h3 className='Heading'>{items.fullName}</h3>
