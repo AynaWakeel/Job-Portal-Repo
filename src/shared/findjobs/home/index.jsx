@@ -14,6 +14,8 @@ import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
 import { Controller, useForm } from 'react-hook-form'
 
 const FindJob = () => {
+  const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
   const {
     register,
     handleSubmit,
@@ -41,10 +43,12 @@ const FindJob = () => {
 
   const [jobData, setJobData] = useState([])
 
-  const fetchJobsData = async () => {
-    const res = await Applicant_Endpoints.get_all_jobs()
+  const fetchJobsData = async (page = 1, limit = 10) => {
+    const res = await Applicant_Endpoints.get_all_jobs(page, limit)
     if (res?.data?.jobs) {
       setJobData(res.data.jobs)
+      setTotalPages(res.data.totalPages)
+      setCurrentPage(res.data.currentPage)
     }
   }
 
@@ -98,10 +102,10 @@ const FindJob = () => {
   }
 
   useEffect(() => {
-    fetchJobsData()
+    fetchJobsData(currentPage)
     fetchIndustry()
     fetchLocation()
-  }, [])
+  }, [currentPage])
 
   const navigate = useNavigate()
   const DetailPage = () => {
@@ -454,6 +458,9 @@ const FindJob = () => {
         </div>
         <MainJobs
           jobData={jobData}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
         />
 
       </MainSec>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CompanyCards, MainSec } from './style'
+import { CompanyCards, MainSec , Pagination} from './style'
 import { Applicant_Endpoints } from '../../lib/api/applicant_endpoints'
 import Map from '../../assets/icons/fi_map-pin.svg'
 import Currency from '../../assets/icons/currency-dollar 1.svg'
@@ -7,12 +7,25 @@ import { useNavigate } from 'react-router'
 import Loader from '../loading-spinner'
 
 
-const MainJobs = ({jobData}) => {
+const MainJobs = ({jobData , currentPage , totalPages , setCurrentPage}) => {
     // const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
     const ViewDetail = (id) => {
         navigate('/applicant/company', { state: { id } })
     }
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
 
     // if (isLoading) return <Loader />
 
@@ -51,6 +64,19 @@ const MainJobs = ({jobData}) => {
                     </div>
 
                 </CompanyCards>
+
+                 <Pagination>
+                    <div>
+                        <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+                    </div>
+                    <div>
+                        <span className='Num'>{currentPage}</span>
+                    </div>
+                    <div>
+                        <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+                    </div>
+                </Pagination>
+
             </MainSec>
         </div>
     )

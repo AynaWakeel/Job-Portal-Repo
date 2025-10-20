@@ -15,15 +15,19 @@ import { ReactComponent as Social1 } from '../../../assets/icons/social-media1.s
 import { ReactComponent as Social2 } from '../../../assets/icons/social-media2.svg'
 import { ReactComponent as Social3 } from '../../../assets/icons/social-media3.svg'
 import { ReactComponent as Social4 } from '../../../assets/icons/linkedin.svg'
+import Chat from '../../../assets/icons/comments-solid-full.svg'
 import ApplyModal from '../../../components/apply-job-modal'
 import Company from '../../../assets/images/Logo.png'
-import { useLocation, useParams } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
 import Loader from '../../../components/loading-spinner'
+import { useChat } from '../../../components/chat-system/useChat'
 
 const CompanyJobDetail = () => {
-     const [isLoading, setIsLoading] =  useState(true)
+    const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(true)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const { create_chat_room } = useChat()
     const PopupModal = () => {
         setIsModalOpen(!isModalOpen)
     }
@@ -36,24 +40,24 @@ const CompanyJobDetail = () => {
 
     const [jobData, setJobData] = useState({})
     const [companyData, setCompanyData] = useState({})
-     const [match, setMatch] = useState({})
+    const [match, setMatch] = useState({})
 
     const fetchData = async () => {
         const res = await Applicant_Endpoints.get_job_detail_by_id(id)
         if (res?.data?.job) {
-            console.log(id,":id")
+            console.log(id, ":id")
             setJobData(res.data.job)
             setIsLoading(false)
             setCompanyData(res.data.job.company)
         }
     }
-    
-    const fetchScore = async()=>{
+
+    const fetchScore = async () => {
         const matchRes = await Applicant_Endpoints.get_job_match_score_by_id(id)
-        if(matchRes?.data?.matchScore){
-            console.log(matchRes.data.matchScore.jobId,":jobId")
+        if (matchRes?.data?.matchScore) {
+            console.log(matchRes.data.matchScore.jobId, ":jobId")
             setMatch(matchRes.data.matchScore)
-            console.log(matchRes.data.matchScore);          
+            console.log(matchRes.data.matchScore);
             setIsLoading(false)
         }
     }
@@ -61,11 +65,27 @@ const CompanyJobDetail = () => {
     useEffect(() => {
 
         if (id) fetchData()
-        if(id) fetchScore()
+        if (id) fetchScore()
 
     }, [id])
 
-     if(isLoading) return <Loader/>
+    const handleCreateChat = async (receiverId) => {
+        const token = localStorage.getItem("token");
+        console.log("Sender token:", token);
+        console.log("Receiver ID:", receiverId);
+
+        const body = {
+            receiverId
+        };
+
+        const res = await create_chat_room(body)
+        if (res?.chat) {
+            console.log("chat res:",res.chat);
+            navigate('/applicant/chat')
+        }
+    }
+
+    if (isLoading) return <Loader />
 
     return (
         <div>
@@ -73,7 +93,7 @@ const CompanyJobDetail = () => {
                 <div className='profile'>
                     <div className='profile-intro'>
                         <div className='profile-pic'>
-                            <img src={companyData.profilepic || Company} alt='icon' />
+                            <img src={companyData.profilepic} alt='icon' />
                         </div>
                         <div className='profile-flex-col'>
                             <div className='detail-flex'>
@@ -104,19 +124,19 @@ const CompanyJobDetail = () => {
                             <div className='Right-side'>
                                 {jobData.status === "active" &&
 
-                                <>
-                                
-                                <span className='Box'><FavIcon className='Color' /></span>
-                                
-                                <button className='CardBtn' onClick={PopupModal}>
-                                    <span>Apply Now</span>
-                                    <ArrowIcon className='IconColor' />
-                                </button>
+                                    <>
 
-                                </>
+                                        <span className='Box'><FavIcon className='Color' /></span>
 
-                               
-                               }
+                                        <button className='CardBtn' onClick={PopupModal}>
+                                            <span>Apply Now</span>
+                                            <ArrowIcon className='IconColor' />
+                                        </button>
+
+                                    </>
+
+
+                                }
                                 {isModalOpen &&
                                     <ApplyModal jobId={jobData.id} onClose={() => setIsModalOpen(false)} />
                                 }
@@ -133,16 +153,14 @@ const CompanyJobDetail = () => {
                     <div className='content-left'>
                         <div>
                             <h2 className='Heading'>Job Description</h2>
-                            <p className='Sub' dangerouslySetInnerHTML={{__html: jobData.description}}></p>
+                            <p className='Sub' dangerouslySetInnerHTML={{ __html: jobData.description }}></p>
 
                         </div>
                         <div>
                             <h2 className='Heading'>Responsibilities</h2>
                             <ul className='List'>
-                                <li>
-                                    <p className='Sub' dangerouslySetInnerHTML={{__html: jobData.responsibilities}}></p>
-                                </li>
-                               
+                                <p className='Sub' dangerouslySetInnerHTML={{ __html: jobData.responsibilities }}></p>
+
                             </ul>
 
                         </div>
@@ -219,16 +237,10 @@ const CompanyJobDetail = () => {
                                         <div><Wallet className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Salary:</h2>
-                                            <h4 className='SubHeading'>${jobData.salaryRange}</h4>
+                                            <h4 className='SubHeading'>${jobData.salaryMin} - {jobData.salaryMax}</h4>
                                         </div>
                                     </div>
-                                    {/* <div className='content'>
-                                        <div><Map className='IconColor' /></div>
-                                        <div>
-                                            <h2 className='Title'>Location:</h2>
-                                            <h4 className='SubHeading'>{companyData.location || "N/A"}</h4>
-                                        </div>
-                                    </div> */}
+
                                 </div>
 
 
@@ -278,6 +290,7 @@ const CompanyJobDetail = () => {
                                 <a href={companyData.twitterLink} className='Box-icons'><Social2 className='Color' /></a>
                                 <a href={companyData.instagramLink} className='Box-icons'><Social3 className='Color' /></a>
                                 <a href={companyData.linkedInLink} className='Box-icons'><Social4 className='Color' /></a>
+                                <a className='Box-icons'><img src={Chat} className='Color' onClick={() => handleCreateChat(jobData.id)} /></a>
                             </div>
                         </CompanyBox>
 

@@ -136,7 +136,7 @@ export const DmChat = styled.div`
   }
 
    .msgtextbox {
-    min-width: 925px;
+    min-width: 920px;
     max-width: 926px;
     min-height: 58px;
     max-height: 59px;
@@ -151,6 +151,15 @@ export const DmChat = styled.div`
     caret-color: var(--purple-300);
     font-family: var(--poppin);
 
+    @media ${devices.mobile}{
+        min-width: 340px;
+        max-width: 390px;
+    }
+
+    @media ${devices.tablet}{
+        min-width: 430px;
+        max-width: 460px;
+    }
   }
 
   .msginput::placeholder {

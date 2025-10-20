@@ -15,11 +15,13 @@ import { useLocation, useNavigate, useParams } from 'react-router'
 import { Recruiter_Endpoints } from '../../../lib/api/recruiter_endpoints'
 import Loader from '../../../components/loading-spinner'
 import { showError } from '../../../components/toasters'
+import { useChat } from '../../../components/chat-system/useChat'
 
 const ViewApplicantProfile = () => {
   const navigate = useNavigate()
   const [profile, setProfile] = useState({})
   const location = useLocation()
+  const {create_chat_room} = useChat()
   const id = location.state.id
 
   useEffect(() => {
@@ -38,9 +40,21 @@ const ViewApplicantProfile = () => {
       navigate('/recruiter/applicant-resume', {state:{userId}})
   }
 
-   const Message = () => {
-    navigate('/recruiter/chat')
-  }
+   const handleCreateChat = async (receiverId) => {
+        const token = localStorage.getItem("token");
+        console.log("Sender token:", token);
+        console.log("Receiver ID:", receiverId);
+
+        const body = {
+            receiverId
+        };
+
+        const res = await create_chat_room(body)
+        if (res?.chat) {
+            console.log("chat res:",res.chat);
+            navigate('/recruiter/chat')
+        }
+    }
 
   const ContentPage = ['/admin/dashboard/profile']
   const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
@@ -61,8 +75,8 @@ const ViewApplicantProfile = () => {
               </div>
               <div className='profile-flex-col'>
                 <div className='detail-flex'>
-                  <h2 className='Name'>{profile.fullName}</h2>
-                  <img src={Chat} alt='msg' onClick={Message} />
+                  <h2 className='Name'>{profile.fullName}</h2> - {profile.id}
+                  <img src={Chat} alt='msg' onClick={()=>handleCreateChat(profile.id)} />
                 </div>
                 <div className='sub-flex'>
                   <h4 className='Title'>{profile.title}</h4>
@@ -146,6 +160,9 @@ const ViewApplicantProfile = () => {
               {!hideContent &&
 
                 <>
+
+                {profile.resume || profile.hasStructuredResume &&  
+                
                   <Box>
                     <div className='flex-col'>
 
@@ -199,6 +216,7 @@ const ViewApplicantProfile = () => {
                     </div>
 
                   </Box>
+                }
                 </>
 
               }
