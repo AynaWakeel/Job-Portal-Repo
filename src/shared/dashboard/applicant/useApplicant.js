@@ -79,13 +79,21 @@ export const useApplicant = () => {
 
     const apply_job_by_id = async (id,body) => {
 
-        const response = await Applicant_Endpoints.post_apply_job(id,body)
-        const { message } = response
-        if (response) {
-            showSuccess(message)
-        } else {
-            showError(message)
+        try{
+            const response = await Applicant_Endpoints.post_apply_job(id,body)
+            const { message } = response
+            if (response) {
+                showSuccess(message)
+            } else {
+                showError(message)
+            }
+
+        }catch(err){
+            console.log("error",err);
+            showError("Already Applied!")
+            
         }
+
     }
 
      const save_job = async (body) => {

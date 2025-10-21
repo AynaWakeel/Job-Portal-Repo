@@ -6,23 +6,41 @@ import { useNavigate } from 'react-router'
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
 import { showError } from '../../toasters'
 
-const ChatList = ({socket}) => {
-  const [isChatOpen, setIsChatOpen] = useState(false)
+const ChatList = ({socket , onOpenChat}) => {
+  // const [isChatOpen, setIsChatOpen] = useState(false)
   const [activeChat, setActiveChat] = useState(null)
   const [searchChat, setSearchChat] = useState("")
   const navigate = useNavigate()
 
-  const openDm = (id) => {
-    navigate("/applicant/chat", { state: { id } })
-    setIsChatOpen(true)
+  const openDm = (id , chatId , senderId) => {
+
+    const role = localStorage.getItem("role")
+
+    if(role === "applicant"){
+      navigate("/applicant/chat", { state: { id , chatId , senderId} })
+    }else{
+      navigate("/recruiter/chat", { state: { id , chatId , senderId} })
+
+    }
+    // setIsChatOpen(true)
     setActiveChat(id)
+    console.log("chat room id:",id);
+    console.log("chat room Chatid:",chatId);
+    console.log("senderId :", senderId);
+    
+    
+     if (onOpenChat) {
+      onOpenChat(); 
+    }
   }
 
   useEffect(() => {
-    fetchChats()
-  if (!socket) return;
 
-  socket.emit("joinUser", { userId: localStorage.getItem("id") });
+    if (!socket) return;
+
+  const userId = localStorage.getItem("id");
+  socket.emit("joinUser", { userId });
+
 
   socket.on("receiveMessage", (data) => {
     setPerson((prev) =>
@@ -43,9 +61,9 @@ const ChatList = ({socket}) => {
       try {
           const res = await Chat_Endpoints.get_all_chats();
           const {message} = res
-      if (res?.data?.chats || res?.chats) {
-        setPerson(res.data.chats || res.chats);
-        console.log("All chats:", res);
+      if (res?.data?.chats) {
+        setPerson(res.data.chats);
+        console.log("All chats:", res.data.chats);
       } else {
         console.log("No chats found:", res);
         showError(message)
@@ -61,36 +79,8 @@ const ChatList = ({socket}) => {
 
  const [person, setPerson] = useState([])
 
-//   const [person, setPerson] = useState([
-//     {
-//       id: 1,
-//       name: 'sara',
-//       msg: 'hey! how r u?',
-//       time: '9:00 AM'
-//     },
-//     {
-//       id: 2,
-//       name: 'eman',
-//       msg: 'hey! how r u?',
-//       time: '9:00 AM'
-//     },
-//     {
-//       id: 3,
-//       name: 'ali',
-//       msg: 'hey! how r u?',
-//       time: '9:00 AM'
-//     },
-//     {
-//       id: 4,
-//       name: 'hassan',
-//       msg: 'hey! how r u?',
-//       time: '9:00 AM'
-//     },
-
-//   ])
-
-  const filterChat = person.filter(
-    p => p.name.toLocaleLowerCase().includes(searchChat.toLocaleLowerCase())
+ const filterChat = person.filter(p =>
+    p?.receiver?.fullName?.toLowerCase().includes(searchChat.toLowerCase())
   )
 
   return (
@@ -108,16 +98,16 @@ const ChatList = ({socket}) => {
 
           filterChat.map((items) => (
 
-            <div key={items.id} className={`channel ${activeChat === items.id ? "active" : ""}`} onClick={() => openDm(items.id)}>
+            <div key={items.receiver.id} className={`channel ${activeChat === items.receiver.id ? "active" : ""}`} onClick={() => openDm(items.receiver.id , items.chatId , items.senderId )}>
               <div className="channeltxt">
-                <img src={profile} alt="img" className="circle" />
+                <img src={items.receiver.profilepic || profile} alt="img" className="circle" />
                 <div>
-                  <h4 className="Heading">{items.name}</h4>
-                  <p className="SubHeading">{items.msg}</p>
+                  <h4 className="Heading">{items.receiver.fullName || "name"}</h4>
+                  <p className="SubHeading">{items.messages || "heyw"}</p>
                 </div>
               </div>
               <div className="SubHeading">
-                <span>{items.time}</span>
+                <span>{items.messages || "time"}</span>
               </div>
             </div>
 

@@ -4,8 +4,9 @@ export const Chat_Endpoints = {
 
     post_chat: async(body)=> await postData("/api/chats", body),
     get_all_chats: async()=> await getData(`/api/chats`),
+    get_chat_info_by_userId: async(userId)=> await getData(`/api/chats/user/${userId}`),
     get_messages_by_chatId: async(chatId)=> await getData(`/api/messages/${chatId}`),
-    put_messages_read_by_id: async(msgId)=> await putData(`/api/messages/read/${msgId}`),
-    put_block_by_id: async(userId)=> await putData(`/api/chats/${userId}`),
-    delete_by_id: async(userId)=> await deleteData(`/api/chats/${userId}`),
+    put_messages_read_by_id: async(chatId)=> await putData(`/api/chats/${chatId}/mark-as-read`),
+    put_block_by_id: async(body)=> await putData(`/api/chats/block-unblock`, body),
+    delete_by_id: async(chatId)=> await deleteData(`/api/chats/${chatId}`),
 }

@@ -39,7 +39,8 @@ const ChatSystem = () => {
       ) : (
         <ChatSidebar className="mobile">
         
-         <ChatList socket={socket} />
+         {/* <ChatList socket={socket} /> */}
+         <ChatList socket={socket} onOpenChat={() => setIsChatOpen(true)} />
 
         </ChatSidebar>
       )}

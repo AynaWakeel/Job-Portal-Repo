@@ -24,8 +24,9 @@ import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
 import { useChat } from '../useChat'
+import { useLocation, useNavigate } from 'react-router'
 
-const Messages = ({ socket, chatId, onBack }) => {
+const Messages = ({ socket, onBack }) => {
   const msgs = [
     { id: 1, user: "receiver", text: "Lorem ipsum dolor sit amet consectetur, elit. Sed, expedita.", time: "9.10 AM" },
     { id: 2, user: "receiver", text: "Lorem ipsum dolor sit amet consectetur", time: "9.11 AM" },
@@ -46,9 +47,22 @@ const Messages = ({ socket, chatId, onBack }) => {
     { id: 17, user: "receiver", pic: [Image4, Image5, Image6, Image7], time: "9.30 AM", status: "delivered" },
   ];
 
-  const { send_message } = useChat()
+  const {block_user_by_id , delete_chat , read_message} = useChat()
+  const location = useLocation()
+  const personId = location?.state?.id || null
+  const tokenId = location?.state?.chatId || null
+  const sender_Id = location?.state?.senderId || null
+  const loginUserid = localStorage.getItem("id")
+  console.log("login user id-------:", loginUserid);
+  
+  console.log("personId:",personId);
+  console.log("tokenId:",tokenId);
+  console.log("sender id------:", sender_Id);
 
-  const [messages, setMessages] = useState([]);
+  
+  const [userInfo , setUserInfo] = useState()
+  const [chatMessages, setChatMessages] = useState([]);
+  const [activeChatId, setActiveChatId] = useState(tokenId || null);
   const [newMsg, setNewMsg] = useState("");
   const [isOpen, setIsOpen] = useState(false)
   const [photoIndex, setPhotoIndex] = useState(0)
@@ -70,112 +84,182 @@ const Messages = ({ socket, chatId, onBack }) => {
     else if (type === "photo") photoRef.current.click()
   }
 
-  const handleSend = async (e) => {
+  const handleSend = (e) => {
     e.preventDefault();
+
     if (!newMsg.trim()) return;
+    const userId = localStorage.getItem("id");
+    console.log("userId-------------------:", userId);
 
     const messageData = {
-      chatId,
-      text: newMsg,
+      chatId: tokenId,
+      senderId: sender_Id,
+      receiverId:personId,
+      content: newMsg,
+      isSender: true,
     };
 
-    try {
-      const res = await send_message(messageData);
-      const savedMsg = res?.data;
+    socket.emit("sendMessage", messageData);
+    console.log("sendMessage:", messageData);
 
-      setMessages((prev) => [...prev, savedMsg]);
-
-      socket.emit("sendMessage", savedMsg);
-
-      setNewMsg("");
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
+    setChatMessages((prev) => [...prev, messageData]);
+    setNewMsg("");
   };
+
 
 
   const fetchMessages = async () => {
     try {
-      const res = await Chat_Endpoints.get_messages_by_chatId(chatId);
-      setMessages(res?.data || []);
+      const res = await Chat_Endpoints.get_messages_by_chatId(activeChatId || tokenId);
+      setChatMessages(res?.data?.messages || []);
     } catch (error) {
       console.error("Error loading messages", error);
     }
   }
 
-  useEffect(()=>{
-      if (chatId) fetchMessages();
-  },[])
+  const fetchUser = async () => {
+    try {
+      const res = await Chat_Endpoints.get_chat_info_by_userId(personId);
+      setUserInfo(res.data.chat.receiver)
+      setActiveChatId(res.data.chat.chatId);
+      console.log("userIndo chT:", res.data.chat.receiver.fullName);
+      console.log("userId of chat info:",personId);
+      console.log("user chatId in res >>>:", res.data.chat.chatId);
+      
+      
+      
+    } catch (error) {
+      console.error("Error loading messages", error);
+    }
+  }
+
+    useEffect(() => {
+    if (personId) {
+      fetchUser(); 
+    }
+  }, [personId]);
+
+ useEffect(() => {
+  const idToUse = activeChatId || tokenId;
+  if (idToUse) fetchMessages();
+  console.log("Fetching messages for chatId:", idToUse);
+}, [activeChatId, tokenId]);
+
 
   useEffect(() => {
     if (!socket) return;
 
     socket.on("receiveMessage", (data) => {
-      if (data.chatId === chatId) {
-        setMessages((prev) => [...prev, data]);
+      if (data.chatId === tokenId) {
+        setChatMessages((prev) => [...prev, data]);
       }
     });
 
     return () => socket.off("receiveMessage");
-  }, [socket, chatId]);
+  }, [socket, tokenId]);
+
+  const handleBlockuser = async(id , actionType)=>{
+    const res = await block_user_by_id({ blockedUserId: id , type: actionType})
+      setUserInfo(prev => ({
+        ...prev,
+        blockedByCurrentUser: actionType
+      }))
+
+      fetchUser()
+    if(res){
+       console.log("block res:", res);  
+    }
+  }
+
+  const handleDeleteChat = async(tokenId)=>{
+    try{
+      
+      const res = await delete_chat(tokenId)
+      if(res){
+        console.log("delte cat res:",res);
+        
+      }
+      fetchMessages()
+    }catch(err){
+      console.log("error:",err);
+      
+    }
+  }
+
+   const handleReadMsg = async()=>{
+    const res = await read_message(tokenId)
+      setChatMessages(prev => ({
+        ...prev,
+        isRead: true
+      }))
+
+      fetchUser()
+    if(res){
+       console.log("block res:", res);  
+    }
+  }
 
 
   return (
     <div>
       <DmChat>
+      
         <div className="bar">
           <div className="channelheader">
             <div className="display" onClick={onBack}>
               <ArrowLeft className="color" />
             </div>
             <div>
-              <img src={profile} alt="img" className="circle" />
+              <img src={userInfo?.profilepic} alt="img" className="circle" />
             </div>
             <div>
-              <h4 className="Heading">Ali</h4>
-              <p className="SubHeading">Online</p>
+              <h4 className="Heading">{userInfo?.fullName}</h4>
+              <p className="SubHeading">{userInfo?.onlineStatus}</p>
             </div>
           </div>
-          {blockStatus === "unblock" ?
+          {userInfo?.blockedByCurrentUser ?
 
-            <div className='banDiv'>
-              <img src={ReportIcon} alt='ban' />
-              <p className="red">Block</p>
+           <div className='banDiv' onClick={()=>handleBlockuser(userInfo.id , "unblock")}>
+              <p className="red">Blocked</p>
             </div>
 
             :
 
-            <div className='banDiv'>
-              <p className="red">Blocked</p>
+              <div className='banDiv' onClick={()=>handleBlockuser(userInfo.id , "block")}>
+              <img src={ReportIcon} alt='ban' />
+              <p className="red">Block</p>
             </div>
           }
         </div>
 
         <MessageBox>
-          {msgs.map((msg, i) => {
-            const prev = msgs[i - 1];
-            const next = msgs[i + 1];
-            const isFirstOfGroup = !prev || prev.user !== msg.user;
-            const isLastOfGroup = !next || next.user !== msg.user;
+          {chatMessages.map((msg, i) => {
+            const prev = chatMessages[i - 1];
+            const next = chatMessages[i + 1];
+            const isFirstOfGroup = !prev || prev.isSender !== msg.isSender;
+            const isLastOfGroup = !next || next.isSender !== msg.isSender;
 
-            const Bubble = msg.user === "receiver" ? ChatLeft : ChatRight;
-            const wrapperClass = msg.user === "receiver" ? "flex-col-left" : "flex-col-right";
+            const Bubble = msg.isSender ? ChatRight : ChatLeft;
+            const wrapperClass = msg.isSender ? "flex-col-right" : "flex-col-left";
 
             return (
-              <div key={msg.id} className="full-width">
+              <div key={msg.chatId} className="full-width">
                 <div className={wrapperClass}>
-                  <Bubble className={`chat-bubble ${msg.user} ${isFirstOfGroup ? "first" : ""} ${isLastOfGroup ? "last" : ""}`}>
-                    {msg.fileName ? (
+                  
+                  <Bubble className={`chat-bubble ${msg.isSender ? "sender" : "receiver"} ${isFirstOfGroup ? "first" : ""} ${isLastOfGroup ? "last" : ""}`}>
+                  <p className="SubHeading">{msg.content}</p>
+
+                    {/* {msg.fileName ? (
                       <div className="fileInput">
                         <div className="file-div">
                           <img src={FileIconPdf} alt="icon" className='fileImg' />
 
                           <div className="file-txt-flex">
-                            <h5 className={`filename ${msg.user === "sender" ? "right" : ""}`}>
+                            <h5 className={`filename ${msg.isSender ? "right" : ""}`}>
                               {msg.fileName}
                               <span>{msg.filetype}</span>
                             </h5>
-                            <p className={`filesize ${msg.user === "sender" ? "right" : ""}`}>{msg.fileSize}</p>
+                            <p className={`filesize ${msg.isSender ? "right" : ""}`}>{msg.fileSize}</p>
                           </div>
                         </div>
                         <span><img src={download} alt="icon" className='downloadImg' /></span>
@@ -200,15 +284,17 @@ const Messages = ({ socket, chatId, onBack }) => {
                         )}
                         {msg.text && <p className="SubHeading">{msg.text}</p>}
                       </>
-                    )}
+                    )} */}
                   </Bubble>
+                  
+                  
 
                   {isLastOfGroup && (
                     <div className="SubHeading">
-                      {msg.user === "sender" && msg.status && (
-                        <span><Tick className={`color ${msg.status === "read" ? "active" : ""}`} /></span>
+                      { !msg.isRead && (
+                        <span><Tick className={`color ${msg.isRead ? "active" : ""}`} /></span>
                       )}
-                      <span>{msg.time}</span>
+                      {/* <span>{msg.isRead ? "read" : "unread"}</span> */}
                     </div>
                   )}
                 </div>
@@ -218,7 +304,7 @@ const Messages = ({ socket, chatId, onBack }) => {
         </MessageBox>
 
         {/* Lightbox */}
-        {isOpen && (
+        {/* {isOpen && (
           <Lightbox
             open={isOpen}
             close={() => setIsOpen(false)}
@@ -254,44 +340,43 @@ const Messages = ({ socket, chatId, onBack }) => {
               ),
             }}
           />
-        )}
+        )} */}
 
         {/* block or unblock */}
 
-        {blockStatus === "unblock" ?
-
-            <form onSubmit={handleSend}>
-          <div className="msgBar">
-            <img src={attach} alt="icon" onClick={() => setIsDropdownOpen(!isDropdownOpen)} />
-
-              {/* <input type="text" placeholder="Type your message" className="msginput" 
-               value={newMsg} onChange={(e) => setNewMsg(e.target.value)}/> */}
-              <textarea type="text" placeholder="Type your message" className="msgtextbox" value={newMsg}
-                onChange={(e) => setNewMsg(e.target.value)} ></textarea>
-
-              <span className="circle" onClick={handleSend}>
-                <img src={send} alt="icon" />
-              </span>
-          </div>
-            </form>
-
-          :
+        {userInfo?.blockedByCurrentUser ?
 
           <div className='blockBar'>
-            <div className='banDiv'>
+            <div className='banDiv' onClick={()=>handleDeleteChat(activeChatId)}>
               <img src={Trash} alt='del' />
               <p className="red">Delete</p>
             </div>
-            <div className='banDiv'>
+            <div className='banDiv'  onClick={()=>handleBlockuser(userInfo.id , "unblock")}>
               <img src={ReportIcon} alt='ban' />
               <p className="red">Unblock</p>
             </div>
           </div>
 
+          :
+
+           <form onSubmit={handleSend}>
+            <div className="msgBar">
+              {/* <img src={attach} alt="icon" onClick={() => setIsDropdownOpen(!isDropdownOpen)} /> */}
+               <img src={attach} alt="icon"/>
+
+              <input type="text" placeholder="Type your message" className="msginput" 
+               value={newMsg} onChange={(e) => setNewMsg(e.target.value)}/>
+
+              <span className="circle" onClick={handleSend}>
+                <img src={send} alt="icon" />
+              </span>
+            </div>
+          </form>
+
 
         }
 
-
+{/* 
         {isDropdownOpen && (
           <Options>
             <ul className="dropdown">
@@ -314,7 +399,7 @@ const Messages = ({ socket, chatId, onBack }) => {
               onChange={(e) => console.log("Selected document:", e.target.files)}
             />
           </Options>
-        )}
+        )} */}
       </DmChat>
     </div>
   );

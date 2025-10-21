@@ -23,9 +23,9 @@ const AdminNotify = () => {
 
     const fetch = async () => {
         const res = await Admin_Endpoints.get_unread_notifications()
-        if (res?.data) {
+        if (res?.data?.data) {
             setNotify(res.data.data)
-            console.log("noti", res.data.data);
+            console.log("notify on noti pg:", res.data.data);
             console.log("noti", res.data.unreadCount);
         }
     }

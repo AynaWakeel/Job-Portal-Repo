@@ -5,6 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 import Close from '../../assets/icons/fi_x.svg'
 import { Controller, useForm } from 'react-hook-form';
 import { useApplicant } from '../../shared/dashboard/applicant/useApplicant';
+import { showError, showSuccess } from '../toasters';
 
 const ApplyModal = ({ jobId , onClose }) => {
     const {
@@ -14,8 +15,8 @@ const ApplyModal = ({ jobId , onClose }) => {
 
     const {apply_job_by_id} = useApplicant()
 
-    const onSubmit = (data) =>{
-        apply_job_by_id(jobId,data)
+    const onSubmit = async(data) =>{
+        await apply_job_by_id(jobId,data)
         onClose()
         console.log(jobId, data, "from apply job");
         

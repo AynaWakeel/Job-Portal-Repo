@@ -28,19 +28,23 @@ const UseAuth = () => {
         } else if (!is2FAEnabled) {
             localStorage.setItem('token', response.token)
             localStorage.setItem('role', response.user.role)
+            localStorage.setItem('id', response.user.id)
             showSuccess(message)
 
             if (user.role === ROLE.RECRUITER) {
                 navigate('/recruiter/dashboard/overview')
                 console.log(response.user.role)
+                 console.log("id",response.user.id)
 
             } else if (user.role === ROLE.APPLICANT) {
                 navigate('/applicant/dashboard/overview')
                 console.log(response.user.role)
+                 console.log("id",response.user.id)
 
             } else if (user.role === ROLE.ADMIN) {
                 navigate('/admin/dashboard/overview')
                 console.log(response.user.role)
+                 console.log("id",response.user.id)
             }
 
         }else{
@@ -56,8 +60,9 @@ const UseAuth = () => {
 
         const { success, message, user } = response
         if (success) {
-            localStorage.setItem('token', response.token)
+             localStorage.setItem('token', response.token)
             localStorage.setItem('role', response.user.role)
+            localStorage.setItem('id', response.user.id)
             showSuccess(message)
 
             if (user.role === ROLE.RECRUITER) {
@@ -80,8 +85,9 @@ const UseAuth = () => {
     const signin_google = async (body) => {
         const res = await ApiEndPoints.google_signin({token:body.token})
         if (res) {
-            localStorage.setItem("token", res.token)
-            // localStorage.setItem("role", res.role)
+             localStorage.setItem('token', res.token)
+            localStorage.setItem('role', res.user.role)
+            localStorage.setItem('id', res.user.id)
             return res
         } else {
             console.log("err")
@@ -118,33 +124,46 @@ const UseAuth = () => {
     }
 
     const send_otp = async ({ email, type }) => {
+        try{
+            const response = await ApiEndPoints.otp({ email, type })
+            const { success, message } = response
+            if (success) {
+                showSuccess(message);
+                return response
+    
+            } else {
+                showError(message);
+                return null
+            }
 
-        const response = await ApiEndPoints.otp({ email, type })
-        const { success, message } = response
-        if (success) {
-            showSuccess(message);
-            return response
-
-        } else {
-            showError(message);
-            return null
+        }catch(err){
+            console.log("erro here");
+            
         }
+
 
     }
 
     const verify_otp = async ({ email, otpCode, type }) => {
 
-        const response = await ApiEndPoints.otp({ email, otpCode, type })
+        try{
+            const response = await ApiEndPoints.otp({ email, otpCode, type })
+    
+            const { success, message } = response
+            if (success) {
+                showSuccess(message);
+                return response
+    
+            } else {
+                showError(message);
+                return null
+            }
 
-        const { success, message } = response
-        if (success) {
-            showSuccess(message);
-            return response
-
-        } else {
-            showError(message);
-            return null
+        }catch(err){
+            console.log("error here");
+            
         }
+
 
     }
 

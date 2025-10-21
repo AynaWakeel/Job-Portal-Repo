@@ -39,6 +39,7 @@ const AdminNavbar = () => {
     const res = await Admin_Endpoints.get_unread_notifications()
     if (res?.data) {
       setNotify(res.data)
+      console.log("noti", res.data.data);
       console.log("noti", res.data.unreadCount);
     }
   }
@@ -166,7 +167,7 @@ const AdminNavbar = () => {
 
               <div className='logout'>
                 <div className='unreadNotify'>
-                  <img src={NotifyIcon} alt='notify' onClick={Notification} />
+                  <img src={NotifyIcon} alt='notify' onClick={AdminNotify} />
                   <span className='count'>{notify.unreadCount}</span>
                 </div>
                 <button type='button' className='NavBtn' onClick={onLogout}>Logout</button>
@@ -182,7 +183,7 @@ const AdminNavbar = () => {
 
         <div className='Navright'>
           <div className='unreadNotify'>
-            <img src={NotifyIcon} alt='notify' onClick={Notification} />
+            <img src={NotifyIcon} alt='notify' onClick={AdminNotify} />
             <span className='count'>{notify.unreadCount}</span>
           </div>
           {adminName ?

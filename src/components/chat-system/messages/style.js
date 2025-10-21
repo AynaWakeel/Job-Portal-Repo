@@ -251,11 +251,11 @@ export const DmChat = styled.div`
 } */
 
 .gallery-body img {
-  max-height: 60vh;   /* image will be 60% of screen height */
-  max-width: 90vw;    /* prevent overflow on small screens */
-  width: auto;        /* keep natural aspect ratio */
-  height: auto;       /* keep natural aspect ratio */
-  object-fit: contain; /* prevent stretching */
+  max-height: 60vh;   
+  max-width: 90vw;   
+  width: auto;        
+  height: auto;       
+  object-fit: contain; 
 }
 
 

@@ -290,7 +290,7 @@ const CompanyJobDetail = () => {
                                 <a href={companyData.twitterLink} className='Box-icons'><Social2 className='Color' /></a>
                                 <a href={companyData.instagramLink} className='Box-icons'><Social3 className='Color' /></a>
                                 <a href={companyData.linkedInLink} className='Box-icons'><Social4 className='Color' /></a>
-                                <a className='Box-icons'><img src={Chat} className='Color' onClick={() => handleCreateChat(jobData.id)} /></a>
+                                <a className='Box-icons'><img src={Chat} className='Color' onClick={() => handleCreateChat(companyData.id)} /></a>
                             </div>
                         </CompanyBox>
 
