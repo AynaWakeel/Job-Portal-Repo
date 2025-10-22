@@ -23,7 +23,7 @@ const ApplicantProfile = () => {
       const data = await Applicant_Endpoints.get_profile()
       if (data?.data) {
         setProfile(data.data)
-        console.log(data,'here is data of applicant')
+        console.log(data, 'here is data of applicant')
       }
     }
     fetchProfile();
@@ -45,9 +45,17 @@ const ApplicantProfile = () => {
           </div>
           <div className='profile'>
             <div className='profile-intro'>
-              <div className='profile-pic'>
-                <img src={profile.profilepic} alt='profile' />
-              </div>
+              {profile?.profilepic ?
+
+                <div className='profile-pic'>
+                  <img src={profile.profilepic} alt='img' />
+                </div>
+
+                :
+
+                <div className='profile-pic'></div>
+
+              }
               <div className='profile-flex-col'>
                 <div className='detail-flex'>
                   <h2 className='Name'>{profile.fullName}</h2>
@@ -84,7 +92,7 @@ const ApplicantProfile = () => {
                         <h4 className='SubHeading'>{profile.location}</h4>
                       </div>
                     </div>
-                 
+
                   </div>
                   <div className='content'>
                     <div><Phone className='IconColor' /></div>
@@ -137,12 +145,12 @@ const ApplicantProfile = () => {
                   <button
                     className='center'
                     onClick={() => {
-                     if(profile?.resume){
-                      const resumePdf = `${profile.resume}`
-                      window.open(resumePdf,"_black")
-                     }else{
-                      showError("resume not found")
-                     }
+                      if (profile?.resume) {
+                        const resumePdf = `${profile.resume}`
+                        window.open(resumePdf, "_black")
+                      } else {
+                        showError("resume not found")
+                      }
                     }}
                   >
                     <div><File className='IconColor' /></div>

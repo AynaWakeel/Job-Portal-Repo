@@ -25,7 +25,7 @@ const Login = () => {
     const onSubmit = async (data) => {
         try {
 
-            const res = await login(data)
+            await login(data)
            
         } catch (err) {
             showError(err)

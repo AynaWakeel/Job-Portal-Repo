@@ -42,9 +42,7 @@ const ViewApplicantResume = () => {
             </div>
             <div className='profile'>
                 <div className='profile-intro'>
-                    {/* <div className='profile-pic'>
-                        <img src={Company} alt='profile' />
-                    </div> */}
+                   
                     <div className='profile-flex-col'>
                         <div className='detail-flex'>
                             <h2 className='Name'>{isResume.fullname || "name"}</h2>

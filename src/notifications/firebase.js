@@ -16,6 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const messaging = getMessaging(app);
 
+// const loginToken = localStorage.getItem("token")
 
 export const generateToken = async()=>{
    const permission = await Notification.requestPermission()
@@ -24,8 +25,8 @@ export const generateToken = async()=>{
    if(permission === "granted"){
        
        const token = await getToken(messaging, {
-        vapidKey: process.env.REACT_APP_NOTIFY_KEY
-    });
+        vapidKey: process.env.REACT_APP_NOTIFY_KEY });
+
     console.log(token);
 
 
@@ -41,6 +42,8 @@ export const generateToken = async()=>{
     }
 
    }
+
+
 
    
 }

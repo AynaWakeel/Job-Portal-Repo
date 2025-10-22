@@ -118,9 +118,15 @@ const AdminNavbar = () => {
                 {adminName ?
 
                   <div className='Navright'>
+                    {adminName.profilepic ? 
+                    
                     <div className='photo'>
                       <img src={adminName.profilepic} alt='profile' />
                     </div>
+                    :
+                    <div className='photo'></div>
+                  
+                    }
                     <h4 className='adminname'>{adminName.fullName}</h4>
                   </div>
 
@@ -188,8 +194,13 @@ const AdminNavbar = () => {
           </div>
           {adminName ?
             <>
-
-              <img src={adminName.profilepic || Profile} alt='profile' onClick={OpenDropdown} className='photo' />
+               {adminName.profilepic ? 
+               
+               <img src={adminName.profilepic} alt='profile' onClick={OpenDropdown} className='photo' />
+               :
+               <div className='photo' onClick={OpenDropdown} ></div>
+              
+               }
               <h4 className='adminname'>{adminName.fullName}</h4>
             </>
 

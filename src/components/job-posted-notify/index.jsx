@@ -53,7 +53,7 @@ const JobPostedNotify = () => {
                                     <div className='Inner-flex'>
                                         <div className='Gap'>
                                             <div className='Inner-flex'>
-                                                <h3 className='Heading'>{items.title}</h3>
+                                                <h3 className='Heading'>{items.jobTitle}</h3>
                                             </div>
                                             
                                         </div>
@@ -74,7 +74,7 @@ const JobPostedNotify = () => {
                                         <span className='Active'>{items.status}</span>
                                     </div>)
 
-                                    : items.rejected === "rejected" ?
+                                    : items.status === "rejected" ?
 
                                     (<div className='Activediv'>
                                         <span><img src={StatusClose} alt='icon' /></span>

@@ -7,14 +7,28 @@ import { showSuccess } from './components/toasters';
 
 function App() {
 
+  // useEffect(() => {
+  //   generateToken()
+  //   onMessage(messaging, (payload) => {
+  //     console.log(payload);
+  //     showSuccess(payload.notification.body)
+
+  //   })
+  // }, [])
+
   useEffect(() => {
-    generateToken()
-    onMessage(messaging, (payload) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    setTimeout(() => generateToken(token), 1000);
+  }
+
+   onMessage(messaging, (payload) => {
       console.log(payload);
       showSuccess(payload.notification.body)
+   })
 
-    })
-  }, [])
+}, []);
+
 
   return (
     <div>

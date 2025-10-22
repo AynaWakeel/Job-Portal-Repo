@@ -45,9 +45,17 @@ const RecruiterProfile = () => {
                 </div>
                 <div className='profile'>
                     <div className='profile-intro'>
+                        {company?.profilepic ? 
+                        
                         <div className='profile-pic'>
-                            <img src={company.profilepic} alt='icon' />
+                            <img src={company.profilepic} alt='img' />
                         </div>
+
+                        :
+                        
+                        <div className='profile-pic'></div>
+
+                       }
                         <div className='profile-flex-col'>
                             <div className='detail-flex'>
                                 <h2 className='Name'>{company.companyName}</h2>

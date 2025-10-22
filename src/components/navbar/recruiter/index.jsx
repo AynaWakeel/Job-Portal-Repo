@@ -41,17 +41,17 @@ const RecruiterNavbar = () => {
 
   const Notification = () => {
     navigate('/recruiter/dashboard/notifications')
-     setIsOpen(false)
+    setIsOpen(false)
   }
 
   const ProfilePage = () => {
     navigate('/recruiter/profile')
     setIsDropdownOpen(false)
-     setIsOpen(false)
+    setIsOpen(false)
   }
   const Message = () => {
     navigate('/recruiter/chat')
-     setIsOpen(false)
+    setIsOpen(false)
   }
 
   const [isActive, setIsActive] = useState('Dashboard')
@@ -59,12 +59,12 @@ const RecruiterNavbar = () => {
   const FindCandidates = () => {
     navigate('/recruiter/find-candidates')
     setIsActive("Find Candidates")
-     setIsOpen(false)
+    setIsOpen(false)
   }
   const Dashboard = () => {
     navigate('/recruiter/dashboard/overview')
     setIsActive("Dashboard")
-     setIsOpen(false)
+    setIsOpen(false)
   }
 
   const Support = () => {
@@ -121,9 +121,17 @@ const RecruiterNavbar = () => {
               <span className='count'>{notify.unreadCount}</span>
             </div>
             <button type='button' onClick={Post} className='NavBtn'>Post a Job</button>
-            <div className='photo'>
-              <img src={analytics.profilepic} alt='profile' onClick={OpenDropdown} />
-            </div>
+            {analytics.profilepic ?
+
+              <div className='photo'>
+                <img src={analytics.profilepic} alt='profile' onClick={OpenDropdown} />
+              </div>
+
+              :
+
+              <div className='photo' onClick={OpenDropdown} ></div>
+
+            }
           </div>
           {isDropdownOpen &&
             <DropdownMenu>
@@ -149,9 +157,18 @@ const RecruiterNavbar = () => {
                   <img src={NotifyIcon} alt='notify' onClick={Notification} />
                   <span className='count'>{notify.unreadCount}</span>
                 </div>
-                <div className='photo'>
-                  <img src={analytics.profilepic} alt='profile' className='profile' onClick={ProfilePage} />
-                </div>
+                {analytics.profilepic ?
+
+                  <div className='photo'>
+                    <img src={analytics.profilepic} alt='profile' className='profile' onClick={ProfilePage}/>
+                  </div>
+
+                  :
+
+                  <div className='photo' onClick={ProfilePage}></div>
+
+                }
+             
               </div>
               <ul className='Navlinks'>
                 <li><a onClick={FindCandidates}>Find Candidates</a></li>

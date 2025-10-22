@@ -21,7 +21,7 @@ const ViewApplicantProfile = () => {
   const navigate = useNavigate()
   const [profile, setProfile] = useState({})
   const location = useLocation()
-  const {create_chat_room} = useChat()
+  const { create_chat_room } = useChat()
   const id = location.state.id
 
   useEffect(() => {
@@ -36,25 +36,25 @@ const ViewApplicantProfile = () => {
     if (id) fetchProfile(id);
   }, [id])
 
-  const viewresume = (userId)=>{
-      navigate('/recruiter/applicant-resume', {state:{userId}})
+  const viewresume = (userId) => {
+    navigate('/recruiter/applicant-resume', { state: { userId } })
   }
 
-   const handleCreateChat = async (receiverId) => {
-        const token = localStorage.getItem("token");
-        console.log("Sender token:", token);
-        console.log("Receiver ID:", receiverId);
+  const handleCreateChat = async (receiverId) => {
+    const token = localStorage.getItem("token");
+    console.log("Sender token:", token);
+    console.log("Receiver ID:", receiverId);
 
-        const body = {
-            receiverId
-        };
+    const body = {
+      receiverId
+    };
 
-        const res = await create_chat_room(body)
-        if (res?.chat) {
-            console.log("chat res:",res.chat);
-            navigate('/recruiter/chat')
-        }
+    const res = await create_chat_room(body)
+    if (res?.chat) {
+      console.log("chat res:", res.chat);
+      navigate('/recruiter/chat')
     }
+  }
 
   const ContentPage = ['/admin/dashboard/profile']
   const hideContent = ContentPage.some(path => location.pathname.startsWith(path))
@@ -70,13 +70,21 @@ const ViewApplicantProfile = () => {
           </div>
           <div className='profile'>
             <div className='profile-intro'>
-              <div className='profile-pic'>
-                <img src={profile.profilepic} alt='profile' />
-              </div>
+              {profile?.profilepic ?
+
+                <div className='profile-pic'>
+                  <img src={profile.profilepic} alt='img' />
+                </div>
+
+                :
+
+                <div className='profile-pic'></div>
+
+              }
               <div className='profile-flex-col'>
                 <div className='detail-flex'>
-                  <h2 className='Name'>{profile.fullName}</h2> - {profile.id}
-                  <img src={Chat} alt='msg' onClick={()=>handleCreateChat(profile.id)} />
+                  <h2 className='Name'>{profile.fullName}</h2>
+                  <img src={Chat} alt='msg' onClick={() => handleCreateChat(profile.id)} />
                 </div>
                 <div className='sub-flex'>
                   <h4 className='Title'>{profile.title}</h4>
@@ -161,62 +169,62 @@ const ViewApplicantProfile = () => {
 
                 <>
 
-                {profile.resume || profile.hasStructuredResume &&  
-                
-                  <Box>
-                    <div className='flex-col'>
+                  {profile.resume || profile.hasStructuredResume &&
+
+                    <Box>
+                      <div className='flex-col'>
 
 
-                      <div className='flex'>
+                        <div className='flex'>
 
-                         {profile.resume !== null && 
-                         
-                        <UploadPdf>
-                          <button
-                            className='center'
-                            onClick={() => {
-                              if (profile?.resume) {
-                                const resumePdf = `${profile.resume}`
-                                window.open(resumePdf, "_black")
-                              } else {
-                                showError("resume not found")
-                              }
-                            }}
-                          >
-                            <div><File className='IconColor' /></div>
-                            <div>
-                              <h5 className='Title'>Pdf Resume</h5>
-                              <h6 className='info'>Click to View</h6>
-                            </div>
-                          </button>
-                        </UploadPdf>
-                         
-                         }
+                          {profile.resume !== null &&
+
+                            <UploadPdf>
+                              <button
+                                className='center'
+                                onClick={() => {
+                                  if (profile?.resume) {
+                                    const resumePdf = `${profile.resume}`
+                                    window.open(resumePdf, "_black")
+                                  } else {
+                                    showError("resume not found")
+                                  }
+                                }}
+                              >
+                                <div><File className='IconColor' /></div>
+                                <div>
+                                  <h5 className='Title'>Pdf Resume</h5>
+                                  <h6 className='info'>Click to View</h6>
+                                </div>
+                              </button>
+                            </UploadPdf>
+
+                          }
 
 
-                        
 
-                        {profile.hasStructuredResume !== false &&
-                        
-                        <UploadPdf>
-                          <button
-                           onClick={()=>viewresume(profile.id)}
-                            className='center' >
-                            <div><File className='IconColor' /></div>
-                            <div>
-                              <h5 className='Title'>Professional Resume</h5>
-                              <h6 className='info'>Click to View</h6>
-                            </div>
-                          </button>
-                        </UploadPdf>
 
-                        }
+                          {profile.hasStructuredResume !== false &&
 
+                            <UploadPdf>
+                              <button
+                                onClick={() => viewresume(profile.id)}
+                                className='center' >
+                                <div><File className='IconColor' /></div>
+                                <div>
+                                  <h5 className='Title'>Professional Resume</h5>
+                                  <h6 className='info'>Click to View</h6>
+                                </div>
+                              </button>
+                            </UploadPdf>
+
+                          }
+
+                        </div>
                       </div>
-                    </div>
 
-                  </Box>
-                }
+                    </Box>
+                  }
                 </>
 
               }

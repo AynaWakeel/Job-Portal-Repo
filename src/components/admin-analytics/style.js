@@ -27,25 +27,24 @@ export const MainSec = styled.div`
 }
 }
 
-.Card{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* gap: 45px; */
-    background-color: var(--purple-50);
-    border-radius: 12px;
-    padding-inline: 24px;
-    padding-block: 30px;
-    width: 376px;
-
-@media ${devices.tablet}{
-    width: 280px;
+.Card {
+  flex: 1 1 280px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--purple-50);
+  border-radius: 12px;
+  padding-inline: 24px;
+  padding-block: 30px;
+  min-width: 300px;
+  box-sizing: border-box;
+  
+  @media ${devices.mobile} {
+      .Card {
+          flex: 1 1 100%; 
+          max-width: 0px;
+  }
 }
-
-@media ${devices.mobile}{
-    width: 100%;
-}
-
 }
 
 .Card:hover{

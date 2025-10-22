@@ -49,10 +49,12 @@ border-radius: 12px;
 
 @media ${devices.mobile}{
     width: 100%;
+    /* height: 280px; */
 }
 
 @media ${devices.tablet}{
     width: 100%;
+    /* height: 300px; */
 }
 
 `

@@ -5,7 +5,7 @@ import { ReactComponent as Building } from '../../assets/icons/buildings-duotone
 import { MainSec } from './style';
 
 const RecruiterAnalytics = ({analytics}) => {
-    // const ShowCards = limit ? Analytics.slice(0,limit) : Analytics;
+
     return (
         <div>
             <MainSec>

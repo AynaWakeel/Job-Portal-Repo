@@ -110,9 +110,17 @@ const ApplicantNavbar = () => {
               <img src={NotifyIcon} alt='notify' onClick={Notification} />
               <span className='count'>{notify.unreadCount}</span>
             </div>
+            {analyticsData.profilepic ? 
+            
             <div className='photo'>
               <img src={analyticsData.profilepic} alt='profile' onClick={OpenDropdown} />
             </div>
+
+            :
+
+            <div className='photo'  onClick={OpenDropdown} ></div>
+
+            }
           </div>
           {isDropdownOpen &&
             <DropdownMenu>
@@ -137,9 +145,16 @@ const ApplicantNavbar = () => {
                 <img src={NotifyIcon} alt='notify' className='notify' onClick={Notification} />
                   <span className='count'>{notify.unreadCount}</span>
                 </div>
+                {analyticsData.profilepic ? 
+                
                 <div className='photo'>
                   <img src={analyticsData.profilepic} alt='profile' className='profile' onClick={ApplicanntProfile} />
                 </div>
+
+                :
+
+                <div className='photo'  onClick={ApplicanntProfile} ></div>
+                }
               </div>
               <ul className='Navlinks'>
                 <li><a onClick={FindJob}>Find Jobs</a></li>

@@ -1,35 +1,36 @@
 import React from 'react'
 import { ApiEndPoints } from '../lib/api/auth_endpoints'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { ROLE } from '../enum/roles'
 import { showError, showSuccess } from '../components/toasters'
 import { TwoFactor_Endpoints } from '../lib/api/twoFactor_endpoints'
+import { generateToken } from '../notifications/firebase'
+
 
 const UseAuth = () => {
     const navigate = useNavigate()
+
 
     const login = async (body) => {
 
         const response = await ApiEndPoints.login(body)
 
         const { is2FAEnabled, success, message, user } = response
-
-        if(success === false){
-            showError(message);
-            navigate('/auth/register')
-        }
-
-        if (is2FAEnabled) {
+        
+        if (is2FAEnabled && user.isEmailVerified) {
             const email = user.email
             navigate('/auth/two-factor-authentication', { state: { email } })
             showSuccess(message)
+
+            // await generateToken(response.token)
             return response
 
-        } else if (!is2FAEnabled) {
+        } else if (!is2FAEnabled && user.isEmailVerified && success) {
             localStorage.setItem('token', response.token)
             localStorage.setItem('role', response.user.role)
             localStorage.setItem('id', response.user.id)
             showSuccess(message)
+            //  await generateToken(response.token)
 
             if (user.role === ROLE.RECRUITER) {
                 navigate('/recruiter/dashboard/overview')
@@ -47,9 +48,15 @@ const UseAuth = () => {
                  console.log("id",response.user.id)
             }
 
+        }else if(!user.isEmailVerified && !success){
+            showError(message);
+              const email = user.email
+                navigate("/auth/otp", { state: { email, type: "email_verification" } })
+            console.log("move to otp");
         }else{
             showError(message)
         }
+
 
 
     }
@@ -64,6 +71,7 @@ const UseAuth = () => {
             localStorage.setItem('role', response.user.role)
             localStorage.setItem('id', response.user.id)
             showSuccess(message)
+            // await generateToken(response.token)
 
             if (user.role === ROLE.RECRUITER) {
                 navigate('/recruiter/dashboard/overview')
@@ -101,6 +109,7 @@ const UseAuth = () => {
 
         localStorage.removeItem("token");
         localStorage.removeItem("role");
+        localStorage.removeItem("id");
         localStorage.removeItem("tempToken")
         showSuccess("you are logout")
 
@@ -174,10 +183,8 @@ const UseAuth = () => {
             if (tempToken) body.tempToken = tempToken;
 
             const response = await ApiEndPoints.reset_password(body);
-            const { success, message } = response
-            // if(success){
-
-            // }
+            const { message } = response
+           
             showSuccess(message)
             console.log(message, "reset ")
             return response

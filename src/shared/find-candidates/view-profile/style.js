@@ -100,6 +100,12 @@ margin: auto;
     }
 }
 
+.profile-pic{
+    background-color: var(--purple-50);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
 
 .profile-pic img{
     background-size: contain;

@@ -34,7 +34,7 @@ const ApplyModal = ({ jobId , onClose }) => {
             <Overlay>
                 <Main>
                     <div>
-                        <h2 className='TopHeading'>Apply Job: Senior UX Designer</h2>
+                        <h2 className='TopHeading'>Apply Job</h2>
                         <div className='Circle' >
                             <img src={Close} alt='close' onClick={onClose} />
                         </div>
