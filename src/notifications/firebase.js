@@ -16,8 +16,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const messaging = getMessaging(app);
 
-// const loginToken = localStorage.getItem("token")
-
 export const generateToken = async()=>{
    const permission = await Notification.requestPermission()
    console.log(permission);

@@ -82,6 +82,7 @@ export const DmChat = styled.div`
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
+    overflow-wrap: break-word;
   }
 
    .red {
@@ -112,7 +113,8 @@ export const DmChat = styled.div`
   }
 
   .msginput {
-    min-width: 910px;
+    flex: 1;
+    min-width: 700px;
     max-width: 920px;
     border: 1px solid #dbdde1;
     background-color: var(--white-50);
@@ -124,14 +126,20 @@ export const DmChat = styled.div`
     color: var(--purple-200);
     caret-color: var(--purple-300);
     font-family: var(--poppin);
+    
+
+    @media ${devices.laptop} {
+      min-width: 400px;
+      max-width: 700px;
+    }
 
     @media ${devices.mobile}{
-        min-width: 270px;
-        max-width: 300px;
+        min-width: 200px;
+        max-width: 500px;
     }
     @media ${devices.tablet}{
-        min-width: 380px;
-        max-width: 400px;
+        min-width: 250px;
+        max-width: 610px;
     }
   }
 

@@ -8,6 +8,10 @@ background-color: var(--purple-50);
 padding-block: 120px;
 padding-inline: 120px;
 
+@media ${devices.laptop}{
+    padding-inline: 30px;
+}
+
 @media ${devices.tablet}{
     padding-top: 100px;
     padding-bottom: 30px;
@@ -204,7 +208,19 @@ margin-top: 20px;
     font-weight: 400;
     font-family: var(--inter);
     color: #9199A3;
-    width: 200px;
+    min-width: 120px;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+
+    @media ${devices.laptop} {
+        min-width: 100px;
+        max-width: 80px;
+         white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    }
 }
 
 .Input:active{
@@ -215,6 +231,18 @@ margin-top: 20px;
     font-size: 16px;
     font-weight: 400;
     font-family: var(--inter);
+     max-width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; 
+
+    @media ${devices.laptop} {
+        
+        max-width: 100px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; 
+    }
 }
 
 .SearchBtn{
@@ -464,9 +492,12 @@ display: none;
 }
 
 @media ${devices.mobile} {
-    width: 340px;
     padding-block: 15px;
-padding-inline: 20px;
+    padding-inline: 20px;
+
+    flex: 1 1 340px;  
+  width: 100%;
+  min-width: 0; 
 }
 
 .InputFlex{
@@ -475,6 +506,8 @@ padding-inline: 20px;
     align-items: end;
     gap: 10px;
     padding-block: 10px;
+     flex: 1 1 0; 
+   min-width: 0; 
 }
 
 .SelectFlex{
@@ -495,10 +528,12 @@ padding-inline: 20px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 10px;
     
     @media ${devices.mobile} {
-        flex-wrap: wrap;
+        /* flex-wrap: wrap; */
+        flex-direction: column;
         gap: 0px;
     }
 }
@@ -511,10 +546,15 @@ padding-inline: 20px;
     font-weight: 400;
     font-family: var(--inter);
     color: #9199A3;
-    width: 180px;
-
+    min-width: 0px;
+    flex: 1 1 auto; 
+    width: 100%;
+    
     @media ${devices.mobile} {
-        width: 260px;
+        width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; 
     }
    
 }
@@ -527,6 +567,11 @@ padding-inline: 20px;
     font-size: 16px;
     font-weight: 400;
     font-family: var(--inter);
+
+     max-width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; 
 }
 
 
@@ -540,7 +585,8 @@ padding-inline: 20px;
     width: 158px;
 
     @media ${devices.mobile} {
-        width: 240px;
+        width: 100%;
+        
     }
    
 }
@@ -585,10 +631,20 @@ padding-inline: 20px;
     border-radius: 4px;
     font-size: 15px;
     font-weight: 400;
-    width: 100%;
     color: var(--purple-200);
     caret-color: var(--purple-300);
     font-family: var(--poppin);
+     flex: 1 1 0;    
+    width: 100%;
+    min-width: 0;
+
+    /* @media ${devices.mobile}{
+        flex: 1 1 240px;  
+      width: 100%;
+      min-width: 0; 
+    } */
+
+        
 }
 
 .inputSelect{
@@ -604,12 +660,15 @@ padding-inline: 20px;
   outline: none;
  border: none !important;
   min-height: 40px !important;
-min-width: 240px !important;
+/* min-width: 240px !important; */
+ min-width: 0 !important;   
+  width: 100% !important;  
   
-  @media ${devices.mobile} {
+  /* @media ${devices.mobile} { */
       
-      min-width: 300px !important;
-  }
+      /* min-width: 300px !important; */
+      /* min-width: 100% !important; */
+  /* } */
 
 }
 
@@ -853,6 +912,10 @@ background-color: var(--white-50);
 padding-top: 100px;
 padding-bottom: 50px;
 padding-inline: 120px;
+
+@media ${devices.laptop}{
+    padding-inline: 50px;
+}
 
 @media ${devices.tablet}{
     padding-block: 50px;

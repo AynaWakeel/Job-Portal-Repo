@@ -23,7 +23,11 @@ top: 90px;
 
 .Sidebar{
     background-color: var(--white-50);
-    width: 80%;
+    width: 90%;
+
+     @media ${devices.laptop}{
+       width: 100%;
+    }
 
     @media ${devices.tablet}{
         width: 100%;
@@ -102,13 +106,14 @@ top: 90px;
 // ---------- mobile sidebar
 
 export const MobileSidebar = styled.div`
-width: 60%;
+min-width: 250px;
+max-width: 300px;
 box-shadow: 0px 0px 5px var(--purple-50);
 display: flex;
 justify-content: end;
 height: 100%;
 position: fixed;
-padding-top: 35px;
+padding-top: 55px;
 top: 90px;
 left: 0px;
 z-index: 999;

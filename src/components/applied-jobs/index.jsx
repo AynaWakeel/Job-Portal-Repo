@@ -62,11 +62,8 @@ const AppliedJobs = () => {
                                     return (
                                         <div className='Card' key={items.id}>
                                             <div className='Inner-flex'>
-                                                <div className='IconBox'
-                                                // style={{ backgroundColor: `${items.color}` }}
-                                                >
-                                                    <h3 className='Heading'>{items.id}</h3>
-                                                    {/* <img src={items.recruiter.profilepic} /> */}
+                                                <div className='IconBox photo'>
+                                                    <img src={items.job.profilepic} />
                                                 </div>
                                                 <div className='Gap'>
                                                     <div className='Inner-flex'>
@@ -90,7 +87,7 @@ const AppliedJobs = () => {
                                             </div>
 
                                             <div className='status-flex'>
-                                                {items.status === "active" ?
+                                                {items.job.status === "active" ?
 
                                                     (<div className='Activediv'>
                                                         <span><img src={Check} alt='icon' /></span>

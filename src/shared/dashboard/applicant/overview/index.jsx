@@ -53,9 +53,14 @@ const ApplicantOverview = () => {
           <div className='Card'>
             <div className='Inner-flex'>
               <div className='profile'>
+                {analyticsData.profilepic ? 
+                
                 <div className='photo'>
                 <img src={analyticsData.profilepic} alt='img' />
                 </div>
+                :
+                 <div className='photo'></div>
+                }
               </div>
               <div>
                 <h3 className='Heading'>Two-Factor Authentication Incomplete</h3>

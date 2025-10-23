@@ -143,7 +143,8 @@ export const ProfilePic = styled.div`
 
 
 export const Uploadbanner = styled.div`
-    width: 900px;
+    max-width: 900px;
+    min-width: 0px;
     height: 240px;
     padding-block: 30px;
     padding-inline: 20px;
@@ -153,6 +154,11 @@ export const Uploadbanner = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    
+@media ${devices.laptop} {
+ max-width: 500px;
+ min-width: 300px;
+}
 
      @media ${devices.tablet}{
         justify-content: start;

@@ -34,6 +34,11 @@ border-radius: 50%;
     align-items: center;
     gap: 16px;    
     flex-wrap: wrap;
+
+    @media ${devices.laptop}{
+       justify-content: center;
+    }
+    
     
 @media ${devices.tablet}{
     justify-content: center;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ReactComponent as ArrowLeft } from '../../../assets/icons/fi_arrow-left.svg'
 import attach from '../../../assets/icons/attach.svg'
 import send from '../../../assets/icons/Send_Web.svg'
@@ -28,6 +28,12 @@ const Messages = ({ socket, onBack }) => {
   const [newMsg, setNewMsg] = useState("")
   const [hasRead, setHasRead] = useState(false)
 
+
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+}, [chatMessages]);
 
   const fetchMessages = async (id) => {
     if (!id) return;
@@ -72,7 +78,7 @@ const Messages = ({ socket, onBack }) => {
     const idToUse = activeChatId || tokenId
     if (idToUse) fetchMessages(idToUse)
     console.log("Fetching messages for chatId:", idToUse);
-  }, [activeChatId, tokenId])
+  }, [activeChatId])
 
   useEffect(() => {
     const markAsRead = async () => {
@@ -88,7 +94,7 @@ const Messages = ({ socket, onBack }) => {
     }
 
     markAsRead()
-  }, [activeChatId, tokenId, hasRead])
+  }, [activeChatId, hasRead])
 
 
   const handleSend = (e) => {
@@ -115,22 +121,35 @@ const Messages = ({ socket, onBack }) => {
     if (!socket) return;
     const idToUse = activeChatId || tokenId;
 
-    const handleReceive = (data) => {
-      if (data.chatId === idToUse) {
-        setChatMessages((prev) => [
-          ...prev,
-          { ...data, isSender: data.senderId == sender_Id },
-        ]);
+   const handleReceive = (data) => {
+     console.log("datachatId:", data.chatId);
+    console.log("Received message:", data);
+    
+    setChatMessages((prev) => {
+      
+      if (String(data.chatId) === String(idToUse)) {
+        console.log("datachatId:", data.chatId);
+        return [...prev, { ...data, isSender: data.senderId == sender_Id }];
+        
       }
-    };
+      return prev;
+    });
+  };
 
     socket.on("receiveMessage", handleReceive);
 
     return () => {
       socket.off("receiveMessage", handleReceive);
     }
-  }, [socket, activeChatId, tokenId, sender_Id])
+  }, [socket, activeChatId , sender_Id])
 
+
+//   useEffect(() => {
+//   if (socket && (activeChatId || tokenId)) {
+//     socket.emit("joinChat", activeChatId || tokenId);
+//     console.log("Joined chat room:", activeChatId || tokenId);
+//   }
+// }, [socket, activeChatId, tokenId]);
 
 
   const handleBlockuser = async (id, actionType) => {
@@ -163,7 +182,7 @@ const Messages = ({ socket, onBack }) => {
 
   useEffect(() => {
     setHasRead(false);
-  }, [activeChatId, tokenId]);
+  }, [activeChatId]);
 
 
   return (
@@ -185,7 +204,7 @@ const Messages = ({ socket, onBack }) => {
             </div>
             <div>
               <h4 className="Heading">{userInfo?.fullName || "User"}</h4>
-              <p className="SubHeading">{userInfo?.onlineStatus || "Status"}</p>
+              {/* <p className="SubHeading">{userInfo?.onlineStatus || "Status"}</p> */}
             </div>
           </div>
           {userInfo?.blockedByCurrentUser ?
@@ -241,6 +260,7 @@ const Messages = ({ socket, onBack }) => {
               </div>
             );
           })}
+           <div ref={messagesEndRef} />
         </MessageBox>
 
         {/* block or unblock */}

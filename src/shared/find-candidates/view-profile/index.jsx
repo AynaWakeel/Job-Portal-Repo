@@ -169,7 +169,7 @@ const ViewApplicantProfile = () => {
 
                 <>
 
-                  {profile.resume || profile.hasStructuredResume &&
+                  {/* {profile.resume || profile.hasStructuredResume && */}
 
                     <Box>
                       <div className='flex-col'>
@@ -224,7 +224,7 @@ const ViewApplicantProfile = () => {
                       </div>
 
                     </Box>
-                  }
+                  {/* } */}
                 </>
 
               }

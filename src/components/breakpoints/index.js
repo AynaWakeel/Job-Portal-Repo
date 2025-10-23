@@ -1,7 +1,7 @@
 export const sizes ={
   mobile: 767,
   tablet: 1023,
-  laptop: 1400,
+  laptop: 1200,
 }
 
 export const devices ={

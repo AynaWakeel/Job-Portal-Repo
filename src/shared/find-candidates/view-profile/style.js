@@ -10,6 +10,7 @@ flex-direction: column;
 justify-content: start;
 align-items: start;
 margin: auto;
+overflow-x: hidden;
 
 
 .banner{
@@ -59,6 +60,12 @@ margin: auto;
     border-radius: 8px;
     padding-block: 20px;
     padding-inline: 25px;
+
+     @media ${devices.laptop}{
+       width: 80%;
+      top: 210px;
+      left: 105px;
+    }
 
     @media ${devices.tablet}{
        width: 80%;
@@ -177,6 +184,10 @@ margin: auto;
     align-items: start;
     gap: 30px;
 
+      @media ${devices.laptop}{
+        padding-block: 50px;
+        padding-inline: 50px;
+    }
     @media ${devices.tablet}{
         flex-direction: column;
         padding-block: 50px;

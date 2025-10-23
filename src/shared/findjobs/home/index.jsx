@@ -185,7 +185,7 @@ const FindJob = () => {
               <Searchbar>
                 <div className='InputFlex'>
                   <SearchIcon className='IconColor' />
-                  <input type='text' placeholder='Job title,Keyword..' className='Input'
+                  <input type='text' placeholder='Job title,Keyword' className='Input'
                     {...register("title")}
                     value={formData.title}
                     onChange={handleChange}
@@ -291,14 +291,14 @@ const FindJob = () => {
                           {type === "all"
                             ? "All"
                             : type === "fulltime"
-                              ? "Full Time"
-                              : type === "parttime"
-                                ? "Part Time"
-                                : type === "internship"
-                                  ? "Internship"
-                                  : type === "remote"
-                                    ? "Remote"
-                                    : "Temporary"
+                            ? "Full Time"
+                            : type === "parttime"
+                            ? "Part Time"
+                            : type === "internship"
+                            ? "Internship"
+                            : type === "remote"
+                            ? "Remote"
+                            : "Temporary"
                           }
                         </label>
                       </div>
@@ -345,7 +345,8 @@ const FindJob = () => {
                         options={industryOptions}
                         value={industryOptions.find(opt => opt.value === formData.industryId) || null}
                         onChange={(option) => handleSelectChange("industryId", Number(option?.value) || "")}
-                        placeholder="Industry Type"
+                        placeholder="Industry Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+                        
                       />
                     </div>
 

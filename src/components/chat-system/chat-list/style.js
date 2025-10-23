@@ -76,12 +76,17 @@ export const Main = styled.div`
     padding-bottom: 5px;
   }
 
+  
   .SubHeading {
     color: var(--purple-50);
     font-size: 14px;
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
+      max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
   }
 
 `

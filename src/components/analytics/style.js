@@ -37,14 +37,18 @@ export const MainSec = styled.div`
   padding-inline: 24px;
   padding-block: 30px;
   min-width: 300px;
+  /* max-width: 300px; */
   box-sizing: border-box;
   
   @media ${devices.mobile} {
       .Card {
           flex: 1 1 100%; 
-          max-width: 0px;
+          max-width: 100%;
+          min-width: 0px;
   }
 }
+
+ 
 }
 
 .Card:hover{

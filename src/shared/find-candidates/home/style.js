@@ -8,6 +8,9 @@ background-color: var(--purple-50);
 padding-block: 120px;
 padding-inline: 120px;
 
+@media ${devices.laptop}{
+    padding-inline: 50px;
+}
 
 @media ${devices.tablet}{
     padding-top: 100px;
@@ -635,6 +638,10 @@ background-color: var(--white-50);
 padding-top: 100px;
 padding-bottom: 50px;
 padding-inline: 120px;
+
+@media ${devices.laptop}{
+    padding-inline: 50px;
+}
 
 @media ${devices.tablet}{
     padding-block: 50px;

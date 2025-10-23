@@ -98,7 +98,9 @@ const ChatList = ({ socket, onOpenChat }) => {
 
           filterChat.map((items) => (
 
-            <div key={items.receiver.id} className={`channel ${activeChat === items.receiver.id ? "active" : ""}`} onClick={() => openDm(items.receiver.id, items.chatId)}>
+            <div key={items.receiver.id} className={`channel ${activeChat === items.receiver.id ? "active" : ""}`} 
+            onClick={() => openDm(items.receiver.id, items.chatId)}>
+              
               <div className="channeltxt">
                 <img src={items.receiver.profilepic || profile} alt="img" className="circle" />
                 <div>

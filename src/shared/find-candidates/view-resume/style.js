@@ -60,6 +60,13 @@ margin: auto;
     padding-block: 20px;
     padding-inline: 25px;
 
+    
+     @media ${devices.laptop}{
+       width: 80%;
+      top: 210px;
+      left: 105px;
+    }
+
     @media ${devices.tablet}{
        width: 80%;
        top: 240px;
@@ -99,13 +106,6 @@ margin: auto;
         gap: 12px;
     }
 }
-
-/* .profile-pic{
-    background-color: var(--purple-50);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-} */
 
 .profile-pic img{
     background-size: contain;
@@ -177,6 +177,11 @@ margin: auto;
     align-items: start;
     gap: 30px;
 
+      @media ${devices.laptop}{
+        padding-block: 50px;
+        padding-inline: 50px;
+    }
+
     @media ${devices.tablet}{
         flex-direction: column;
         padding-block: 50px;
@@ -220,7 +225,7 @@ margin: auto;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    width: 50%;
+    /* width: 50%; */
 
     @media ${devices.tablet} {
         width: 100%;
@@ -232,84 +237,10 @@ margin: auto;
 }
 `
 
-// export const Box = styled.div`
-// border: 1px solid #E7F0FA;
-// width: 100%;
-// border-radius: 8px;
-// padding: 24px;
-
-// .flex-col{
-//     display: flex;
-//     /* flex-direction: column; */
-//     justify-content: space-between;
-//     gap: 25px;
-//     align-items: start;
-
-//     @media ${devices.mobile}{
-//         gap: 15px;
-//     }
-// }
-
-// .flex{
-//     width: 100%;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     align-items: start;
-//     gap: 25px;
-// }
-
-
-// .flex-div{
-//     display: flex;
-//     justify-content: start;
-//     flex-direction: column;
-//     gap: 18px;
-//     align-items: start;
-// }
-
-// .content{
-//     display: flex;
-//     justify-content: start;
-//     gap: 14px;
-//     align-items: start;
-// }
-
-
-// .Title{
-//     color: #767F8C;
-//     font-size: 14px;
-//     font-weight: 400;
-//     font-family: var(--inter);
-//     line-height: 20px;
-//     text-transform: capitalize;
-//     padding-bottom: 5px;
-// }
-
-// .SubHeading{
-//     color: #18191C;
-//     font-size: 14px;
-//     font-weight: 500;
-//     font-family: var(--inter);
-//     line-height: 20px;
-//     text-align: justify;
-// }
-
-// .IconColor{
-//     color: var(--purple-600);
-// }
-
-// .Color{
-//     color: var(--purple-600);
-// }
-
-
-// `
-
-
 export const Box = styled.div`
 border: 1px solid #E7F0FA;
-width: 310px;
+/* width: 310px; */
+width: 100%;
 border-radius: 8px;
 padding: 24px;
 

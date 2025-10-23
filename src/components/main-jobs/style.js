@@ -21,7 +21,13 @@ export const CompanyCards = styled.div`
     align-items: center;
     gap: 16px;    
     flex-wrap: wrap;
-    
+
+@media ${devices.laptop}{
+    justify-content: center;
+}
+@media ${devices.tablet}{
+    justify-content: center;
+}
 
 @media ${devices.mobile}{
    justify-content: center;

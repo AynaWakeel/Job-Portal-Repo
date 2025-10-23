@@ -116,6 +116,11 @@ const CompanyJobDetail = () => {
                                     <SmallEnv className='IconColor' />
                                     <h4 className='Title'>{companyData.email || "N/A"}</h4>
                                 </div>
+                                <div className='sub-flex'>
+                                    <img src={Chat} className='chat' onClick={() => handleCreateChat(companyData.id)} />
+                                    <h4 className='Title'>chat</h4>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -126,7 +131,7 @@ const CompanyJobDetail = () => {
 
                                     <>
 
-                                        <span className='Box'><FavIcon className='Color' /></span>
+                                        {/* <span className='Box'><FavIcon className='Color' /></span> */}
 
                                         <button className='CardBtn' onClick={PopupModal}>
                                             <span>Apply Now</span>
@@ -143,7 +148,7 @@ const CompanyJobDetail = () => {
                             </div>
                         }
                         <div className='status-side'>
-                            <h4 className='Title'>Job expire in:</h4>
+                            <h4 className='Title'>Job expire:</h4>
                             <h4 className='status'>{jobData.jobExpirationDate}</h4>
                         </div>
 
@@ -290,7 +295,7 @@ const CompanyJobDetail = () => {
                                 <a href={companyData.twitterLink} className='Box-icons'><Social2 className='Color' /></a>
                                 <a href={companyData.instagramLink} className='Box-icons'><Social3 className='Color' /></a>
                                 <a href={companyData.linkedInLink} className='Box-icons'><Social4 className='Color' /></a>
-                                <a className='Box-icons'><img src={Chat} className='Color' onClick={() => handleCreateChat(companyData.id)} /></a>
+                                <a className='Box-icons'><img src={Chat} className='chat' onClick={() => handleCreateChat(companyData.id)} /></a>
                             </div>
                         </CompanyBox>
 

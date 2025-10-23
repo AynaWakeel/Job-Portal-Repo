@@ -15,6 +15,10 @@ align-items: start;
 gap: 40px;
 margin: auto;
 
+ @media ${devices.laptop}{
+      padding-inline: 40px;
+}
+
 
     @media ${devices.tablet} {
         padding-bottom: 50px;
@@ -112,6 +116,10 @@ margin: auto;
 .Color{
     color: var(--purple-600);
 }
+.chat{
+    width: 25px;
+    color: var(--purple-600);
+}
 
 .profile-intro{
     display: flex;
@@ -148,16 +156,33 @@ margin: auto;
     font-family: var(--inter);
     padding-bottom: 2px;
     line-height: 28px;
-     max-width: 200px;
+     max-width: 400px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; 
 
-    @media ${devices.tablet}{
-        font-size: 20px;
+   @media ${devices.laptop} {
+        max-width: 300px;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis; 
+        
     }
-      @media ${devices.mobile}{
-        font-size: 18px;
+
+      @media ${devices.tablet} {
+        max-width: 300px;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis; 
+        
+    }
+
+      @media ${devices.mobile} {
+        max-width: 300px;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis; 
+        
     }
 }
 
@@ -223,10 +248,34 @@ margin: auto;
     font-family: var(--inter);
     line-height: 28px;
     padding-bottom: 20px;
-     max-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; 
+     /* max-width: 700px;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;  */
+
+    /* @media ${devices.laptop} {
+        max-width: 200px;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis; 
+        
+    }
+
+      @media ${devices.tablet} {
+        max-width: 200px;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis; 
+        
+    }
+
+      @media ${devices.mobile} {
+        max-width: 200px;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis; 
+        
+    } */
 }
 
 .profile-content{

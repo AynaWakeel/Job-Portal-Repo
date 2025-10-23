@@ -46,7 +46,10 @@ justify-content: center;
     width: 100%;
 
 @media ${devices.tablet}{
-    width: 96%;
+    width: 100%;
+     gap: 14px;
+    padding-inline: 16px;
+    padding-block: 20px;
 }
 
 @media ${devices.mobile}{
@@ -69,6 +72,10 @@ justify-content: center;
     gap: 25px;
     align-items: center;
 
+    @media ${devices.tablet}{
+         gap: 15px;
+    }
+
     @media ${devices.mobile}{
         gap: 8px;
         flex-wrap: wrap;
@@ -81,7 +88,7 @@ justify-content: center;
 
 .photo{
 border-radius: 50%;
-background-color: var(--purple-200);
+background-color: var(--white-250);
 width: 50px;
 height: 50px;
 }
@@ -99,6 +106,11 @@ border-radius: 50%;
     font-family: var(--inter);
     padding-bottom: 2px;
     line-height: 28px;
+
+    @media ${devices.tablet}{
+        font-size: 15px;
+        line-height: 23px;
+    }
 }
 
 
@@ -108,6 +120,11 @@ border-radius: 50%;
     font-weight: 400;
     font-family: var(--inter);
     line-height: 20px;
+
+      @media ${devices.tablet}{
+        font-size: 13px;
+        line-height: 19px;
+    }
 }
 
 .CardBtn{
@@ -121,10 +138,19 @@ border-radius: 50%;
     border-radius: 3px;
     color: #E05151;
     background-color: var(--purple-50);
+    cursor: pointer; 
+
+      @media ${devices.tablet}{
+          padding-block: 12px;
+          padding-inline: 12px;
+    }
+}
+
+.CardBtn span{
+    width: 100px;
     font-size: 16px;
     font-weight: 600;
     font-family: var(--inter);
-    cursor: pointer;
 }
 
 .IconColor{
@@ -140,10 +166,8 @@ width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-inline: 15px;
     padding-bottom: 10px;
     padding-top: 20px;
-
 
 @media ${devices.mobile}{
     flex-direction: column;
@@ -159,7 +183,7 @@ width: 100%;
 
     
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 20px;
 
 }
 
@@ -174,7 +198,6 @@ width: 100%;
     justify-content: center;
     gap: 6px;
     padding-block: 12px;
-    padding-inline: 24px;
     border: none;
     border-radius: 3px;
     color: #767F8C;

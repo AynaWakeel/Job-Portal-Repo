@@ -7,7 +7,9 @@ width: 540px;
 padding: 30px;
 margin: auto;
 
-
+@media ${devices.laptop} {
+    width: 460px;
+}
     @media ${devices.tablet}{
     width: 550px;
     background-color: var(--purple-10);

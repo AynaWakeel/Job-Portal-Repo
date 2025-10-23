@@ -4,7 +4,7 @@ import { devices } from "../../breakpoints";
 export const Navbar = styled.div`
 background-color: var(--white-50);
 padding-block: 15px;
-padding-inline: 120px;
+padding-inline: 70px;
 height: 90px;
 display: flex;
 justify-content: space-between;
@@ -14,6 +14,10 @@ top: 0px;
 width: 100%;
 z-index: 1000;
 box-shadow: 0px 0px 5px var(--purple-50);
+
+@media ${devices.laptop} {
+padding-inline: 50px;
+}
 
 @media ${devices.tablet}{
     padding-inline: 40px;
@@ -30,6 +34,9 @@ box-shadow: 0px 0px 5px var(--purple-50);
     gap: 30px;
     list-style: none;
 
+@media ${devices.laptop} {
+ gap: 10px;
+}
     
 @media ${devices.tablet}{
     display: none;
@@ -154,6 +161,9 @@ justify-content: start;
 align-items: center;
 gap: 60px;
 
+@media ${devices.laptop} {
+ gap: 30px;
+}
 @media ${devices.tablet}{
     gap: 40px;
 }

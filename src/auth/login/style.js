@@ -8,6 +8,11 @@ padding: 30px;
 margin: auto;
 
 
+@media ${devices.laptop} {
+    width: 460px;
+}
+
+
     @media ${devices.tablet}{
     width: 550px;
     background-color: var(--purple-10);
@@ -43,7 +48,7 @@ margin-top: 10px;
 margin-inline: auto;
 
 .FormSpace{
-   padding-block: 10px;
+   padding-block: 5px;
 }
 
 .FormError{
@@ -64,7 +69,7 @@ margin-inline: auto;
 }
 
 .FormError{
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     color: #e43f3fff;
     font-size: 14px;
     font-weight: 400;

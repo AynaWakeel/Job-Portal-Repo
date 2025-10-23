@@ -4,7 +4,7 @@ import { devices } from "../../breakpoints";
 export const Navbar = styled.div`
 background-color: var(--white-50);
 padding-block: 15px;
-padding-inline: 120px;
+padding-inline: 70px;
 height: 90px;
 display: flex;
 justify-content: space-between;
@@ -15,6 +15,9 @@ width: 100%;
 z-index: 1000;
 box-shadow: 0px 0px 5px var(--purple-50);
 
+@media ${devices.laptop} {
+padding-inline: 50px;
+}
 
 @media ${devices.tablet}{
     padding-inline: 40px;

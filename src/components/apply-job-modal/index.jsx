@@ -5,7 +5,6 @@ import 'react-quill/dist/quill.snow.css';
 import Close from '../../assets/icons/fi_x.svg'
 import { Controller, useForm } from 'react-hook-form';
 import { useApplicant } from '../../shared/dashboard/applicant/useApplicant';
-import { showError, showSuccess } from '../toasters';
 
 const ApplyModal = ({ jobId , onClose }) => {
     const {
@@ -16,9 +15,15 @@ const ApplyModal = ({ jobId , onClose }) => {
     const {apply_job_by_id} = useApplicant()
 
     const onSubmit = async(data) =>{
-        await apply_job_by_id(jobId,data)
+
+        const cleanText = data.coverLetter?.replace(/<[^>]+>/g, '').trim();
+        const payload = {
+          ...data,
+          coverLetter: cleanText,
+        };
+        await apply_job_by_id(jobId,payload)
         onClose()
-        console.log(jobId, data, "from apply job");
+        console.log(jobId, payload, "from apply job");
         
     }
 
@@ -48,8 +53,10 @@ const ApplyModal = ({ jobId , onClose }) => {
                           name='coverLetter'
                           control={control}
                           defaultValue=""
-                          render={(field)=>(                             
-                              <ReactQuill theme="snow" modules={Modules} className='Quillbar' value={field.value}  onChange={field.onChange} />
+                          render={({field})=>(                             
+                              <ReactQuill theme="snow" modules={Modules} className='Quillbar' 
+                              value={field.value || ""} 
+                               onChange={(val) => field.onChange(val)}/>
                           )}
                         />
                     </div>

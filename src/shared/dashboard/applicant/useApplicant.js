@@ -81,8 +81,8 @@ export const useApplicant = () => {
 
         try{
             const response = await Applicant_Endpoints.post_apply_job(id,body)
-            const { message } = response
-            if (response) {
+            const { success, message } = response
+            if (success) {
                 showSuccess(message)
             } else {
                 showError(message)
@@ -90,7 +90,7 @@ export const useApplicant = () => {
 
         }catch(err){
             console.log("error",err);
-            showError("Already Applied!")
+            // showError("Something went wrong!")
             
         }
 

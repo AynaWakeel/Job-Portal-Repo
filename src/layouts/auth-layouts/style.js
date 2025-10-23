@@ -5,7 +5,7 @@ export const AuthDiv = styled.div`
 display: flex;
 justify-content: space-between;
 align-items: center;
-height: 100vh;
+height: 105vh;
 
 /* ------------- media queries-------------- */
 @media ${devices.tablet} {
@@ -33,6 +33,13 @@ position: relative;
     height: 96%;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
+
+    
+@media ${devices.laptop} {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 0px;
+}
 }
 
 
@@ -78,6 +85,11 @@ text-align: center;
 height: 100%;
 margin: auto;
 position: relative;
+
+/* 
+@media ${devices.laptop} {
+    width: 40%;
+} */
 
 
     @media  ${devices.tablet} {

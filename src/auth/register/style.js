@@ -8,6 +8,11 @@ padding: 30px;
 margin: auto;
 
 
+@media ${devices.laptop} {
+    width: 460px;
+}
+
+
     @media ${devices.tablet}{
     width: 550px;
     background-color: var(--purple-10);
@@ -47,7 +52,7 @@ margin-inline: auto;
 }
 
 .FormError{
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     color: #e43f3fff;
     font-size: 14px;
     font-weight: 400;
@@ -67,7 +72,7 @@ margin-inline: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 .FormInput{
@@ -111,7 +116,7 @@ margin-inline: auto;
     width: 100%;
     padding-block: 16px;
     border-radius: 4px;
-    margin-top: 10px;
+    margin-top: 0px;
     cursor: pointer;
     font-size: 18px;
     font-weight: 500;
