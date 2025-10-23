@@ -63,12 +63,6 @@ const ForgetPassword = () => {
                         <button type='submit' 
                         className='FormBtn'>Reset password</button>
 
-                        <h5 className='OR'>OR</h5>
-                        <SocialMediaDiv>
-                            <button className='MediaBtn'>
-                                <img src={google} alt="icon" className='GoogleIcon' />
-                                Sign in with Google</button>                         
-                        </SocialMediaDiv>
                     </Form>
                     </form>
 

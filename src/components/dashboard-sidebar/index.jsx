@@ -69,7 +69,6 @@ const DashboardSidebar = () => {
             </SidebarMenu>
             {/* ------------ mobile sidebar ---------- */}
             <div className='menudiv'>
-                <h3>Dashboard</h3>
                 {isOpen ?
                     <img src={Close} alt='img' className='Display' onClick={OpenMenu} /> :
                     <img src={Menubar} alt='img' className='Display' onClick={OpenMenu} />

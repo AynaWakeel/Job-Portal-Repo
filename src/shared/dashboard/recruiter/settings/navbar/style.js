@@ -34,6 +34,10 @@ padding-inline: 20px;
     list-style: none;
     border-bottom: 1px solid var(--purple-50);
 
+    @media ${devices.laptop}{
+        gap: 0px;
+    }
+
     @media ${devices.mobile}{
         flex-wrap: wrap;
     }
@@ -52,6 +56,11 @@ padding-inline: 20px;
     gap: 10px;
     align-items: center;
     width: 100%;
+    cursor: pointer;
+
+    @media ${devices.laptop}{
+        gap: 5px;
+    }
 
     @media ${devices.tablet}{
         width: 48%;

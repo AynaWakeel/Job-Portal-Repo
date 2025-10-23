@@ -204,13 +204,13 @@ const RecruiterPostaJob = () => {
                 <div className='FormSpace FormInputDivide'>
                   <div className='InputWidth FormPassword'>
                     <label htmlFor='' className='Label'>Education</label>
-                    <input type='text' placeholder='Select..' className='FormInput'
+                    <input type='text' placeholder='Education' className='FormInput'
                       {...register("education", { required: "education is req." })} />
                   </div>
 
                   <div className='InputWidth FormPassword'>
                     <label htmlFor='' className='Label'>Job Type</label>
-                    <input type='text' placeholder='Select..' className='FormInput'
+                    <input type='text' placeholder='fulltime/ parttime/internship/remote' className='FormInput'
                       {...register("jobType", { required: "jobTypeis req." })} />
                   </div>
                 </div>
@@ -225,12 +225,12 @@ const RecruiterPostaJob = () => {
                 <div className='FormSpace FormInputDivide'>
                   <div className='InputWidth FormPassword'>
                     <label htmlFor='' className='Label'>Experience</label>
-                    <input type='text' placeholder='Select..' className='FormInput'
+                    <input type='text' placeholder='2 years' className='FormInput'
                       {...register("experience", { required: "experience is req." })} />
                   </div>
                   <div className='InputWidth FormPassword'>
                     <label htmlFor='' className='Label'>Expiration date</label>
-                    <input type='text' className='FormInput'
+                    <input type='text' placeholder='Y-M-D' className='FormInput'
                       {...register("jobExpirationDate", { required: "jobExpirationDate is req." })} />
                   </div>
                 </div>

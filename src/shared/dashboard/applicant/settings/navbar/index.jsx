@@ -41,6 +41,7 @@ const Setting = () => {
                             <a>Create Resume</a>
                         </li>
                     </ul>
+                </div>
                     {isActive === "Personal profile" &&
                         <ApplicantPersonalProfile />
                     }
@@ -52,7 +53,6 @@ const Setting = () => {
                     {isActive === "Create Resume" &&
                         <ApplicantCreateResume />
                     }
-                </div>
             </Settings>
         </div>
     )

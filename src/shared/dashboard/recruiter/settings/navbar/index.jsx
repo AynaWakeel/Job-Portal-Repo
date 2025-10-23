@@ -49,6 +49,7 @@ const RecruiterSettings = () => {
               <a>Account Setting</a>
             </li>
           </ul>
+        </div>
           {isActive === "Company Info" &&
             <CompanyInfo />
           }
@@ -64,7 +65,6 @@ const RecruiterSettings = () => {
           {isActive === "Social Media Profile" &&
             <SocialMediaProfile />
           }
-        </div>
       </Settings>
     </div>
   )
