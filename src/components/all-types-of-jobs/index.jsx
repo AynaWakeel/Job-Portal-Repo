@@ -66,10 +66,23 @@ const AllTypesOfJobs = ({ jobs }) => {
 
                                         {items.approvalStatus === "pending" &&
 
+                                        <>
+                                        
                                             <div className='Activediv'>
                                                 <span><img src={StatusClose} alt='icon' /></span>
                                                 <span className='red'>Pending</span>
                                             </div>
+
+                                             <div className='Right-side'>
+                                                    <button className='CardBtn'
+                                                        onClick={() => Edit(items.id)}
+                                                    >
+                                                        <span>Edit Job</span>
+                                                    </button>
+
+                                                </div>
+                                        </>
+
 
                                         }
 

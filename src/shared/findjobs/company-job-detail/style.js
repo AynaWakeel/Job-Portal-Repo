@@ -320,6 +320,20 @@ margin: auto;
     }
 }
 
+
+.photo{
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 60px;
+height: 60px;
+}
+
+.photo img{
+width: 60px;
+height: 60px;
+border-radius: 50%;
+}
+
 .Profile-box{
     display: flex;
     justify-content: start;
@@ -370,7 +384,8 @@ padding: 24px;
 .flex{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+        justify-content: space-between;
     align-items: start;
     gap: 12px;
     flex-wrap: wrap;
@@ -388,13 +403,11 @@ padding: 24px;
 .content{
     display: flex;
     justify-content: start;
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
     align-items: start;
-
-    @media ${devices.mobile}{
-        flex-direction: row;
-    }
+    min-width: 150px;
+    max-width: 250px;
 }
 
 .content-row{
@@ -446,13 +459,13 @@ padding: 24px;
 
      @media ${devices.tablet}{
         flex-direction: row;
-        align-items: start;
+        align-items: center;
         gap: 12px;
     }
 
      @media ${devices.mobile}{
         flex-direction: row;
-        align-items: start;
+        align-items: center;
         gap: 12px;
     }
 }

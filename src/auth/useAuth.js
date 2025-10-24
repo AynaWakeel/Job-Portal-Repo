@@ -146,7 +146,7 @@ const UseAuth = () => {
             }
 
         }catch(err){
-            console.log("erro here");
+            console.log("error here");
             
         }
 

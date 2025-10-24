@@ -98,5 +98,5 @@ export const postData = async (url, data, params = {}) => {
     console.error("Unexpected Error:", error);
   }
 
-  throw new Error(message);
+   return { success: false, message };
 };

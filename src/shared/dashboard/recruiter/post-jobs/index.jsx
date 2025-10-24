@@ -8,6 +8,7 @@ import SelectIndustry from '../../../../components/select-industry';
 import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
 import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints';
+import { showError } from '../../../../components/toasters';
 
 const RecruiterPostaJob = () => {
   const navigate = useNavigate()
@@ -52,7 +53,7 @@ const RecruiterPostaJob = () => {
 
         if (jobId) {
           const jobRes = await have_reported_job_by_id(jobId);
-          
+
           if (jobRes?.data?.job) {
             reset(jobRes.data.job)
             setHasData(true)
@@ -88,22 +89,37 @@ const RecruiterPostaJob = () => {
   const onSubmit = async (data) => {
     try {
 
+      if (data.salaryMin) data.salaryMin = Number(data.salaryMin);
+      if (data.salaryMax) data.salaryMax = Number(data.salaryMax);
+
+      if (isNaN(data.salaryMin) || isNaN(data.salaryMax)) {
+        showError("Salary must be a number");
+        return;
+      }
+
+      if (data.tags) {
+        data.tags = data.tags
+          .split(",")
+          .map(tag => tag.trim())
+          .filter(tag => tag !== "");
+      }
+
       if (jobId) {
         await edit_post_job_by_id(jobId, data);
         reset({
-              title: "",
-              experience: "",
-              salaryMin: "",
-              salaryMax: "",
-              jobType: "",
-              education: "",
-              jobExpirationDate: "",
-              description: "",
-              responsibilities: "",
-              tags: "",
-              // industryId: "",
-              // locationId:"",
-            })
+          title: "",
+          experience: "",
+          salaryMin: "",
+          salaryMax: "",
+          jobType: "",
+          education: "",
+          jobExpirationDate: "",
+          description: "",
+          responsibilities: "",
+          tags: "",
+          // industryId: "",
+          // locationId:"",
+        })
       } else {
         await post_a_job(data);
       }

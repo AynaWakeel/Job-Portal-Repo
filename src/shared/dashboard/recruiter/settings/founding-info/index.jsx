@@ -7,6 +7,7 @@ import { useRecruiter } from '../../useRecruiter'
 import { Recruiter_Endpoints } from '../../../../../lib/api/recruiter_endpoints'
 import CustomSelect from '../../../../../components/custome-select'
 import Select from 'react-select';
+import { showError } from '../../../../../components/toasters'
 
 const FoundingInfo = () => {
 
@@ -75,6 +76,24 @@ const FoundingInfo = () => {
   }, [reset]);
 
   const onSubmit = (data) => {
+
+    if (data.teamSize) {
+      data.teamSize = data.teamSize.trim();
+
+      const teamSizePattern = /^\d+(-\d+)?$/;
+
+      if (!teamSizePattern.test(data.teamSize)) {
+        showError("Team Size must be a number or 10-20");
+        return;
+      }
+    }
+
+    if (data.yearOfEstablishment) data.yearOfEstablishment = Number(data.yearOfEstablishment);
+    if (isNaN(data.yearOfEstablishment)) {
+      showError("Year Must be a number");
+      return;
+    }
+
     company_profile(data)
     console.log(data)
   }
@@ -105,7 +124,17 @@ const FoundingInfo = () => {
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Team Size</label>
                 <input type='text' placeholder='150..' className='FormInput'
-                  {...register("teamSize", { required: "teamSize is req." })} />
+                  {...register("teamSize", { required: "teamSize is req." })}
+
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9-]/g, "");
+
+                    const parts = e.target.value.split("-");
+                    if (parts.length > 2) {
+                      e.target.value = parts[0] + "-" + parts[1];
+                    }
+                  }}
+                />
               </div>
             </div>
             <div className='FormError'>
@@ -130,7 +159,7 @@ const FoundingInfo = () => {
                     />
                   )}
                 />
-                
+
                 <div className='FormError'>
                   {errors.industryTypes && <p>Industry Type id required.</p>}
                 </div>
@@ -138,7 +167,11 @@ const FoundingInfo = () => {
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Year of Establishment</label>
                 <input type='text' className='FormInput' placeholder='2023'
-                  {...register("yearOfEstablishment", { required: "yearOfEstablishment is req." })} />
+                  {...register("yearOfEstablishment", { required: "yearOfEstablishment is req." })} 
+                     onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9-]/g, "");
+
+                  }}/>
               </div>
             </div>
             <div className='FormError'>
@@ -158,10 +191,10 @@ const FoundingInfo = () => {
 
             <div className='FormSpace'>
               <button type='submit' className='FormBtn'>
-                 {hasData ? 
-                "Update" :
-                "Save" 
-                 }
+                {hasData ?
+                  "Update" :
+                  "Save"
+                }
               </button>
             </div>
           </Form>

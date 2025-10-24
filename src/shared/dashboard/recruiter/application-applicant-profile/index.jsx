@@ -10,7 +10,7 @@ import { ReactComponent as Global } from '../../../../assets/icons/GlobeSimple.s
 import { ReactComponent as Envelope } from '../../../../assets/icons/Envelope.svg'
 import { ReactComponent as Phone } from '../../../../assets/icons/phone-call-duotone 1.svg'
 import { ReactComponent as File } from '../../../../assets/icons/FileText.svg'
-import { useLocation, useParams } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import Loader from '../../../../components/loading-spinner'
 import { showError } from '../../../../components/toasters'
 import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints'
@@ -18,8 +18,9 @@ import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints'
 const ViewProfileApplications = () => {
   const [profile, setProfile] = useState({})
   const location = useLocation()
+  const navigate = useNavigate()
   const jobId = location.state.jobId
-   const applicationId = location.state.applicationId
+  const applicationId = location.state.applicationId
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -33,6 +34,10 @@ const ViewProfileApplications = () => {
       fetchProfile();
     }
   }, [jobId, applicationId])
+
+   const viewresume = (userId) => {
+    navigate('/recruiter/applicant-resume', { state: { userId } })
+  }
 
 
   const ContentPage = ['/admin/dashboard/profile']
@@ -94,7 +99,7 @@ const ViewProfileApplications = () => {
                         <h4 className='SubHeading'>{profile.location}</h4>
                       </div>
                     </div>
-                
+
                   </div>
                   <div className='content'>
                     <div><Phone className='IconColor' /></div>
@@ -143,26 +148,55 @@ const ViewProfileApplications = () => {
 
               {!hideContent &&
 
-                <UploadPdf>
-                  <button
-                    className='center'
-                    onClick={() => {
-                      if (profile?.resume) {
-                        const resumePdf = `${profile.resume}`
-                        window.open(resumePdf, "_black")
-                      } else {
-                        showError("resume not found")
-                      }
-                    }}
-                  >
-                    <div><File className='IconColor' /></div>
-                    <div>
-                      <h5 className='Title'>Professional Resume</h5>
-                      <h6 className='info'>Click to View</h6>
-                    </div>
-                  </button>
-                </UploadPdf>
+                <>
 
+                  <div className='flex'>
+
+                    {profile?.resume &&
+
+                      <UploadPdf>
+                        <button
+                          className='center'
+                          onClick={() => {
+                            if (profile?.resume) {
+                              const resumePdf = `${profile.resume}`
+                              window.open(resumePdf, "_black")
+                            } else {
+                              showError("resume not found")
+                            }
+                          }}
+                        >
+                          <div><File className='IconColor' /></div>
+                          <div>
+                            <h5 className='Title'>Pdf Resume</h5>
+                            <h6 className='info'>Click to View</h6>
+                          </div>
+                        </button>
+                      </UploadPdf>
+
+                    }
+
+
+
+
+                    {profile.hasStructuredResume &&
+
+                      <UploadPdf>
+                        <button
+                          onClick={() => viewresume(profile.id)}
+                          className='center' >
+                          <div><File className='IconColor' /></div>
+                          <div>
+                            <h5 className='Title'>Professional Resume</h5>
+                            <h6 className='info'>Click to View</h6>
+                          </div>
+                        </button>
+                      </UploadPdf>
+
+                    }
+
+                  </div>
+                </>
 
               }
 

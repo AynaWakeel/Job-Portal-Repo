@@ -11,10 +11,21 @@ flex-direction: column;
 justify-content: start;
 align-items: start;
 margin: auto;
+overflow-x: hidden;
 
 
 .banner{
-    width: 99vw;
+    width: 79vw;
+
+    @media ${devices.mobile}{
+        width: 96vw;
+    }
+    @media ${devices.tablet}{
+         width: 79vw;
+    }
+     @media ${devices.laptop}{
+         width: 79vw;
+    }
 }
 
 .banner img{
@@ -23,11 +34,11 @@ margin: auto;
     position: relative;
 
      @media ${devices.mobile}{
-        width: 100vw;
+        width: 96vw;
     }
      @media ${devices.tablet}{
-         width: 100vw;
-        height: 55vh;
+         /* width: 89vw; */
+        height: 50vh;
     }
 }
 
@@ -60,6 +71,13 @@ margin: auto;
     border-radius: 8px;
     padding-block: 20px;
     padding-inline: 25px;
+
+     @media ${devices.laptop}{
+       width: 80%;
+      top: 210px;
+      left: 105px;
+    }
+
 
     @media ${devices.tablet}{
        width: 80%;
@@ -164,7 +182,7 @@ margin: auto;
 }
 
 .profile-content{
-    padding-inline: 120px;
+    padding-inline: 30px;
     width: 100%;
     padding-block: 70px;
     display: flex;
@@ -172,10 +190,16 @@ margin: auto;
     align-items: start;
     gap: 30px;
 
+      @media ${devices.laptop}{
+        flex-direction: column;
+        padding-block: 50px;
+        padding-inline: 20px;
+    }
+
     @media ${devices.tablet}{
         flex-direction: column;
         padding-block: 50px;
-        padding-inline: 30px;
+        padding-inline: 20px;
     }
 
     @media ${devices.mobile}{

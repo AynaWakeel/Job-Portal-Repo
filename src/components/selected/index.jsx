@@ -61,10 +61,10 @@ const Selected = () => {
                         {applicants.length > 0 ?
 
                             applicants.map((items) => (
-                                <div className='Card'>
+                                <div className='Card' key={items.id}  onDoubleClick={() => gotoProfile(items.id)}>
                                     <div className='flex'>
                                         <div className='CardFlex'>
-                                            <div className='IconBox photo' onClick={() => gotoProfile(items.id)}>
+                                            <div className='IconBox photo'>
                                                 <img src={items.profilepic} className='IconColor' />
                                             </div>
                                             <div>

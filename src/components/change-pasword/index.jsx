@@ -15,14 +15,16 @@ const ChangePasswordComp = () => {
 
     const { change_applicant_password } = useApplicant()
 
-    const onChangepassword = (data) => {
+    const onChangepassword = async(data) => {
         const { oldPassword, newPassword, confirmPassword } = data
         if (oldPassword === newPassword) {
             showError("Enter new Password..")
+            return
         } else if (newPassword !== confirmPassword) {
             showError("Password donot match")
-        } else {
-            change_applicant_password(data)
+            return
+        }else{
+            await change_applicant_password(data)
         }
     }
 
@@ -58,7 +60,8 @@ const ChangePasswordComp = () => {
                         <div className='FormSpace FormInputDivide'>
                             <div className='InputWidth'>
                                 <label htmlFor='' className='Label'>Current Password</label>
-                                <input type={isPasswordVisible ? "text" : "password"} placeholder='Current Password' className='FormInput'  {...register("oldPassword", { required: "oldPassword is required." })} />
+                                <input type={isPasswordVisible ? "text" : "password"} placeholder='Current Password' className='FormInput'  
+                                {...register("oldPassword", { required: "oldPassword is required." })} />
                                 <div onClick={PasswordVisibility}>
                                     {isPasswordVisible ?
                                         <EyeIcon className='eyeimg' /> :
@@ -71,7 +74,8 @@ const ChangePasswordComp = () => {
                             </div>
                             <div className='InputWidth'>
                                 <label htmlFor='' className='Label'>New Password</label>
-                                <input type={isNewPasswordVisible ? "text" : "password"} placeholder='New Password' className='FormInput' {...register("newPassword", { required: "New Password is required." })} />
+                                <input type={isNewPasswordVisible ? "text" : "password"} placeholder='New Password' className='FormInput' 
+                                {...register("newPassword", { required: "New Password is required." })} />
                                 <div onClick={NewPasswordVisibility}>
                                     {isNewPasswordVisible ?
                                         <EyeIcon className='eyeimg' /> :
@@ -84,7 +88,8 @@ const ChangePasswordComp = () => {
                             </div>
                             <div className='InputWidth'>
                                 <label htmlFor='' className='Label'>Confirm Password</label>
-                                <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput' {...register("confirmPassword", { required: "Confirm Password is required." })} />
+                                <input type={isConfirmationVisible ? "text" : "password"} placeholder='Confirm Password' className='FormInput' 
+                                {...register("confirmPassword", { required: "Confirm Password is required." })} />
                                 <div onClick={ConfirmationVisibility}>
                                     {isConfirmationVisible ?
                                         <EyeIcon className='eyeimg' /> :

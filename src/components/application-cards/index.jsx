@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CompanyCards , Pagination} from './style'
+import { CompanyCards, Pagination } from './style'
 import Dot from '../../assets/icons/•.svg'
 import { ReactComponent as Like } from '../../assets/icons/fi_thumbs-up.svg'
 import ProfilePic from '../../assets/images/Ellipse 18.png'
@@ -22,19 +22,21 @@ const ApplicationCards = () => {
     const { change_applicantion_Status_by_id } = useRecruiter()
 
     const onLike = async (applicationId, newStatus) => {
-        const res = await change_applicantion_Status_by_id(applicationId, { status: newStatus})
-        if (res) {
-            setApplicants(prev =>
-                prev.map(app =>
-                    app.id === applicationId ? { ...app, status: newStatus } : app
-                )
+
+    const res = await change_applicantion_Status_by_id(applicationId, { status: newStatus})
+    if (res) {
+        setApplicants(prev =>
+            prev.map(app =>
+                app.id === applicationId ? { ...app, status: newStatus } : app
             )
-        }
-        fetchData(currentPage)
+        )
     }
-    const fetchData = async ( page = 1, limit = 10) => {
+    fetchData()
+    }
+
+    const fetchData = async (page = 1, limit = 10) => {
         // if (!jobId) return;
-        const res = await Recruiter_Endpoints.get_applications(jobId , page, limit )
+        const res = await Recruiter_Endpoints.get_applications(jobId, page, limit)
         const { currentPage, totalPages } = res.data.all;
         if (res?.data?.all?.data) {
             setApplicants(res.data.all.data)
@@ -47,10 +49,10 @@ const ApplicationCards = () => {
     }, [jobId, currentPage])
 
     const Profile = (applicationId) => {
-        navigate('/recruiter/dashboard/applicate-profile' , {state:{jobId , applicationId}})
+        navigate('/recruiter/dashboard/applicate-profile', { state: { jobId, applicationId } })
     }
 
-     const handlePrevPage = () => {
+    const handlePrevPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
@@ -73,53 +75,56 @@ const ApplicationCards = () => {
                 <div className='CardDiv'>
                     <div className='Grid'>
                         {applicants.length > 0 ?
-                        
-                        applicants.map((items) => (
-                            <div className='Card' key={items.id}>
-                                <div className='flex'>
-                                    <div className='CardFlex'>
-                                        <div className='IconBox photo'  onClick={() => Profile(items.id)} >
-                                            <img src={items.profilepic} className='IconColor' />
+
+                            applicants.map((items) => (
+                                <div className='Card' key={items.id} onDoubleClick={() => Profile(items.id)}>
+                                    <div className='flex'>
+                                        <div className='CardFlex'>
+                                            <div className='IconBox photo' >
+                                                <img src={items.profilepic} className='IconColor' />
+                                            </div>
+                                            <div>
+                                                <h3 className='Heading'>{items.fullName}</h3>
+                                                <span className='SubHeading'>{items.title}</span>
+                                            </div>
                                         </div>
                                         <div>
-                                            <h3 className='Heading'>{items.fullName}</h3>
-                                            <span className='SubHeading'>{items.title}</span>
+                                            <Like className={items.status === "shortlisted" ? "tab active" : "tab"}
+                                                // onClick={()=>onLike(items.id, items.status === "pending" ? "shortlisted" : "pending")} 
+                                                onClick={() => onLike(items.id, "shortlisted")}
+
+                                            />
                                         </div>
                                     </div>
-                                    <div>
-                                        <Like className={items.status === "shortlisted" ? "tab active" : "tab"}
-                                            onClick={()=>onLike(items.id, items.status === "pending" ? "shortlisted" : "pending")} />
+                                    <div className='flex-col'>
+                                        <h4 className='FlexIcon'>
+                                            <span><img src={Dot} /></span>
+                                            <span className='small'>{items.experience}</span>
+                                        </h4>
+                                        <h4 className='FlexIcon'>
+                                            <span><img src={Dot} /></span>
+                                            <span className='small'>{items.education}</span>
+                                        </h4>
                                     </div>
                                 </div>
-                                <div className='flex-col'>
-                                    <h4 className='FlexIcon'>
-                                        <span><img src={Dot} /></span>
-                                        <span className='small'>{items.experience}</span>
-                                    </h4>
-                                    <h4 className='FlexIcon'>
-                                        <span><img src={Dot} /></span>
-                                        <span className='small'>{items.education}</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        ))
+                            ))
 
-                        :
+                            :
 
-                        (
-                            <h3 className='Heading'>No Data Found</h3>
-                        )
-                    
-                    
-                    }
+                            (
+                                <h3 className='Heading'>No Data Found</h3>
+                            )
+
+
+                        }
 
                     </div>
                 </div>
 
-                   <Pagination>
+                <Pagination>
                     <div>
                         <button className='Btn' onClick={handlePrevPage} disabled={currentPage === 1}>
-                            <img src={LeftArrow} alt='left' className='color'/>
+                            <img src={LeftArrow} alt='left' className='color' />
                         </button>
                     </div>
                     <div>
@@ -127,7 +132,7 @@ const ApplicationCards = () => {
                     </div>
                     <div>
                         <button className='Btn' onClick={handleNextPage} disabled={currentPage === totalPages}>
-                            <img src={RightArrow} alt='right' className='color'/>
+                            <img src={RightArrow} alt='right' className='color' />
                         </button>
                     </div>
                 </Pagination>

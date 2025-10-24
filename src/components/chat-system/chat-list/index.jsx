@@ -108,13 +108,19 @@ const ChatList = ({ socket, onOpenChat }) => {
                   <p className="SubHeading">{items?.lastMessage?.content || "..."}</p>
                 </div>
               </div>
-              <div className="SubHeading">
+              <div className="SubHeading timediv">
+                {items.unreadCount > 0 &&
+                <div className='msgNotify'>
+                  <p  className="SubHeading">{items.unreadCount}</p>
+                </div>
+                
+                }
                 <span>
                   {items?.lastMessage?.createdAt? new Date(items.lastMessage.createdAt).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })
-                    : ""}
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                  : ""}
                 </span>
               </div>
 

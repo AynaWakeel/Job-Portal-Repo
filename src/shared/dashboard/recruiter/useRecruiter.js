@@ -43,25 +43,32 @@ export const useRecruiter = () => {
 
       const change_recruiter_password = async(body) =>{
 
-        const response = await Recruiter_Endpoints.post_changePassword(body)
-        const {message} = response
-        if(response){
-            showSuccess(message)
-        }else{
-            showError(message)
-        }
+          const response = await Recruiter_Endpoints.post_changePassword(body)
+          const {success ,message } = response
+          if(success){
+              showSuccess(message)
+          }else{
+              console.log(message)
+          }
+     
+
     }
 
     const post_a_job = async(body)=>{
+        try{
+            const response = await Recruiter_Endpoints.post_job(body)
+                
+            const { success ,message } = response
+            if (success) {
+                showSuccess(message);
+            } else {
+                showError(message);
+            }
 
-        const response = await Recruiter_Endpoints.post_job(body)
-            
-        const {message} = response
-        if (response) {
-            showSuccess(message);
-        } else {
-            showError(message);
+        }catch(err){
+            console.log("post a job error");
         }
+
        
     }
 
@@ -87,15 +94,18 @@ export const useRecruiter = () => {
         }
     }
 
-     const change_applicantion_Status_by_id = async(applicationId, body)=>{
+     const change_applicantion_Status_by_id = async(applicationId, body , jobId , page = 1, limit = 10)=>{
 
         const response = await Recruiter_Endpoints.put_applicantion_Status_by_id(applicationId , body)
         
         if (response?.message) {
             showSuccess(response.message);
+            await Recruiter_Endpoints.get_applications(jobId, page, limit)
         } else {
             showError(response?.message);
         }
+
+        
     }
 
     const have_reported_job_by_id = async(jobId, body)=>{

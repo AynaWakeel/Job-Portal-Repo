@@ -92,9 +92,14 @@ const CompanyJobDetail = () => {
             <Main>
                 <div className='profile'>
                     <div className='profile-intro'>
+                        {companyData?.profilepic ?
+                        
                         <div className='profile-pic'>
                             <img src={companyData.profilepic} alt='icon' />
                         </div>
+                        :
+                        <div className='photo'></div>
+                        }
                         <div className='profile-flex-col'>
                             <div className='detail-flex'>
                                 <h2 className='Name'>{jobData.title}</h2>
@@ -198,13 +203,6 @@ const CompanyJobDetail = () => {
                             <h3 className='boxHeading'>Job Overview</h3>
                             <div className='flex-col'>
                                 <div className='flex'>
-                                    {/* <div className='content'>
-                                        <div><Calender className='IconColor' /></div>
-                                        <div>
-                                            <h2 className='Title'>Job Posted:</h2>
-                                            <h4 className='SubHeading'>14 June, 2021</h4>
-                                        </div>
-                                    </div> */}
 
                                     <div className='content'>
                                         <div><Map className='IconColor' /></div>
@@ -254,12 +252,17 @@ const CompanyJobDetail = () => {
 
                         <CompanyBox>
                             <div className='profile-intro'>
+                                {companyData?.profilepic ? 
                                 <div className='profile-logo photo'>
-                                    <img src={companyData.profilepic || Company} alt='icon' />
+                                    <img src={companyData.profilepic} alt='icon' />
                                 </div>
+                                :
+                                <div className=' photo'></div>
+                                
+                                }
+                                    <h2 className='Name'>{companyData.companyName}</h2>
                                 <div>
-                                    <h2 className='Name'>Instagram</h2>
-                                    <h2 className='Title'>Social networking service</h2>
+                                    {/* <h2 className='Title'>Social networking service</h2> */}
                                 </div>
 
                             </div>

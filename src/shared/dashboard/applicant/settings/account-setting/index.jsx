@@ -5,6 +5,7 @@ import { useApplicant } from '../../useApplicant'
 import { Applicant_Endpoints } from '../../../../../lib/api/applicant_endpoints'
 import ChangePasswordComp from '../../../../../components/change-pasword'
 import TwoFactorComp from '../../../../../components/two-factor-comp'
+import { showError } from '../../../../../components/toasters'
 
 const ApplicantAccountSetting = () => {
     const {
@@ -21,8 +22,8 @@ const ApplicantAccountSetting = () => {
     useEffect(() => {
         const fetchData = async () => {
             const previousData = await Applicant_Endpoints.get_profile()
-            if (previousData) {
-                reset(previousData);
+            if (previousData?.data) {
+                reset(previousData.data);
                 setHasData(true);
             } else {
                 reset({
@@ -37,6 +38,13 @@ const ApplicantAccountSetting = () => {
     }, [reset])
 
     const onSubmit = (data) => {
+
+        if (data.phoneNumber) data.phoneNumber = Number(data.phoneNumber);
+
+        if (isNaN(data.phoneNumber)) {
+            showError("Phone Number must be a number");
+            return;
+        }
         profile_setting(data)
         console.log(data)
     }
@@ -61,7 +69,7 @@ const ApplicantAccountSetting = () => {
                             </div>
                             <div className='FormSpace'>
                                 <label htmlFor='phoneNumber' className='Label'>Phone Number</label>
-                                <input type="tel" placeholder='Number' className='FormInput'
+                                <input type="tel" maxLength={12} placeholder='Number' className='FormInput'
                                     {...register("phoneNumber", { required: "phoneNumber is req." })} />
                             </div>
                             <div className='FormError'>
@@ -81,10 +89,10 @@ const ApplicantAccountSetting = () => {
                     </div>
                 </form>
 
-                <TwoFactorComp/>
+                <TwoFactorComp />
 
 
-                <ChangePasswordComp/>
+                <ChangePasswordComp />
 
             </SettingDiv>
         </div>

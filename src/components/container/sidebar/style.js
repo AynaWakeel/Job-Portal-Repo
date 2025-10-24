@@ -25,7 +25,13 @@ background-color: var(--purple-600);
 
 
 .Sidebar{
-    width: 80%;
+    width: 90%;
+
+    
+     @media ${devices.laptop}{
+       width: 100%;
+    }
+
 
     @media ${devices.tablet}{
         width: 100%;

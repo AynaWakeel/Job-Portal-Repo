@@ -129,7 +129,7 @@ const PostedJobs = () => {
                                             </div>
                                         </div>
 
-                                        {Expired ?
+                                        {items.status === "expired" ?
 
                                             (<div className='Activediv'>
                                                 <span><img src={StatusClose} alt='icon' /></span>

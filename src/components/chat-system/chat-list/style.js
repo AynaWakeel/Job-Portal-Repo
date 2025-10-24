@@ -61,12 +61,35 @@ export const Main = styled.div`
     gap: 10px;
   }
 
+  
+  .timediv {
+    display: flex;
+    align-items: end;
+    gap: 10px;
+  }
+
   .circle {
     width: 55px;
     height: 55px;
     border-radius: 50%;
   }
 
+.msgNotify{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--white-200);
+}
+
+.msgNotify p{
+  color: var(--purple-600);
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+  
   .Heading {
     color: var(--purple-50);
     font-size: 16px;

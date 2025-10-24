@@ -41,7 +41,7 @@ position: relative;
     left: 0px;
     z-index: 1000;
     padding: 6px;
-    width: 130px;
+    width: 40px;
     background-color: var(--purple-50);
     }
 }

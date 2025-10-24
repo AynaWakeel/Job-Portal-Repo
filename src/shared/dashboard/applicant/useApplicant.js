@@ -45,8 +45,8 @@ export const useApplicant = () => {
     const create_resume = async (body) => {
 
         const response = await Applicant_Endpoints.post_create_resume(body)
-        const { message, sucess } = response
-        if (sucess) {
+        const { message, success } = response
+        if (success) {
             showSuccess(message)
         } else {
             showError(message)
@@ -56,8 +56,8 @@ export const useApplicant = () => {
     const update_applicant_resume = async (body) => {
 
         const response = await Applicant_Endpoints.update_resume(body)
-        const { message, sucess } = response
-        if (sucess) {
+        const { message, success } = response
+        if (success) {
             showSuccess(message)
             return response.data
         } else {
@@ -69,8 +69,8 @@ export const useApplicant = () => {
     const change_applicant_password = async (body) => {
 
         const response = await Applicant_Endpoints.post_changePassword(body)
-        const { message } = response
-        if (response) {
+        const {success, message } = response
+        if (success) {
             showSuccess(message)
         } else {
             showError(message)

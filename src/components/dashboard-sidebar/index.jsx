@@ -6,7 +6,7 @@ import { ReactComponent as Gear } from '../../assets/icons/Gear.svg'
 import { ReactComponent as PlusCircle } from '../../assets/icons/PlusCircle.svg'
 import { ReactComponent as Brief } from '../../assets/icons/Briefcase.svg'
 import { ReactComponent as Logo } from '../../assets/icons/briefcase2.svg'
-import Menubar from '../../assets/icons/fi_menu.svg'
+import Menubar from '../../assets/icons/fi_arrow-right.svg'
 import Close from '../../assets/icons/fi_x.svg'
 import { useLocation, useNavigate } from 'react-router'
 import { ROLE } from '../../enum/roles'
@@ -82,7 +82,7 @@ const DashboardSidebar = () => {
 
                             {Menu.map((item) => (
 
-                            <li key={item.path} onClick={() => navigate(item.path)}
+                            <li key={item.path} onClick={() => {navigate(item.path); setIsOpen(false)}}
                                 className={`tab ${location.pathname === item.path ? " active" : ""}`}>
                                 <div className='IconColor' >{item.icon}</div>
                                 <a>{item.label}</a>

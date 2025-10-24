@@ -241,6 +241,29 @@ overflow-x: hidden;
         width: 100%;
     }
 }
+
+
+.flex-col{
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    gap: 25px;
+    align-items: start;
+
+    @media ${devices.mobile}{
+        gap: 15px;
+    }
+}
+
+.flex{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    gap: 25px;
+}
+
 `
 
 export const Box = styled.div`
@@ -251,7 +274,6 @@ padding: 24px;
 
 .flex-col{
     display: flex;
-    /* flex-direction: column; */
     justify-content: space-between;
     gap: 25px;
     align-items: start;
@@ -383,20 +405,20 @@ export const UploadPdf = styled.div`
     display: flex;
     justify-content: center;
     align-items: center; */
-    width: 280px;
-
     
-.center{
-    padding-block: 20px;
-    padding-inline: 18px;
-    background-color: var(--gray-450);
-    border-radius: 6px;
-    display: flex;
-    justify-content: start;
-    gap: 14px;
-    align-items: center;
-    outline: none;
-    border: none;
+    
+    .center{
+        padding-block: 20px;
+        padding-inline: 18px;
+        background-color: var(--gray-450);
+        border-radius: 6px;
+        display: flex;
+        justify-content: start;
+        gap: 14px;
+        align-items: center;
+        outline: none;
+        border: none;
+        width: 260px;
 
     /* @media ${devices.tablet}{
         justify-content: start;

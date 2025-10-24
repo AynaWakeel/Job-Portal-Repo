@@ -23,6 +23,7 @@ const RecruiterAccountSetting = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+
       const previousData = await Recruiter_Endpoints.get_company_profile()
       if (previousData?.data) {
         reset(previousData.data)
@@ -40,6 +41,13 @@ const RecruiterAccountSetting = () => {
   }, [reset])
 
   const onSubmit = (data) => {
+    
+    if (data.phoneNumber) data.phoneNumber = Number(data.phoneNumber);
+
+    if (isNaN(data.phoneNumber)) {
+      showError("Phone Number must be a number");
+      return;
+    }
     company_profile(data)
     console.log(data)
   }
@@ -65,7 +73,7 @@ const RecruiterAccountSetting = () => {
 
               <div className='FormSpace'>
                 <label htmlFor='' className='Label'>Phone Number</label>
-                <input type="tel" placeholder='Number' className='FormInput'
+                <input type="tel" maxLength={12} placeholder='Number' className='FormInput'
                   {...register("phoneNumber", { required: "phone Number is req." })} />
               </div>
               <div className='FormError'>

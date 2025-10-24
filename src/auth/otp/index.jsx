@@ -8,6 +8,9 @@ import { showError } from '../../components/toasters'
 const Otp = () => {
     const { state } = useLocation()
     const navigate = useNavigate()
+    
+    const [timer, setTimer] = useState(60);
+    const [isActive, setIsActive] = useState(true);
 
     const {
         register,
@@ -49,13 +52,29 @@ const Otp = () => {
 
         } else if (type === "email_verification" && res?.success) {
             navigate('/auth/login')
-        }else{
+        } else {
             showError(res?.message || "token not found")
             console.log("token not found");
         }
     }
 
+
+    useEffect(() => {
+        let interval;
+
+        if (isActive && timer > 0) {
+            interval = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1);
+            }, 1000);
+        } else if (timer === 0) {
+            setIsActive(false);
+        }
+
+        return () => clearInterval(interval);
+    }, [isActive, timer]);
+
     const ResendOtp = async () => {
+        setTimer(60)
         const res = await send_otp({ email, type })
         console.log(res)
     }
@@ -83,7 +102,13 @@ const Otp = () => {
 
                             <TextDiv>
                                 <span className='Text'>Didn’t recieve any code! </span>
+                                {isActive ?
+                                
+                                <span><a className='Ahref' onClick={ResendOtp}>Resend in {timer}</a></span>
+                                :
                                 <span><a className='Ahref' onClick={ResendOtp}>Resend</a></span>
+
+                                }
                             </TextDiv>
                         </Form>
                     </form>

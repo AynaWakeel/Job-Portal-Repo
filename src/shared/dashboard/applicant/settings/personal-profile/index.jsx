@@ -53,8 +53,8 @@ const ApplicantPersonalProfile = () => {
   useEffect(() => {
     const fetchData = async () => {
       const previousData = await Applicant_Endpoints.get_profile();
-      if (previousData) {
-        reset(previousData);
+      if (previousData?.data) {
+        reset(previousData.data);
         setHasData(true);
       } else {
         reset({

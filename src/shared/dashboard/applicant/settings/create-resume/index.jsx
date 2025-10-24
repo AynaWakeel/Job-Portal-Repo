@@ -25,15 +25,6 @@ const ApplicantCreateResume = () => {
 
       
     ]
-  // const experienceOptions = [
-  //   "Freshers",
-  //   "1 - 2 Years",
-  //   "2 - 4 Years",
-  //   "4 - 6 Years",
-  //   "6 - 8 Years",
-  //   "8 - 10 Years",
-  //   "10 - 15 Years",
-  // ]
   const {
     register,
     handleSubmit,
@@ -49,8 +40,8 @@ const ApplicantCreateResume = () => {
   useEffect(() => {
     const fetchData = async () => {
       const previousData = await Applicant_Endpoints.get_resume();
-      if (previousData) {
-        reset(previousData);
+      if (previousData?.data) {
+        reset(previousData.data);
         setHasResume(true);
       } else {
         reset({
@@ -191,12 +182,7 @@ const ApplicantCreateResume = () => {
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='experience' className='Label'>Experience</label>
-                  {/* <CustomSelect
-                    name="experience"
-                    control={control}
-                    rules={{ required: "Enter your experience" }}
-                    options={experienceOptions}
-                    /> */}
+                 
                   <Select
                     name='experience'
                     className="inputSelect select"

@@ -169,62 +169,52 @@ const ViewApplicantProfile = () => {
 
                 <>
 
-                  {/* {profile.resume || profile.hasStructuredResume && */}
+                  <div className='flex'>
 
-                    <Box>
-                      <div className='flex-col'>
+                    {profile?.resume  &&
 
+                      <UploadPdf>
+                        <button
+                          className='center'
+                          onClick={() => {
+                            if (profile?.resume) {
+                              const resumePdf = `${profile.resume}`
+                              window.open(resumePdf, "_black")
+                            } else {
+                              showError("resume not found")
+                            }
+                          }}
+                        >
+                          <div><File className='IconColor' /></div>
+                          <div>
+                            <h5 className='Title'>Pdf Resume</h5>
+                            <h6 className='info'>Click to View</h6>
+                          </div>
+                        </button>
+                      </UploadPdf>
 
-                        <div className='flex'>
-
-                          {profile.resume !== null &&
-
-                            <UploadPdf>
-                              <button
-                                className='center'
-                                onClick={() => {
-                                  if (profile?.resume) {
-                                    const resumePdf = `${profile.resume}`
-                                    window.open(resumePdf, "_black")
-                                  } else {
-                                    showError("resume not found")
-                                  }
-                                }}
-                              >
-                                <div><File className='IconColor' /></div>
-                                <div>
-                                  <h5 className='Title'>Pdf Resume</h5>
-                                  <h6 className='info'>Click to View</h6>
-                                </div>
-                              </button>
-                            </UploadPdf>
-
-                          }
+                    }
 
 
 
 
-                          {profile.hasStructuredResume !== false &&
+                    {profile.hasStructuredResume &&
 
-                            <UploadPdf>
-                              <button
-                                onClick={() => viewresume(profile.id)}
-                                className='center' >
-                                <div><File className='IconColor' /></div>
-                                <div>
-                                  <h5 className='Title'>Professional Resume</h5>
-                                  <h6 className='info'>Click to View</h6>
-                                </div>
-                              </button>
-                            </UploadPdf>
+                      <UploadPdf>
+                        <button
+                          onClick={() => viewresume(profile.id)}
+                          className='center' >
+                          <div><File className='IconColor' /></div>
+                          <div>
+                            <h5 className='Title'>Professional Resume</h5>
+                            <h6 className='info'>Click to View</h6>
+                          </div>
+                        </button>
+                      </UploadPdf>
 
-                          }
+                    }
 
-                        </div>
-                      </div>
-
-                    </Box>
-                  {/* } */}
+                  </div>
                 </>
 
               }
