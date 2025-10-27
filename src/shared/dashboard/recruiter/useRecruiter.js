@@ -123,25 +123,27 @@ export const useRecruiter = () => {
 
     const edit_post_job_by_id = async(jobId, body)=>{
 
+         console.log("Editing Job ID:", jobId);
+          console.log("Payload:", body);
         const response = await Recruiter_Endpoints.put_post_job_by_id(jobId , body)
-        
-        if (response?.message) {
-            showSuccess(response.message);
+        const {success , message} = response
+        if (success) {
+            showSuccess(message);
         } else {
-            showError(response?.message);
+            showError(message);
         }
     }
 
      const read_notifications = async(id)=>{
 
         const response = await Recruiter_Endpoints.put_read_notifications_by_id(id)
-        
-        if (response?.message) {
-            showSuccess(response.message);
+        const {success , message} = response
+        if (success) {
+            showSuccess(message);
+            return response
         } else {
-            showError(response?.message);
+            showError(message);
         }
-        return response
     }
 
 

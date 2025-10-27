@@ -65,7 +65,9 @@ const FavJobCards = () => {
             <MainSec>
                 <div className='CardDiv'>
                     <div className='Grid'>
-                        {savejobData.map((items) => (
+                        {savejobData.length > 0 ?
+                        
+                        savejobData.map((items) => (
 
                             <div className='Card' key={items.job.id}>
                                 <div className='Inner-flex'>
@@ -126,7 +128,23 @@ const FavJobCards = () => {
                                     </button>
                                 </div>
                             </div>
-                        ))}
+                        ))
+
+                        :
+                          <div className='Card'>
+                                <div className='Inner-flex'>
+                                    <div className='Gap'>
+                                        <div className='Inner-flex'>
+                                            <h3 className='Heading'>No Data Found</h3>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        
+                        }
 
                     </div>
                 </div>

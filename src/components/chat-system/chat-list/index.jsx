@@ -102,19 +102,18 @@ const ChatList = ({ socket, onOpenChat }) => {
             onClick={() => openDm(items.receiver.id, items.chatId)}>
               
               <div className="channeltxt">
+                {items.receiver.profilepic ? 
                 <img src={items.receiver.profilepic || profile} alt="img" className="circle" />
+                :
+                <div className="circle"></div>
+                
+                }
                 <div>
                   <h4 className="Heading">{items.receiver.fullName}</h4>
                   <p className="SubHeading">{items?.lastMessage?.content || "..."}</p>
                 </div>
               </div>
-              <div className="SubHeading timediv">
-                {items.unreadCount > 0 &&
-                <div className='msgNotify'>
-                  <p  className="SubHeading">{items.unreadCount}</p>
-                </div>
-                
-                }
+              <div className="time timediv">
                 <span>
                   {items?.lastMessage?.createdAt? new Date(items.lastMessage.createdAt).toLocaleTimeString([], {
                     hour: "2-digit",
@@ -122,6 +121,13 @@ const ChatList = ({ socket, onOpenChat }) => {
                   })
                   : ""}
                 </span>
+
+                {items.unreadCount > 0 &&
+                <div className='msgNotify'>
+                  <p  className="SubHeading">{items.unreadCount}</p>
+                </div>
+                
+                }
               </div>
 
             </div>

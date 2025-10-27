@@ -27,6 +27,7 @@ const RecruiterSettings = () => {
   return (
     <div>
       <Settings>
+        <div className='Fixednav'>
         <div>
           <h1 className='TopHeading'>Settings</h1>
         </div>
@@ -49,6 +50,8 @@ const RecruiterSettings = () => {
               <a>Account Setting</a>
             </li>
           </ul>
+        </div>
+
         </div>
           {isActive === "Company Info" &&
             <CompanyInfo />

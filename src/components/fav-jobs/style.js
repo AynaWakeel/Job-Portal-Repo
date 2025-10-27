@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { devices } from "../breakpoints/index";
 
 export const MainSec = styled.div`
-padding-block: 20px;
+padding-top: 20px;
 
 .Flex{
     display: flex;
@@ -65,9 +65,11 @@ padding-block: 20px;
     flex-direction: column;
     align-items: start;
     gap: 24px;
+    min-height: 63vh;
 }
 
 .Grid{
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;

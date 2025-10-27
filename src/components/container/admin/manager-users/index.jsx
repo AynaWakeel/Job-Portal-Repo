@@ -83,8 +83,8 @@ const ManageUsers = () => {
   }
 
   const navigate = useNavigate()
-  const Profile = () => {
-    navigate('/admin/dashboard/applicant-profile')
+  const Profile = (id) => {
+    navigate('/admin/dashboard/applicant-profile', {state:{id}})
   }
 
   if (isLoading) return <Loader />
@@ -118,13 +118,13 @@ const ManageUsers = () => {
                 <td>{items.fullName}</td>
                 <td>{items.email}</td>
                 <td>{items.phoneNumber}</td>
-                {/* <td>{items.role}</td> */}
+                <td>{items.role}</td>
                 <td>
                   <div className='position'>
                     <img src={ThreeDot} alt='dot'
                       onClick={() => Opendropdown(items.id)}
                     />
-                    <button className='CardBtn' onClick={Profile}>View</button>
+                    <button className='CardBtn' onClick={()=>Profile(items.id)}>View</button>
                     {isOpen === items.id &&
                       <div className='dropdown'>
                         <ul>

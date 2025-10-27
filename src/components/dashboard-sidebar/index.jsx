@@ -56,7 +56,7 @@ const DashboardSidebar = () => {
                         {Menu.map((item) => (
 
                             <li key={item.path} onClick={() => navigate(item.path)}
-                                className={`tab ${location.pathname === item.path ? " active" : ""}`}>
+                                className={`tab ${location.pathname.startsWith(item.path) ? " active" : ""}`}>
                                 <div className='IconColor' >{item.icon}</div>
                                 <a>{item.label}</a>
                             </li>
@@ -83,7 +83,7 @@ const DashboardSidebar = () => {
                             {Menu.map((item) => (
 
                             <li key={item.path} onClick={() => {navigate(item.path); setIsOpen(false)}}
-                                className={`tab ${location.pathname === item.path ? " active" : ""}`}>
+                                className={`tab ${location.pathname.startsWith(item.path) ? " active" : ""}`}>
                                 <div className='IconColor' >{item.icon}</div>
                                 <a>{item.label}</a>
                             </li>

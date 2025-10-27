@@ -100,13 +100,13 @@ const Messages = ({ socket, onBack }) => {
   const handleSend = (e) => {
     e.preventDefault()
 
-    if (!newMsg.trim()) return;
+    const trimmed = newMsg?.trim()
 
     const messageData = {
       chatId: activeChatId || tokenId,
       senderId: sender_Id,
       receiverId: personId,
-      content: newMsg,
+      content: trimmed,
       isSender: true,
     }
 

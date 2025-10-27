@@ -3,7 +3,7 @@ import { devices } from "../breakpoints/index";
 
 export const MainSec = styled.div`
 padding-top: 20px;
-padding-bottom: 30px;
+padding-bottom: 20px;
 
 .Flex{
     display: flex;
@@ -73,7 +73,7 @@ padding-bottom: 30px;
     flex-direction: column;
     align-items: start;
     gap: 24px;
-    min-height: 80vh;
+    min-height: 64vh;
 }
 
 .Grid{
@@ -106,7 +106,7 @@ padding-bottom: 30px;
     width: 100%;
 
 @media ${devices.tablet}{
-    width: 96%;
+    width: 100%;
     flex-direction: column;
     justify-content: start;
     align-items: start;

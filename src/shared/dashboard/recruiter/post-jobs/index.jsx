@@ -35,11 +35,11 @@ const RecruiterPostaJob = () => {
       try {
         const res = await Recruiter_Endpoints.get_industry();
         if (res?.data) {
-          const industry = res.data.map((item) => ({
+          const industryOpt = res.data.map((item) => ({
             value: item.id,
             label: item.name,
           }));
-          setIndustryOptions(industry);
+          setIndustryOptions(industryOpt);
         }
 
         const locationres = await Recruiter_Endpoints.get_location();
@@ -55,7 +55,15 @@ const RecruiterPostaJob = () => {
           const jobRes = await have_reported_job_by_id(jobId);
 
           if (jobRes?.data?.job) {
-            reset(jobRes.data.job)
+
+            const jobData = jobRes.data.job;
+            if (Array.isArray(jobData.tags)) {
+              jobData.tags = jobData.tags.join(", ");
+            }
+            if (jobData.jobExpirationDate) {
+              jobData.jobExpirationDate = jobData.jobExpirationDate.slice(0, 10);
+            }
+            reset(jobData)
             setHasData(true)
             console.log(jobRes);
           } else {
@@ -141,9 +149,7 @@ const RecruiterPostaJob = () => {
       <Jobdiv>
         <SettingDiv>
           {/* ------------------------ CREATE RESUME FORM ------------------------------- */}
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <h1 className='TopHeading'>Post a job</h1>
             </div>

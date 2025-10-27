@@ -18,7 +18,7 @@ z-index: 999;
 `
 
 export const Main = styled.div`
-width: 36vw;
+width: 56vw;
 background-color: #fff;
 box-shadow: 0px 0px 5px var(--purple-50);
 border-radius: 8px;

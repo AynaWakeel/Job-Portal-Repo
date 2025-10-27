@@ -17,16 +17,16 @@ const FoundingInfo = () => {
   const [hasData, setHasData] = useState(false)
 
   const orgOptions = [
-    { value: "business", label: "Business / For-Profit Company" },
-    { value: "nonprofit", label: "Nonprofit / Charity" },
-    { value: "government", label: "Government / Public Sector" },
-    { value: "social-enterprise", label: "Social Enterprise / B-Corporation" },
-    { value: "education", label: "Educational Institution" },
-    { value: "partnership", label: "Partnership" },
-    { value: "sole-proprietorship", label: "Sole Proprietorship" },
-    { value: "llc", label: "Limited Liability Company (LLC)" },
-    { value: "cooperative", label: "Cooperative" },
-    { value: "state-owned", label: "State-Owned Enterprise" },
+    { label: "Business / For-Profit Company" },
+    { label: "Nonprofit / Charity" },
+    { label: "Government / Public Sector" },
+    { label: "Social Enterprise / B-Corporation" },
+    { label: "Educational Institution" },
+    { label: "Partnership" },
+    { label: "Sole Proprietorship" },
+    { label: "Limited Liability Company (LLC)" },
+    { label: "Cooperative" },
+    { label: "State-Owned Enterprise" },
   ]
 
   const {
@@ -55,6 +55,7 @@ const FoundingInfo = () => {
         const previousData = await Recruiter_Endpoints.get_company_profile();
         if (previousData?.data) {
           reset(previousData.data);
+          setSelected(previousData.data.organizationType);
           setHasData(true);
         } else {
           reset({
@@ -107,14 +108,23 @@ const FoundingInfo = () => {
             <div className='FormSpace FormInputDivide'>
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Organization Types</label>
-                <Select
-                  className="inputSelect select"
-                  classNamePrefix="select"
-                  options={orgOptions}
-                  value={selected}
-                  onChange={setSelected}
-                  placeholder="Select Organization"
+                
+                <Controller
+                  name="organizationType"
+                  control={control}
+                  rules={{ required: "Organization type is required" }}
+                  render={({ field }) => (
+                    <Select
+                      className="inputSelect select"
+                      classNamePrefix="select"
+                      options={orgOptions}
+                      value={orgOptions.find(opt => opt.label === field.value) || null}
+                      onChange={(val) => field.onChange(val.label)}
+                      placeholder="Select Organization"
+                    />
+                  )}
                 />
+
 
                 <div className='FormError'>
                   {errors.organizationType && <p>Organization Type id required.</p>}
@@ -167,11 +177,11 @@ const FoundingInfo = () => {
               <div className='InputWidth'>
                 <label htmlFor='' className='Label'>Year of Establishment</label>
                 <input type='text' className='FormInput' placeholder='2023'
-                  {...register("yearOfEstablishment", { required: "yearOfEstablishment is req." })} 
-                     onInput={(e) => {
+                  {...register("yearOfEstablishment", { required: "yearOfEstablishment is req." })}
+                  onInput={(e) => {
                     e.target.value = e.target.value.replace(/[^0-9-]/g, "");
 
-                  }}/>
+                  }} />
               </div>
             </div>
             <div className='FormError'>

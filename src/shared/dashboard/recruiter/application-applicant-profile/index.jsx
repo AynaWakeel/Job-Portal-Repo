@@ -35,7 +35,7 @@ const ViewProfileApplications = () => {
     }
   }, [jobId, applicationId])
 
-   const viewresume = (userId) => {
+  const viewresume = (userId) => {
     navigate('/recruiter/applicant-resume', { state: { userId } })
   }
 
@@ -54,9 +54,12 @@ const ViewProfileApplications = () => {
           </div>
           <div className='profile'>
             <div className='profile-intro'>
-              <div className='profile-pic'>
-                <img src={profile.profilepic} alt='profile' />
-              </div>
+              {profile.profilepic &&
+                <div className='profile-pic'>
+                  <img src={profile.profilepic} alt='profile' />
+                </div>
+
+              }
               <div className='profile-flex-col'>
                 <div className='detail-flex'>
                   <h2 className='Name'>{profile.fullName}</h2>
@@ -69,11 +72,15 @@ const ViewProfileApplications = () => {
           </div>
           <div className='profile-content'>
             <div className='content-left'>
-              <div>
-                <h2 className='Heading'>Biography</h2>
-                <p className='Sub' dangerouslySetInnerHTML={{ __html: profile.bioGraphy }}></p>
+              {profile?.bioGraphy &&
 
-              </div>
+                <div>
+                  <h2 className='Heading'>Biography</h2>
+                  <p className='Sub' dangerouslySetInnerHTML={{ __html: profile.bioGraphy }}></p>
+
+                </div>
+
+              }
 
               <div>
                 <h2 className='Heading'>Cover Letter</h2>
@@ -86,63 +93,88 @@ const ViewProfileApplications = () => {
                 <div className='flex'>
                   <div className='content'>
                     <div><Global className='IconColor' /></div>
-                    <div>
-                      <h2 className='Title'>Website</h2>
-                      <h4 className='SubHeading'>{profile.personalwebsite}</h4>
-                    </div>
-                  </div>
-                  <div>
-                    <div className='content'>
-                      <div><Map className='IconColor' /></div>
+                    {profile?.personalwebsite &&
+
                       <div>
-                        <h2 className='Title'>Location</h2>
-                        <h4 className='SubHeading'>{profile.location}</h4>
+                        <h2 className='Title'>Website</h2>
+                        <h4 className='SubHeading'>{profile.personalwebsite}</h4>
+                      </div>
+                    }
+                  </div>
+
+                  {profile?.location &&
+
+                    <div>
+                      <div className='content'>
+                        <div><Map className='IconColor' /></div>
+                        <div>
+                          <h2 className='Title'>Location</h2>
+                          <h4 className='SubHeading'>{profile.location}</h4>
+                        </div>
                       </div>
                     </div>
 
-                  </div>
-                  <div className='content'>
-                    <div><Phone className='IconColor' /></div>
-                    <div>
-                      <h2 className='Title'>Phone</h2>
-                      <h4 className='SubHeading'>{profile.phoneNumber}</h4>
+                  }
+
+                  {profile?.phoneNumber &&
+
+                    <div className='content'>
+                      <div><Phone className='IconColor' /></div>
+                      <div>
+                        <h2 className='Title'>Phone</h2>
+                        <h4 className='SubHeading'>{profile.phoneNumber}</h4>
+                      </div>
                     </div>
-                  </div>
-                  <div className='content'>
-                    <div><Envelope className='IconColor' /></div>
-                    <div>
-                      <h2 className='Title'>Email Address</h2>
-                      <h4 className='SubHeading'>{profile.email}</h4>
+
+                  }
+
+                  {profile?.email &&
+
+                    <div className='content'>
+                      <div><Envelope className='IconColor' /></div>
+                      <div>
+                        <h2 className='Title'>Email Address</h2>
+                        <h4 className='SubHeading'>{profile.email}</h4>
+                      </div>
                     </div>
-                  </div>
+
+                  }
                 </div>
               </Contact>
 
             </div>
             <div className='Profile-box'>
+             
               <Box>
                 <div className='flex-col'>
-                  <div className='flex'>
 
-                    <div className='content'>
-                      <div><Timer className='IconColor' /></div>
-                      <div>
-                        <h2 className='Title'>Experience</h2>
-                        <h4 className='SubHeading'>{profile.experience}</h4>
+                  {profile?.experience &&
+
+                    <div className='flex'>
+
+                      <div className='content'>
+                        <div><Timer className='IconColor' /></div>
+                        <div>
+                          <h2 className='Title'>Experience</h2>
+                          <h4 className='SubHeading'>{profile.experience}</h4>
+                        </div>
+                      </div>
+
+                    </div>
+                  }
+
+                  {profile?.education &&
+
+                    <div className='flex'>
+                      <div className='content'>
+                        <div><Brief className='IconColor' /></div>
+                        <div>
+                          <h2 className='Title'>Education</h2>
+                          <h4 className='SubHeading'>{profile.education}</h4>
+                        </div>
                       </div>
                     </div>
-
-                  </div>
-                  <div className='flex'>
-                    <div className='content'>
-                      <div><Brief className='IconColor' /></div>
-                      <div>
-                        <h2 className='Title'>Education</h2>
-                        <h4 className='SubHeading'>{profile.education}</h4>
-                      </div>
-                    </div>
-
-                  </div>
+                  }
                 </div>
               </Box>
 

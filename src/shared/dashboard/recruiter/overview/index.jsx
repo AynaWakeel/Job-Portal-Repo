@@ -53,9 +53,14 @@ const RecruiterOverview = () => {
           <div className='Card'>
             <div className='Inner-flex'>
               <div className='profile'>
+                {analytics.profilepic ?
+                
                <div className='photo'>
                 <img src={analytics.profilepic} alt='img' />
                </div>
+               :
+                <div className='photo'></div>
+                }
               </div>
               <div>
                 <h3 className='Heading'>Two-Factor Authentication Incomplete</h3>

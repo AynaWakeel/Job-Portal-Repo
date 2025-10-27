@@ -36,7 +36,7 @@ export const Main = styled.div`
   .channel {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     gap: 10px;
     padding: 12px 10px;
     border-bottom: 1px solid #6a54ba;
@@ -64,6 +64,7 @@ export const Main = styled.div`
   
   .timediv {
     display: flex;
+    flex-direction: column;
     align-items: end;
     gap: 10px;
   }
@@ -72,6 +73,8 @@ export const Main = styled.div`
     width: 55px;
     height: 55px;
     border-radius: 50%;
+    background-color: var(--white-250);
+    box-shadow: 0 0 5px var(--gray-250);
   }
 
 .msgNotify{
@@ -110,6 +113,16 @@ export const Main = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; 
+  }
+
+    
+  .time {
+    color: var(--purple-50);
+    font-size: 12px;
+    font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
+     
   }
 
 `

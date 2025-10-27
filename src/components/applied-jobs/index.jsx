@@ -141,7 +141,7 @@ const AppliedJobs = () => {
                                             </div>
 
                                             <div className='Right-side'>
-                                                <button className='CardBtn' onClick={() => viewDetail(items.id)}>
+                                                <button className='CardBtn' onClick={() => viewDetail(items.job.id)}>
                                                     <span>View Details</span>
                                                 </button>
                                             </div>

@@ -95,18 +95,18 @@ padding-block: 20px;
     padding-block: 16px;
     padding-inline: 24px;
     width: 100%;
+    
 @media ${devices.tablet}{
-    width: 96%;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    align-items: start;
     gap: 15px;
 }
 
 @media ${devices.mobile}{
     width: 100%;
-    flex-direction: column;
-    justify-content: start;
+    /* flex-direction: column; */
+    /* justify-content: start; */
     gap: 15px;
 }
 

@@ -12,12 +12,14 @@ import AdminNotification from '../../components/container/admin/notifications'
 import CompanyJobDetail from '../../shared/findjobs/company-job-detail'
 import ApplicantProfile from '../../shared/dashboard/applicant/profile'
 import ManageJobDetail from '../../components/container/admin/manage-job-detail'
+import ScrollToTop from '../../helper/ScrollToTop'
 
 const AdminDashboardRoutes = () => {
   return (
     <div>
 
       <AdminDashboardLayouts>
+        <ScrollToTop/>
         <Routes>
           <Route path='/profile' element={<AdminProfile />} />
           <Route path='/notifications' element={<AdminNotification />} />

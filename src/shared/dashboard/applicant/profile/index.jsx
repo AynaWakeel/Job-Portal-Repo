@@ -14,22 +14,41 @@ import { useLocation } from 'react-router'
 import { Applicant_Endpoints } from '../../../../lib/api/applicant_endpoints'
 import Loader from '../../../../components/loading-spinner'
 import { showError } from '../../../../components/toasters'
+import { ROLE } from '../../../../enum/roles'
+import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints'
 
 const ApplicantProfile = () => {
   const [profile, setProfile] = useState({})
+  const location = useLocation()
+  // const id = location.state.id
+  // console.log("userId : --", id);
+  
 
   useEffect(() => {
     const fetchProfile = async () => {
+      
       const data = await Applicant_Endpoints.get_profile()
+
       if (data?.data) {
         setProfile(data.data)
         console.log(data, 'here is data of applicant')
       }
+
+      //  if(id){
+      //   const data = await Recruiter_Endpoints.get_profile_by_id(id)
+      //   // const data = await Applicant_Endpoints.get_company_profile_by_id(id)
+
+      //   if (data?.data) {
+      //     setProfile(data.data)
+      //     console.log(data, 'here is data of applicant')
+      //   }
+
+      // }
+      
     }
     fetchProfile();
   }, [])
 
-  const location = useLocation()
 
   const ContentPage = ['/admin/dashboard/profile']
   const hideContent = ContentPage.some(path => location.pathname.startsWith(path))

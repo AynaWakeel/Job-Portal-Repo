@@ -6,11 +6,13 @@ import ApplicantFavouriteJobs from '../../shared/dashboard/applicant/fav-jobs'
 import Setting from '../../shared/dashboard/applicant/settings/navbar'
 import Notifications from '../../shared/dashboard/applicant/notifications'
 import { Route, Routes } from 'react-router'
+import ScrollToTop from '../../helper/ScrollToTop'
 
 const ApplicantDashboardRoutes = () => {
   return (
     <div>
         <DashboardLayouts>
+          <ScrollToTop/>
         <Routes>          
             <Route path='/overview' element={<ApplicantOverview/>}/>
             <Route path='/applied' element={<ApplicantAppliedJobs/>}/>

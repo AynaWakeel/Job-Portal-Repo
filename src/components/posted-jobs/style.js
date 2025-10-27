@@ -100,7 +100,7 @@ padding-top: 20px;
     width: 100%;
 
 @media ${devices.tablet}{
-    width: 96%;
+    width: 100%;
     flex-wrap: wrap;
     justify-content: start;
     align-items: end;

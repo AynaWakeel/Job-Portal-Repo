@@ -6,6 +6,11 @@ export const Settings = styled.div`
 padding-top: 50px;
 padding-inline: 20px;
 
+.Fixednav{
+    /* position: fixed; */
+
+}
+
 .TopHeading{
     color: var(--dark-800);
     font-size: 20px;
@@ -31,6 +36,7 @@ padding-inline: 20px;
     justify-content: start;
     align-items: start;
     gap: 10px;
+    /* position: fixed; */
     list-style: none;
     border-bottom: 1px solid var(--purple-50);
 

@@ -42,6 +42,10 @@ export const Applicant_Endpoints = {
     //----analytics
     get_applicant_analytics: async () => await getData("/api/admin/applicantStats"),
 
+    //get company profile page
+    get_company_profile_by_id: async(id)=> await getData(`/api/companyprofile/profile/${id}`),
+
+
      //notifications
     get_unread_notifications: async()=>await getData("/api/notifications/unread-notification"),
     put_read_notifications_by_id: async(id)=> await putData(`/api/notifications/mark-read/${id}`),
