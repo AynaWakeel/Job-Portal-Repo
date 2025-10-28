@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Menu, MobileSidebar, Navbar, NavbarNav } from './style'
 import { ReactComponent as Layers } from '../../../assets/icons/fi_layers.svg'
 import { ReactComponent as Gear } from '../../../assets/icons/Gear.svg'
@@ -16,9 +16,12 @@ import UseAuth from '../../../auth/useAuth'
 import { Admin_Endpoints } from '../../../lib/api/admin_endpoints'
 
 const AdminNavbar = () => {
+  const navigate = useNavigate()
   const [isActive, setIsActive] = useState("Overview")
   const [notify, setNotify] = useState([])
-  const navigate = useNavigate()
+  const profileDropdownRef = useRef(null)
+  const mobileMenuRef = useRef(null)
+
   const { logout } = UseAuth()
 
   const [adminName, setAdminName] = useState(null)
@@ -52,51 +55,76 @@ const AdminNavbar = () => {
   const ManageUser = () => {
     navigate('/admin/dashboard/manage-users')
     setIsActive("Manage Users")
+     setIsOpen(false)
   }
 
   const ManageJobs = () => {
     navigate('/admin/dashboard/manage-jobs')
     setIsActive("Manage Jobs")
+     setIsOpen(false)
   }
 
   const userAccounts = () => {
     navigate('/admin/dashboard/user-accounts')
     setIsActive("User Accounts")
+     setIsOpen(false)
   }
 
   const ManageCategory = () => {
     navigate('/admin/dashboard/manage-category')
     setIsActive("Manage Category")
+     setIsOpen(false)
   }
 
   const ManageCMS = () => {
     navigate('/admin/dashboard/manage-cms')
     setIsActive("Manage CMS")
+     setIsOpen(false)
   }
 
   const ViewAnalytics = () => {
     navigate('/admin/dashboard/overview')
     setIsActive("View Analytics")
+     setIsOpen(false)
   }
 
   const AdminProfile = () => {
     navigate('/admin/dashboard/profile')
     setIsDropdownOpen(false)
+     setIsOpen(false)
   }
 
   const AdminNotify = () => {
     navigate('/admin/dashboard/notifications')
+     setIsOpen(false)
   }
 
   const [isOpen, setIsOpen] = useState(false)
   const OpenMenu = () => {
-    setIsOpen(!isOpen)
+    setIsOpen((prev) => !prev)
   }
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const OpenDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen)
+    setIsDropdownOpen((prev) => !prev)
   }
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false)
+      }
+
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   return (
     <div>
@@ -104,83 +132,68 @@ const AdminNavbar = () => {
       <Navbar>
         <NavbarNav>
           {/* ------------ mobile sidebar ---------- */}
-          <div className='menudiv'>
+          <div className='menudiv' ref={mobileMenuRef}>
             {isOpen ?
               <img src={Close} alt='img' className='Display' onClick={OpenMenu} /> :
               <img src={Menubar} alt='img' className='Display' onClick={OpenMenu} />
             }
 
-          </div>
-          {isOpen &&
-            <MobileSidebar>
-              <div className='Sidebar'>
-
-                {adminName ?
-
+            {isOpen &&
+              <MobileSidebar>
+                <div className='Sidebar'>
                   <div className='Navright'>
-                    {adminName.profilepic ? 
-                    
-                    <div className='photo'>
-                      <img src={adminName.profilepic} alt='profile' />
-                    </div>
-                    :
-                    <div className='photo'></div>
-                  
+                    {adminName.profilepic ?
+                      <div className='photo'>
+                        <img src={adminName.profilepic} alt='profile' />
+                      </div>
+                      :
+                      <div className='photo'></div>
                     }
-                    <h4 className='adminname'>{adminName.fullName}</h4>
+                    <h4 className='adminname'>{adminName.fullName || "ADMIN"}</h4>
                   </div>
 
-                  :
 
-                  <div className='Navright'>
-                    <div className='photo'>
-                      <img src={Profile} alt='profile' />
-                    </div>
-                    <h4 className='adminname'>Admin</h4>
-                  </div>
+                  <ul className='Navlinks'>
 
-                }
+                    <li className={isActive === "View Analytics" ? "tab active" : "tab"} onClick={ViewAnalytics}>
+                      <Home className='IconColor' />
+                      <a>View Analytics</a>
+                    </li>
+                    <li className={isActive === "Manage Users" ? "tab active" : "tab"} onClick={ManageUser}>
+                      <Layers className='IconColor' />
+                      <a>Manage Users</a>
+                    </li>
+                    <li className={isActive === "Manage Jobs" ? "tab active" : "tab"} onClick={ManageJobs}>
+                      <Brief className='IconColor' />
+                      <a>Manage Jobs</a>
+                    </li>
+                    <li className={isActive === "User Accounts" ? "tab active" : "tab"} onClick={userAccounts}>
+                      <Gear className='IconColor' />
+                      <a>User Accounts</a>
+                    </li>
+                    <li className={isActive === "Manage category" ? "tab active" : "tab"} onClick={ManageCategory}>
+                      <PlusCircle className='IconColor' />
+                      <a>Manage Category</a>
+                    </li>
+                    <li className={isActive === "Manage CMS" ? "tab active" : "tab"} onClick={ManageCMS}>
+                      <File className='IconColor' />
+                      <a>Manage CMS</a>
+                    </li>
+                  </ul>
 
-                <ul className='Navlinks'>
-
-                  <li className={isActive === "View Analytics" ? "tab active" : "tab"} onClick={ViewAnalytics}>
-                    <Home className='IconColor' />
-                    <a>View Analytics</a>
-                  </li>
-                  <li className={isActive === "Manage Users" ? "tab active" : "tab"} onClick={ManageUser}>
-                    <Layers className='IconColor' />
-                    <a>Manage Users</a>
-                  </li>
-                  <li className={isActive === "Manage Jobs" ? "tab active" : "tab"} onClick={ManageJobs}>
-                    <Brief className='IconColor' />
-                    <a>Manage Jobs</a>
-                  </li>
-                  <li className={isActive === "User Accounts" ? "tab active" : "tab"} onClick={userAccounts}>
-                    <Gear className='IconColor' />
-                    <a>User Accounts</a>
-                  </li>
-                  <li className={isActive === "Manage category" ? "tab active" : "tab"} onClick={ManageCategory}>
-                    <PlusCircle className='IconColor' />
-                    <a>Manage Category</a>
-                  </li>
-                  <li className={isActive === "Manage CMS" ? "tab active" : "tab"} onClick={ManageCMS}>
-                    <File className='IconColor' />
-                    <a>Manage CMS</a>
-                  </li>
-                </ul>
-
-              </div>
-
-              <div className='logout'>
-                <div className='unreadNotify'>
-                  <img src={NotifyIcon} alt='notify' onClick={AdminNotify} />
-                  <span className='count'>{notify.unreadCount}</span>
                 </div>
-                <button type='button' className='NavBtn' onClick={onLogout}>Logout</button>
-              </div>
-            </MobileSidebar>
 
-          }
+                <div className='logout'>
+                  <div className='unreadNotify'>
+                    <img src={NotifyIcon} alt='notify' onClick={AdminNotify} />
+                    <span className='count'>{notify.unreadCount}</span>
+                  </div>
+                  <button type='button' className='NavBtn' onClick={onLogout}>Logout</button>
+                </div>
+              </MobileSidebar>
+
+            }
+          </div>
           <div className='Logo'>
             <Myjob className='IconColor' />
             <h4 className='Logoname'>MyJob</h4>
@@ -188,38 +201,38 @@ const AdminNavbar = () => {
         </NavbarNav>
 
         <div className='Navright'>
+          <div ref={profileDropdownRef} className='ProfileBar'>
+
+            <h4 className='adminname'>{adminName?.fullName || "ADMIN"}</h4>
+            {adminName?.profilepic ?
+
+              <>
+                <img src={adminName.profilepic} alt='profile' onClick={OpenDropdown} className='photo' />
+              </>
+              :
+              <>
+                <div className='photo' onClick={OpenDropdown} ></div>
+              </>
+            }
+
+            {/* ------------- mobile view ----------------- */}
+            {isDropdownOpen &&
+              <Menu>
+                <ul className='Navlinks'>
+                  <li><a onClick={AdminProfile}>Profile</a></li>
+                  <li><a onClick={onLogout}>Logout</a></li>
+                </ul>
+              </Menu>
+            }
+
+          </div>
           <div className='unreadNotify'>
             <img src={NotifyIcon} alt='notify' onClick={AdminNotify} />
             <span className='count'>{notify.unreadCount}</span>
           </div>
-          {adminName ?
-            <>
-               {adminName.profilepic ? 
-               
-               <img src={adminName.profilepic} alt='profile' onClick={OpenDropdown} className='photo' />
-               :
-               <div className='photo' onClick={OpenDropdown} ></div>
-              
-               }
-              <h4 className='adminname'>{adminName.fullName}</h4>
-            </>
 
-            :
-
-            <h4 className='adminname'>Admin</h4>
-
-          }
         </div>
 
-        {/* ------------- mobile view ----------------- */}
-        {isDropdownOpen &&
-          <Menu>
-            <ul className='Navlinks'>
-              <li><a onClick={AdminProfile}>Profile</a></li>
-              <li><a onClick={onLogout}>Logout</a></li>
-            </ul>
-          </Menu>
-        }
 
       </Navbar>
 

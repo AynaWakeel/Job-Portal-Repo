@@ -12,7 +12,7 @@ import { useLocation } from 'react-router'
 
 const Messages = ({ socket, onBack }) => {
 
-  const { block_user_by_id, delete_chat, read_message } = useChat()
+  const { block_user_by_id, delete_chat, clear_chat, read_message } = useChat()
   const location = useLocation()
   const personId = location?.state?.id || null
   const tokenId = location?.state?.chatId || null
@@ -32,8 +32,8 @@ const Messages = ({ socket, onBack }) => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-}, [chatMessages]);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatMessages]);
 
   const fetchMessages = async (id) => {
     if (!id) return;
@@ -121,35 +121,35 @@ const Messages = ({ socket, onBack }) => {
     if (!socket) return;
     const idToUse = activeChatId || tokenId;
 
-   const handleReceive = (data) => {
-     console.log("datachatId:", data.chatId);
-    console.log("Received message:", data);
-    
-    setChatMessages((prev) => {
-      
-      if (String(data.chatId) === String(idToUse)) {
-        console.log("datachatId:", data.chatId);
-        return [...prev, { ...data, isSender: data.senderId == sender_Id }];
-        
-      }
-      return prev;
-    });
-  };
+    const handleReceive = (data) => {
+      console.log("datachatId:", data.chatId);
+      console.log("Received message:", data);
+
+      setChatMessages((prev) => {
+
+        if (String(data.chatId) === String(idToUse)) {
+          console.log("datachatId:", data.chatId);
+          return [...prev, { ...data, isSender: data.senderId == sender_Id }];
+
+        }
+        return prev;
+      });
+    };
 
     socket.on("receiveMessage", handleReceive);
 
     return () => {
       socket.off("receiveMessage", handleReceive);
     }
-  }, [socket, activeChatId , sender_Id])
+  }, [socket, activeChatId, sender_Id])
 
 
-//   useEffect(() => {
-//   if (socket && (activeChatId || tokenId)) {
-//     socket.emit("joinChat", activeChatId || tokenId);
-//     console.log("Joined chat room:", activeChatId || tokenId);
-//   }
-// }, [socket, activeChatId, tokenId]);
+  //   useEffect(() => {
+  //   if (socket && (activeChatId || tokenId)) {
+  //     socket.emit("joinChat", activeChatId || tokenId);
+  //     console.log("Joined chat room:", activeChatId || tokenId);
+  //   }
+  // }, [socket, activeChatId, tokenId]);
 
 
   const handleBlockuser = async (id, actionType) => {
@@ -171,6 +171,22 @@ const Messages = ({ socket, onBack }) => {
       const res = await delete_chat(tokenId)
       if (res) {
         console.log("delte cat res:", res);
+        setChatMessages([]);
+      }
+      //  fetchMessages()
+    } catch (err) {
+      console.log("error:", err);
+
+    }
+  }
+
+
+  const handleClearChat = async (tokenId) => {
+    try {
+
+      const res = await clear_chat(tokenId)
+      if (res) {
+        console.log("clear cat res:", res);
         setChatMessages([]);
       }
       //  fetchMessages()
@@ -207,19 +223,28 @@ const Messages = ({ socket, onBack }) => {
               {/* <p className="SubHeading">{userInfo?.onlineStatus || "Status"}</p> */}
             </div>
           </div>
-          {userInfo?.blockedByCurrentUser ?
 
-            <div className='banDiv' onClick={() => handleBlockuser(userInfo.id, "unblock")}>
-              <p className="red">Blocked</p>
+          <div className='banDiv'>
+
+            <div className='banDiv' onClick={() => handleClearChat(activeChatId)}>
+              {/* <img src={Trash} alt='del' /> */}
+              <p className="red">Clear Chat</p>
             </div>
+            {userInfo?.blockedByCurrentUser ?
 
-            :
+              <div className='banDiv' onClick={() => handleBlockuser(userInfo.id, "unblock")}>
+                <p className="red">Blocked</p>
+              </div>
 
-            <div className='banDiv' onClick={() => handleBlockuser(userInfo.id, "block")}>
-              <img src={ReportIcon} alt='ban' />
-              <p className="red">Block</p>
-            </div>
-          }
+              :
+
+              <div className='banDiv' onClick={() => handleBlockuser(userInfo.id, "block")}>
+                {/* <img src={ReportIcon} alt='ban' /> */}
+                <p className="red">Block</p>
+              </div>
+            }
+          </div>
+
         </div>
 
         <MessageBox>
@@ -260,7 +285,7 @@ const Messages = ({ socket, onBack }) => {
               </div>
             );
           })}
-           <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} />
         </MessageBox>
 
         {/* block or unblock */}

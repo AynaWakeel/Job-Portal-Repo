@@ -10,7 +10,7 @@ import { ReactComponent as Global } from '../../../../assets/icons/GlobeSimple.s
 import { ReactComponent as Envelope } from '../../../../assets/icons/Envelope.svg'
 import { ReactComponent as Phone } from '../../../../assets/icons/phone-call-duotone 1.svg'
 import { ReactComponent as File } from '../../../../assets/icons/FileText.svg'
-import { useLocation } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { Applicant_Endpoints } from '../../../../lib/api/applicant_endpoints'
 import Loader from '../../../../components/loading-spinner'
 import { showError } from '../../../../components/toasters'
@@ -20,13 +20,14 @@ import { Recruiter_Endpoints } from '../../../../lib/api/recruiter_endpoints'
 const ApplicantProfile = () => {
   const [profile, setProfile] = useState({})
   const location = useLocation()
+   const navigate = useNavigate()
   // const id = location.state.id
   // console.log("userId : --", id);
-  
+
 
   useEffect(() => {
     const fetchProfile = async () => {
-      
+
       const data = await Applicant_Endpoints.get_profile()
 
       if (data?.data) {
@@ -44,10 +45,14 @@ const ApplicantProfile = () => {
       //   }
 
       // }
-      
+
     }
     fetchProfile();
   }, [])
+
+   const viewresume = (userId) => {
+    navigate('/applicant/applicant-resume', { state: { userId } })
+  }
 
 
   const ContentPage = ['/admin/dashboard/profile']
@@ -160,29 +165,53 @@ const ApplicantProfile = () => {
 
               {!hideContent &&
 
-                <UploadPdf>
-                  <button
-                    className='center'
-                    onClick={() => {
-                      if (profile?.resume) {
-                        const resumePdf = `${profile.resume}`
-                        window.open(resumePdf, "_black")
-                      } else {
-                        showError("resume not found")
-                      }
-                    }}
-                  >
-                    <div><File className='IconColor' /></div>
-                    <div>
-                      <h5 className='Title'>Professional Resume</h5>
-                      <h6 className='info'>Click to View</h6>
-                    </div>
-                  </button>
-                </UploadPdf>
+                <>
 
+                 <div className='flex'>
+
+                  {profile.resume &&
+
+                    <UploadPdf>
+                      <button
+                        className='center'
+                        onClick={() => {
+                          const resumePdf = `${profile.resume}`
+                          window.open(resumePdf, "_black")
+
+                        }}
+                      >
+                        <div><File className='IconColor' /></div>
+                        <div>
+                          <h5 className='Title'>Pdf Resume</h5>
+                          <h6 className='info'>Click to View</h6>
+                        </div>
+                      </button>
+                    </UploadPdf>
+
+                  }
+
+                  {profile.hasStructuredResume &&
+
+                    <UploadPdf>
+                      <button
+                        onClick={() => viewresume(profile.id)}
+                        className='center' >
+                        <div><File className='IconColor' /></div>
+                        <div>
+                          <h5 className='Title'>Professional Resume</h5>
+                          <h6 className='info'>Click to View</h6>
+                        </div>
+                      </button>
+                    </UploadPdf>
+
+                  }
+
+                 </div>
+
+
+                </>
 
               }
-
 
             </div>
           </div>

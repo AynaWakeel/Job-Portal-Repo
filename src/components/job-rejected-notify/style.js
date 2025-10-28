@@ -94,7 +94,8 @@ padding-block: 20px;
     border-radius: 12px;
     padding-block: 16px;
     padding-inline: 24px;
-    width: 100%;
+    width: 100%
+    ;
     
 @media ${devices.tablet}{
     width: 100%;
@@ -156,6 +157,19 @@ padding-block: 20px;
     color: var(--white-50);
 }
 
+.photo{
+border-radius: 50%;
+background-color: var(--purple-200);
+width: 50px;
+height: 50px;
+}
+
+.photo img{
+width: 50px;
+height: 50px;
+border-radius: 50%;
+}
+ 
 .Inner-flex{
     display: flex;
     justify-content: start;

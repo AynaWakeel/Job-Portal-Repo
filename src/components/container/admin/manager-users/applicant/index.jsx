@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { Main , Pagination } from './style'
-import ThreeDot from '../../../../assets/icons/DotsThreeVertical.svg'
+import { Main, Pagination } from './style'
+import ThreeDot from '../../../../../assets/icons/DotsThreeVertical.svg'
 import { useNavigate } from 'react-router'
-import { Admin_Endpoints } from '../../../../lib/api/admin_endpoints'
-import { useAdmin } from '../useAdmin'
-import Loader from '../../../loading-spinner'
+import { Admin_Endpoints } from '../../../../../lib/api/admin_endpoints'
+import { useAdmin } from '../../useAdmin'
+import Loader from '../../../../loading-spinner'
 
-const ManageUsers = () => {
+const ApplicantManageUsersTable = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(null)
   const [users, setUsers] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [allUsers, setAllUsers] = useState([])
-  const [activeRole, setActiveRole] = useState("all")
+  const [activeRole, setActiveRole] = useState("applicant")
 
   const { change_manageUsersStatus } = useAdmin()
 
-  const handleFilter = (role) => {
-    setActiveRole(role)
-    if (activeRole === "all") {
-      setUsers(allUsers)
-    } else {
-      setUsers(allUsers.filter(user => user.role === role))
-    }
-  }
+//   const handleFilter = (role) => {
+//     setActiveRole(role)
+//     setUsers(allUsers.filter(user => user.role === role))
+//   }
 
 
   const handleChangeStatus = async (id, newStatus) => {
@@ -39,39 +35,30 @@ const ManageUsers = () => {
     const res = await Admin_Endpoints.get_manageUsers(page, limit)
     if (res?.data?.users) {
 
-      if (activeRole === "all") {
-        setUsers(res.data.users)
-        setTotalPages(res.data.totalPages)
-        setCurrentPage(res.data.currentPage)
-        setIsLoading(false)
-
-      } else {
-        setUsers(res.data.users.filter(user => user.role === activeRole))
-         setTotalPages(res.data.totalPages)
-        setCurrentPage(res.data.currentPage)
-        setIsLoading(false)
-      }
-
+      setUsers(res.data.users.filter(user => user.role === activeRole))
+      setTotalPages(res.data.totalPages)
+      setCurrentPage(res.data.currentPage)
+      setIsLoading(false)
     }
     console.log(res.data)
   }
 
 
-   const handlePrevPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
+  }
 
-    const handleNextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
     }
+  }
 
   useEffect(() => {
     fetchData(currentPage)
-  }, [activeRole , currentPage])
+  }, [activeRole, currentPage])
 
 
   const Opendropdown = (id) => {
@@ -84,7 +71,7 @@ const ManageUsers = () => {
 
   const navigate = useNavigate()
   const Profile = (id) => {
-    navigate('/admin/dashboard/applicant-profile', {state:{id}})
+    navigate('/admin/dashboard/applicant-profile',{state:{id}})
   }
 
   if (isLoading) return <Loader />
@@ -93,14 +80,13 @@ const ManageUsers = () => {
     <div>
 
       <Main>
-        <div className='flex-box'>
+        {/* <div className='flex-box'>
           <h1 className='TopHeading'>Manage Users</h1>
           <div className='flex'>
-            <button className={`CardBtn ${activeRole === "all" ? "active" : ""}`} onClick={() => handleFilter("all")}>All</button>
             <button className={`CardBtn ${activeRole === "recruiter" ? "active" : ""}`} onClick={() => handleFilter("recruiter")}>Recruiter</button>
             <button className={`CardBtn ${activeRole === "applicant" ? "active" : ""}`} onClick={() => handleFilter("applicant")}>Applicant</button>
           </div>
-        </div>
+        </div> */}
 
         <table className='Table'>
           <thead className='Tableheading'>
@@ -118,7 +104,6 @@ const ManageUsers = () => {
                 <td>{items.fullName}</td>
                 <td>{items.email}</td>
                 <td>{items.phoneNumber}</td>
-                <td>{items.role}</td>
                 <td>
                   <div className='position'>
                     <img src={ThreeDot} alt='dot'
@@ -131,7 +116,7 @@ const ManageUsers = () => {
                           <li onClick={() => handleChangeStatus(items.id, "active")}>Activate</li>
                           <li onClick={() => handleChangeStatus(items.id, "inactive")}>Deactivate</li>
                           <li onClick={() => handleChangeStatus(items.id, "banned")}>Report</li>
-                          <li>Delete</li>
+                          <li onClick={() => handleChangeStatus(items.id, "delete")}>Delete</li>
                         </ul>
                       </div>
                     }
@@ -146,20 +131,20 @@ const ManageUsers = () => {
 
       </Main>
 
-        <Pagination>
-          <div>
-            <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
-          </div>
-          <div>
-            <span className='Num'>{currentPage}</span>
-          </div>
-          <div>
-            <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
-          </div>
-        </Pagination>
+      <Pagination>
+        <div>
+          <button className={`${currentPage === 1 ? "BtnOff" : "Btn"}`} onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+        </div>
+        <div>
+          <span className='Num'>{currentPage}</span>
+        </div>
+        <div>
+          <button className={`${currentPage === totalPages ? "BtnOff" : "Btn"}`} onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+        </div>
+      </Pagination>
 
     </div>
   )
 }
 
-export default ManageUsers
+export default ApplicantManageUsersTable

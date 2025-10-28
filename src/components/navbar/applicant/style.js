@@ -293,7 +293,7 @@ background-color: var(--white-50);
 box-shadow: 0px 0px 5px var(--purple-200);
 position: absolute;
 top: 65px;
-right: 150px;
+right: 80px;
 z-index: 999;
 
 @media ${devices.mobile}{
@@ -302,7 +302,12 @@ z-index: 999;
 
 @media ${devices.tablet}{
     top: 65px;
-   right: 50px;
+   right: 45px;
+}
+
+@media ${devices.laptop}{
+    top: 65px;
+   right: 65px;
 }
 
 .Navright{

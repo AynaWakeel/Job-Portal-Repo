@@ -30,7 +30,7 @@ const AppRoutes = () => {
         </Route>
 
         <Route element={<ProtectedRoutes allowedRole={[ROLE.ADMIN]} />}>
-          <Route path='/admin/dashboard*' element={<AdminDashboardRoutes />} />
+          <Route path='/admin/dashboard/*' element={<AdminDashboardRoutes />} />
         </Route>
 
       </Routes>

@@ -23,7 +23,7 @@ const RecruiterProfile = () => {
 
     useEffect(() => {
         const fetchProfile = async () => {
-            const data = await Recruiter_Endpoints.get_company_profile()
+            const data = await Recruiter_Endpoints.get_company_profile_on_page()
             
             if (data?.data) {
                 setCompany(data.data)

@@ -8,12 +8,13 @@ export const useChat = () => {
     const create_chat_room = async (body) => {
 
         const response = await Chat_Endpoints.post_chat(body)
-        const { message } = response
-        if (response) {
-            console.log(message);
+         const { success, message } = response
+        if (success) {
+            showSuccess(message);
             return response
+
         } else {
-            console.log(message)
+            showError(message);
             return null
         }
 
@@ -37,12 +38,28 @@ export const useChat = () => {
     const delete_chat = async (chatId) => {
 
         const response = await Chat_Endpoints.delete_by_id(chatId)
-        const { message } = response
-        if (response) {
-            console.log(message);
+          const { success, message } = response
+        if (success) {
+            showSuccess(message);
             return response
+
         } else {
-            console.log(message)
+            showError(message);
+            return null
+        }
+
+    }
+
+     const clear_chat = async (chatId) => {
+
+        const response = await Chat_Endpoints.delete_msg_by_id(chatId)
+          const { success, message } = response
+        if (success) {
+            showSuccess(message);
+            return response
+
+        } else {
+            showError(message);
             return null
         }
 
@@ -51,16 +68,17 @@ export const useChat = () => {
     const read_message = async (chatId) => {
 
         const response = await Chat_Endpoints.put_messages_read_by_id(chatId)
-        const { message } = response
-        if (response) {
-            console.log(message);
+         const { success, message } = response
+        if (success) {
+            showSuccess(message);
             return response
+
         } else {
-            console.log(message)
+            showError(message);
             return null
         }
 
     }
 
-    return { create_chat_room , block_user_by_id , delete_chat , read_message }
+    return { create_chat_room , block_user_by_id , delete_chat , read_message , clear_chat}
 }

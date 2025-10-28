@@ -1,11 +1,8 @@
 import styled from "styled-components";
-import { devices } from "../../../breakpoints";
+import { devices } from "../../../../breakpoints";
 
 
 export const Main = styled.div`
-padding-top: 50px;
-padding-bottom: 0px;
-padding-inline: 20px;
 min-height: 80vh;
 
 .TopHeading{

@@ -175,6 +175,7 @@ const CompanyJobDetail = () => {
 
                         </div>
                     </div>
+                    
                     <div className='Profile-box'>
                         <Box>
                             <h3 className='boxHeading'>Job Match</h3>
@@ -216,14 +217,14 @@ const CompanyJobDetail = () => {
                                         <div><Brief className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Job Type:</h2>
-                                            <h4 className='SubHeading'>{jobData.jobType}</h4>
+                                            <h4 className='SubHeading'>{jobData.jobType || "N/A"}</h4>
                                         </div>
                                     </div>
                                     <div className='content'>
                                         <div><Brief className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Experience</h2>
-                                            <h4 className='SubHeading'>{jobData.experience} years</h4>
+                                            <h4 className='SubHeading'>{jobData.experience || "N/A"}</h4>
                                         </div>
                                     </div>
 
@@ -233,7 +234,7 @@ const CompanyJobDetail = () => {
                                         <div><Brief className='IconColor' /></div>
                                         <div>
                                             <h2 className='Title'>Education</h2>
-                                            <h4 className='SubHeading'>{jobData.education}</h4>
+                                            <h4 className='SubHeading'>{jobData.education || "N/A"}</h4>
                                         </div>
                                     </div>
                                     <div className='content'>
@@ -260,10 +261,8 @@ const CompanyJobDetail = () => {
                                 <div className=' photo'></div>
                                 
                                 }
-                                    <h2 className='Name'>{companyData.companyName}</h2>
-                                <div>
-                                    {/* <h2 className='Title'>Social networking service</h2> */}
-                                </div>
+                                <h2 className='Name'>{companyData.companyName || "N/A"}</h2>
+                               
 
                             </div>
                             <div className='content'>

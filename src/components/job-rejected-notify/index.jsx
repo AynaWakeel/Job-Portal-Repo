@@ -51,12 +51,16 @@ const JobRejectedNotify = () => {
                                 key={items.id} onClick={()=>handleReadStatus(items.id)}>
 
                                     <div className='Inner-flex'>
-                                        <div className='IconBox'>
-                                            <img src={items.profilepic || "no"} />
+                                        {items?.recruiter ? 
+                                        <div className='IconBox photo'>
+                                            <img src={items.recruiter.recruiterProfilePic} />
                                         </div>
+                                        :
+                                         <div className='IconBox'></div>
+                                        }
                                         <div className='Gap'>
                                             <div className='Inner-flex'>
-                                                <h3 className='Heading'>{items.title}</h3>
+                                                <h3 className='Heading'>{items.jobTitle}</h3>
                                             </div>
 
                                         </div>

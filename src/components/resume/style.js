@@ -122,6 +122,7 @@ width: 95%;
     justify-content: start;
     align-items: start;
     gap: 40px;
+    width: 100%;
 
 @media ${devices.tablet}{
     flex-direction: column;
@@ -142,12 +143,17 @@ width: 95%;
     padding-bottom: 15px;
 }
 
+.bioDiv{
+    width: 50%;
+}
+
 .Profile-box{
     display: flex;
     justify-content: start;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    width: 50%;
 
 @media ${devices.tablet}{
     flex-direction: row;

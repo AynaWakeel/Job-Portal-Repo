@@ -38,6 +38,13 @@ padding-inline: 50px;
     }
 }
 
+.ProfileBar{
+     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
 .profile{
     position: relative;
 }
@@ -51,6 +58,7 @@ padding-inline: 50px;
 }
 
 .adminname{
+    width: 160px;
     font-size: 18px;
     font-weight: 400;
     font-family: var(--inter);
@@ -189,7 +197,7 @@ gap:80px;
 // ---------- mobile sidebar
 
 export const MobileSidebar = styled.div`
-width: 50%;
+width: 260px;
 box-shadow: 0px 0px 5px var(--purple-50);
 display: flex;
 justify-content: start;
@@ -345,7 +353,12 @@ z-index: 999;
 
 @media ${devices.tablet}{
     top: 65px;
-   right: 50px;
+   right: 40px;
+}
+
+@media ${devices.laptop}{
+    top: 65px;
+   right: 100px;
 }
 
 .Navlinks{

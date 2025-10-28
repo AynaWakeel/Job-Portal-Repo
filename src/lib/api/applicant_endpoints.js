@@ -49,4 +49,6 @@ export const Applicant_Endpoints = {
      //notifications
     get_unread_notifications: async()=>await getData("/api/notifications/unread-notification"),
     put_read_notifications_by_id: async(id)=> await putData(`/api/notifications/mark-read/${id}`),
+
+    
 }

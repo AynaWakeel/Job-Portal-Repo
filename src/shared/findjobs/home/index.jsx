@@ -81,8 +81,8 @@ const FindJob = () => {
 
   const fetchLocation = async () => {
     const res = await Applicant_Endpoints.get_location()
-    if (res?.data) {
-      const options = res.data.map((items) => ({
+    if (res?.data?.location) {
+      const options = res.data.location.map((items) => ({
         value: items.id,
         label: items.name
       }))
@@ -92,8 +92,8 @@ const FindJob = () => {
 
   const fetchIndustry = async () => {
     const res = await Applicant_Endpoints.get_industry()
-    if (res?.data) {
-      const options = res.data.map((items) => ({
+    if (res?.data?.industries) {
+      const options = res.data.industries.map((items) => ({
         value: items.id,
         label: items.name
       }))

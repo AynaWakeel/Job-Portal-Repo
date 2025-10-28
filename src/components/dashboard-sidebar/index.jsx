@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MobileSidebar, SidebarMenu } from './style'
 import { ReactComponent as Layers } from '../../assets/icons/fi_layers.svg'
 import { ReactComponent as Bookmark } from '../../assets/icons/BookmarkSimple.svg'
@@ -15,10 +15,25 @@ import { ROLE } from '../../enum/roles'
 const DashboardSidebar = () => {
     const location = useLocation()
     const navigate = useNavigate()
+    const mobileMenuRef = useRef(null)
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+
+            if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+                setIsOpen(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
 
     const [isOpen, setIsOpen] = useState(false)
     const OpenMenu = () => {
-        setIsOpen(!isOpen)
+        setIsOpen((prev) => !prev)
     }
 
     const RecruiterOptions = [
@@ -35,12 +50,12 @@ const DashboardSidebar = () => {
         { label: "Favourite Jobs", icon: <Bookmark />, path: "/applicant/dashboard/favourities" },
         { label: "Settings", icon: <Gear />, path: "/applicant/dashboard/personal-profile" },
     ]
-    
 
-    const userRole = localStorage.getItem("role")  
+
+    const userRole = localStorage.getItem("role")
     let Menu = [];
-    if (userRole === ROLE.APPLICANT)  Menu = ApplicantOptions;
-    else if (userRole === ROLE.RECRUITER )  Menu = RecruiterOptions;
+    if (userRole === ROLE.APPLICANT) Menu = ApplicantOptions;
+    else if (userRole === ROLE.RECRUITER) Menu = RecruiterOptions;
     console.log(localStorage.getItem("role"))
 
 
@@ -62,40 +77,43 @@ const DashboardSidebar = () => {
                             </li>
 
                         ))}
-                       
 
                     </ul>
                 </div>
             </SidebarMenu>
             {/* ------------ mobile sidebar ---------- */}
-            <div className='menudiv'>
-                {isOpen ?
-                    <img src={Close} alt='img' className='Display' onClick={OpenMenu} /> :
-                    <img src={Menubar} alt='img' className='Display' onClick={OpenMenu} />
+
+            <div ref={mobileMenuRef}>
+
+                <div className='menudiv'>
+                    {isOpen ?
+                        <img src={Close} alt='img' className='Display' onClick={OpenMenu} /> :
+                        <img src={Menubar} alt='img' className='Display' onClick={OpenMenu} />
+                    }
+
+                </div>
+
+                {isOpen &&
+                    <MobileSidebar>
+                        <div className='Sidebar'>
+                            <ul className='Navlinks'>
+
+                                {Menu.map((item) => (
+
+                                    <li key={item.path} onClick={() => { navigate(item.path); setIsOpen(false) }}
+                                        className={`tab ${location.pathname.startsWith(item.path) ? " active" : ""}`}>
+                                        <div className='IconColor' >{item.icon}</div>
+                                        <a>{item.label}</a>
+                                    </li>
+
+                                ))}
+
+                            </ul>
+                        </div>
+                    </MobileSidebar>
                 }
 
             </div>
-            {isOpen &&
-                <MobileSidebar>
-                    <div className='Sidebar'>
-                        <ul className='Navlinks'>
-
-                            {Menu.map((item) => (
-
-                            <li key={item.path} onClick={() => {navigate(item.path); setIsOpen(false)}}
-                                className={`tab ${location.pathname.startsWith(item.path) ? " active" : ""}`}>
-                                <div className='IconColor' >{item.icon}</div>
-                                <a>{item.label}</a>
-                            </li>
-
-                            ))}
-
-                        </ul>
-                    </div>
-                </MobileSidebar>
-
-            }
-
 
         </div>
     )

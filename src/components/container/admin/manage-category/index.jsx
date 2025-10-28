@@ -16,16 +16,16 @@ const ManageCategory = () => {
 
   const fetchData = async()=>{
     const res = await Admin_Endpoints.get_industry()
-    if(res?.data){
-        setIndustryList(res.data)
+    if(res?.data?.industries){
+        setIndustryList(res.data.industries)
         setIsLoading(false)
     }
   }
 
   const fetchLocation = async()=>{
     const res = await Admin_Endpoints.get_location()
-    if(res?.data){
-      setLocationList(res.data)
+    if(res?.data?.location){
+      setLocationList(res.data.location)
       setIsLoading(false)
     }
   }

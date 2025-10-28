@@ -51,7 +51,7 @@ const Resume = ({onClose, resumeData}) => {
                     </div>
                 </div>
                 <div className='profile-content'>
-                    <div>
+                    <div className='bioDiv'>
                         <h2 className='Heading'>BIOGRAPHY</h2>
                         <p className='Sub' dangerouslySetInnerHTML={{ __html: isResume.biography}}></p>
                    
@@ -122,9 +122,7 @@ const Resume = ({onClose, resumeData}) => {
                                             <h4 className='SubHeading'>{isResume.location}</h4>
                                         </div>
                                     </div>
-                                    {/* <div>
-                                        <p className='Title'>Zone/Block Basement 1 Unit B2, 1372 Spring Avenue, Portland, </p>
-                                    </div> */}
+                                    
                                 </div>
                                 <div className='content'>
                                     <div><Phone className='IconColor' /></div>

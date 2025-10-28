@@ -22,11 +22,11 @@ const AddIndustryModal = ({ onClose, onDone }) => {
         create_industry(data)
         reset()
         setIsDone(true)
+        onClose()
         if (onDone) {
             onDone()
         }
         console.log(data)
-        showSuccess("Industry Created successfully..")
     }
 
 

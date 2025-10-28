@@ -276,7 +276,9 @@ const ApplicantCreateResume = () => {
           <Form>
             <div className='FormGapDivide'>
               <button type='submit' className='FormBtn'>Save Changes</button>
-              <button type='button' onClick={isOpen} className='FormBtn'>View Resume</button>
+              {hasResume && 
+               <button type='button' onClick={isOpen} className='FormBtn'>View Resume</button>
+              }
               {isResumeOpen &&
                 <Resume onClose={() => setIsResumeOpen(false)} resumeData={watch} />
               }

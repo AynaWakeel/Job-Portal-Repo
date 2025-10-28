@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router'
-import ManageUsers from '../../components/container/admin/manager-users'
+import ManageUsers from '../../components/container/admin/manager-users/options'
 import AdminOverview from '../../components/container/admin/overview'
 import ManageJobs from '../../components/container/admin/manage-jobs'
 import Managecategory from '../../components/container/admin/manage-category'
@@ -9,10 +9,10 @@ import UserAccounts from '../../components/container/admin/user-accounts'
 import AdminDashboardLayouts from '../../layouts/admin-dashboard-layouts'
 import AdminProfile from '../../components/container/admin/profile'
 import AdminNotification from '../../components/container/admin/notifications'
-import CompanyJobDetail from '../../shared/findjobs/company-job-detail'
-import ApplicantProfile from '../../shared/dashboard/applicant/profile'
 import ManageJobDetail from '../../components/container/admin/manage-job-detail'
 import ScrollToTop from '../../helper/ScrollToTop'
+import ShowApplicantToAdmin from '../../components/container/admin/manager-users/view-applicant-profile'
+import ShowRecruiterToAdmin from '../../components/container/admin/manager-users/view-recruiter-profile'
 
 const AdminDashboardRoutes = () => {
   return (
@@ -30,7 +30,8 @@ const AdminDashboardRoutes = () => {
           <Route path='/manage-cms' element={<ManageCMS />} />
           <Route path='/user-accounts' element={<UserAccounts />} />
           {/* -------------- without sidebar -------------- */}
-          <Route path='/applicant-profile' element={<ApplicantProfile />} />
+          <Route path='/applicant-profile' element={<ShowApplicantToAdmin />} />
+          <Route path='/recruiter-profile' element={<ShowRecruiterToAdmin />} />
           <Route path='/job-detail' element={<ManageJobDetail />} />
         </Routes>
       </AdminDashboardLayouts>

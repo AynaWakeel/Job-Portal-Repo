@@ -9,4 +9,6 @@ export const Chat_Endpoints = {
     put_messages_read_by_id: async(chatId)=> await putData(`/api/chats/${chatId}/mark-as-read`),
     put_block_by_id: async(body)=> await putData(`/api/chats/block-unblock`, body),
     delete_by_id: async(chatId)=> await deleteData(`/api/chats/${chatId}`),
+    delete_msg_by_id: async(chatId)=> await deleteData(`/api/messages/deleteAllMessages/${chatId}`),
+    get_unread_chats: async()=>await getData("/api/messages/messages/allUnreadMessages"),
 }

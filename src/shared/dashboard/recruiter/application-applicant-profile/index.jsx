@@ -144,7 +144,7 @@ const ViewProfileApplications = () => {
 
             </div>
             <div className='Profile-box'>
-             
+
               <Box>
                 <div className='flex-col'>
 

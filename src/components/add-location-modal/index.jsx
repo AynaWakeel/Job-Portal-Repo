@@ -21,10 +21,10 @@ const AddLocationModal = ({ onClose , onLoationDone }) => {
         create_location(data)
         reset()
         setIsDone(true)
+        onClose()
         if(onLoationDone){
             onLoationDone()
         }
-        showSuccess("Location Created Successfully..")
         console.log(data)
     }
 

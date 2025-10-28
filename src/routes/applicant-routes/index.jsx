@@ -9,6 +9,7 @@ import Support from '../../shared/support/navbar'
 import ApplicantProfile from '../../shared/dashboard/applicant/profile'
 import ChatSystem from '../../components/chat-system/chat-sidebar'
 import ApplicantDashboardRoutes from '../applicant-dashboard-routes'
+import ViewApplicantResume from '../../shared/find-candidates/view-resume'
 
 
 const ApplicantRoutes = () => {
@@ -17,6 +18,7 @@ const ApplicantRoutes = () => {
       <ApplicantLayouts>
       <Routes>
         <Route path='/profile' element={<ApplicantProfile/>}/>
+        <Route path='/applicant-resume' element={<ViewApplicantResume />} />
         <Route path='/chat' element={<ChatSystem/>}/>
         <Route path='/findjobs' element={<FindJob/>}/>
         <Route path='/findjobs/detail' element={<JobDetailCards/>}/>

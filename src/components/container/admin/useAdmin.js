@@ -8,9 +8,10 @@ export const useAdmin = () => {
 
         const response = await Admin_Endpoints.put_Aboutus(body)
 
-        if (response) {
-            showSuccess(response);
-        } else {
+         const { success ,message} = response
+        if(success){
+            showSuccess(message)
+        }else {
             showError("Something went wrong");
         }
     }
@@ -18,8 +19,8 @@ export const useAdmin = () => {
     const updata_ContactUs_cms = async(body) =>{
 
         const response = await Admin_Endpoints.put_Contactus(body)
-        const { message } = response
-        if(response){
+        const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -29,8 +30,8 @@ export const useAdmin = () => {
     const create_faq_cms = async(body) =>{
         
         const response = await Admin_Endpoints.post_faqs(body)
-        const {message} = response
-        if(response){
+         const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -40,8 +41,8 @@ export const useAdmin = () => {
      const update_faq_cms = async(id, body)=>{
 
         const response = await Admin_Endpoints.put_faqs(id, body)
-        const {message} = response
-        if(response){
+         const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -51,8 +52,8 @@ export const useAdmin = () => {
     const delete_faq_cms = async(id)=>{
 
         const response = await Admin_Endpoints.delete_faqs(id)
-        const {message} = response
-        if(response){
+        const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -62,8 +63,8 @@ export const useAdmin = () => {
     const update_admin_profile = async(body) =>{
 
         const response = await Admin_Endpoints.put_profile(body)
-        const {message} = response
-        if(response){
+       const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -73,8 +74,8 @@ export const useAdmin = () => {
      const change_admin_password = async(body) =>{
 
         const response = await Admin_Endpoints.post_changePassword(body)
-        const {message} = response
-        if(response){
+        const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -84,8 +85,8 @@ export const useAdmin = () => {
     const upload_admin_photo = async(body) =>{
 
         const response = await Admin_Endpoints.post_photo(body)
-        const {message} = response
-        if(response){
+        const {success,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -95,8 +96,8 @@ export const useAdmin = () => {
     const create_industry = async(body) =>{
 
         const response = await Admin_Endpoints.post_industry(body)
-        const {message} = response
-        if(response){
+        const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -106,8 +107,8 @@ export const useAdmin = () => {
     const delete_industry_by_id = async(id) =>{
 
         const response = await Admin_Endpoints.delete_industry(id)
-        const {message} = response
-        if(response){
+        const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -117,8 +118,8 @@ export const useAdmin = () => {
      const create_location = async(body) =>{
 
         const response = await Admin_Endpoints.post_location(body)
-        const {message} = response
-        if(response){
+         const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -128,8 +129,8 @@ export const useAdmin = () => {
     const delete_location_by_id = async(id) =>{
 
         const response = await Admin_Endpoints.delete_location(id)
-        const {message} = response
-        if(response){
+        const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -139,8 +140,8 @@ export const useAdmin = () => {
      const change_manageUsersStatus = async(id, body)=>{
 
         const response = await Admin_Endpoints.put_manageUsersStatus(id, body)
-        const {message} = response
-        if(response){
+        const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -150,8 +151,8 @@ export const useAdmin = () => {
      const change_manageJobsStatus = async(jobId, body)=>{
 
         const response = await Admin_Endpoints.put_manageJobsStatus(jobId, body)
-        const {message} = response
-        if(response){
+       const { success ,message} = response
+        if(success){
             showSuccess(message)
         }else{
             showError(message)
@@ -162,12 +163,13 @@ export const useAdmin = () => {
 
         const response = await Admin_Endpoints.put_read_notifications_by_id(id)
         
-        if (response?.message) {
-            showSuccess(response.message);
-        } else {
-            showError(response?.message);
+        const { success ,message} = response
+        if(success){
+            showSuccess(message)
+            return response
+        }else{
+            showError(message)
         }
-        return response
     }
 
 
