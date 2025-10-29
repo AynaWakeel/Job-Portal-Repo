@@ -11,13 +11,14 @@ import Menubar from '../../../assets/icons/fi_menu.svg'
 import Close from '../../../assets/icons/fi_x.svg'
 import Profile from '../../../assets/images/Ellipse 18.png'
 import NotifyIcon from '../../../assets/icons/bell-solid-full.svg'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import UseAuth from '../../../auth/useAuth'
 import { Admin_Endpoints } from '../../../lib/api/admin_endpoints'
 
 const AdminNavbar = () => {
   const navigate = useNavigate()
-  const [isActive, setIsActive] = useState("Overview")
+  const location = useLocation()
+  // const [isActive, setIsActive] = useState("Overview")
   const [notify, setNotify] = useState([])
   const profileDropdownRef = useRef(null)
   const mobileMenuRef = useRef(null)
@@ -52,52 +53,26 @@ const AdminNavbar = () => {
     navigate('/auth/login')
   }
 
-  const ManageUser = () => {
-    navigate('/admin/dashboard/manage-users')
-    setIsActive("Manage Users")
-     setIsOpen(false)
-  }
-
-  const ManageJobs = () => {
-    navigate('/admin/dashboard/manage-jobs')
-    setIsActive("Manage Jobs")
-     setIsOpen(false)
-  }
-
-  const userAccounts = () => {
-    navigate('/admin/dashboard/user-accounts')
-    setIsActive("User Accounts")
-     setIsOpen(false)
-  }
-
-  const ManageCategory = () => {
-    navigate('/admin/dashboard/manage-category')
-    setIsActive("Manage Category")
-     setIsOpen(false)
-  }
-
-  const ManageCMS = () => {
-    navigate('/admin/dashboard/manage-cms')
-    setIsActive("Manage CMS")
-     setIsOpen(false)
-  }
-
-  const ViewAnalytics = () => {
-    navigate('/admin/dashboard/overview')
-    setIsActive("View Analytics")
-     setIsOpen(false)
-  }
-
   const AdminProfile = () => {
     navigate('/admin/dashboard/profile')
     setIsDropdownOpen(false)
-     setIsOpen(false)
+    setIsOpen(false)
   }
 
   const AdminNotify = () => {
     navigate('/admin/dashboard/notifications')
-     setIsOpen(false)
+    setIsOpen(false)
   }
+  const AdminOptions = [
+    { label: "View Analytics", icon: <Home />, path: "/admin/dashboard/overview" },
+    { label: "Manage Users", icon: <Layers />, path: "/admin/dashboard/manage-users" },
+    { label: "Manage Jobs", icon: <Brief  />, path: "/admin/dashboard/manage-jobs" },
+    { label: "User Accounts", icon: <Gear />, path: "/admin/dashboard/user-accounts" },
+    { label: "Manage Category", icon: <PlusCircle />, path: "/admin/dashboard/manage-category" },
+    { label: "Manage CMS", icon: <File />, path: "/admin/dashboard/manage-cms" },
+
+  ]
+
 
   const [isOpen, setIsOpen] = useState(false)
   const OpenMenu = () => {
@@ -144,10 +119,10 @@ const AdminNavbar = () => {
                   <div className='Navright'>
                     {adminName.profilepic ?
                       <div className='photo'>
-                        <img src={adminName.profilepic} alt='profile' />
+                        <img src={adminName.profilepic} alt='profile'  onClick={AdminProfile} />
                       </div>
                       :
-                      <div className='photo'></div>
+                      <div className='photo'  onClick={AdminProfile}></div>
                     }
                     <h4 className='adminname'>{adminName.fullName || "ADMIN"}</h4>
                   </div>
@@ -155,30 +130,17 @@ const AdminNavbar = () => {
 
                   <ul className='Navlinks'>
 
-                    <li className={isActive === "View Analytics" ? "tab active" : "tab"} onClick={ViewAnalytics}>
-                      <Home className='IconColor' />
-                      <a>View Analytics</a>
-                    </li>
-                    <li className={isActive === "Manage Users" ? "tab active" : "tab"} onClick={ManageUser}>
-                      <Layers className='IconColor' />
-                      <a>Manage Users</a>
-                    </li>
-                    <li className={isActive === "Manage Jobs" ? "tab active" : "tab"} onClick={ManageJobs}>
-                      <Brief className='IconColor' />
-                      <a>Manage Jobs</a>
-                    </li>
-                    <li className={isActive === "User Accounts" ? "tab active" : "tab"} onClick={userAccounts}>
-                      <Gear className='IconColor' />
-                      <a>User Accounts</a>
-                    </li>
-                    <li className={isActive === "Manage category" ? "tab active" : "tab"} onClick={ManageCategory}>
-                      <PlusCircle className='IconColor' />
-                      <a>Manage Category</a>
-                    </li>
-                    <li className={isActive === "Manage CMS" ? "tab active" : "tab"} onClick={ManageCMS}>
-                      <File className='IconColor' />
-                      <a>Manage CMS</a>
-                    </li>
+                    {AdminOptions.map((item) => (
+
+                      <li key={item.path} onClick={() =>{ navigate(item.path); setIsOpen(false);}}
+                        className={`tab ${location.pathname === item.path ? 'active' : ''}`}>
+                        <div className='IconColor' >{item.icon}</div>
+                        <a>{item.label}</a>
+                      </li>
+
+                    ))}
+
+                   
                   </ul>
 
                 </div>

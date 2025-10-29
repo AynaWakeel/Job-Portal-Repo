@@ -23,6 +23,8 @@ const ManageUsers = () => {
         <div>
 
             <Main>
+                 <div className='Fixednav'>
+
                 <div className='flex-box'>
                     <h1 className='TopHeading'>Manage Users</h1>
                     <div className='flex'>
@@ -34,6 +36,10 @@ const ManageUsers = () => {
                         >Applicant</button>
                     </div>
                 </div>
+                 </div>
+
+                 <div className="ScrollContent">
+
                   {isActive === "recruiter" && 
                     <RecruiterManageUsersTable/>
                   }
@@ -41,6 +47,7 @@ const ManageUsers = () => {
                    {isActive === "applicant" && 
                     <ApplicantManageUsersTable/>
                   }
+                 </div>
 
             </Main>
 

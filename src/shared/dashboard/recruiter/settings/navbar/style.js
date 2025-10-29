@@ -6,10 +6,21 @@ export const Settings = styled.div`
 padding-top: 50px;
 padding-inline: 20px;
 
-.Fixednav{
-    /* position: fixed; */
+  .Fixednav {
+    position: sticky; 
+    top: 90px;
+    background: white;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
 
-}
+  .ScrollContent {
+    flex: 1;
+    overflow-y: auto; 
+    padding-top: 0px;
+    padding-bottom: 20px;
+  }
 
 .TopHeading{
     color: var(--dark-800);

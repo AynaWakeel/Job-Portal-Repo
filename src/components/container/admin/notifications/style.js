@@ -13,14 +13,6 @@ padding-inline: 20px;
     font-family: var(--inter);
     padding-bottom: 20px;
 
-    
-    
-@media ${devices.tablet}{
-   padding-bottom: 5px;
-}
 
-@media ${devices.mobile}{
-    padding-bottom: 0px;
-}
 }
 `

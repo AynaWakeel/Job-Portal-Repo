@@ -70,7 +70,8 @@ export const useChat = () => {
         const response = await Chat_Endpoints.put_messages_read_by_id(chatId)
          const { success, message } = response
         if (success) {
-            showSuccess(message);
+            // showSuccess(message);
+            console.log("read msg:", message)
             return response
 
         } else {

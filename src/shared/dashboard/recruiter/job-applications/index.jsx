@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Jobdiv } from './style'
 import ApplicationCards from '../../../../components/application-cards'
 import Resume from '../../../../components/resume'
@@ -7,6 +7,11 @@ import Selected from '../../../../components/selected'
 import { useParams } from 'react-router'
 
 const JobApplications = () => {
+  const [refresh, setRefresh] = useState(0)
+
+  const handleStatusChange = () =>{
+    setRefresh(p=>p+1)
+  }
   
   return (
     <div>
@@ -19,16 +24,16 @@ const JobApplications = () => {
           <div className='Box'>
             <h4 className='Title'>All Applications</h4>
 
-            <ApplicationCards/>
+            <ApplicationCards onStatusChange={handleStatusChange} onRefresh={refresh}/>
           </div>
           <div className='Box'>
             <h4 className='Title'>Shortlisted</h4>
-            <Shortlist/>
+            <Shortlist onStatusChange={handleStatusChange} onRefresh={refresh}/>
           </div>
 
           <div className='Box'>
             <h4 className='Title'>Selected</h4>
-            <Selected/>
+            <Selected onRefresh={refresh}/>
           </div>
         </div>
       </Jobdiv>

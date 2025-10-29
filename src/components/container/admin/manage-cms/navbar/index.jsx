@@ -24,8 +24,12 @@ const CMSNavbar = () => {
         <div>
 
             <Settings>
-                
-                <div>
+
+                <div className='Fixednav'>
+                    <div>
+                        <h1 className='TopHeading'>Manage CMS</h1>
+                    </div>
+
                     <ul className='Navlinks'>
                         <li onClick={Link1} className={isActive === "About" ? "tab active" : "tab"}>
                             <Brief className='IconColor' />
@@ -40,12 +44,15 @@ const CMSNavbar = () => {
                             <a>FAQs</a>
                         </li>
                     </ul>
+                </div>
+
+                <div className="ScrollContent">
                     {isActive === "About" &&
                         <CMSAbout />
                     }
 
                     {isActive === "Contact" &&
-                        <CMSContact/>
+                        <CMSContact />
                     }
 
                     {isActive === "FAQs" &&

@@ -41,7 +41,8 @@ const ApplicantCreateResume = () => {
     const fetchData = async () => {
       const previousData = await Applicant_Endpoints.get_resume();
       if (previousData?.data) {
-        reset(previousData.data);
+        reset(previousData.data.resume);
+        setSelected(previousData.data.resume.experience)
         setHasResume(true);
       } else {
         reset({
@@ -182,6 +183,24 @@ const ApplicantCreateResume = () => {
               <div className='FormSpace FormInputDivide'>
                 <div className='InputWidth FormPassword'>
                   <label htmlFor='experience' className='Label'>Experience</label>
+                    {/* <Controller
+                    name='experience'
+                    control={control}
+                    rules={{ required: "Exp is required" }}
+                    render={({ field }) => (
+                     
+                      <Select
+                        // name='experience'
+                        className="inputSelect select"
+                        classNamePrefix="select"
+                        options={experienceOptions}
+                        value={experienceOptions.find(opt => opt.label === field.value) || null}
+                        onChange={(val) => field.onChange(val.label)}
+                        placeholder="Experience"
+                      />
+                    )}
+                  /> */}
+
                  
                   <Select
                     name='experience'

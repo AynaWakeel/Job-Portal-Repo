@@ -7,10 +7,6 @@ const ManageCMS = () => {
     <div>
 
       <Main>
-        <div>
-          <h1 className='TopHeading'>Manage CMS</h1>
-        </div>
-
          <CMSNavbar/>
       </Main>
 

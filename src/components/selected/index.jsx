@@ -9,7 +9,7 @@ import LeftArrow from '../../assets/icons/fi_arrow-left.svg'
 import { useLocation, useNavigate } from 'react-router'
 import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 
-const Selected = () => {
+const Selected = (onRefresh) => {
     const location = useLocation()
     const jobId = location.state.jobId
     const navigate = useNavigate()
@@ -33,7 +33,7 @@ const Selected = () => {
 
      useEffect(() => {
         fetchData(currentPage)
-    }, [jobId, currentPage])
+    }, [jobId, currentPage , onRefresh])
 
 
     const gotoProfile = (applicationId) => {

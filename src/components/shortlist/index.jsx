@@ -11,7 +11,7 @@ import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 import { useRecruiter } from '../../shared/dashboard/recruiter/useRecruiter'
 import Loader from '../loading-spinner'
 
-const Shortlist = () => {
+const Shortlist = ({onStatusChange,onRefresh}) => {
     const location = useLocation()
     const jobId = location.state.jobId
     const navigate = useNavigate()
@@ -47,11 +47,13 @@ const Shortlist = () => {
         )
     }
     fetchData()
+    onStatusChange()
+
     }
 
     useEffect(() => {
         fetchData(currentPage)
-    }, [jobId, currentPage])
+    }, [jobId, currentPage,onRefresh])
 
 
     const gotoProfile = (applicationId) => {

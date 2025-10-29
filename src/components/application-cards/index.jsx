@@ -10,7 +10,7 @@ import { Recruiter_Endpoints } from '../../lib/api/recruiter_endpoints'
 import { useRecruiter } from '../../shared/dashboard/recruiter/useRecruiter'
 
 
-const ApplicationCards = () => {
+const ApplicationCards = ({onStatusChange,onRefresh}) => {
     const navigate = useNavigate()
     const location = useLocation()
     const jobId = location.state.jobId
@@ -32,6 +32,7 @@ const ApplicationCards = () => {
         )
     }
     fetchData()
+    onStatusChange()
     }
 
     const fetchData = async (page = 1, limit = 10) => {
@@ -46,7 +47,7 @@ const ApplicationCards = () => {
     }
     useEffect(() => {
         fetchData(currentPage)
-    }, [jobId, currentPage])
+    }, [jobId, currentPage,onRefresh])
 
     const Profile = (applicationId) => {
         navigate('/recruiter/dashboard/applicate-profile', { state: { jobId, applicationId } })

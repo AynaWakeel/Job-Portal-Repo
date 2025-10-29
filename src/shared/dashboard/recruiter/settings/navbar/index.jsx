@@ -53,6 +53,9 @@ const RecruiterSettings = () => {
         </div>
 
         </div>
+
+        <div className="ScrollContent">
+
           {isActive === "Company Info" &&
             <CompanyInfo />
           }
@@ -68,6 +71,8 @@ const RecruiterSettings = () => {
           {isActive === "Social Media Profile" &&
             <SocialMediaProfile />
           }
+
+        </div>
       </Settings>
     </div>
   )

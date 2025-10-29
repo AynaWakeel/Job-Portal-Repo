@@ -3,7 +3,6 @@ import { devices } from "../../../../../components/breakpoints";
 
 export const SettingDiv = styled.div`
 padding-block: 20px;
-/* margin-top: 140px; */
 
 .TopHeading{
     color: var(--dark-800);

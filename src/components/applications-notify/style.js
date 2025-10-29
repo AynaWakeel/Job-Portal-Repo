@@ -28,6 +28,7 @@ export const MainSec = styled.div`
 }
 
 .Grid{
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -58,7 +59,7 @@ export const MainSec = styled.div`
     width: 100%;
 
 @media ${devices.tablet}{
-    width: 96%;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
     align-items: start;
@@ -67,8 +68,6 @@ export const MainSec = styled.div`
 
 @media ${devices.mobile}{
     width: 100%;
-    flex-direction: column;
-    justify-content: start;
     gap: 15px;
 }
 

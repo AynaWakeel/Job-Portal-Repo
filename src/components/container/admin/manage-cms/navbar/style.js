@@ -3,6 +3,24 @@ import { devices } from "../../../../breakpoints";
 
 export const Settings = styled.div`
 
+
+
+  .Fixednav {
+    position: sticky; 
+    top: 90px;
+    background: white;
+    z-index: 10;
+    padding-top: 18px;
+    padding-bottom: 10px;
+  }
+
+  .ScrollContent {
+    flex: 1;
+    overflow-y: auto; 
+    padding-top: 0px;
+    padding-bottom: 20px;
+  }
+
 .TopHeading{
     color: var(--dark-800);
     font-size: 20px;

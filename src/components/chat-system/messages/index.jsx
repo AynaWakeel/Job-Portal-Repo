@@ -5,7 +5,7 @@ import send from '../../../assets/icons/Send_Web.svg'
 import { ReactComponent as Tick } from '../../../assets/icons/Read status.svg'
 import ReportIcon from '../../../assets/icons/ban-solid-full.svg'
 import Trash from '../../../assets/icons/trash-solid-full.svg'
-import { ChatLeft, ChatRight, DmChat, MessageBox, Options } from './style'
+import { ChatLeft, ChatRight, DmChat, MessageBox } from './style'
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
 import { useChat } from '../useChat'
 import { useLocation } from 'react-router'
@@ -13,9 +13,11 @@ import { useLocation } from 'react-router'
 const Messages = ({ socket, onBack }) => {
 
   const { block_user_by_id, delete_chat, clear_chat, read_message } = useChat()
-  const location = useLocation()
-  const personId = location?.state?.id || null
-  const tokenId = location?.state?.chatId || null
+ const location = useLocation();
+const savedChat = JSON.parse(localStorage.getItem("lastOpenedChat")) || {};
+const personId = location?.state?.id || savedChat?.id || null;
+const tokenId = location?.state?.chatId || savedChat?.chatId || null;
+
   const sender_Id = localStorage.getItem("id");
   console.log("personId:", personId);
   console.log("tokenId:", tokenId);
@@ -96,6 +98,18 @@ const Messages = ({ socket, onBack }) => {
     markAsRead()
   }, [activeChatId, hasRead])
 
+//   useEffect(() => {
+//   if (socket && (activeChatId || tokenId) && !hasRead) {
+//     socket.emit("markChatAsRead", { 
+//       chatId: activeChatId || tokenId, 
+//       userId: sender_Id 
+//     });
+//     console.log("Marking chat as read via socket:", activeChatId || tokenId);
+//     setHasRead(true);
+//   }
+// }, [socket, activeChatId, tokenId, hasRead]);
+
+
 
   const handleSend = (e) => {
     e.preventDefault()
@@ -141,15 +155,23 @@ const Messages = ({ socket, onBack }) => {
     return () => {
       socket.off("receiveMessage", handleReceive);
     }
-  }, [socket, activeChatId, sender_Id])
+  }, [socket, activeChatId,tokenId, sender_Id])
 
 
   //   useEffect(() => {
   //   if (socket && (activeChatId || tokenId)) {
-  //     socket.emit("joinChat", activeChatId || tokenId);
+  //     socket.emit("join", activeChatId || tokenId);
   //     console.log("Joined chat room:", activeChatId || tokenId);
   //   }
   // }, [socket, activeChatId, tokenId]);
+
+//   useEffect(() => {
+//   if (socket && localStorage.getItem("id")) {
+//     socket.emit("join", localStorage.getItem("id"));
+//     console.log("Joined user room:", localStorage.getItem("id"));
+//   }
+// }, [socket]);
+
 
 
   const handleBlockuser = async (id, actionType) => {

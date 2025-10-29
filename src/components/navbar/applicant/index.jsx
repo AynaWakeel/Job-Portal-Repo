@@ -11,7 +11,7 @@ import UseAuth from '../../../auth/useAuth'
 import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
 
-const ApplicantNavbar = () => {
+const ApplicantNavbar = ({socket}) => {
 
   const [notify, setNotify] = useState([])
   const [chatCount, setChatCount] = useState([])
@@ -43,6 +43,51 @@ const ApplicantNavbar = () => {
       console.log("noti", res.data);
     }
   }
+
+  // useEffect(() => {
+  //    if (!socket) return;
+
+  //    socket.on('receiveMessage', () => {
+  //     fetchChatUnreadCount();
+  //   });
+  //   socket.on('updateTotalUnread', () => {
+  //     fetchChatUnreadCount();
+  //   });
+
+  //   return () => {
+  //     socket.off('receiveMessage');
+  //     socket.off('updateTotalUnread');
+  //   };
+  // }, [socket]);
+
+  useEffect(() => {
+  if (!socket) return;
+
+  const handleReceiveMessage = () => {
+    console.log('📩 New message event received');
+    fetchChatUnreadCount();
+  };
+
+  const handleUpdateTotalUnread = () => {
+    console.log('🔄 Unread count update event received');
+    fetchChatUnreadCount();
+  };
+
+  socket.on('receiveMessage', handleReceiveMessage);
+  socket.on('updateTotalUnread', handleUpdateTotalUnread);
+
+  // Check connection
+  socket.on('connect', () => {
+    console.log('✅ Socket connected in Navbar:', socket.id);
+  });
+
+  return () => {
+    socket.off('receiveMessage', handleReceiveMessage);
+    socket.off('updateTotalUnread', handleUpdateTotalUnread);
+  };
+}, [socket]);
+
+
 
 
   const fetchData = async () => {

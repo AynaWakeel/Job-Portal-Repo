@@ -96,30 +96,15 @@ export const useRecruiter = () => {
         }
     }
 
-    //  const fetch_job_applications = async ( jobId , page = 1, limit = 10) => {
-
-    //     const res = await Recruiter_Endpoints.get_applications(jobId, page, limit)
-
-    //     const { success, message } = res
-    //     if (success) {
-    //         showSuccess(message);
-    //     } else {
-    //         showError(message);
-    //     }
-    // }
-
     const change_applicantion_Status_by_id = async (applicationId, body) => {
 
         const response = await Recruiter_Endpoints.put_applicantion_Status_by_id(applicationId, body)
         const { success, message } = response
         if (success) {
             showSuccess(message);
-            // await fetch_job_applications()
         } else {
             showError(message);
         }
-
-
     }
 
     const have_reported_job_by_id = async (jobId, body) => {
@@ -162,7 +147,5 @@ export const useRecruiter = () => {
     }
 
 
-    return { company_profile, upload_logo, upload_banner, post_a_job, delete_a_job, expire_a_job, change_recruiter_password, change_applicantion_Status_by_id, have_reported_job_by_id, edit_post_job_by_id, read_notifications  
-        // , fetch_job_applications
-    }
+    return { company_profile, upload_logo, upload_banner, post_a_job, delete_a_job, expire_a_job, change_recruiter_password, change_applicantion_Status_by_id, have_reported_job_by_id, edit_post_job_by_id, read_notifications }
 }

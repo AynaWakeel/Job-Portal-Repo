@@ -10,11 +10,22 @@ const ChatList = ({ socket, onOpenChat }) => {
   // const [isChatOpen, setIsChatOpen] = useState(false)
   const [activeChat, setActiveChat] = useState(null)
   const [searchChat, setSearchChat] = useState("")
+  const [person, setPerson] = useState([])
   const navigate = useNavigate()
+   const userId = localStorage.getItem('id');
+  console.log("Joining room with ID:", userId);
+
+  console.log('Socket connected?', socket.connected);
+
 
   const openDm = (id, chatId, senderId) => {
 
     const role = localStorage.getItem("role")
+    
+  localStorage.setItem(
+    "lastOpenedChat",
+    JSON.stringify({ id, chatId, senderId })
+  );
 
     if (role === "applicant") {
       navigate("/applicant/chat", { state: { id, chatId, senderId } })
@@ -34,28 +45,36 @@ const ChatList = ({ socket, onOpenChat }) => {
     }
   }
 
-  useEffect(() => {
-
-    if (!socket) return;
-
-    const userId = localStorage.getItem("id");
-    socket.emit("joinUser", { userId });
+  
 
 
-    socket.on("receiveMessage", (data) => {
-      setPerson((prev) =>
-        prev.map((chat) =>
-          chat.id === data.chatId
-            ? { ...chat, msg: data.message }
-            : chat
-        )
-      );
-    });
 
-    return () => {
-      socket.off("receiveMessage");
-    };
-  }, [socket]);
+useEffect(() => {
+  if (!socket) return;
+
+  const userId = localStorage.getItem('id');
+  console.log("Joining room with ID:", userId);
+  socket.emit('join', userId);
+
+  socket.on('receiveMessage', (data) => {
+    console.log("📩 New message:", data);
+    fetchChats();
+  });
+
+  socket.on('updateUnreadCount', (data) => {
+    console.log("🔔 Unread count update:", data);
+    fetchChats();
+  });
+
+  socket.onAny((event, data) => console.log('📡 SOCKET EVENT:', event, data));
+
+  return () => {
+    socket.off('receiveMessage');
+    socket.off('updateUnreadCount');
+  };
+}, [socket]);
+
+
 
   const fetchChats = async () => {
     try {
@@ -74,10 +93,11 @@ const ChatList = ({ socket, onOpenChat }) => {
   };
 
   useEffect(() => {
-    fetchChats()
+   fetchChats ()
   }, [])
 
-  const [person, setPerson] = useState([])
+  
+   
 
   const filterChat = person.filter(p =>
     p?.receiver?.fullName?.toLowerCase().includes(searchChat.toLowerCase())

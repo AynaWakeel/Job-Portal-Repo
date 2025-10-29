@@ -145,6 +145,10 @@ width: 95%;
 
 .bioDiv{
     width: 50%;
+
+    @media ${devices.tablet}{
+        width: 100%;
+    }
 }
 
 .Profile-box{
@@ -159,6 +163,7 @@ width: 95%;
     flex-direction: row;
     justify-content: start;
     align-items: start;
+     width: 100%;
 }
 
 @media ${devices.mobile}{
