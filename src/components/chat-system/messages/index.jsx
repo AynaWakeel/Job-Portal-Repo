@@ -19,6 +19,7 @@ const personId = location?.state?.id || savedChat?.id || null;
 const tokenId = location?.state?.chatId || savedChat?.chatId || null;
 
   const sender_Id = localStorage.getItem("id");
+   console.log("savedChat:", savedChat);
   console.log("personId:", personId);
   console.log("tokenId:", tokenId);
   console.log("sender id------:", sender_Id);
@@ -155,7 +156,7 @@ const tokenId = location?.state?.chatId || savedChat?.chatId || null;
     return () => {
       socket.off("receiveMessage", handleReceive);
     }
-  }, [socket, activeChatId,tokenId, sender_Id])
+  }, [socket, activeChatId, sender_Id])
 
 
   //   useEffect(() => {

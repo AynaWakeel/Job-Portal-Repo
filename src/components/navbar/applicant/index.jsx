@@ -6,13 +6,13 @@ import Close from '../../../assets/icons/fi_x.svg'
 import Profile from '../../../assets/images/Ellipse 18.png'
 import NotifyIcon from '../../../assets/icons/bell-solid-full.svg'
 import Chat from '../../../assets/icons/comments-solid-full.svg'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import UseAuth from '../../../auth/useAuth'
 import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
 
-const ApplicantNavbar = ({socket}) => {
-
+const ApplicantNavbar = ({ socket }) => {
+  const location = useLocation()
   const [notify, setNotify] = useState([])
   const [chatCount, setChatCount] = useState([])
   const [analyticsData, setAnalyticsData] = useState([])
@@ -61,31 +61,31 @@ const ApplicantNavbar = ({socket}) => {
   // }, [socket]);
 
   useEffect(() => {
-  if (!socket) return;
+    if (!socket) return;
 
-  const handleReceiveMessage = () => {
-    console.log('📩 New message event received');
-    fetchChatUnreadCount();
-  };
+    const handleReceiveMessage = () => {
+      console.log('📩 New message event received');
+      fetchChatUnreadCount();
+    };
 
-  const handleUpdateTotalUnread = () => {
-    console.log('🔄 Unread count update event received');
-    fetchChatUnreadCount();
-  };
+    const handleUpdateTotalUnread = () => {
+      console.log('🔄 Unread count update event received');
+      fetchChatUnreadCount();
+    };
 
-  socket.on('receiveMessage', handleReceiveMessage);
-  socket.on('updateTotalUnread', handleUpdateTotalUnread);
+    socket.on('receiveMessage', handleReceiveMessage);
+    socket.on('updateTotalUnread', handleUpdateTotalUnread);
 
-  // Check connection
-  socket.on('connect', () => {
-    console.log('✅ Socket connected in Navbar:', socket.id);
-  });
+    // Check connection
+    socket.on('connect', () => {
+      console.log('✅ Socket connected in Navbar:', socket.id);
+    });
 
-  return () => {
-    socket.off('receiveMessage', handleReceiveMessage);
-    socket.off('updateTotalUnread', handleUpdateTotalUnread);
-  };
-}, [socket]);
+    return () => {
+      socket.off('receiveMessage', handleReceiveMessage);
+      socket.off('updateTotalUnread', handleUpdateTotalUnread);
+    };
+  }, [socket]);
 
 
 
@@ -163,6 +163,12 @@ const ApplicantNavbar = ({socket}) => {
     }
   }, [])
 
+  const ApplicantNavbarOptions = [
+    { label: "Find Jobs", path: "/applicant/findjobs" },
+    { label: "Dashboard", path: "/applicant/dashboard/overview" },
+    { label: "Customer Support", path: "/applicant/support" },
+  ]
+
 
   return (
     <div>
@@ -174,9 +180,18 @@ const ApplicantNavbar = ({socket}) => {
           </div>
           <div>
             <ul className='Navlinks'>
-              <li><a className={isActive === "Find Jobs" ? "tab active" : "tab"} onClick={FindJob}>Find Jobs</a></li>
+              {ApplicantNavbarOptions.map((item) => (
+
+                <li key={item.path} onClick={() => { navigate(item.path); setIsOpen(false); }}>
+                  <a className={`tab ${location.pathname === item.path ? 'active' : ''}`}>{item.label}</a>
+                </li>
+
+              ))}
+
+
+              {/* <li><a className={isActive === "Find Jobs" ? "tab active" : "tab"} onClick={FindJob}>Find Jobs</a></li>
               <li><a className={isActive === "Dashboard" ? "tab active" : "tab"} onClick={Dashboard}>Dashboard</a></li>
-              <li><a className={isActive === "Customer Support" ? "tab active" : "tab"} onClick={Support}>Customer Support</a></li>
+              <li><a className={isActive === "Customer Support" ? "tab active" : "tab"} onClick={Support}>Customer Support</a></li> */}
             </ul>
           </div>
         </NavbarNav>
