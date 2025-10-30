@@ -47,6 +47,18 @@ const RecruiterNavbar = () => {
   useEffect(() => {
     fetch()
     fetchChatUnreadCount()
+
+    const interval = setInterval(async () => {
+    try {
+      console.log(" unread counter");
+      await fetch();
+      await fetchChatUnreadCount();
+    } catch (err) {
+      console.error("Error in fetching unread counts", err);
+    }
+  }, 10000);
+
+  return () => clearInterval(interval);
   }, [])
 
 

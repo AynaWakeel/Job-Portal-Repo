@@ -13,30 +13,30 @@ import CustomSelect from '../../../../../components/custome-select';
 import Select from 'react-select';
 
 const ApplicantPersonalProfile = () => {
-   const [experienceSelected, setExperienceSelected] = useState(null);
-    const experienceOptions = [
-     
-      { value: "Freshers", label: "Freshers" },
-      { value: "1-2", label: "1 - 2 Years" },
-      { value: "2-4", label: "2 - 4 Years" },
-      { value: "4-6", label: "4 - 6 Years" },
-      { value: "6-8", label: "6 - 8 Years" },
-      { value: "8-10", label: "8 - 10 Years" },
-      { value: "10-15", label: "10 - 15 Years" },
+  const [experienceSelected, setExperienceSelected] = useState(null);
+  const experienceOptions = [
 
-    ]
+    { value: "Freshers", label: "Freshers" },
+    { value: "1-2", label: "1 - 2 Years" },
+    { value: "2-4", label: "2 - 4 Years" },
+    { value: "4-6", label: "4 - 6 Years" },
+    { value: "6-8", label: "6 - 8 Years" },
+    { value: "8-10", label: "8 - 10 Years" },
+    { value: "10-15", label: "10 - 15 Years" },
 
-   const [educationSelected, setEducationSelected] = useState(null);
-    const educationOptions = [
-     
-      { value: "Diploma", label: "Diploma" },
-      { value: "Internship/A-Level", label: "Internship/A-Level" },
-      { value: "Bachelor's Degree", label: "Bachelor's Degree" },
-      { value: "Master's Degree", label: "Master's Degree" },
-      { value: "MPhil", label: "MPhil" },
-      { value: "PhD", label: "PhD" },
-      
-    ]
+  ]
+
+  const [educationSelected, setEducationSelected] = useState(null);
+  const educationOptions = [
+
+    { value: "Diploma", label: "Diploma" },
+    { value: "Internship/A-Level", label: "Internship/A-Level" },
+    { value: "Bachelor's Degree", label: "Bachelor's Degree" },
+    { value: "Master's Degree", label: "Master's Degree" },
+    { value: "MPhil", label: "MPhil" },
+    { value: "PhD", label: "PhD" },
+
+  ]
 
   const {
     register,
@@ -55,11 +55,20 @@ const ApplicantPersonalProfile = () => {
       const previousData = await Applicant_Endpoints.get_profile();
       if (previousData?.data) {
         reset(previousData.data);
+        setExperienceSelected({
+          value: previousData.data.experience,
+          label: previousData.data.experience
+        });
+        setEducationSelected({
+          value: previousData.data.education,
+          label: previousData.data.education,
+        });
+      
         setHasData(true);
       } else {
         reset({
-          profilepic:"",
-          resume:"",
+          profilepic: "",
+          resume: "",
           fullname: "",
           title: "",
           experience: "",
@@ -74,13 +83,20 @@ const ApplicantPersonalProfile = () => {
   }, [reset]);
 
   const onSubmit = (data) => {
-    profile_setting(data)
-    console.log(data)
+
+    const payload = {
+      ...data,
+      experience: experienceSelected?.value || data.experience || "N/A",
+      education: educationSelected?.value || data.education || "N/A",
+    };
+
+    profile_setting(payload)
+    console.log(payload)
   }
 
   // const [picName, setPicName] = useState()
 
-  const handleProfilePic = async(e) => {
+  const handleProfilePic = async (e) => {
     const file = e.target.files[0]
     if (file) {
       const picData = new FormData()
@@ -93,10 +109,10 @@ const ApplicantPersonalProfile = () => {
     }
   }
 
-//  useEffect(() => {
-//   const savedImage = localStorage.getItem("profileImage");
-//   if (savedImage) setPicName(savedImage);
-// }, [])
+  //  useEffect(() => {
+  //   const savedImage = localStorage.getItem("profileImage");
+  //   if (savedImage) setPicName(savedImage);
+  // }, [])
 
 
   const handleUploadResume = (e) => {
@@ -126,7 +142,7 @@ const ApplicantPersonalProfile = () => {
           <h1 className='TopHeading'>Basic Information</h1>
         </div>
         <div className='Divide'>
-          
+
           <div>
             <h3 className='SubHeading'>Profile Picture</h3>
             <ProfilePic>
@@ -153,98 +169,100 @@ const ApplicantPersonalProfile = () => {
             </UploadPdf>
 
           </div>
-          
+
           <div className='form-div'>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Form>
-              <div className='FormSpace FormInputDivide'>
-                <div className='InputWidth'>
-                  <label htmlFor='' className='Label'>Full Name</label>
-                  <input type="text" placeholder='Full Name' className='FormInput'
-                    {...register('fullName', { required: "Enter your Full name." })} />
-                </div>
-                <div className='FormError'>
-                  {errors.fullName && <p>fullName id required.</p>}
-                </div>
-                <div className='InputWidth'>
-                  <label htmlFor='' className='Label'>Title</label>
-                  <input type="text" placeholder='Title' className='FormInput'
-                    {...register('title', { required: "Enter your user title." })} />
-                </div>
-                <div className='FormError'>
-                  {errors.title && <p>title id required.</p>}
-                </div>
-              </div>
-              <div className='FormSpace FormInputDivide'>
-                <div className='InputWidth'>
-                  <label htmlFor='experience' className='Label'>Experience</label>
-
-                  <Select
-                    className="inputSelect select"
-                    classNamePrefix="select"
-                    options={experienceOptions}
-                    value={experienceSelected}
-                    onChange={setExperienceSelected}
-                    placeholder="Experience"
-                  />
-
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Form>
+                <div className='FormSpace FormInputDivide'>
+                  <div className='InputWidth'>
+                    <label htmlFor='' className='Label'>Full Name</label>
+                    <input type="text" placeholder='Full Name' className='FormInput'
+                      {...register('fullName', { required: "Enter your Full name." })} />
+                  </div>
                   <div className='FormError'>
-                    {errors.experience && <p>experience id required.</p>}
+                    {errors.fullName && <p>fullName id required.</p>}
+                  </div>
+                  <div className='InputWidth'>
+                    <label htmlFor='' className='Label'>Title</label>
+                    <input type="text" placeholder='Title' className='FormInput'
+                      {...register('title', { required: "Enter your user title." })} />
+                  </div>
+                  <div className='FormError'>
+                    {errors.title && <p>title id required.</p>}
+                  </div>
+                </div>
+                <div className='FormSpace FormInputDivide'>
+                  <div className='InputWidth'>
+                    <label htmlFor='experience' className='Label'>Experience</label>
+
+                    <Select
+                      name='experience'
+                      className="inputSelect select"
+                      classNamePrefix="select"
+                      options={experienceOptions}
+                      value={experienceSelected}
+                      onChange={setExperienceSelected}
+                      placeholder="Experience"
+                    />
+
+                    <div className='FormError'>
+                      {errors.experience && <p>experience id required.</p>}
+                    </div>
+                  </div>
+
+                  <div className='InputWidth'>
+                    <label htmlFor='education' className='Label'>Education</label>
+
+                    <Select
+                      name='education'
+                      className="inputSelect select"
+                      classNamePrefix="select"
+                      options={educationOptions}
+                      value={educationSelected}
+                      onChange={setEducationSelected}
+                      placeholder="Education"
+                    />
+                    <div className='FormError'>
+                      {errors.education && <p>education id required.</p>}
+                    </div>
                   </div>
                 </div>
 
-                <div className='InputWidth'>
-                  <label htmlFor='education' className='Label'>Education</label>
-                 
-                  <Select
-                    className="inputSelect select"
-                    classNamePrefix="select"
-                    options={educationOptions}
-                    value={educationSelected}
-                    onChange={setEducationSelected}
-                    placeholder="Education"
-                  />
-                  <div className='FormError'>
-                    {errors.education && <p>education id required.</p>}
-                  </div>
+
+                <div className='FormSpace'>
+                  <label htmlFor='personalwebsite' className='Label'>Personal Website</label>
+                  <input type="url" placeholder='Website' className='FormInput'
+                    {...register('personalwebsite', { required: "Enter your Website." })} />
                 </div>
-              </div>
+                <div className='FormError'>
+                  {errors.personalwebsite && <p>personalwebsite id required.</p>}
+                </div>
 
+                <div className='FormSpace'>
+                  <label htmlFor='bioGraphy' className='Label'>Biography</label>
+                  <Controller
+                    name='bioGraphy'
+                    control={control}
+                    rules={{ required: "Enter your bio." }}
+                    render={({ field, fieldState }) => (
+                      <>
+                        <ReactQuill theme="snow" modules={Modules} className='Quillbar' placeholder='Write your biography....'
+                          value={field.value} onChange={field.onChange}
+                        />
 
-              <div className='FormSpace'>
-                <label htmlFor='personalwebsite' className='Label'>Personal Website</label>
-                <input type="url" placeholder='Website' className='FormInput'
-                  {...register('personalwebsite', { required: "Enter your Website." })} />
-              </div>
-              <div className='FormError'>
-                {errors.personalwebsite && <p>personalwebsite id required.</p>}
-              </div>
+                        <div className='FormError'>
+                          {fieldState.error && <p>bioGraphy id required.</p>}
+                        </div>
+                      </>
+                    )}
+                  />
 
-              <div className='FormSpace'>
-                <label htmlFor='bioGraphy' className='Label'>Biography</label>
-                <Controller
-                  name='bioGraphy'
-                  control={control}
-                  rules={{ required: "Enter your bio." }}
-                  render={({ field, fieldState }) => (
-                    <>
-                      <ReactQuill theme="snow" modules={Modules} className='Quillbar' placeholder='Write your biography....'
-                        value={field.value} onChange={field.onChange}
-                      />
+                </div>
 
-                      <div className='FormError'>
-                        {fieldState.error && <p>bioGraphy id required.</p>}
-                      </div>
-                    </>
-                  )}
-                />
-
-              </div>
-
-              <button type='submit' className='FormBtn'>Save Changes</button>
-            </Form>
-          </form>
+                <button type='submit' className='FormBtn'>Save Changes</button>
+              </Form>
+            </form>
           </div>
 
         </div>

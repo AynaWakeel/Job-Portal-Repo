@@ -34,8 +34,8 @@ const RecruiterPostaJob = () => {
     const fetchData = async () => {
       try {
         const res = await Recruiter_Endpoints.get_industry();
-        if (res?.data) {
-          const industryOpt = res.data.map((item) => ({
+        if (res?.data?.industries) {
+          const industryOpt = res.data.industries.map((item) => ({
             value: item.id,
             label: item.name,
           }));
@@ -43,8 +43,8 @@ const RecruiterPostaJob = () => {
         }
 
         const locationres = await Recruiter_Endpoints.get_location();
-        if (locationres?.data) {
-          const locationOtp = locationres.data.map((item) => ({
+        if (locationres?.data?.location) {
+          const locationOtp = locationres.data.location.map((item) => ({
             value: item.id,
             label: item.name,
           }));

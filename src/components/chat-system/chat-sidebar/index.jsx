@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { ChatDiv, ChatSidebar, DmChat } from "./style"
 import Messages from "../messages"
 import ChatList from "../chat-list"
-import { connectSocket, disconnectSocket, socket } from "../../../lib/socket/socket"
+import { connectSocket, disconnectSocket , socket } from "../../../lib/socket/socket"
 
 const ChatSystem = () => {
   const [isChatOpen, setIsChatOpen] = useState(false)
@@ -11,11 +11,18 @@ const ChatSystem = () => {
     setIsChatOpen(false)
   }
 
-    useEffect(() => {
-    connectSocket();
+ useEffect(() => {
+  connectSocket();
 
-    return () => disconnectSocket();
-  }, [])
+  const myId = localStorage.getItem("id");
+  if (myId) {
+    socket.emit("join", myId);
+    console.log("Joined socket room as user:", myId);
+  }
+
+  return () => disconnectSocket();
+}, []);
+
 
 
   return (
@@ -23,24 +30,23 @@ const ChatSystem = () => {
       {/* ------------------ desktop  --------------- */}
       <ChatSidebar className="desktop">
        
-        <ChatList socket={socket} />
+        <ChatList />
 
       </ChatSidebar>
 
       <DmChat className="desktop">
-        <Messages socket={socket} />
+        <Messages />
       </DmChat>
 
       {/* ------------- moobile chat msg ----------------- */}
       {isChatOpen ? (
         <DmChat className="mobile">
-          <Messages socket={socket}  onBack={backToSidebar} />
+          <Messages onBack={backToSidebar} />
         </DmChat>
       ) : (
         <ChatSidebar className="mobile">
         
-         {/* <ChatList socket={socket} /> */}
-         <ChatList socket={socket} onOpenChat={() => setIsChatOpen(true)} />
+         <ChatList onOpenChat={() => setIsChatOpen(true)} />
 
         </ChatSidebar>
       )}

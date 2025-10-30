@@ -10,8 +10,10 @@ import { useLocation, useNavigate } from 'react-router'
 import UseAuth from '../../../auth/useAuth'
 import { Applicant_Endpoints } from '../../../lib/api/applicant_endpoints'
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
+import { socket } from '../../../lib/socket/socket';
 
-const ApplicantNavbar = ({ socket }) => {
+
+const ApplicantNavbar = () => {
   const location = useLocation()
   const [notify, setNotify] = useState([])
   const [chatCount, setChatCount] = useState([])
@@ -30,6 +32,7 @@ const ApplicantNavbar = ({ socket }) => {
 
   const fetchUnreadCount = async () => {
     const res = await Applicant_Endpoints.get_unread_notifications()
+
     if (res?.data) {
       setNotify(res.data)
       console.log("noti", res.data);
@@ -44,52 +47,6 @@ const ApplicantNavbar = ({ socket }) => {
     }
   }
 
-  // useEffect(() => {
-  //    if (!socket) return;
-
-  //    socket.on('receiveMessage', () => {
-  //     fetchChatUnreadCount();
-  //   });
-  //   socket.on('updateTotalUnread', () => {
-  //     fetchChatUnreadCount();
-  //   });
-
-  //   return () => {
-  //     socket.off('receiveMessage');
-  //     socket.off('updateTotalUnread');
-  //   };
-  // }, [socket]);
-
-  useEffect(() => {
-    if (!socket) return;
-
-    const handleReceiveMessage = () => {
-      console.log('📩 New message event received');
-      fetchChatUnreadCount();
-    };
-
-    const handleUpdateTotalUnread = () => {
-      console.log('🔄 Unread count update event received');
-      fetchChatUnreadCount();
-    };
-
-    socket.on('receiveMessage', handleReceiveMessage);
-    socket.on('updateTotalUnread', handleUpdateTotalUnread);
-
-    // Check connection
-    socket.on('connect', () => {
-      console.log('✅ Socket connected in Navbar:', socket.id);
-    });
-
-    return () => {
-      socket.off('receiveMessage', handleReceiveMessage);
-      socket.off('updateTotalUnread', handleUpdateTotalUnread);
-    };
-  }, [socket]);
-
-
-
-
   const fetchData = async () => {
     const res = await Applicant_Endpoints.get_applicant_analytics()
     if (res?.data?.data) {
@@ -99,10 +56,23 @@ const ApplicantNavbar = ({ socket }) => {
   }
 
   useEffect(() => {
-    fetchData()
-    fetchUnreadCount()
-    fetchChatUnreadCount()
-  }, [])
+  fetchData();
+  fetchUnreadCount();
+  fetchChatUnreadCount();
+
+  const interval = setInterval(async () => {
+    try {
+      console.log(" unread counter");
+      await fetchUnreadCount();
+      await fetchChatUnreadCount();
+    } catch (err) {
+      console.error("Error in fetching unread counts", err);
+    }
+  }, 10000);
+
+  return () => clearInterval(interval);
+}, []);
+
 
   const FindJob = () => {
     navigate('/applicant/findjobs')

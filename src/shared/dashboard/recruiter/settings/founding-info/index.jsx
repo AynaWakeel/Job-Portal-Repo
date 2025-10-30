@@ -44,8 +44,8 @@ const FoundingInfo = () => {
       try {
 
         const res = await Recruiter_Endpoints.get_industry()
-        if (res?.data) {
-          const options = res.data.map((item) => ({
+        if (res?.data?.industries) {
+          const options = res.data.industries.map((item) => ({
             value: item.id,
             label: item.name,
           }))

@@ -4,9 +4,10 @@ import searchicon from "../../../assets/icons/search.svg"
 import profile from "../../../assets/images/Ellipse 18.png"
 import { useNavigate } from 'react-router'
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
+import { socket } from "../../../lib/socket/socket"
 import { showError } from '../../toasters'
 
-const ChatList = ({ socket, onOpenChat }) => {
+const ChatList = ({ onOpenChat }) => {
   // const [isChatOpen, setIsChatOpen] = useState(false)
   const [activeChat, setActiveChat] = useState(null)
   const [searchChat, setSearchChat] = useState("")
@@ -46,27 +47,20 @@ const ChatList = ({ socket, onOpenChat }) => {
   }
 
   
-
-
-
 useEffect(() => {
   if (!socket) return;
 
-  const userId = localStorage.getItem('id');
-  console.log("Joining room with ID:", userId);
-  socket.emit('join', userId);
-
   socket.on('receiveMessage', (data) => {
-    console.log("📩 New message:", data);
+    console.log(" New message:", data);
     fetchChats();
   });
 
   socket.on('updateUnreadCount', (data) => {
-    console.log("🔔 Unread count update:", data);
+    console.log(" Unread count update:", data);
     fetchChats();
   });
 
-  socket.onAny((event, data) => console.log('📡 SOCKET EVENT:', event, data));
+  // socket.onAny((event, data) => console.log('SOCKET EVENT:', event, data));
 
   return () => {
     socket.off('receiveMessage');
@@ -114,12 +108,14 @@ useEffect(() => {
           </div>
         </form>
 
+        <div className='ScrollList'>
+
         {filterChat.length > 0 ?
 
           filterChat.map((items) => (
 
             <div key={items.receiver.id} className={`channel ${activeChat === items.receiver.id ? "active" : ""}`} 
-            onClick={() => openDm(items.receiver.id, items.chatId)}>
+            onClick={() => openDm(items.receiver.id, items.chatId , items.senderId)}>
               
               <div className="channeltxt">
                 {items.receiver.profilepic ? 
@@ -163,6 +159,9 @@ useEffect(() => {
           )
 
         }
+
+        </div>
+
 
       </Main>
     </div>

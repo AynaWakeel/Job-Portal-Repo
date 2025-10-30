@@ -10,6 +10,13 @@ export const ChatDiv = styled.div`
   height: 100vh;
   overflow-y: hidden;
 
+  .full-width {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+
   @media ${devices.mobile} {
     flex-direction: column; 
     padding-top: 60px;
@@ -22,6 +29,27 @@ export const ChatSidebar = styled.div`
   flex: 0 0 32%; 
   display: flex;
   flex-direction: column;
+
+  overflow-y: auto;
+
+   &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--white-50);
+    border-radius: 10px;
+  }
+
+  .full-width {
+    width: 100%;
+    /* padding-bottom: 14px; */
+    display: flex;
+    flex-direction: column;
+  }
+
 
   &.desktop {
     display: flex;

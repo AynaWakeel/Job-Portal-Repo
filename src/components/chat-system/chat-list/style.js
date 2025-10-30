@@ -33,6 +33,7 @@ export const Main = styled.div`
     font-size: 16px;
   }
 
+
   .channel {
     display: flex;
     justify-content: space-between;

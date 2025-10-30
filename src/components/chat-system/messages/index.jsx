@@ -7,22 +7,25 @@ import ReportIcon from '../../../assets/icons/ban-solid-full.svg'
 import Trash from '../../../assets/icons/trash-solid-full.svg'
 import { ChatLeft, ChatRight, DmChat, MessageBox } from './style'
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
+import { socket } from "../../../lib/socket/socket"
 import { useChat } from '../useChat'
 import { useLocation } from 'react-router'
 
-const Messages = ({ socket, onBack }) => {
+const Messages = ({ onBack }) => {
 
   const { block_user_by_id, delete_chat, clear_chat, read_message } = useChat()
- const location = useLocation();
-const savedChat = JSON.parse(localStorage.getItem("lastOpenedChat")) || {};
-const personId = location?.state?.id || savedChat?.id || null;
-const tokenId = location?.state?.chatId || savedChat?.chatId || null;
+  const location = useLocation();
+  const savedChat = JSON.parse(localStorage.getItem("lastOpenedChat")) || {};
+  const personId = location?.state?.id || savedChat?.id || null;
+  const tokenId = location?.state?.chatId || savedChat?.chatId || null;
 
   const sender_Id = localStorage.getItem("id");
-   console.log("savedChat:", savedChat);
-  console.log("personId:", personId);
-  console.log("tokenId:", tokenId);
-  console.log("sender id------:", sender_Id);
+  // console.log("savedChat:", savedChat);
+  // console.log("personId:", personId);
+  // console.log("tokenId:", tokenId);
+  // console.log("sender id------:", sender_Id);
+
+  
 
 
   const [userInfo, setUserInfo] = useState()
@@ -83,6 +86,20 @@ const tokenId = location?.state?.chatId || savedChat?.chatId || null;
     console.log("Fetching messages for chatId:", idToUse);
   }, [activeChatId])
 
+
+useEffect(() => {
+  const idToUse = activeChatId || tokenId;
+  if (!idToUse) return;
+  if (socket.connected) socket.emit('join', idToUse);
+  else {
+    const onConnect = () => socket.emit('join', idToUse);
+    socket.on('connect', onConnect);
+    return () => socket.off('connect', onConnect);
+  }
+}, [activeChatId, tokenId]);
+
+
+
   useEffect(() => {
     const markAsRead = async () => {
       if ((activeChatId || tokenId) && !hasRead) {
@@ -99,23 +116,12 @@ const tokenId = location?.state?.chatId || savedChat?.chatId || null;
     markAsRead()
   }, [activeChatId, hasRead])
 
-//   useEffect(() => {
-//   if (socket && (activeChatId || tokenId) && !hasRead) {
-//     socket.emit("markChatAsRead", { 
-//       chatId: activeChatId || tokenId, 
-//       userId: sender_Id 
-//     });
-//     console.log("Marking chat as read via socket:", activeChatId || tokenId);
-//     setHasRead(true);
-//   }
-// }, [socket, activeChatId, tokenId, hasRead]);
-
-
 
   const handleSend = (e) => {
     e.preventDefault()
 
     const trimmed = newMsg?.trim()
+     if (!trimmed) return;
 
     const messageData = {
       chatId: activeChatId || tokenId,
@@ -130,48 +136,47 @@ const tokenId = location?.state?.chatId || savedChat?.chatId || null;
 
     setChatMessages((prev) => [...prev, messageData])
     setNewMsg("")
+    console.log("messs:", messageData);
   }
 
+
+
   useEffect(() => {
-    if (!socket) return;
-    const idToUse = activeChatId || tokenId;
+  if (!socket) return;
 
-    const handleReceive = (data) => {
-      console.log("datachatId:", data.chatId);
-      console.log("Received message:", data);
+  const idToUse = activeChatId || tokenId;
 
-      setChatMessages((prev) => {
+  const handleReceive = (data) => {
+    console.log("Incoming message:", data);
 
-        if (String(data.chatId) === String(idToUse)) {
-          console.log("datachatId:", data.chatId);
-          return [...prev, { ...data, isSender: data.senderId == sender_Id }];
+    if (String(data.chatId) === String(idToUse)) {
+      setChatMessages((prev) => [...prev, { ...data, isSender: data.senderId == sender_Id }]);
 
-        }
-        return prev;
+      socket.emit("markChatAsRead", {
+      chatId: idToUse,
+      userId: sender_Id,
       });
-    };
+      console.log("Auto-marked chat as read:", idToUse);
 
-    socket.on("receiveMessage", handleReceive);
-
-    return () => {
-      socket.off("receiveMessage", handleReceive);
+    } else {
+      console.log("Message for another chat, ignoring...");
     }
-  }, [socket, activeChatId, sender_Id])
+  };
+
+  socket.on("receiveMessage", handleReceive);
+
+  return () => socket.off("receiveMessage", handleReceive);
+}, [socket, activeChatId, tokenId, sender_Id]);
 
 
-  //   useEffect(() => {
-  //   if (socket && (activeChatId || tokenId)) {
-  //     socket.emit("join", activeChatId || tokenId);
-  //     console.log("Joined chat room:", activeChatId || tokenId);
-  //   }
-  // }, [socket, activeChatId, tokenId]);
+useEffect(() => {
+  if (!socket) return;
+  socket.onAny((event, data) => {
+    console.log(" SOCKET EVENT:", event, data);
+  });
+  return () => socket.offAny();
+}, []);
 
-//   useEffect(() => {
-//   if (socket && localStorage.getItem("id")) {
-//     socket.emit("join", localStorage.getItem("id"));
-//     console.log("Joined user room:", localStorage.getItem("id"));
-//   }
-// }, [socket]);
 
 
 
