@@ -89,6 +89,8 @@ padding-inline: 50px;
     cursor: pointer;
 }
 
+
+
 .NavBtn{
     padding-block: 12px;
     padding-inline: 24px;
@@ -191,6 +193,20 @@ gap: 60px;
     cursor: pointer;
 }
 
+
+.tab{
+    text-decoration: none;
+    color: var(--purple-200);
+    font-size: 17px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
+.tab.active{
+    color: var(--purple-600);
+    border-bottom: 2px solid var(--purple-600);
+}
+
 `
 
 // ----- menu bar
@@ -251,6 +267,20 @@ display: none;
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
     cursor: pointer;
+}
+
+
+.tab{
+    text-decoration: none;
+    color: var(--purple-200);
+    font-size: 17px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
+.tab.active{
+    color: var(--purple-600);
+    border-bottom: 2px solid var(--purple-600);
 }
 
 .photo{
@@ -349,5 +379,19 @@ z-index: 999;
     color: var(--purple-600);
     border-bottom: 2px solid var(--purple-600);
     cursor: pointer;
+}
+
+
+.tab{
+    text-decoration: none;
+    color: var(--purple-200);
+    font-size: 17px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
+.tab.active{
+    color: var(--purple-600);
+    border-bottom: 2px solid var(--purple-600);
 }
 `

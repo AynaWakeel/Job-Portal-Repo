@@ -18,7 +18,6 @@ const ApplicantNavbar = () => {
   const [notify, setNotify] = useState([])
   const [chatCount, setChatCount] = useState([])
   const [analyticsData, setAnalyticsData] = useState([])
-  const [isActive, setIsActive] = useState('Dashboard')
   const profileDropdownRef = useRef(null)
   const mobileMenuRef = useRef(null)
 
@@ -56,40 +55,22 @@ const ApplicantNavbar = () => {
   }
 
   useEffect(() => {
-  fetchData();
-  fetchUnreadCount();
-  fetchChatUnreadCount();
+    fetchData();
+    fetchUnreadCount();
+    fetchChatUnreadCount();
 
-  const interval = setInterval(async () => {
-    try {
-      console.log(" unread counter");
-      await fetchUnreadCount();
-      await fetchChatUnreadCount();
-    } catch (err) {
-      console.error("Error in fetching unread counts", err);
-    }
-  }, 10000);
+    const interval = setInterval(async () => {
+      try {
+        console.log(" unread counter");
+        await fetchUnreadCount();
+        await fetchChatUnreadCount();
+      } catch (err) {
+        console.error("Error in fetching unread counts", err);
+      }
+    }, 10000);
 
-  return () => clearInterval(interval);
-}, []);
-
-
-  const FindJob = () => {
-    navigate('/applicant/findjobs')
-    setIsActive("Find Jobs")
-    setIsOpen(false)
-  }
-  const Dashboard = () => {
-    navigate('/applicant/dashboard/overview')
-    setIsActive("Dashboard")
-    setIsOpen(false)
-  }
-
-  const Support = () => {
-    navigate('/applicant/support')
-    setIsActive("Customer Support")
-    setIsOpen(false)
-  }
+    return () => clearInterval(interval);
+  }, []);
 
   const [isOpen, setIsOpen] = useState(false)
   const OpenMenu = () => {
@@ -150,18 +131,24 @@ const ApplicantNavbar = () => {
           </div>
           <div>
             <ul className='Navlinks'>
-              {ApplicantNavbarOptions.map((item) => (
+              {ApplicantNavbarOptions.map((item) => {
 
-                <li key={item.path} onClick={() => { navigate(item.path); setIsOpen(false); }}>
-                  <a className={`tab ${location.pathname === item.path ? 'active' : ''}`}>{item.label}</a>
-                </li>
+                const isActive =
+                  item.path === '/applicant/dashboard/overview'
+                    ? location.pathname.startsWith('/applicant/dashboard')
+                    : location.pathname === item.path;
 
-              ))}
+                return (
 
+                  <li key={item.path} onClick={() => { navigate(item.path); setIsOpen(false); }}>
+                    <a className={`tab ${isActive ? 'active' : ''}`}>
+                      {item.label}
+                    </a>
+                  </li>
 
-              {/* <li><a className={isActive === "Find Jobs" ? "tab active" : "tab"} onClick={FindJob}>Find Jobs</a></li>
-              <li><a className={isActive === "Dashboard" ? "tab active" : "tab"} onClick={Dashboard}>Dashboard</a></li>
-              <li><a className={isActive === "Customer Support" ? "tab active" : "tab"} onClick={Support}>Customer Support</a></li> */}
+                )
+              })}
+
             </ul>
           </div>
         </NavbarNav>
@@ -231,9 +218,24 @@ const ApplicantNavbar = () => {
                     }
                   </div>
                   <ul className='Navlinks'>
-                    <li><a onClick={FindJob}>Find Jobs</a></li>
-                    <li><a onClick={Dashboard}>Dashboard</a></li>
-                    <li><a onClick={Support}>Customer Support</a></li>
+
+                    {ApplicantNavbarOptions.map((item) => {
+
+                      const isActive =
+                        item.path === '/applicant/dashboard/overview'
+                          ? location.pathname.startsWith('/applicant/dashboard')
+                          : location.pathname === item.path;
+
+                      return (
+
+                        <li key={item.path} onClick={() => { navigate(item.path); setIsOpen(false); }}>
+                          <a className={`tab ${isActive ? 'active' : ''}`}>
+                            {item.label}
+                          </a>
+                        </li>
+
+                      )
+                    })}
                     <li><a onClick={onLogout}>Logout</a></li>
                   </ul>
                 </div>

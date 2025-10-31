@@ -68,15 +68,23 @@ const DashboardSidebar = () => {
                 <div className='Sidebar'>
                     <ul className='Navlinks'>
 
-                        {Menu.map((item) => (
+                        {Menu.map((item) => {
+
+                        const isActive =
+                        item.path === '/recruiter/dashboard/myjobs'
+                          ? location.pathname.startsWith('/recruiter/dashboard/myjobs')
+                          : location.pathname === item.path;
+                        
+                        return (
 
                             <li key={item.path} onClick={() => navigate(item.path)}
-                                className={`tab ${location.pathname.startsWith(item.path) ? " active" : ""}`}>
+                                className={`tab ${isActive ? " active" : ""}`}>
                                 <div className='IconColor' >{item.icon}</div>
                                 <a>{item.label}</a>
                             </li>
 
-                        ))}
+                        )
+                        })}
 
                     </ul>
                 </div>
@@ -101,7 +109,7 @@ const DashboardSidebar = () => {
                                 {Menu.map((item) => (
 
                                     <li key={item.path} onClick={() => { navigate(item.path); setIsOpen(false) }}
-                                        className={`tab ${location.pathname.startsWith(item.path) ? " active" : ""}`}>
+                                        className={`tab ${location.pathname === item.path ? " active" : ""}`}>
                                         <div className='IconColor' >{item.icon}</div>
                                         <a>{item.label}</a>
                                     </li>

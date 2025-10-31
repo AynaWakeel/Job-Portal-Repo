@@ -5,41 +5,49 @@ import send from '../../../assets/icons/Send_Web.svg'
 import { ReactComponent as Tick } from '../../../assets/icons/Read status.svg'
 import ReportIcon from '../../../assets/icons/ban-solid-full.svg'
 import Trash from '../../../assets/icons/trash-solid-full.svg'
+import Threedot from '../../../assets/icons/DotsThreeVertical.svg'
 import { ChatLeft, ChatRight, DmChat, MessageBox } from './style'
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
 import { socket } from "../../../lib/socket/socket"
 import { useChat } from '../useChat'
-import { useLocation } from 'react-router'
 
-const Messages = ({ onBack }) => {
+const Messages = ({ selectedChat, onBack , onDeleteChat}) => {
 
   const { block_user_by_id, delete_chat, clear_chat, read_message } = useChat()
-  const location = useLocation();
-  const savedChat = JSON.parse(localStorage.getItem("lastOpenedChat")) || {};
-  const personId = location?.state?.id || savedChat?.id || null;
-  const tokenId = location?.state?.chatId || savedChat?.chatId || null;
 
   const sender_Id = localStorage.getItem("id");
-  // console.log("savedChat:", savedChat);
-  // console.log("personId:", personId);
-  // console.log("tokenId:", tokenId);
-  // console.log("sender id------:", sender_Id);
-
-  
-
+  const [personId, setPersonId] = useState(null);
+  const [tokenId, setTokenId] = useState(null);
 
   const [userInfo, setUserInfo] = useState()
   const [chatMessages, setChatMessages] = useState([])
-  const [activeChatId, setActiveChatId] = useState(tokenId || null)
+  const [activeChatId, setActiveChatId] = useState(null)
   const [newMsg, setNewMsg] = useState("")
   const [hasRead, setHasRead] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
 
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef(null)
+  const ChatDropdownRef = useRef(null)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages]);
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ChatDropdownRef.current && !ChatDropdownRef.current.contains(event.target)) {
+        setIsOpen(false)
+      }
+
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const fetchMessages = async (id) => {
     if (!id) return;
@@ -59,13 +67,13 @@ const Messages = ({ onBack }) => {
     }
   };
 
+
+
   const fetchUser = async () => {
     try {
       const res = await Chat_Endpoints.get_chat_info_by_userId(personId);
       setUserInfo(res.data.chat.receiver)
       setActiveChatId(res.data.chat.chatId);
-      console.log("userIndo chT:", res.data.chat.receiver.fullName);
-      console.log("userId of chat info:", personId);
       console.log("user chatId in res >>>:", res.data.chat.chatId);
 
     } catch (error) {
@@ -81,22 +89,31 @@ const Messages = ({ onBack }) => {
   }, [personId])
 
   useEffect(() => {
+    if (selectedChat) {
+      setPersonId(selectedChat.id);
+      setTokenId(selectedChat.chatId);
+      console.log(" Selected chat updated:", selectedChat);
+    }
+  }, [selectedChat]);
+
+
+  useEffect(() => {
     const idToUse = activeChatId || tokenId
     if (idToUse) fetchMessages(idToUse)
     console.log("Fetching messages for chatId:", idToUse);
-  }, [activeChatId])
+  }, [activeChatId, tokenId])
 
 
-useEffect(() => {
-  const idToUse = activeChatId || tokenId;
-  if (!idToUse) return;
-  if (socket.connected) socket.emit('join', idToUse);
-  else {
-    const onConnect = () => socket.emit('join', idToUse);
-    socket.on('connect', onConnect);
-    return () => socket.off('connect', onConnect);
-  }
-}, [activeChatId, tokenId]);
+  useEffect(() => {
+    const idToUse = activeChatId || tokenId;
+    if (!idToUse) return;
+    if (socket.connected) socket.emit('join', idToUse);
+    else {
+      const onConnect = () => socket.emit('join', idToUse);
+      socket.on('connect', onConnect);
+      return () => socket.off('connect', onConnect);
+    }
+  }, [activeChatId, tokenId]);
 
 
 
@@ -121,7 +138,7 @@ useEffect(() => {
     e.preventDefault()
 
     const trimmed = newMsg?.trim()
-     if (!trimmed) return;
+    if (!trimmed) return;
 
     const messageData = {
       chatId: activeChatId || tokenId,
@@ -142,42 +159,31 @@ useEffect(() => {
 
 
   useEffect(() => {
-  if (!socket) return;
+    if (!socket) return;
 
-  const idToUse = activeChatId || tokenId;
+    const idToUse = activeChatId || tokenId;
 
-  const handleReceive = (data) => {
-    console.log("Incoming message:", data);
+    const handleReceive = (data) => {
+      console.log("Incoming message:", data);
 
-    if (String(data.chatId) === String(idToUse)) {
-      setChatMessages((prev) => [...prev, { ...data, isSender: data.senderId == sender_Id }]);
+      if (String(data.chatId) === String(idToUse)) {
+        setChatMessages((prev) => [...prev, { ...data, isSender: data.senderId == sender_Id }]);
 
-      socket.emit("markChatAsRead", {
-      chatId: idToUse,
-      userId: sender_Id,
-      });
-      console.log("Auto-marked chat as read:", idToUse);
+        socket.emit("markChatAsRead", {
+          chatId: idToUse,
+          userId: sender_Id,
+        });
+        console.log("Auto-marked chat as read:", idToUse);
 
-    } else {
-      console.log("Message for another chat, ignoring...");
-    }
-  };
+      } else {
+        console.log("Message for another chat, ignoring...");
+      }
+    };
 
-  socket.on("receiveMessage", handleReceive);
+    socket.on("receiveMessage", handleReceive);
 
-  return () => socket.off("receiveMessage", handleReceive);
-}, [socket, activeChatId, tokenId, sender_Id]);
-
-
-useEffect(() => {
-  if (!socket) return;
-  socket.onAny((event, data) => {
-    console.log(" SOCKET EVENT:", event, data);
-  });
-  return () => socket.offAny();
-}, []);
-
-
+    return () => socket.off("receiveMessage", handleReceive);
+  }, [socket]);
 
 
   const handleBlockuser = async (id, actionType) => {
@@ -190,6 +196,7 @@ useEffect(() => {
     fetchUser()
     if (res) {
       console.log("block res:", res);
+      setIsOpen(false)
     }
   }
 
@@ -200,8 +207,11 @@ useEffect(() => {
       if (res) {
         console.log("delte cat res:", res);
         setChatMessages([]);
+        setUserInfo(null)
+        onDeleteChat()
+        setIsOpen(false)
+        if (onBack) onBack();
       }
-      //  fetchMessages()
     } catch (err) {
       console.log("error:", err);
 
@@ -216,8 +226,8 @@ useEffect(() => {
       if (res) {
         console.log("clear cat res:", res);
         setChatMessages([]);
+        setIsOpen(false)
       }
-      //  fetchMessages()
     } catch (err) {
       console.log("error:", err);
 
@@ -252,24 +262,34 @@ useEffect(() => {
             </div>
           </div>
 
-          <div className='banDiv'>
+          <div ref={ChatDropdownRef}>
 
-            <div className='banDiv' onClick={() => handleClearChat(activeChatId)}>
-              {/* <img src={Trash} alt='del' /> */}
-              <p className="red">Clear Chat</p>
-            </div>
-            {userInfo?.blockedByCurrentUser ?
+            <span className='Box' onClick={() => setIsOpen(!isOpen)}>
+              <img src={Threedot} />
+            </span>
 
-              <div className='banDiv' onClick={() => handleBlockuser(userInfo.id, "unblock")}>
-                <p className="red">Blocked</p>
+            {isOpen &&
+
+              <div className='dropdown'>
+
+                <div className="dropdown-row" onClick={() => handleClearChat(activeChatId)}>
+                  <span className='expire'>Clear chat</span>
+                </div>
+
+                {userInfo?.blockedByCurrentUser ?
+                  <div className='dropdown-row' onClick={() => handleBlockuser(userInfo.id, "unblock")}>
+                    <span className='expire'>Blocked</span>
+                  </div>
+                  :
+
+                  <div className='dropdown-row' onClick={() => handleBlockuser(userInfo.id, "block")}>
+                    <span className='expire'>Block user</span>
+                  </div>
+                }
+
+
               </div>
 
-              :
-
-              <div className='banDiv' onClick={() => handleBlockuser(userInfo.id, "block")}>
-                {/* <img src={ReportIcon} alt='ban' /> */}
-                <p className="red">Block</p>
-              </div>
             }
           </div>
 

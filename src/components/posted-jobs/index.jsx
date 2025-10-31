@@ -62,7 +62,7 @@ const PostedJobs = () => {
     }
 
     const ViewApplications = (jobId) => {
-        navigate("/recruiter/dashboard/applications", { state: { jobId } })
+        navigate("/recruiter/dashboard/myjobs/applications", { state: { jobId } })
 
     }
 

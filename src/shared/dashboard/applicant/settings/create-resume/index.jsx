@@ -42,7 +42,10 @@ const ApplicantCreateResume = () => {
       const previousData = await Applicant_Endpoints.get_resume();
       if (previousData?.data) {
         reset(previousData.data.resume);
-        setSelected(previousData.data.resume.experience)
+         setSelected({
+          value: previousData.data.resume.experience,
+          label: previousData.data.resume.experience
+        });
         setHasResume(true);
       } else {
         reset({
@@ -69,8 +72,9 @@ const ApplicantCreateResume = () => {
   const onSubmit = (data) => {
     const body = {
       ...data,
-      experience:selected?.value
+      experience:selected?.value || data.resume.experience || "N/A",
     }
+
     console.log(body,'here is data');
     
     if (data.resume?.[0]) {

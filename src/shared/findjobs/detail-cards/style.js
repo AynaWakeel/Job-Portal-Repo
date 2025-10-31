@@ -8,13 +8,22 @@ padding-top: 120px;
 padding-bottom: 50px;
 padding-inline: 120px;
 
+
+@media ${devices.laptop}{
+    padding-top: 120px;
+padding-bottom: 50px;
+    padding-inline: 40px;
+}
+
 @media ${devices.tablet}{
-    padding-block: 50px;
-    padding-inline: 45px;
+    padding-top: 120px;
+padding-bottom: 50px;
+    padding-inline: 35px;
 }
 
 @media ${devices.mobile}{
-    padding-block: 40px;
+    padding-top: 120px;
+padding-bottom: 50px;
     padding-inline: 30px;
 }
 
@@ -39,7 +48,7 @@ padding-inline: 120px;
 
     
 @media ${devices.tablet}{
-    font-size: 30px;
+    font-size: 24px;
 
 }
 

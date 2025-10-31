@@ -3,7 +3,7 @@ import { DropdownMenu, Menu, Navbar, NavbarNav } from './style'
 import { ReactComponent as Myjob } from '../../../assets/icons/MyJobLogo.svg'
 import Profile from '../../../assets/images/Employers.png'
 import NotifyIcon from '../../../assets/icons/bell-solid-full.svg'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import FindCandidates from '../../../shared/find-candidates/home'
 import Menubar from '../../../assets/icons/fi_menu.svg'
 import Close from '../../../assets/icons/fi_x.svg'
@@ -14,6 +14,7 @@ import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
 
 
 const RecruiterNavbar = () => {
+  const location = useLocation()
   const navigate = useNavigate()
   const [notify, setNotify] = useState([])
   const [chatCount, setChatCount] = useState([])
@@ -49,16 +50,16 @@ const RecruiterNavbar = () => {
     fetchChatUnreadCount()
 
     const interval = setInterval(async () => {
-    try {
-      console.log(" unread counter");
-      await fetch();
-      await fetchChatUnreadCount();
-    } catch (err) {
-      console.error("Error in fetching unread counts", err);
-    }
-  }, 10000);
+      try {
+        console.log(" unread counter");
+        await fetch();
+        await fetchChatUnreadCount();
+      } catch (err) {
+        console.error("Error in fetching unread counts", err);
+      }
+    }, 10000);
 
-  return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, [])
 
 
@@ -81,24 +82,30 @@ const RecruiterNavbar = () => {
     setIsOpen(false)
   }
 
-  const [isActive, setIsActive] = useState('Dashboard')
+  // const [isActive, setIsActive] = useState('Dashboard')
 
-  const FindCandidates = () => {
-    navigate('/recruiter/find-candidates')
-    setIsActive("Find Candidates")
-    setIsOpen(false)
-  }
-  const Dashboard = () => {
-    navigate('/recruiter/dashboard/overview')
-    setIsActive("Dashboard")
-    setIsOpen(false)
-  }
+  // const FindCandidates = () => {
+  //   navigate('/recruiter/find-candidates')
+  //   setIsActive("Find Candidates")
+  //   setIsOpen(false)
+  // }
+  // const Dashboard = () => {
+  //   navigate('/recruiter/dashboard/overview')
+  //   setIsActive("Dashboard")
+  //   setIsOpen(false)
+  // }
 
-  const Support = () => {
-    navigate('/recruiter/support')
-    setIsActive("Customer Support")
-    setIsOpen(false)
-  }
+  // const Support = () => {
+  //   navigate('/recruiter/support')
+  //   setIsActive("Customer Support")
+  //   setIsOpen(false)
+  // }
+
+  const RecruiterOption = [
+    { label: 'Find Candidates', path: '/recruiter/find-candidates' },
+    { label: 'Dashboard', path: '/recruiter/dashboard/overview' },
+    { label: 'Customer Support', path: '/recruiter/support' }
+  ]
 
   const [isOpen, setIsOpen] = useState(false)
   const OpenMenu = () => {
@@ -151,9 +158,25 @@ const RecruiterNavbar = () => {
           </div>
           <div>
             <ul className='Navlinks'>
-              <li><a className={isActive === "Find Candidates" ? "tab active" : "tab"} onClick={FindCandidates}>Find Candidates</a></li>
-              <li><a className={isActive === "Dashboard" ? "tab active" : "tab"} onClick={Dashboard}>Dashboard</a></li>
-              <li><a className={isActive === "Customer Support" ? "tab active" : "tab"} onClick={Support}>Customer Support</a></li>
+
+              {RecruiterOption.map((item) => {
+
+                const isActive =
+                  item.path === '/recruiter/dashboard/overview'
+                    ? location.pathname.startsWith('/recruiter/dashboard')
+                    : location.pathname === item.path;
+
+                return (
+
+                  <li key={item.path} onClick={() => { navigate(item.path); setIsOpen(false); }}>
+                    <a className={`tab ${isActive ? 'active' : ''}`}>
+                      {item.label}
+                    </a>
+                  </li>
+
+                )
+              })}
+
             </ul>
           </div>
         </NavbarNav>
@@ -225,9 +248,24 @@ const RecruiterNavbar = () => {
 
                   </div>
                   <ul className='Navlinks'>
-                    <li><a onClick={FindCandidates}>Find Candidates</a></li>
-                    <li><a onClick={Dashboard}>Dashboard</a></li>
-                    <li><a onClick={Support}>Customer Support</a></li>
+
+                    {RecruiterOption.map((item) => {
+
+                      const isActive =
+                        item.path === '/recruiter/dashboard/overview'
+                          ? location.pathname.startsWith('/recruiter/dashboard')
+                          : location.pathname === item.path;
+
+                      return (
+
+                        <li key={item.path} onClick={() => { navigate(item.path); setIsOpen(false); }}>
+                          <a className={`tab ${isActive ? 'active' : ''}`}>
+                            {item.label}
+                          </a>
+                        </li>
+
+                      )
+                    })}
                     <li><a onClick={onLogout}>Logout</a></li>
                   </ul>
                 </div>

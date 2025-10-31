@@ -72,6 +72,7 @@ overflow-x: hidden;
 }
 
 .Grid{
+    width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;

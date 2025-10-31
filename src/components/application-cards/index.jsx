@@ -50,7 +50,7 @@ const ApplicationCards = ({onStatusChange,onRefresh}) => {
     }, [jobId, currentPage,onRefresh])
 
     const Profile = (applicationId) => {
-        navigate('/recruiter/dashboard/applicate-profile', { state: { jobId, applicationId } })
+        navigate('/recruiter/dashboard/myjobs/applications/applicate-profile', { state: { jobId, applicationId } })
     }
 
     const handlePrevPage = () => {

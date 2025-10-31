@@ -236,6 +236,19 @@ display: none;
     list-style: none;
 }
 
+.tab{
+    text-decoration: none;
+    color: var(--purple-200);
+    font-size: 17px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
+.tab.active{
+    color: var(--purple-600);
+    border-bottom: 2px solid var(--purple-600);
+}
+
 .Navlinks a{
     text-decoration: none;
     color: var(--purple-200);

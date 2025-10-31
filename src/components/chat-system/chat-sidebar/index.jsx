@@ -6,6 +6,12 @@ import { connectSocket, disconnectSocket , socket } from "../../../lib/socket/so
 
 const ChatSystem = () => {
   const [isChatOpen, setIsChatOpen] = useState(false)
+  const [selectedChat, setSelectedChat] = useState(null);
+  const [refreshChatList,setRefreshChatList] = useState(false)
+
+  const handleDeleteChatRoom = ()=>{
+    setRefreshChatList(p=>(!p))
+  }
 
   const backToSidebar = () => {
     setIsChatOpen(false)
@@ -30,23 +36,23 @@ const ChatSystem = () => {
       {/* ------------------ desktop  --------------- */}
       <ChatSidebar className="desktop">
        
-        <ChatList />
+        <ChatList  onSelectChat={setSelectedChat} onRefresh={refreshChatList}/>
 
       </ChatSidebar>
 
       <DmChat className="desktop">
-        <Messages />
+        <Messages selectedChat={selectedChat}  onDeleteChat={handleDeleteChatRoom}/>
       </DmChat>
 
       {/* ------------- moobile chat msg ----------------- */}
       {isChatOpen ? (
         <DmChat className="mobile">
-          <Messages onBack={backToSidebar} />
+          <Messages  selectedChat={selectedChat}  onBack={backToSidebar} />
         </DmChat>
       ) : (
         <ChatSidebar className="mobile">
         
-         <ChatList onOpenChat={() => setIsChatOpen(true)} />
+         <ChatList  onSelectChat={setSelectedChat} onOpenChat={() => setIsChatOpen(true)} />
 
         </ChatSidebar>
       )}

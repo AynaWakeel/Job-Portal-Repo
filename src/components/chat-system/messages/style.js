@@ -235,6 +235,50 @@ export const DmChat = styled.div`
   object-fit: contain;
 } */
 
+  
+.dropdown{
+    display: flex;
+    flex-direction: column;
+    /* gap: 8px; */
+    position: absolute;
+    top: 38px;
+    right: 48px;
+    background-color: var(--purple-200);
+    box-shadow: 0 0 10px var(--dark-800);
+}
+
+.dropdown-row{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    justify-content: start;
+    align-items: center;
+    padding-block: 6px;
+    padding-inline: 18px;
+    cursor: pointer;
+}
+
+.dropdown-row:hover{
+    background-color:var(--white-50);
+    color: var(--purple-600);
+}
+
+.closeicon{
+    color: var(--white-50);
+}
+
+.expire{
+    color: var(--white-50);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--inter);
+    line-height: 20px;
+}
+
+.dropdown-row:hover .expire{
+    color: var(--purple-600);
+}
+
 
 .gallery-div{
   position: fixed;

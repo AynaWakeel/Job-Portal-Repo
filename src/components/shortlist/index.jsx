@@ -57,7 +57,7 @@ const Shortlist = ({onStatusChange,onRefresh}) => {
 
 
     const gotoProfile = (applicationId) => {
-        navigate('/recruiter/dashboard/applicate-profile', { state: { jobId, applicationId } })
+        navigate('/recruiter/dashboard/myjobs/applications/applicate-profile', { state: { jobId, applicationId } })
     }
 
     const handlePrevPage = () => {

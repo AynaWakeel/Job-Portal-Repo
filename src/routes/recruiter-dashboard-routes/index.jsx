@@ -15,16 +15,12 @@ const RecruiterDashboardRoutes = () => {
     return (
         <div>
             <DashboardLayouts>
-                <ScrollToTop/>
+                <ScrollToTop />
                 <Routes>
                     <Route path='/overview' element={<RecruiterOverview />} />
-                    <Route path='/applicate-profile' element={<ViewProfileApplications />} />
-                    {/* <Route path='/myjobs' element={<RecruiterMyJobs />}>
-                      <Route path='/applications' element={<JobApplications />} />
-                    </Route> */}
-                     <Route path='/myjobs' element={<RecruiterMyJobs />}/>
-                      <Route path='/applications' element={<JobApplications />} />
-                    {/* </Route> */}
+                    <Route path='/myjobs' element={<RecruiterMyJobs />} />
+                    <Route path='/myjobs/applications' element={<JobApplications />} />
+                    <Route path='/myjobs/applications/applicate-profile' element={<ViewProfileApplications />} />
                     <Route path='/alljobs' element={<RecruiterAllJobs />} />
                     <Route path='/postjob' element={<RecruiterPostaJob />} />
                     <Route path='/settings' element={<RecruiterSettings />} />

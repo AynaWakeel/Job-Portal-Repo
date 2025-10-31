@@ -2,44 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { Main } from './style'
 import searchicon from "../../../assets/icons/search.svg"
 import profile from "../../../assets/images/Ellipse 18.png"
-import { useNavigate } from 'react-router'
 import { Chat_Endpoints } from '../../../lib/api/chat_endpoints'
 import { socket } from "../../../lib/socket/socket"
 import { showError } from '../../toasters'
 
-const ChatList = ({ onOpenChat }) => {
-  // const [isChatOpen, setIsChatOpen] = useState(false)
+const ChatList = ({onSelectChat , onOpenChat , onRefresh}) => {
   const [activeChat, setActiveChat] = useState(null)
   const [searchChat, setSearchChat] = useState("")
   const [person, setPerson] = useState([])
-  const navigate = useNavigate()
-   const userId = localStorage.getItem('id');
-  console.log("Joining room with ID:", userId);
 
   console.log('Socket connected?', socket.connected);
 
+  const openDm = (id, chatId) => {
 
-  const openDm = (id, chatId, senderId) => {
-
-    const role = localStorage.getItem("role")
-    
-  localStorage.setItem(
-    "lastOpenedChat",
-    JSON.stringify({ id, chatId, senderId })
-  );
-
-    if (role === "applicant") {
-      navigate("/applicant/chat", { state: { id, chatId, senderId } })
-    } else {
-      navigate("/recruiter/chat", { state: { id, chatId, senderId } })
-
-    }
-    // setIsChatOpen(true)
+    onSelectChat({ id, chatId });
     setActiveChat(id)
-    console.log("chat room id:", id);
-    console.log("chat room Chatid:", chatId);
-    console.log("senderId :", senderId);
-
 
     if (onOpenChat) {
       onOpenChat();
@@ -59,8 +36,6 @@ useEffect(() => {
     console.log(" Unread count update:", data);
     fetchChats();
   });
-
-  // socket.onAny((event, data) => console.log('SOCKET EVENT:', event, data));
 
   return () => {
     socket.off('receiveMessage');
@@ -88,11 +63,9 @@ useEffect(() => {
 
   useEffect(() => {
    fetchChats ()
-  }, [])
+  }, [onRefresh])
 
   
-   
-
   const filterChat = person.filter(p =>
     p?.receiver?.fullName?.toLowerCase().includes(searchChat.toLowerCase())
   )
@@ -115,7 +88,7 @@ useEffect(() => {
           filterChat.map((items) => (
 
             <div key={items.receiver.id} className={`channel ${activeChat === items.receiver.id ? "active" : ""}`} 
-            onClick={() => openDm(items.receiver.id, items.chatId , items.senderId)}>
+            onClick={() => openDm(items.receiver.id, items.chatId)}>
               
               <div className="channeltxt">
                 {items.receiver.profilepic ? 

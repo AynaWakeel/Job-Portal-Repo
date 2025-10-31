@@ -165,6 +165,27 @@ display: none;
 
 }
 
+.tab{
+    text-decoration: none;
+    color: var(--purple-200);
+    font-size: 17px;
+    font-weight: 400;
+    font-family: var(--inter);
+}
+
+.tab.active{
+    background-color: var(--purple-50);
+    border-left: 3px solid var(--purple-600);
+}
+
+.tab.active a{
+    color: var(--purple-600);
+}
+
+.tab.active .IconColor{
+    color: var(--purple-600);
+}
+
 .Navlinks a{
     text-decoration: none;
     color: #767F8C;
