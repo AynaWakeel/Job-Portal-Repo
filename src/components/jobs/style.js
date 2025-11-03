@@ -3,7 +3,6 @@ import { devices } from "../breakpoints/index";
 
 export const MainSec = styled.div`
 padding-block: 20px;
-max-width: 1200px;
 overflow-x: hidden;
 
 

@@ -19,6 +19,8 @@ const Jobs = () => {
     const [savedJobData, setSavedJobData] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
+     const [saveCurrentPage, setSaveCurrentPage] = useState(1);
+    const [saveTotalPages, setSaveTotalPages] = useState(0);
 
     const { save_job, remove_save_job } = useApplicant()
 
@@ -71,16 +73,16 @@ const Jobs = () => {
 
         if (savedRes?.data?.savedJobs) {
             setSavedJobData(savedRes.data.savedJobs.map(job => job.job.id))
-             setTotalPages(savedRes.data.totalPages)
-            setCurrentPage(savedRes.data.currentPage)
+             setSaveTotalPages(savedRes.data.totalPages)
+            setSaveCurrentPage(savedRes.data.currentPage)
             setIsLoading(false)
         }
     }
 
     useEffect(() => {
         fetchData(currentPage)
-        fetchSavedData(currentPage)
-    }, [currentPage])
+        fetchSavedData(saveCurrentPage)
+    }, [currentPage , saveCurrentPage])
 
 
     if (isLoading) return <Loader />

@@ -9,12 +9,14 @@ import ChatSystem from '../../components/chat-system/chat-sidebar'
 import RecruiterDashboardRoutes from '../recruiter-dashboard-routes'
 import ViewApplicantProfile from '../../shared/find-candidates/view-profile'
 import ViewApplicantResume from '../../shared/find-candidates/view-resume'
+import ScrollToTop from '../../helper/ScrollToTop'
 
 
 const RecruiterRoutes = () => {
   return (
     <div>
       <RecruiterLayouts>
+        <ScrollToTop/>
         <Routes>
           <Route path='/find-candidates' element={<FindCandidates />} />
           <Route path='/profile' element={<RecruiterProfile />} />
