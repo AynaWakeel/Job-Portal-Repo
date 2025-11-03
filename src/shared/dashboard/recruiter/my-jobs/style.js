@@ -3,8 +3,9 @@ import { devices } from "../../../../components/breakpoints";
 
 
 export const Jobdiv = styled.div`
-padding-block: 50px;
+padding-top: 50px;
 padding-inline: 20px;
+padding-bottom: 20px;
 
 .TopHeading{
     color: #18191C;

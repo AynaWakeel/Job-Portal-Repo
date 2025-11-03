@@ -60,6 +60,7 @@ padding-inline: 20px;
     }
 
      @media ${devices.tablet}{
+        gap: 0px;
         flex-wrap: wrap;
     }
 

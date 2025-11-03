@@ -85,9 +85,9 @@ const Login = () => {
                             </div>
 
                             <ForgetDiv>
-                                <span className='CheckBoxSpan'>
+                                {/* <span className='CheckBoxSpan'>
                                     <Checkbox type="checkbox" />Remember Me
-                                </span>
+                                </span> */}
                                 <span><a onClick={ForgetPassword} className='ForgetText'>Forgot Password?</a></span>
                             </ForgetDiv>
                             <button type='submit' className='FormBtn'>Sign In</button>

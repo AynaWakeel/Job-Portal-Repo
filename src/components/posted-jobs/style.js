@@ -66,7 +66,7 @@ padding-top: 20px;
     flex-direction: column;
     align-items: start;
     gap: 24px;
-    min-height: 50vh;
+    min-height: 56vh;
 }
 
 .Grid{
