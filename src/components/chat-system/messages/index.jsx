@@ -243,6 +243,8 @@ const Messages = ({ selectedChat, onBack , onDeleteChat}) => {
     <div>
       <DmChat>
 
+        {userInfo &&
+        
         <div className="bar">
           <div className="channelheader">
             <div className="display" onClick={onBack}>
@@ -294,6 +296,8 @@ const Messages = ({ selectedChat, onBack , onDeleteChat}) => {
           </div>
 
         </div>
+        }
+
 
         <MessageBox>
           {chatMessages.map((msg, i) => {
@@ -351,8 +355,8 @@ const Messages = ({ selectedChat, onBack , onDeleteChat}) => {
             </div>
           </div>
 
-          :
-
+          :  userInfo && 
+          
           <form onSubmit={handleSend}>
             <div className="msgBar">
               <img src={attach} alt="icon" />

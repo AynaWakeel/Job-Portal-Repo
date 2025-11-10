@@ -8,7 +8,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL
     (config) => {
       const accessToken = localStorage.getItem("token");
       if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
+        config.headers.Authorization = `Bearer ${accessToken}`
       }
 
       return config;
